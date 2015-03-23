@@ -85,6 +85,8 @@
                         }
                         $timeout(function() {
                             $scope.input.message = '';
+                            $scope.input.options = [];
+                            $scope.input.next_option.text = '';
                         });
                         ClearInfoTimeout();
                     }

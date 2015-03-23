@@ -11,12 +11,10 @@
                 var opts = {
                     icon: 'assets/icons/icon.png'
                 }
-                (function(){
-                    var notification = new Notification(notification.notification_guts, opts);
-                    setTimeout(function(){
-                        notification.close();
-                    }, 5 * 1000);
-                })();
+                var notification = new Notification(notification.notification_guts, opts);
+                setTimeout(function(){
+                    notification.close();
+                }, 5 * 1000);
             }
         }
 

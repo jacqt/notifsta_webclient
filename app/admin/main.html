@@ -28,7 +28,7 @@
     <div class="row newnotice">
       <form ng-submit="" class="new-notice-form">
         <input class="newnoticeinput" 
-          type="text" placeholder="Write a new notice..." 
+          type="text" placeholder="Write a new message or question..." 
           ng-model="input.message" 
           ng-disabled="selected_none() || loading"></input>
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
@@ -39,7 +39,10 @@
     <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
       <div class="list-group survey-option">
         <form ng-submit="create_option()" class="list-group-item">
-          <input type="text" placeholder="Enter another option..." ng-model="input.next_option.text"></input>
+          <input type="text" 
+                 style="width: 100%"
+                 placeholder="Enter a possible response to your question..." 
+                 ng-model="input.next_option.text"></input>
           <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
         </form>
         <a ng-repeat="option in input.options" 
@@ -47,6 +50,7 @@
           ng-click="option.editing=true" >
           <p ng-show="!option.editing">{{ option.text }}</p>
           <input type="text"
+                 style="width: 100%"
                  ng-show="option.editing"
                  focus-me="option.editing"
                  ng-model="option.text"
@@ -70,9 +74,10 @@
         ng-click="create_notification()">
         <p style="margin: 5px" padding:"0px">Send </p>
       </button>
-      <label> Survey </label>
+      <label> Allow Responses </label>
       <input type="checkbox"
         ng-show="input.message.length > 0" 
+        style="margin-top: 0px"
         type="button" class="btn btn-default" 
         ng-model="sending_survey">
       </input>
