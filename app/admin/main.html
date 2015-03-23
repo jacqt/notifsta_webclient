@@ -41,8 +41,7 @@
         <form ng-submit="create_option()" class="list-group-item">
           <input type="text" 
                  style="width: 100%"
-                 placeholder="Enter a possible response to your question..." 
-                 ng-model="input.next_option.text"></input>
+                 placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
           <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
         </form>
         <a ng-repeat="option in input.options" 
@@ -141,8 +140,12 @@
         <div class="actual-feed">
 
           <div class="feed-item" ng-repeat="notif in channel.notifications">
-            <div class="feed-item-time">{{ notif.time }}</div> 
+            <div class="feed-item-text">
+              <b>{{ notif.type }}</b> - {{ notif.time }}
+              <a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>
+            </div>
             <div class="feed-item-text">{{ notif.notification_guts }}</div>
+
           </div>
           <div class="feed-item" ng-show="channel.notifications.length == 0">
             <div class="feed-item-text"> It's lonely in here - send a message now! </div>

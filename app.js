@@ -26,6 +26,12 @@ app.config(function($routeProvider){
             controller: 'AdminCtrl'
         })
 
+        // route for admin console of an event
+        .when('/event_admin/:event_name/:notif_id', {
+            templateUrl: 'app/notif_stats/main.html',
+            controller: 'NotifStatsCtrl'
+        })
+
         // route for logging in
         .when('/login', {
             templateUrl: 'app/login/main.html',

@@ -7,6 +7,7 @@
     angular.module('notifsta.services').service('NotifstaAdapter', 
         ['$http', 'AuthService', 'NotifstaHttp', 'NotifstaWebsocket', service]);
     function service($http, AuthService, NotifstaHttp, NotifstaWebsocket){
+        var events_subscribed = {}
 
         var EDT = {
             new_notification: {
@@ -19,10 +20,15 @@
         }
 
         function SubscribeToNotifications(event_name, event_id){
+            //Check if we've already subscribed to it
+            if (events_subscribed[event_id]){
+                return;
+            }
             //Check if we have websockets
             if (NotifstaWebsocket.WebsocketEnabled()){
                 //Use websockets
                 NotifstaWebsocket.SubscribeToNotifications(event_name, event_id);
+                events_subscribed[event_id] = true;
             } else {
                 //Use polling fallback
                 throw "Polling fallback not implemented"

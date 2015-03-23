@@ -10,7 +10,7 @@
         $scope.event_name = $routeParams.event_name;
         $scope.event = {
             name: $routeParams.event_name,
-            id: $routeParams.id
+            id: $routeParams.event_id
         }
         var TIMEOUT = 1 * 1000;
 

@@ -84,6 +84,30 @@
             return $http(req);
         }
 
+        function GetNotification(id){
+            var req = {
+                url: BASE_URL + '/v1/notifications/' + id ,
+                method: 'GET',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token
+                }
+            }
+            return $http(req);
+        }
+
+        function GetResponses(id){
+            var req = {
+                url: BASE_URL + '/v1/notifications/' + id  + '/responses',
+                method: 'GET',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token
+                }
+            }
+            return $http(req);
+        }
+
 
         // ------------------------------------------------------------ //
         // API Calls to create objects in the database
@@ -168,9 +192,17 @@
             // promises, each one being a promise for a corresponding channel id
             CreateSurvey: CreateSurvey,
 
-            //GetMessages:
-            // Given an event_id, get all messages in the event
+            //GetNotifications:
+            // Given an event_id, get all notifications in the event
             GetNotifications: GetNotifications,
+
+            //GetNotification:
+            // Given an notif_id, gets the notification
+            GetNotification: GetNotification,
+
+            //GetResponse:
+            // Given an notif_id, gets the notification
+            GetResponses: GetResponses,
 
             //GetUser - gets the current user
             GetUser: GetUser,
