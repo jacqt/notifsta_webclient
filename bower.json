@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dvdhsu/notifsta",
+  "authors": [
+    "Anthony Guo <anthony.guo@some.ox.ac.uk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.9.0",
+    "angular-bootstrap": "~0.12.1",
+    "bootstrap": "~3.3.4",
+    "angular-cookies": "1.2",
+    "angular-route": "1.2"
+  }
+}

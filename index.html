@@ -1,0 +1,80 @@
+<html ng-app="notifsta" ng-strict-di>
+  <head>
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <!-- build:css app.css -->
+
+    <!-- OUR STYLESHEETS -->
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- endbuild -->
+
+    <!-- build:js app.js -->
+    <!-- JQUERY -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- ANGULAR -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+
+    <!-- ANGULAR BOOTSTRAP UI-->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <!-- MAIN APP -->
+    <script src="app.js"></script>
+    <script src="app.js"></script>
+    <script src="app/admin/ctrl.js"></script>
+    <script src="app/admin/service.js"></script>
+    <script src="app/login/ctrl.js"></script>
+    <script src="app/logout/ctrl.js"></script>
+    <script src="app/create_channel/ctrl.js"></script>
+    <script src="app/home/ctrl.js"></script>
+    <script src="app/dashboard/ctrl.js"></script>
+
+    <!-- UTILIY SCRIPTS -->
+    <script src="/app/util/web/parse_http.js"></script>
+    <script src="/app/util/web/notifsta_http.js"></script>
+    <script src="/app/util/base/auth.js"></script>
+
+    <!-- endbuild -->
+
+  </head>
+  <body ng-controller="MainController">
+    <!-- HEADER AND NAVBAR -->
+    <header>
+        <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">TAIMUR FIXME :D</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+                <li ng-show="!LoggedIn()">
+                  <a href="#/login"><i class="fa fa-shield"></i> Login </a>
+                </li>
+                <li ng-show="LoggedIn()">
+                  <a href="#/dashboard"><i class="fa fa-shield"></i> Dashboard </a>
+                </li>
+                <li ng-show="LoggedIn()">
+                  <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
+                </li>
+                <li ng-repeat = "event in data.events" ng-show="LoggedIn()">
+                  <a ng-href="event.url"><i class="fa fa-shield"></i> {{ event.name }}</a>
+                </li>
+                <li>
+                  <a href="#/contact"><i class="fa fa-comment"></i> Contact</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+
+    <!-- ANGULAR INJECTED CODE -->
+    <div ng-view></div>
+    <!--<div ng-include src="'app/main.html'"></div>-->
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<div>
+    <div>
+      OUR EVENT ID: {{ event_id() }}
+    </div>
+
+    <input type="text"
+           ng-model="input.eventname"
+           autofocus />
+    <input type="text"
+           ng-model="input.password"
+           autofocus />
+    <button ng-click="login()">LOGIN</button>
+    <button ng-click="logout()">LOGOUT</button>
+</div>
+

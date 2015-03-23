@@ -1,0 +1,187 @@
+
+<a href="/admin">admin</a>
+<!--<div ng-controller="EventLoginController" ng-include src="'/app/event_login/main.html'"></div>-->
+<!--<div ng-show="!logged_in()">-->
+    <!--<div>-->
+      <!--OUR USER ID: {{ user_id() }}-->
+      <!--{{ logged_in ()}}-->
+      <!--<br/>-->
+      <!--LOGGED IN? {{ logged_in() }}-->
+    <!--</div>-->
+
+    <!--<input type="text"-->
+           <!--ng-model="input.email"-->
+           <!--autofocus />-->
+    <!--<input type="text"-->
+           <!--ng-model="input.password"-->
+           <!--autofocus />-->
+    <!--<button ng-click="login()">LOGIN</button>-->
+
+<!--</div>-->
+
+<div class="row header">
+  <div class="logo" style="float:left;">
+  </div>
+  <div style="float:left; margin-left: 25px">
+    <center>
+      <h1>Welcome {{ data.User.email }}</h1>
+    </center>
+    <!--<div class="logout" ng-click="logout()">-->
+      <!--<i class="glyphicon glyphicon-log-out"></i> &nbsp Log Out-->
+    <!--</div>-->
+  </div>
+</div>
+
+<div class="row content">
+  <div class="col-md-2">
+    <!-- Select events here -->
+    <h2> Events </h2>
+    <div class="list-group">
+      <a href ="#" 
+        ng-repeat="event in data.User.events" 
+        class="list-group-item"
+        ng-class="{ active : event.active }" 
+        ng-click="SelectEvent(event)">
+        {{ event.name }}
+        <span class="badge" ng-show="event.new_messages > 0">
+          {{ event.new_messages }}
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h2> Broadcast Feeds </h2>
+    <div class="col-md-4"
+      ng-repeat="channel in selected_event.channels">
+      <div class="actual-feed">
+        <div class="row box-title red">
+          <i class="glyphicon glyphicon-list"></i> &nbsp {{ channel.name }}
+        </div>
+        <div class="feed-item" ng-repeat="message in channel.messages">
+          <div class="feed-item-time">{{ message.time }}</div> 
+          <div class="feed-item-text">{{ message.message }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!--</div>-->
+
+
+    <!--<div class="row newnotice">-->
+
+      <!--<form ng-submit="nextstep()">-->
+
+        <!--<input class="newnoticeinput" type="text" placeholder="Write a new notice..." ng-model="input.broadcast" ng-show="!step2">-->
+        <!--<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>-->
+
+      <!--</form>-->
+
+      <!--<form ng-submit="finalstep()">-->
+
+      <!--<tags-input ng-show="step2" ng-model="tags">-->
+
+      <!--</tags-input>-->
+
+      <!--<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>-->
+
+      <!--</form>-->
+
+    <!--</div>-->
+
+    <!--<div class="row stats">-->
+
+      <!--<div class="col-md-4 stat stat-left">-->
+
+        <!--<div class="actual-stat">-->
+
+          <!--<div class="stat-icon blue">-->
+
+            <!--<img src="http://i.imgur.com/EAvk6oK.png" class="icon">-->
+
+          <!--</div>-->
+
+          <!--<div class="stat-text">-->
+
+              <!--<span class="stat-number">187</span>-->
+              <!--<span class="stat-unit">app users</span>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+
+      <!--</div>-->
+
+      <!--<div class="col-md-4 stat stat-middle">-->
+
+        <!--<div class="actual-stat">-->
+
+          <!--<div class="stat-icon orange">-->
+
+            <!--<img src="http://i.imgur.com/pdRyqvB.png" class="icon">-->
+
+          <!--</div>-->
+
+          <!--<div class="stat-text">-->
+
+            <!--<span class="stat-number">16</span>-->
+            <!--<span class="stat-unit">&nbspbroadcasts</span>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+
+      <!--</div>-->
+
+      <!--<div class="col-md-4 stat stat-right">-->
+
+        <!--<div class="actual-stat">-->
+
+          <!--<div class="stat-icon green">-->
+
+            <!--<img src="http://i.imgur.com/EAvk6oK.png" class="icon">-->
+
+          <!--</div>-->
+
+          <!--<div class="stat-text">-->
+
+            <!--<span class="stat-number">55</span>-->
+            <!--<span class="stat-unit">somethings</span>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+
+      <!--</div>-->
+
+    <!--</div>-->
+
+    <!--<div class="row two">-->
+
+        <!--<div class="col-md-6 feed">-->
+
+          
+
+        <!--</div>-->
+
+        <!--<div class="col-md-6 graph">-->
+
+          <!--<div class="actual-graph">-->
+
+            <!--<div class="row box-title blue">-->
+
+              <!--<i class="glyphicon glyphicon-folder-open"></i> &nbsp Notification Open Rate-->
+
+            <!--</div>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+
+    <!--</div>-->
+
+  <!--</div>-->
+
+<!---->

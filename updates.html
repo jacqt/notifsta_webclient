@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://fb.me/react-0.12.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src='http://cdn.goroost.com/roostjs/663fcc9f45c446778e3eb656511e044b'></script>
+    <script>
+      var _roost = _roost || [];
+    </script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var Message = React.createClass({
+        render: function() {
+          return(
+            <div className="message">
+              <p>{this.props.message.message}</p>
+              <p>{this.props.message.createdAt}</p>
+            </div>
+          )
+        }
+      });
+
+      var ChannelBar = React.createClass({
+        render: function() {
+          return(
+            <div className="channelBar">
+              <h2>{this.props.channelName}</h2>
+              <form>
+                <input type="text" placeholder="Search..." />
+              </form>
+            </div>
+          )
+        }
+      });
+
+      var Channel = React.createClass({
+        render: function() {
+          var messageNodes = this.props.channel.messages.map(function (message) {
+            return (
+              <Message message={message} />
+            );
+          });
+          return(
+            <div className="channel">
+              <ChannelBar channelName={this.props.channel.channelName} />
+              { messageNodes }
+            </div>
+          );
+        }
+      });
+
+      var Event = React.createClass({
+        loadDataFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            success: function(data) {
+              var self = this;
+              var channels = data.data.events[0].channels;
+              data.channels = [];
+              channels.map(function(channel) {
+                channel.channelName = channel.name;
+                var url = "http://188.166.9.25/api/message?event-name=" + 
+                     self.props.eventName + "&channel-name=" + channel.channelName;
+                $.ajax({
+                  url: url,
+                  dataType: 'json',
+                  success: function(inner_data, b) {
+                    channel.messages = inner_data;
+                    data.channels.push(channel);
+                    self.setState({data: data});
+                  }
+                });
+              });
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function() {
+          return {
+            data: 
+              {
+                channels: [
+                  { 
+                    messages: [
+                    ]
+                  },
+                ]
+              }
+      };
+        },
+        componentDidMount: function() {
+          this.loadDataFromServer();
+          setInterval(this.loadDataFromServer, this.props.pollInterval);
+        },
+        render: function() {
+          var channelNodes = this.state.data.channels.map(function (channel) {
+            return (
+              <Channel channel={channel} />
+            );
+          });
+          return(
+            <div className="event">
+              <h1>{this.props.eventName}</h1>
+              {channelNodes}
+            </div>
+          )
+        }
+      });
+
+
+      React.render(
+        <Event eventName="HackLondon" pollInterval={2000} url="http://188.166.9.25/api/user/?email=lukas@me.com" />,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>

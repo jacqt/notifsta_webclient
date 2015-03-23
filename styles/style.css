@@ -1,0 +1,298 @@
+* {
+  font-family: 'Tahoma';
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+
+
+.new-notice-form {
+    display: inline;
+}
+
+.tags {
+	background: none !important;
+	border: none !important;
+	box-shadow:none !important;
+	font-family: 'Tahoma' !important;
+	-webkit-font-smoothing: antialiased !important;
+	margin-left: 20px !important;
+	margin-bottom: 7px !important;
+}
+
+.tag-item {
+	border: 0 !important;
+	background: #f1f2f7 !important;
+}
+
+@font-face {
+  font-family: 'Tahoma';
+  src: url('css/Tahoma.eot?#iefix') format('embedded-opentype'),  url('css/Tahoma.woff') format('woff'), url('css/Tahoma.ttf')  format('truetype'), url('css/Tahoma.svg#Tahoma') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tahoma';
+  src: url('css/Tahoma.eot?#iefix') format('embedded-opentype'),  url('css/Tahoma.woff') format('woff'), url('css/Tahoma.ttf')  format('truetype'), url('css/Tahoma.svg#Tahoma') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+	background: #f1f2f7 !important;
+}
+
+.header {
+	background: url('https://hacklondon.org/images/london2.jpg');
+	height: 175px;
+	background-size: cover;
+	background-position: 0px 650px;
+}
+
+.header .col-md-2 {
+	padding-left: 0;
+}
+
+.header h1 {
+	font-family: 'Tahoma';
+	font-size: 4vw;
+	color: white;
+  text-align: center;
+  margin-top: 45px;
+
+	-webkit-font-smoothing: antialiased;
+}
+
+.header div {
+  float: left;
+}
+
+.logout {
+	margin-top: 80px;
+	color: white;
+	cursor: pointer;
+	-webkit-font-smoothing: antialiased !important;
+}
+
+.logout:hover {
+	color: #e74c3c;
+}
+
+
+.eventname {
+	margin-top: 38px;
+}
+
+.logo {
+	background: #e67e22;
+	height: 175px;
+	width: 175px;
+}
+
+.newnotice {
+	margin-top: 30px;
+	height: 55px;
+	background: white;
+	color: gray;
+	width: 100%;
+	border-radius: 5px;
+}
+
+.newnoticeinput {
+	border: 0;
+	-webkit-font-smoothing: antialiased;
+	font-size: 1.4em;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	padding-left: 30px;
+}
+
+.channel-list {
+	padding-left: 20px;
+}
+
+.newchannelinput {
+	margin-top: 30px;
+	display: block;
+	background: white;
+	color: gray;
+	width: 100%;
+	border-radius: 5px;
+	border: 0;
+	-webkit-font-smoothing: antialiased;
+	font-size: 1em;
+	width: 100%;
+	border-radius: 5px;
+	height:55px;
+	text-align:center;
+	font-size: 1.4em;
+}
+
+.stats {
+	margin-top: 30px;
+	width: 100%;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.stat {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.stat-left {
+	padding-right: 50px;
+}
+
+.stat-middle {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.stat-right {
+	padding-left: 50px;
+}
+
+.actual-stat {
+	width: 100%;
+	min-height: 60px;
+	border-radius: 7px;
+	background: white;
+	text-align:center;
+}
+
+.stat-icon {
+	width: 60px;
+	height: 60px;
+	border-top-left-radius: 7px;
+	border-bottom-left-radius: 7px;
+	display: inline-block;
+	float:left;
+}
+
+.stat-icon .icon {
+	width: 25px;
+	margin-top: 18px;
+	display: inline;
+}
+
+.stat-text {
+	display: inline-block;
+	text-align: center;
+	color: gray;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	padding-top: 10px;
+}
+
+.stat-number {
+	letter-spacing: -1px;
+	font-size: 2em;
+}
+
+.stat-unit {
+	font-size: 1em;
+}
+
+.blue {
+	background: #3498db;
+}
+
+.orange {
+	background: #e67e22;
+}
+
+.green {
+	background: #27ae60;
+}
+
+.red {
+	background: #e74c3c;	
+}
+
+.two {
+	margin-top: 30px;
+	padding-right: 30px;
+	padding-left: 0;
+}
+
+.actual-feed, .actual-graph {
+	background: white;
+	/*min-height: 200px;*/
+	border-radius: 7px;
+  height: 500px;
+  overflow-y: scroll;
+  margin-bottom: 50px;
+}
+
+
+.newchannel {
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 7px;
+	padding: 10px;
+	background: none;
+	color: gray;
+	-webkit-font-smoothing: antialiased;
+}
+
+.newchannel:hover {
+	border: 1px solid rgba(0,0,0,0.8);
+	color: rgba(0,0,0,0.8);
+}
+
+
+.feed {
+	padding-right: 25px;
+	padding-left: 0;
+}
+.feed-item {
+	border-bottom: 1px solid #f1f2f7;
+	padding: 15px;
+	padding-left: 20px;
+	color: rgb(100,100,100);
+	-webkit-font-smoothing: antialiased;
+  padding-bottom: 10px;
+	padding-right: 20px;
+}
+.feed-item-time {
+	font-family: 'Tahoma';
+}
+
+.feed-item-text {
+  margin-left:5px;
+
+}
+
+.graph {
+	padding-left: 25px;
+	padding-right: 0;
+}
+
+.box-title {
+	width: 100%;
+	margin: 0;
+	color: white;
+	padding-top: 11px;
+	padding-left: 20px;
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Tahoma';
+	height: 40px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+span {
+  margin: 2px 2px 2px 2px;
+}
+
+.icon-click{
+  color: white;
+}
+
+.icon-click:hover:{
+  color: blue;
+}
