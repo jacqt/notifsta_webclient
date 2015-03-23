@@ -2,7 +2,7 @@
 
 case ${PWD##*/} in
 "dist")
-  scp -r *css *.js ./app/ ./index.html root@bughouseclub.com:/var/www/gui2
+  scp -r *css *.js ./index.html deployer@notifsta.com:/srv/notifsta_client
 ;;
 *)
   echo "Please run this script from the dist/ folder."
