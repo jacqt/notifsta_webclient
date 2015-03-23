@@ -16,6 +16,10 @@
         var _websocket_enabled = false;
         
         function SetEvent(event_name, event_id){
+            //Check if we've already set this event
+            if (_data.Event.id == event_id){
+                return;
+            }
             var promise = NotifstaHttp.GetEvent(event_id);
             promise.success(function(resp){
                 _data.Event = resp.data;

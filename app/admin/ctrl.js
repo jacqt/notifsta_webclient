@@ -109,12 +109,6 @@
             return $scope.data.Event.channels.filter(function(e){return e.selected}).length  ==  0;
         }
 
-        //function UpdateLoop(){
-            //EventService.UpdateEvent();
-            //setTimeout(UpdateLoop, TIMEOUT);
-        //}
-
-        //UpdateLoop();
         $scope.data = EventService.data;
 
     }]);
