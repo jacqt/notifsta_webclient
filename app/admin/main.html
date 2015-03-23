@@ -27,13 +27,16 @@
   <div class="col-md-9">
     <div class="row newnotice">
       <form ng-submit="" class="new-notice-form">
-        <input class="newnoticeinput" type="text" placeholder="Write a new notice..." ng-model="input.message" ng-show="!step2" ng-disabled="selected_none() || loading"></input>
+        <input class="newnoticeinput" 
+          type="text" placeholder="Write a new notice..." 
+          ng-model="input.message" 
+          ng-disabled="selected_none() || loading"></input>
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
       </form>
     </div>
 
     <!-- Survey -->
-    <div ng-show="sending_survey" class="slide">
+    <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
       <div class="list-group survey-option">
         <form ng-submit="create_option()" class="list-group-item">
           <input type="text" placeholder="Enter another option..." ng-model="input.next_option.text"></input>
@@ -52,24 +55,28 @@
         </a>
       </div>
     </div>
+
+
     <p ng-show="info" style="margin-top:5px; margin-left: 10px">
       {{ info }}
+
     </p>
-    <button ng-show="input.message.length > 0" 
-      style="margin-top: 10px"
-      type="button" class="btn btn-default slide" 
-      ng-click="create_notification()">
-      <p style="margin: 5px" padding:"0px">Send </p>
-    </button>
-    <button ng-show="input.message.length > 0" 
-      style="margin-top: 10px"
-      type="button" class="btn btn-default slide" 
-      ng-click="sending_survey=!sending_survey">
-      <p style="margin: 5px" padding:"0px" ng-show="!sending_survey">Send as a survey</p>
-      <p style="margin: 5px" padding:"0px" ng-show="sending_survey">Send as a notification</p>
-    </button>
 
-
+    <div ng-show="!selected_none() && input.message.length > 0" 
+      style="margin-top: 10px"
+      class="slide">
+      <button 
+        type="button" class="btn btn-default slide" 
+        ng-click="create_notification()">
+        <p style="margin: 5px" padding:"0px">Send </p>
+      </button>
+      <label> Survey </label>
+      <input type="checkbox"
+        ng-show="input.message.length > 0" 
+        type="button" class="btn btn-default" 
+        ng-model="sending_survey">
+      </input>
+    </div>
     <!-- Stats -->
     <div class="row stats">
       <div class="col-md-4 stat stat-left">
@@ -110,7 +117,7 @@
 
     <!-- Feeds -->
     <div class="row two">
-      <div class="col-md-4"
+      <div class="col-md-4 slide"
         ng-repeat="channel in data.Event.channels"
         ng-show="channel.selected">
         <div class="row box-title red">
