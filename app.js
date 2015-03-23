@@ -2,7 +2,8 @@ var app = angular.module('notifsta', [
     'notifsta.controllers',
     'notifsta.services',
     'ngRoute',
-    'ngAnimate'
+    'ngAnimate',
+    'chart.js'
 ]);
 
 app.config(function($routeProvider){
@@ -157,9 +158,8 @@ angular.module('notifsta').controller('MainController',
             })
         }
 
-        if ($scope.LoggedIn){
-            UpdateUser();
-        }
+        //Try to get the user
+        UpdateUser();
 
         ImcService.AddHandler('user state changed', function(){
             UpdateUser();

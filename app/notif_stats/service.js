@@ -11,17 +11,51 @@
         var _data = {
             Notif: {
             },
+            responses_pie_chart: {
+                labels: [],
+                data: []
+            }
         }
         function SetNotif(event_id, notif_id){
-            var promise = NotifstaHttp.GetResponses(notif_id);
+            var promise = NotifstaHttp.GetNotification(notif_id);
             promise.success(function(resp){
                 if (resp.status == 'success'){
-                    console.log(resp.data);
+                    _data.Notif = resp.data;
+                    UpdateChart(notif_id);
                 }
             });
             
             promise.error(function(err){
             })
+        }
+
+        function UpdateChart(notif_id){
+            var promise = NotifstaHttp.GetResponses(notif_id);
+            promise.success(function(resp){
+                if (resp.status == 'success'){
+                    console.log(resp);
+                }
+
+                _data.responses_pie_chart.labels = 
+                    _data.Notif.options
+                        .sort(function(a,b){return a.id - b.id})
+                        .map(function(option){
+                            return option.option_guts
+                        });
+                _data.responses_pie_chart.data = 
+                    _data.Notif.options.map(function(_){
+                        return 0;
+                    })
+                //Now set the chart accordingly
+                resp.data.map(function(response){
+                    for (var i = 0; i != _data.Notif.options.length; ++i){
+                        var option = _data.Notif.options[i];
+                        if (option.id == response.option_id){
+                            _data.responses_pie_chart.data[i] += 1;
+                        }
+                    }
+                });
+            });
         }
 
         function OnNewNotif(data){

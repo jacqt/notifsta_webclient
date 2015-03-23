@@ -14,7 +14,19 @@
 
         NotifStatsService.SetNotif($scope.notification.event_id, $scope.notification.id);
 
+        $scope.options = {
+            datasetStroke: false,
+            animation: true,
+            pointDot: false,
+            showTooltips: false,
+            datasetFill : false,
+            scaleLabel: function (valuePayload) {
+                return (numberWithCommas(valuePayload.value)) + '$'
+            }
+        };
+        
         $scope.data = NotifStatsService.data;
+
 
     }]);
 })();

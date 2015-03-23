@@ -1,0 +1,15 @@
+<center> <h2> Responses </h2> </center>
+<div>
+  <pre>
+    {{ data.responses_pie_chart }}
+  </pre>
+  <canvas class="chart chart-pie" 
+    height="70"
+    style="height:300px"
+    data="data.responses_pie_chart.data"
+    labels="data.responses_pie_chart.labels"
+    legend="true" 
+    options="options"
+    click="onClick">
+  </canvas>  
+</div>
