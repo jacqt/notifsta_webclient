@@ -3,6 +3,7 @@
 case ${PWD##*/} in
 "dist")
   scp -r *css *.js ./index.html deployer@notifsta.com:/srv/notifsta_client
+  ssh deployer@notifsta.com "touch /srv/notifsta_api/current/tmp/restart.txt"
 ;;
 *)
   echo "Please run this script from the dist/ folder."

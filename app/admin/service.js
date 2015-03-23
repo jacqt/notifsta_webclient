@@ -60,33 +60,36 @@
                     ]
                 })
             });
-
         }
 
         function OnNewNotif(data){
+            //Because the websocke api doesn't give us everything, just poll again.
+            GetInitialEventData();
+            return;
+            
             notif = data.notification;
             DesktopNotifs.FireNotification(notif);
             notif.time = moment(notif.created_at).fromNow();
             var event = _data.Event;
             event.channels.map(function(channel){
                 if (channel.id == data.channel_id){
+                    console.log(notif);
                     channel.notifications.unshift(notif)
                 }
             });
-
         }
 
-        //var promise = ParseHttp.GetData();
-        //promise.success(function(data){
-            //console.log("successfully queried parse")
-            //console.log(data);
-        //});
-        //promise.error(function(err){
-            ////error is in err
-            //console.log('failed to query parse');
-            //console.log(err);
-        //})
+        function UpdateTimestamps(){
+            var event = _data.Event;
+            event.channels.map(function(channel){
+                channel.notifications = channel.notifications.map(function(notif){
+                    notif.time = moment(notif.created_at).fromNow();
+                })
+            })
+            setTimeout(UpdateTimestamps, 5000);
+        }
 
+        UpdateTimestamps();
 
         return {
             // Sets the event 
