@@ -7,6 +7,9 @@ textarea:focus, input:focus{
 }
 
 
+a {
+  cursor: pointer
+}
 
 .new-notice-form {
     display: inline;

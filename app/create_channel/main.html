@@ -10,8 +10,7 @@
   </form>
     <!--<div class="channel-list" ng-repeat="channel in event.channels">-->
     <div class="list-group">
-      <a href ="#" 
-        ng-repeat="channel in data.Event.channels" 
+      <a ng-repeat="channel in data.Event.channels" 
         class="list-group-item"
         ng-class="{ active : channel.selected }" 
         ng-click="SelectChannel(channel)">

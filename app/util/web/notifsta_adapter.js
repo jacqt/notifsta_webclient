@@ -18,17 +18,16 @@
             }
         }
 
-        function SubscribeToNotifications(){
+        function SubscribeToNotifications(event_name, event_id){
             //Check if we have websockets
             if (NotifstaWebsocket.WebsocketEnabled()){
                 //Use websockets
-
+                NotifstaWebsocket.SubscribeToNotifications(event_name, event_id);
             } else {
                 //Use polling fallback
                 throw "Polling fallback not implemented"
             }
         }
-
 
         function AddHandler(event_name, callback){
             if (!EDT[event_name]){

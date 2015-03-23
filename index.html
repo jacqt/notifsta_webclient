@@ -23,6 +23,12 @@
     <!-- ANGULAR BOOTSTRAP UI-->
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
+    <!-- WEBSOCKET RAILS -->
+    <script src="bower_components/websocket-rails/websocket-rails.min.js"></script>
+    
+    <!-- MOMENT -->
+    <script src="bower_components/moment/moment.js"></script>
+
     <!-- MAIN APP -->
     <script src="app.js"></script>
     <script src="app.js"></script>
@@ -37,7 +43,10 @@
     <!-- UTILIY SCRIPTS -->
     <script src="/app/util/web/parse_http.js"></script>
     <script src="/app/util/web/notifsta_http.js"></script>
+    <script src="/app/util/web/notifsta_adapter.js"></script>
+    <script src="/app/util/web/notifsta_websocket.js"></script>
     <script src="/app/util/base/auth.js"></script>
+    <script src="/app/util/base/imc_service.js"></script>
 
     <!-- endbuild -->
 
@@ -62,8 +71,11 @@
                 <li ng-show="LoggedIn()">
                   <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
                 </li>
-                <li ng-repeat = "event in data.events" ng-show="LoggedIn()">
-                  <a ng-href="event.url"><i class="fa fa-shield"></i> {{ event.name }}</a>
+                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin">
+                <a ng-href="#/event_admin/{{event.name}}?id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
+                </li>
+                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !data.user.admin">
+                  <a ng-href="#/event/{{event.name}}?id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
                 <li>
                   <a href="#/contact"><i class="fa fa-comment"></i> Contact</a>

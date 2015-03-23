@@ -20,7 +20,7 @@ app.config(function($routeProvider){
         })
 
         // route for admin console of an event
-        .when('/event_admin', {
+        .when('/event_admin/:event_name', {
             templateUrl: 'app/admin/main.html',
             controller: 'AdminCtrl'
         })
@@ -73,12 +73,33 @@ angular.module('notifsta.services', ['ngCookies']);
 angular.module('notifsta.controllers', ['ngCookies']);
 
 angular.module('notifsta').controller('MainController',
-    ['$scope', 'NotifstaHttp', 'AuthService',  function($scope, NotifstaHttp, AuthService, attrs) {
+    ['$scope', 'ImcService','NotifstaHttp', 'AuthService',  
+    function($scope, ImcService, NotifstaHttp, AuthService, attrs) {
+        $scope.data = {};
         $scope.LoggedIn = function(){
             return AuthService.GetCredentials().logged_in;
         }
 
-        if ($scope.LoggedIn){
-            NotifstaHttp.GetUser();
+        $scope.GetEventUrl = function(event_name){
+            return '#/event_admin/event_name'
         }
+
+        function UpdateUser(){
+            var promise = NotifstaHttp.GetUser();
+            promise.success(function(result){
+                if (result.status == "success"){
+                    $scope.data.user = result.data;
+                } else {
+                    throw "Unexpected error in retrieving user data"
+                }
+            })
+        }
+
+        if ($scope.LoggedIn){
+            UpdateUser();
+        }
+
+        ImcService.AddHandler('user state changed', function(){
+            UpdateUser();
+        });
     }]);

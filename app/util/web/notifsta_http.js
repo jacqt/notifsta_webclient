@@ -3,7 +3,7 @@
  */
 
 (function(){
-    angular.module('notifsta.services').service('NotifstaHttp', ['$http', 'AuthService', service]);
+    angular.module('notifsta.services').service('NotifstaHttp', ['$http', 'AuthService', 'ImcService', service]);
     var BASE_URL = 'http://api.notifsta.com';
 
     //List of callbacks that required authentication, but
@@ -16,7 +16,7 @@
         });
     }
 
-    function service($http, AuthService){
+    function service($http, AuthService, ImcService){
         // ------------------------------------------------------------ //
         // Authorization
         
@@ -36,6 +36,7 @@
                     AuthService.SetUserEmail(email);
                     AuthService.SetUserToken(e.data.authentication_token);
                     AuthService.SetUserId(e.data.id);
+                    ImcService.FireEvent('user state changed');
                     ProcessCallbackBacklog();
                 }
             })
@@ -50,8 +51,8 @@
                 url: BASE_URL + '/v1/events/'+ id,
                 method: 'GET',
                 params: {
-                    'user_email': AuthService.GetCredentials().email,
-                    'user_token': AuthService.GetCredentials().key,
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
                 }
             }
             return $http(req);
@@ -62,21 +63,22 @@
                 url: BASE_URL + '/v1/users/' + AuthService.GetCredentials().user_id,
                 method: 'GET',
                 params: {
-                    'user_email': AuthService.GetCredentials().email,
-                    'user_token': AuthService.GetCredentials().key,
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
                 }
             };
+            console.log(req);
             var promise = $http(req)
             return promise;
         }
 
-        function GetMessages(id){ 
+        function GetNotifications(id){ 
             var req = {
-                url: BASE_URL + '/api/v1/channels/' + id + '/notifications',
+                url: BASE_URL + '/v1/channels/' + id + '/notifications',
                 method: 'GET',
                 params: {
-                    'user_email': AuthService.GetCredentials().email,
-                    'user_token': AuthService.GetCredentials().key
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token
                 }
             }
             return $http(req);
@@ -89,12 +91,13 @@
         function CreateNotification(message, channel_ids){
             return channel_ids.map(function(channel_id){
                 var req = {
-                    url: BASE_URL + '/api/v1/channels/' + channel_id + '/messages',
+                    url: BASE_URL + '/v1/channels/' + channel_id + '/notifications',
                     method: 'POST',
                     params: {
-                        'user_email': AuthService.GetCredentials().email,
-                        'user_token': AuthService.GetCredentials().key,
-                        'message[message_guts]' : message
+                        'user_email': AuthService.GetCredentials().user_email,
+                        'user_token': AuthService.GetCredentials().user_token,
+                        'notification[notification_guts]': message,
+                        'notification[type]': 'Message'
                     }
                 }
                 return $http(req);
@@ -145,7 +148,7 @@
 
             //GetMessages:
             // Given an event_id, get all messages in the event
-            GetMessages: GetMessages,
+            GetNotifications: GetNotifications,
 
             //GetUser - gets the current user
             GetUser: GetUser,

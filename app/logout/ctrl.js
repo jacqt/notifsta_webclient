@@ -8,8 +8,8 @@
 
             // Redirect to home page
             setTimeout(function(){
-                window.location = '#';
-            }, 5 * 1000);
+                window.location = '/';
+            }, 2 * 1000);
             $scope.logout();
     }]);
 })();
