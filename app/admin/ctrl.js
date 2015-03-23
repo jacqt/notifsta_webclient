@@ -51,7 +51,6 @@
         }
 
         $scope.create_notification = function(){
-            var message = $scope.input.message;
             var channel_ids = $scope.data.Event.channels
                 .filter(function(channel){
                     return channel.selected;
@@ -59,7 +58,17 @@
                 .map(function(channel){
                     return channel.id;
                 })
-            var promises = NotifstaHttp.CreateNotification(message, channel_ids);
+            if ($scope.sending_survey){
+                var question = $scope.input.message;
+                var options = $scope.input.options.map(function(opt){
+                    return opt.text;
+                });
+                var promises = NotifstaHttp.CreateSurvey(question, options, channel_ids);
+            } else {
+                var message = $scope.input.message;
+                var promises = NotifstaHttp.CreateNotification(message, channel_ids);
+            }
+
             $scope.loading = true;
             $scope.info = 'Sending...';
             

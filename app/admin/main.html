@@ -29,9 +29,6 @@
       <form ng-submit="" class="new-notice-form">
         <input class="newnoticeinput" type="text" placeholder="Write a new notice..." ng-model="input.message" ng-show="!step2" ng-disabled="selected_none() || loading"></input>
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-        <label ng-show="info" style="margin-top:5px; margin-left: 10px">
-          {{ info }}
-        </label>
       </form>
     </div>
 
@@ -55,6 +52,9 @@
         </a>
       </div>
     </div>
+    <p ng-show="info" style="margin-top:5px; margin-left: 10px">
+      {{ info }}
+    </p>
     <button ng-show="input.message.length > 0" 
       style="margin-top: 10px"
       type="button" class="btn btn-default slide" 

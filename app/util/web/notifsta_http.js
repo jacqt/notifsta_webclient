@@ -104,6 +104,23 @@
             })
         }
 
+        function CreateSurvey(question, options, channel_ids){
+            return channel_ids.map(function(channel_id){
+                var req = {
+                    url: BASE_URL + '/v1/channels/' + channel_id + '/notifications',
+                    method: 'POST',
+                    params: {
+                        'user_email': AuthService.GetCredentials().user_email,
+                        'user_token': AuthService.GetCredentials().user_token,
+                        'notification[type]': 'Survey',
+                        'notification[notification_guts]': question,
+                        'options[]': options
+                    }
+                }
+                return $http(req);
+            })
+        }
+
         /* FIXME */
         function CreateEvent(name, password){
             throw "CREATE EVENT NOT IMPLEMENTED";
@@ -145,6 +162,11 @@
             // Given a message, and a list of channel_ids, returns a list of
             // promises, each one being a promise for a corresponding channel id
             CreateNotification: CreateNotification,
+
+            //CreateSurvey 
+            // Given a question, a list of options, and a list of channel_ids, returns a list of
+            // promises, each one being a promise for a corresponding channel id
+            CreateSurvey: CreateSurvey,
 
             //GetMessages:
             // Given an event_id, get all messages in the event
