@@ -2,13 +2,15 @@
   <head>
 
     <!-- build:css app.css -->
+    <!-- animations.css goes first or else they break in minification process -->
+    <link rel="stylesheet" href="styles/animations.css">
 
     <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
     <!-- OUR STYLESHEETS -->
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/admin.css">
-    <link rel="stylesheet" href="styles/animations.css">
 
     <!-- endbuild -->
 
