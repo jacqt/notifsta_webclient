@@ -9,7 +9,6 @@
             // Redirect to home page
             setTimeout(function(){
                 window.location = '/';
-            }, 2 * 1000);
-            $scope.logout();
+            }, 1 * 1000);
     }]);
 })();

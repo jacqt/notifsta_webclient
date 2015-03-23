@@ -30586,16 +30586,20 @@ app.config(function($routeProvider){
 
 //Make sure that we're logged in when making route change
 app.run(function($rootScope, $location, AuthService){
-    OKAY_URLS = ['/contact', '/', '/login']
+    OKAY_URLS = ['/contact', '/', '/login', '']
     function IsRestricted(url){
-        var url_hash = url.split('#')[1];
-        console.log(url_hash);
-        for (var i = 0; i != OKAY_URLS.length; ++i){
-            if (url_hash == OKAY_URLS[i]){
-                return false;
+        var splitted = url.split('#');
+        if (splitted.length > 1){
+            url_hash = splitted[1];
+            for (var i = 0; i != OKAY_URLS.length; ++i){
+                if (url_hash == OKAY_URLS[i]){
+                    return false;
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
     // register listener to watch route changes
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
@@ -30833,8 +30837,8 @@ angular.module('notifsta').controller('MainController',
         ['$scope', 'NotifstaHttp', '$cookies',function($scope, NotifstaHttp,  $cookies) {
 
         $scope.credentials = {
-            email: 'admin@example.com',
-            password: 'asdfasdf'
+            email: '',
+            password: ''
         };
 
         $scope.info = "";

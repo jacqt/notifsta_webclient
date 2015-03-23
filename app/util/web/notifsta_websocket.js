@@ -32,14 +32,7 @@
             notif_socket.bind('new', function(notif){
                 console.log(notif);
                 ImcService.FireEvent('event_' + event_id + ' notif', notif);
-
-                //TODO Move bottom code outside of here
-                if ("Notification" in window) {
-                    var opts = {
-                        icon: 'http://notifsta.com/icon.png'
-                    }
-                    var notification = new Notification(notif.notification.notification_guts, opts);
-                }
+                ImcService.FireEvent('new_notification', notif.notification);
             });
         }
 

@@ -4,8 +4,8 @@
 
 (function(){
     angular.module('notifsta.services').service('EventService', 
-        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter' ,service]);
-    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter){
+        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs', service]);
+    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs){
         //We wrap everything under a _data object so that we can perform databindings more easily
         //Otherwise, we will be assigning by value and things get messy quite quickly
         var _data = {
@@ -61,6 +61,7 @@
 
         function OnNewNotif(data){
             notif = data.notification;
+            DesktopNotifs.FireNotification(notif);
             notif.time = moment(notif.created_at).fromNow();
             var event = _data.Event;
             event.channels.map(function(channel){
@@ -68,6 +69,7 @@
                     channel.notifications.unshift(notif)
                 }
             });
+
         }
 
         //var promise = ParseHttp.GetData();
