@@ -30741,8 +30741,8 @@ angular.module('notifsta').controller('MainController',
 
 (function(){
     angular.module('notifsta.services').service('EventService', 
-        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter' ,service]);
-    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter){
+        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs', service]);
+    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs){
         //We wrap everything under a _data object so that we can perform databindings more easily
         //Otherwise, we will be assigning by value and things get messy quite quickly
         var _data = {
@@ -30798,6 +30798,7 @@ angular.module('notifsta').controller('MainController',
 
         function OnNewNotif(data){
             notif = data.notification;
+            DesktopNotifs.FireNotification(notif);
             notif.time = moment(notif.created_at).fromNow();
             var event = _data.Event;
             event.channels.map(function(channel){
@@ -30805,6 +30806,7 @@ angular.module('notifsta').controller('MainController',
                     channel.notifications.unshift(notif)
                 }
             });
+
         }
 
         //var promise = ParseHttp.GetData();
@@ -30876,8 +30878,7 @@ angular.module('notifsta').controller('MainController',
             // Redirect to home page
             setTimeout(function(){
                 window.location = '/';
-            }, 2 * 1000);
-            $scope.logout();
+            }, 1 * 1000);
     }]);
 })();
 ;
@@ -31245,14 +31246,7 @@ angular.module('notifsta').controller('MainController',
             notif_socket.bind('new', function(notif){
                 console.log(notif);
                 ImcService.FireEvent('event_' + event_id + ' notif', notif);
-
-                //TODO Move bottom code outside of here
-                if ("Notification" in window) {
-                    var opts = {
-                        icon: 'http://notifsta.com/icon.png'
-                    }
-                    var notification = new Notification(notif.notification.notification_guts, opts);
-                }
+                ImcService.FireEvent('new_notification', notif.notification);
             });
         }
 
@@ -31363,6 +31357,33 @@ angular.module('notifsta').controller('MainController',
             }
         }
     });
+})();
+;
+/** Anthony Guo (anthony.guo@some.ox.ac.uk)
+ * Purpose of this service is to deal with desktop notifications
+ */
+
+(function(){
+    angular.module('notifsta.services').service('DesktopNotifs', 
+        ['ImcService', service]);
+    function service(NotifistaAdapter){
+        function FireNotification(notification){
+            if ("Notification" in window) {
+                var opts = {
+                    icon: 'http://notifsta.com/assets/icons/icon.png'
+                }
+                var notification = new Notification(notification.notification_guts, opts);
+                setTimeout(function(){
+                    notification.close();
+                }, 8 * 1000);
+            }
+        }
+
+        return {
+            // Function to send a desktop notification
+            FireNotification : FireNotification
+        }
+    }
 })();
 ;
 angular.module('notifsta').run(['$templateCache', function($templateCache) {
@@ -31645,46 +31666,8 @@ angular.module('notifsta').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/create_notification/main.html',
-    "<div>\n" +
-    "    <div>\n" +
-    "      OUR EVENT ID: {{ event_id() }}\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <input type=\"text\"\n" +
-    "           ng-model=\"input.eventname\"\n" +
-    "           autofocus />\n" +
-    "    <input type=\"text\"\n" +
-    "           ng-model=\"input.password\"\n" +
-    "           autofocus />\n" +
-    "    <button ng-click=\"login()\">LOGIN</button>\n" +
-    "    <button ng-click=\"logout()\">LOGOUT</button>\n" +
-    "</div>\n" +
-    "\n"
-  );
-
-
   $templateCache.put('app/dashboard/main.html',
     "<h5>This is the dashboard that the user will see once he/she logs in!</h5>\r" +
-    "\n"
-  );
-
-
-  $templateCache.put('app/event_login/main.html',
-    "<div>\n" +
-    "    <div>\n" +
-    "      OUR EVENT ID: {{ event_id() }}\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <input type=\"text\"\n" +
-    "           ng-model=\"input.eventname\"\n" +
-    "           autofocus />\n" +
-    "    <input type=\"text\"\n" +
-    "           ng-model=\"input.password\"\n" +
-    "           autofocus />\n" +
-    "    <button ng-click=\"login()\">LOGIN</button>\n" +
-    "    <button ng-click=\"logout()\">LOGOUT</button>\n" +
-    "</div>\n" +
     "\n"
   );
 

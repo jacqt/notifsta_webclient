@@ -9,7 +9,7 @@
         function FireNotification(notification){
             if ("Notification" in window) {
                 var opts = {
-                    icon: 'http://notifsta.com/assets/icons/icon.png'
+                    icon: 'assets/icons/icon.png'
                 }
                 var notification = new Notification(notification.notification_guts, opts);
                 setTimeout(function(){
