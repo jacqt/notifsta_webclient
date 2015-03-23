@@ -57,19 +57,20 @@
         <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">TAIMUR FIXME :D</a>
+                <a class="navbar-brand" href="/">NOTIFSTA </a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+
+                <!--SHOWN IF NOT LOGGED IN-->
                 <li ng-show="!LoggedIn()">
                   <a href="#/login"><i class="fa fa-shield"></i> Login </a>
                 </li>
+
+                <!-- SHOWN IF LOGGED in -->
                 <li ng-show="LoggedIn()">
                   <a href="#/dashboard"><i class="fa fa-shield"></i> Dashboard </a>
-                </li>
-                <li ng-show="LoggedIn()">
-                  <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
                 </li>
                 <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin">
                 <a ng-href="#/event_admin/{{event.name}}?id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
@@ -77,6 +78,11 @@
                 <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !data.user.admin">
                   <a ng-href="#/event/{{event.name}}?id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
+                <li ng-show="LoggedIn()">
+                  <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
+                </li>
+
+                <!-- SHOWN NO MATTER WHAT -->
                 <li>
                   <a href="#/contact"><i class="fa fa-comment"></i> Contact</a>
                 </li>

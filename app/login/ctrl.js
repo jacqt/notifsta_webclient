@@ -6,8 +6,8 @@
         ['$scope', 'NotifstaHttp', '$cookies',function($scope, NotifstaHttp,  $cookies) {
 
         $scope.credentials = {
-            email: 'admin@example.com',
-            password: 'asdfasdf'
+            email: '',
+            password: ''
         };
 
         $scope.info = "";
