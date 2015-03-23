@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         },
 
         usemin: {
-            html: ['dist/index.html']
+            html: 'dist/index.html'
         },
 
         // TODO: Enable to lint for high quality code.
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
         },
 
         ngtemplates: {
-            mater2: {
+            notifsta: {
                 src: ['app/**/*.html', 'app/**/*.json'],
                 dest: 'dist/templates.js',
                 options: {
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
             options: {
                 singleQuotes: true,
             },
-            mater2: {
+            notifsta: {
                 files: {
                     src: ['dist/app.js'],
                 },

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case ${PWD##*/} in
+"dist")
+  scp -r *css *.js ./app/ ./index.html root@bughouseclub.com:/var/www/gui2
+;;
+*)
+  echo "Please run this script from the dist/ folder."
+;;
+esac
+
