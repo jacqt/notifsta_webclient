@@ -18,10 +18,39 @@
 
         //Data binding for new notifications
         $scope.input = {
-            broadcast: ''
+            broadcast: '',
+            options: [],
+            next_option: {
+                text: ''
+            }
         }
 
-        $scope.broadcast_notice = function(){
+        $scope.sending_survey = false;
+
+        $scope.create_option = function(){
+            console.log($scope.input.next_option.text);
+            $scope.input.options.unshift({
+                text: $scope.input.next_option.text
+            });
+            $scope.input.next_option = {
+                text: ''
+            }
+        }
+
+        $scope.option_keypressed = function(event, option){
+        }
+
+        $scope.finish_editing = function(option){
+            if (option.text==''){
+                //Delete it
+                $scope.input.options.splice($scope.input.options.indexOf(option),1);
+            } else {
+                option.editing = false;
+            } 
+
+        }
+
+        $scope.create_notification = function(){
             var message = $scope.input.message;
             var channel_ids = $scope.data.Event.channels
                 .filter(function(channel){

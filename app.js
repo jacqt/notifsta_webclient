@@ -1,7 +1,8 @@
 var app = angular.module('notifsta', [
     'notifsta.controllers',
     'notifsta.services',
-    'ngRoute'
+    'ngRoute',
+    'ngAnimate'
 ]);
 
 app.config(function($routeProvider){
@@ -71,6 +72,57 @@ app.run(function($rootScope, $location, AuthService){
         }         
     });
 })
+
+
+// For animatig slide up and slide downs
+app.animation('.slide', function() {
+    var NG_HIDE_CLASS = 'ng-hide';
+    return {
+        beforeAddClass: function(element, className, done) {
+            if(className === NG_HIDE_CLASS) {
+                element.slideUp(done);
+            }
+        },
+        removeClass: function(element, className, done) {
+            if(className === NG_HIDE_CLASS) {
+                element.hide().slideDown(done);
+            }
+        }
+    }
+});
+
+
+//For autofocus TODO: move outside of app.js file
+app.directive('focusMe', function($timeout) {
+  return {
+    link: function(scope, element, attrs) {
+      scope.$watch(attrs.focusMe, function(value) {
+        if(value === true) { 
+          console.log('value=',value);
+          $timeout(function() {
+            element[0].focus();
+            scope[attrs.focusMe] = false;
+          });
+        }
+      });
+    }
+  };
+});
+
+//For ease of ng-enter
+app.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 angular.module('notifsta.services', ['ngCookies']);
 

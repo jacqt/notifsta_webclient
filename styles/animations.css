@@ -1,0 +1,33 @@
+.slide-enter.ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  margin-top: -42px;
+  z-index: -3;
+}
+
+.slide-enter.ng-enter-active {
+  margin-top: 0;
+}
+
+.slide-enter.ng-leave {
+  -webkit-transition: 1s;
+  transition: 1s;
+  
+  margin-left: 0;
+}
+
+.slide-enter.ng-leave-active {
+  z-index: -3;
+  margin-top: -42px;
+}
+
+.slide-enter.ng-move {
+  -webkit-transition: 1s;
+  transition: 1s;
+  
+  background: gold;
+}
+
+.slide-enter.ng-move-active {
+  background: #fff;
+}

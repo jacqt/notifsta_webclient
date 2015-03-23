@@ -1,24 +1,3 @@
-<link rel="stylesheet" href="app/admin/admin.css" media="screen">
-<!--<div ng-controller="EventLoginController" ng-include src="'/app/event_login/main.html'"></div>-->
-
-<!--<div ng-show="!logged_in()">-->
-    <!--<div>-->
-      <!--OUR USER ID: {{ user_id() }}-->
-      <!--{{ logged_in ()}}-->
-      <!--<br/>-->
-      <!--LOGGED IN? {{ logged_in() }}-->
-    <!--</div>-->
-
-    <!--<input type="text"-->
-           <!--ng-model="input.email"-->
-           <!--autofocus />-->
-    <!--<input type="text"-->
-           <!--ng-model="input.password"-->
-           <!--autofocus />-->
-    <!--<button ng-click="login()">LOGIN</button>-->
-
-<!--</div>-->
-
 <div class="row header">
   <div class="logo" style="float:left;">
   </div>
@@ -26,129 +5,107 @@
     <center>
       <h1>{{ event.name }}</h1>
     </center>
-    <!--<div class="logout" ng-click="logout()">-->
-      <!--<i class="glyphicon glyphicon-log-out"></i> &nbsp Log Out-->
-    <!--</div>-->
   </div>
 </div>
-<!--<div class="row content" >-->
-
-  <!--<div class="col-md-2">-->
-    <!--[> Select events here <]-->
-    <!--<h2> Events </h2>-->
-    <!--<div class="list-group">-->
-      <!--<a href ="#" -->
-        <!--ng-repeat="event in data.User.events" -->
-        <!--class="list-group-item"-->
-        <!--ng-class="{ active : event.active }" -->
-        <!--ng-click="SelectEvent(event)">-->
-        <!--{{ event.name }}-->
-        <!--<span class="badge" ng-show="event.new_messages > 0">-->
-          <!--{{ event.new_messages }}-->
-        <!--</span>-->
-      <!--</a>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
 <div class="row content" >
-
   <div class="col-md-2 sidepanel">
-
     <div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>
-
-            <label class="select" ng-show="!info" style="margin-top:5px; margin-left: 10px;">
-
-          <span class="helper" ng-show = "selected_none()">
-            Select a channel to start broadcasting!
-          </span>
-                            <span class="helper" ng-show = "!selected_none()">
-            Posting to 
-            <span ng-repeat = "channel in data.Event.channels" ng-show="channel.selected">
-              #{{ channel.name }}
-            </span>
-          </span>
-        </label>
-
+    <label class="select" ng-show="!info" style="margin-top:5px; margin-left: 10px;">
+      <span class="helper" ng-show = "selected_none()">
+        Select a channel to start broadcasting!
+      </span>
+      <span class="helper" ng-show = "!selected_none()">
+        Posting to 
+        <span ng-repeat = "channel in data.Event.channels" ng-show="channel.selected">
+          #{{ channel.name }}
+        </span>
+      </span>
+    </label>
   </div>
 
+  <!-- Creating new notifications -->
   <div class="col-md-9">
-
     <div class="row newnotice">
-
-      <form ng-submit="broadcast_notice()" class="new-notice-form">
-
-        <input class="newnoticeinput" type="text" placeholder="Write a new notice..." ng-model="input.message" ng-show="!step2" ng-disabled="selected_none() || loading">
-        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+      <form ng-submit="" class="new-notice-form">
+        <input class="newnoticeinput" type="text" placeholder="Write a new notice..." ng-model="input.message" ng-show="!step2" ng-disabled="selected_none() || loading"></input>
+        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
         <label ng-show="info" style="margin-top:5px; margin-left: 10px">
           {{ info }}
         </label>
-
       </form>
-
     </div>
+
+    <!-- Survey -->
+    <div ng-show="sending_survey" class="slide">
+      <div class="list-group survey-option">
+        <form ng-submit="create_option()" class="list-group-item">
+          <input type="text" placeholder="Enter another option..." ng-model="input.next_option.text"></input>
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+        </form>
+        <a ng-repeat="option in input.options" 
+          class="list-group-item slide-enter"
+          ng-click="option.editing=true" >
+          <p ng-show="!option.editing">{{ option.text }}</p>
+          <input type="text"
+                 ng-show="option.editing"
+                 focus-me="option.editing"
+                 ng-model="option.text"
+                 ng-blur="finish_editing(option)"
+                 ng-enter="finish_editing(option)"> </input>
+        </a>
+      </div>
+    </div>
+    <button ng-show="input.message.length > 0" 
+      style="margin-top: 10px"
+      type="button" class="btn btn-default slide" 
+      ng-click="create_notification()">
+      <p style="margin: 5px" padding:"0px">Send </p>
+    </button>
+    <button ng-show="input.message.length > 0" 
+      style="margin-top: 10px"
+      type="button" class="btn btn-default slide" 
+      ng-click="sending_survey=!sending_survey">
+      <p style="margin: 5px" padding:"0px" ng-show="!sending_survey">Send as a survey</p>
+      <p style="margin: 5px" padding:"0px" ng-show="sending_survey">Send as a notification</p>
+    </button>
+
 
     <!-- Stats -->
     <div class="row stats">
-
       <div class="col-md-4 stat stat-left">
-
         <div class="actual-stat">
-
           <div class="stat-icon blue">
-
             <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
           </div>
           <div class="stat-text">
             <span class="stat-number">  187 {{ data.Event.total_subscribers }}</span>
             <span class="stat-unit">total subscribers</span>
           </div>
-
         </div>
-
       </div>
 
       <div class="col-md-4 stat stat-middle">
-
         <div class="actual-stat">
-
           <div class="stat-icon orange">
-
             <img src="http://i.imgur.com/pdRyqvB.png" class="icon">
-
           </div>
-
           <div class="stat-text">
-
             <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
             <span class="stat-unit">&nbsp total broadcasts</span>
-
           </div>
-
         </div>
-
       </div>
-
       <div class="col-md-4 stat stat-right">
-
         <div class="actual-stat">
-
           <div class="stat-icon green">
-
             <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
-
           </div>
-
           <div class="stat-text">
-
             <span class="stat-number">55</span>
             <span class="stat-unit">somethings</span>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
 
     <!-- Feeds -->
@@ -180,49 +137,6 @@
           </div>
         </div>
       </div>
-        <!--<div class="col-md-6 feed">-->
-
-          <!--<div class="actual-feed">-->
-
-              <!--<div class="row box-title red">-->
-
-                <!--<i class="glyphicon glyphicon-list"></i> &nbsp Broadcast Feed-->
-
-              <!--</div>-->
-
-              <!--<div class="feed-item">-->
-
-                <!--<span class="feed-item-time">19:34</span> &nbsp<span class="feed-item-text">Announcement: Food is ready! Come to the fourth floor to get it.</span>-->
-
-              <!--</div>-->
-
-              <!--<div class="feed-item">-->
-
-                <!--<span class="feed-item-time">22:02</span> &nbsp<span class="feed-item-text">Announcement: Food is ready! Come to the fourth floor to get it.</span>-->
-
-              <!--</div>-->
-
-          <!--</div>-->
-
-        <!--</div>-->
-
-        <!--<div class="col-md-6 graph">-->
-
-          <!--<div class="actual-graph">-->
-
-            <!--<div class="row box-title blue">-->
-
-              <!--<i class="glyphicon glyphicon-folder-open"></i> &nbsp Notification Open Rate-->
-
-            <!--</div>-->
-
-          <!--</div>-->
-
-        <!--</div>-->
-
     </div>
-
   </div>
-
 </div>
-<!---->
