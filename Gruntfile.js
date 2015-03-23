@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         },
 
         usemin: {
-            html: 'dist/index.html'
+            html: ['dist/index.html', 'dist/templates.js']
         },
 
         // TODO: Enable to lint for high quality code.

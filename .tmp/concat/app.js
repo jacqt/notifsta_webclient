@@ -31370,7 +31370,7 @@ angular.module('notifsta').controller('MainController',
         function FireNotification(notification){
             if ("Notification" in window) {
                 var opts = {
-                    icon: 'http://notifsta.com/assets/icons/icon.png'
+                    icon: 'assets/icons/icon.png'
                 }
                 var notification = new Notification(notification.notification_guts, opts);
                 setTimeout(function(){
@@ -31446,7 +31446,7 @@ angular.module('notifsta').run(['$templateCache', function($templateCache) {
     "\n" +
     "  <div class=\"col-md-2 sidepanel\">\n" +
     "\n" +
-    "    <div ng-controller=\"CreateChannel\" ng-include src=\"'/app/create_channel/main.html'\"></div>\n" +
+    "    <div ng-controller=\"CreateChannel\" ng-include src=\"'app/create_channel/main.html'\"></div>\n" +
     "\n" +
     "            <label class=\"select\" ng-show=\"!info\" style=\"margin-top:5px; margin-left: 10px;\">\n" +
     "\n" +
