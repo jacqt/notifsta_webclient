@@ -4,6 +4,10 @@
     border-radius: 0 !important;
 }
 
+.selected { 
+  background-color: yellow
+}
+
 * {
     /*font-family:'Avenir-Medium', sans-serif !important;*/
 }
