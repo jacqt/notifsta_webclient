@@ -77,6 +77,21 @@ module.exports = function(grunt) {
             }
         },
 
+        sass: {
+            dist: {
+                files: {
+                    'styles/homepage-base.css' : 'styles/homepage-base.scss'
+                }
+            }
+        },
+
+        watch: {
+            css: {
+                files: ['**/*.scss', 'styles/*.css'],
+                tasks: ['sass']
+            }
+        },
+
         ngtemplates: {
             notifsta: {
                 src: ['app/**/*.html', 'app/**/*.json'],
