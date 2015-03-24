@@ -45,6 +45,8 @@
                         notif.time = moment(notif.created_at).fromNow();
                         if (!notif.response){
                             notif.response = {};
+                        } else {
+                            notif.response.new_option_id = notif.response.option_id;
                         }
                         total_broadcasts += 1;
                         return notif;
@@ -65,14 +67,38 @@
             });
         }
 
+        function UpdateNotification(notif_id, channel_id){
+            var promise = NotifstaHttp.GetNotification(notif_id);
+            promise.success(function(resp){
+                notif = resp.data;
+                notif.time = moment(notif.created_at).fromNow();
+                if (!notif.response){
+                    notif.response = {};
+                } else {
+                    notif.response.new_option_id = notif.response.option_id;
+                }
+                var event = _data.Event;
+                event.channels.map(function(channel){
+                    if (channel.id == channel_id){
+                        for (var i =0 ; i != channel.notifications.length; ++i){
+                            if (channel.notifications[i].id == notif.id){
+                                channel.notifications[i] = notif;
+                            }
+                        }
+                    }
+                });
+            })
+
+        }
+
         function OnNewNotif(data){
+            notif = data.notification;
+            DesktopNotifs.FireNotification(notif);
+            notif.time = moment(notif.created_at).fromNow();
             //Because the websocke api doesn't give us everything, just poll again.
             GetInitialEventData();
             return;
             
-            notif = data.notification;
-            DesktopNotifs.FireNotification(notif);
-            notif.time = moment(notif.created_at).fromNow();
             var event = _data.Event;
             event.channels.map(function(channel){
                 if (channel.id == data.channel_id){
@@ -97,6 +123,9 @@
         return {
             // Sets the event 
             SetEvent: SetEvent,
+
+            //Updates a notification
+            UpdateNotification: UpdateNotification,
 
             //for data binding purposes
             data : _data

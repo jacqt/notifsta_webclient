@@ -5,6 +5,10 @@
 (function(){
     angular.module('notifsta.services').service('DesktopNotifs', 
         ['ImcService', service]);
+    if ("Notification" in window) {
+        // if notifications are avail, immediately request
+        Notification.requestPermission()
+    }
     function service(NotifistaAdapter){
         function FireNotification(notification){
             if ("Notification" in window) {

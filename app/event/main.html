@@ -8,15 +8,11 @@
   </div>
 </div>
 <div class="row content" >
-  <div class="col-md-2 sidepanel">
-    <div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>
-  </div>
-
     <!-- Feeds -->
     <div class="row two">
       <div class="col-md-4 slide"
-        ng-repeat="channel in data.Event.channels"
-        ng-show="channel.selected">
+        style="margin-left: 50px;"
+        ng-repeat="channel in data.Event.channels">
         <div class="row box-title red">
           <div class="dropdown" style="float:left">
             <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
@@ -39,14 +35,18 @@
             <div class="feed-item-text">{{ notif.notification_guts }}</div>
             <form ng-show="notif.type == 'Survey'">
               <div 
+                style="padding-left: 10px; padding-top: 3px; padding-bottom:3px; padding-right:5px;"
                 ng-repeat="option in notif.options"
                 ng-class="{selected: option.id==notif.response.option_id }" >
                 <input type="radio" 
                     ng-value="option.id" 
-                    ng-model="notif.response.option_id"/>
+                    ng-model="notif.response.new_option_id"/>
                     {{ option.option_guts }}
               </div>
-              <button ng-click="submit_option(notif)">
+              <button 
+                class ="btn btn-default"
+                style="margin-top: 5px"
+                ng-click="submit_option(notif, channel.id)">
                 Submit
               </button>
             </form>

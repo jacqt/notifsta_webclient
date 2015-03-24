@@ -25,10 +25,11 @@
             }
         }
 
-        $scope.submit_option = function(notif){
-            var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.option_id);
+        $scope.submit_option = function(notif, channel_id){
+            var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.new_option_id);
             promise.success(function(resp){
                 console.log(resp);
+                EventService.UpdateNotification(notif.id, channel_id)
             });
         }
 
