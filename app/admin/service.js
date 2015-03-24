@@ -110,15 +110,19 @@
 
         function UpdateTimestamps(){
             var event = _data.Event;
-            event.channels = event.channels.map(function(channel){
-                channel.notifications = channel.notifications.map(function(notif){
-                    notif.time = moment(notif.created_at).fromNow();
-                    console.log(notif.time);
-                    return notif;
+            try {
+                event.channels = event.channels.map(function(channel){
+                    channel.notifications = channel.notifications.map(function(notif){
+                        notif.time = moment(notif.created_at).fromNow();
+                        console.log(notif.time);
+                        return notif;
+                    })
+                    return channel;
                 })
-                return channel;
-            })
-            $rootScope.$apply();
+                $rootScope.$apply();
+            } catch (err){
+                console.log(err);
+            }
         }
         setTimeout(UpdateTimestamps, 1000);
 
