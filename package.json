@@ -1,7 +1,10 @@
 {
   "version": "0.0.1",
-  "name": "mater2",
+  "name": "notifsta_webclient",
   "dependencies": {},
+  "scripts": {
+    "postinstall": "grunt install",
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-angular-templates": "^0.5.7",

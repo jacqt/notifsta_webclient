@@ -4,6 +4,7 @@
     <!-- build:css app.css -->
     <!-- animations.css goes first or else they break in minification process -->
     <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/event.css">
 
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -12,8 +13,8 @@
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 
     <!-- OUR STYLESHEETS -->
-    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="styles/style.css">
 
     <!-- endbuild -->
 
@@ -52,6 +53,7 @@
     <script src="app/dashboard/ctrl.js"></script>
     <script src="app/notif_stats/ctrl.js"></script>
     <script src="app/notif_stats/service.js"></script>
+    <script src="app/event/ctrl.js"></script>
 
     <!-- UTILIY SCRIPTS -->
     <script src="/app/util/web/parse_http.js"></script>
@@ -88,8 +90,8 @@
                 <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin">
                 <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
-                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !data.user.admin">
-                  <a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
+                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn()">
+                  <a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> Normal {{ event.name }}</a>
                 </li>
                 <li ng-show="LoggedIn()">
                   <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>

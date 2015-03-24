@@ -20,6 +20,20 @@ app.config(function($routeProvider){
             templateUrl: 'app/dashboard/main.html',
             controller: 'DashboardCtrl'
         })
+        
+        // -----------------------------------------------//
+        // Normal non-admin users
+        //
+
+        // route for normal panel of an event
+        .when('/event/:event_name', {
+            templateUrl: 'app/event/main.html',
+            controller: 'EventCtrl'
+        })
+        
+        // -----------------------------------------------//
+        // Admin users
+        //
 
         // route for admin console of an event
         .when('/event_admin/:event_name', {
@@ -27,7 +41,7 @@ app.config(function($routeProvider){
             controller: 'AdminCtrl'
         })
 
-        // route for admin console of an event
+        // route for admin stat panel of an event
         .when('/event_admin/:event_name/:notif_id', {
             templateUrl: 'app/notif_stats/main.html',
             controller: 'NotifStatsCtrl'
