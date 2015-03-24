@@ -1,0 +1,62 @@
+<div class="row header">
+  <div class="logo" style="float:left;">
+  </div>
+  <div style="float:left; margin-left: 25px">
+    <center>
+      <h1>{{ event.name }}</h1>
+    </center>
+  </div>
+</div>
+<div class="row content" >
+  <div class="col-md-2 sidepanel">
+    <div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>
+  </div>
+
+    <!-- Feeds -->
+    <div class="row two">
+      <div class="col-md-4 slide"
+        ng-repeat="channel in data.Event.channels"
+        ng-show="channel.selected">
+        <div class="row box-title red">
+          <div class="dropdown" style="float:left">
+            <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
+              <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
+            </ul>
+          </div>
+          <div style="float:left; margin-left: 15px;">
+            {{ channel.name }} 
+          </div>
+        </div>
+        <div class="actual-feed">
+
+          <div class="feed-item" ng-repeat="notif in channel.notifications">
+            <div class="feed-item-text">
+              <b>{{ notif.type }}</b> - {{ notif.time }}
+            </div>
+            <div class="feed-item-text">{{ notif.notification_guts }}</div>
+            <form ng-show="notif.type == 'Survey'">
+              <div 
+                ng-repeat="option in notif.options"
+                ng-class="{selected: option.id==notif.response.option_id }" >
+                <input type="radio" 
+                    ng-value="option.id" 
+                    ng-model="notif.response.option_id"/>
+                    {{ option.option_guts }}
+              </div>
+              <button ng-click="submit_option(notif)">
+                Submit
+              </button>
+            </form>
+
+          </div>
+          <div class="feed-item" ng-show="channel.notifications.length == 0">
+            <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

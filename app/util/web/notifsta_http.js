@@ -145,6 +145,19 @@
             })
         }
 
+        function SubmitResponse(notif_id, option_id){
+            var req = {
+                url: BASE_URL + '/v1/notifications/' + notif_id + '/responses',
+                method: 'POST',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
+                    'option_id': option_id
+                }
+            }
+            return $http(req);
+        }
+
         /* FIXME */
         function CreateEvent(name, password){
             throw "CREATE EVENT NOT IMPLEMENTED";
@@ -191,6 +204,10 @@
             // Given a question, a list of options, and a list of channel_ids, returns a list of
             // promises, each one being a promise for a corresponding channel id
             CreateSurvey: CreateSurvey,
+
+            //SubmitResponse
+            // Given a notif id and a option id, submits the response to the server 
+            SubmitResponse: SubmitResponse,
 
             //GetNotifications:
             // Given an event_id, get all notifications in the event

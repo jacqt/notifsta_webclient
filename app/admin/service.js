@@ -43,6 +43,9 @@
                     console.log(e);
                     channel.notifications = notifications.map(function(notif){
                         notif.time = moment(notif.created_at).fromNow();
+                        if (!notif.response){
+                            notif.response = {};
+                        }
                         total_broadcasts += 1;
                         return notif;
                     });
@@ -82,7 +85,7 @@
         function UpdateTimestamps(){
             var event = _data.Event;
             event.channels.map(function(channel){
-                channel.notifications = channel.notifications.map(function(notif){
+                channel.notifications.map(function(notif){
                     notif.time = moment(notif.created_at).fromNow();
                 })
             })
