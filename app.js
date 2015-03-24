@@ -47,6 +47,9 @@ app.config(function($routeProvider){
             controller: 'NotifStatsCtrl'
         })
 
+        // -----------------------------------------------//
+        // Everybody
+
         // route for logging in
         .when('/login', {
             templateUrl: 'app/login/main.html',
