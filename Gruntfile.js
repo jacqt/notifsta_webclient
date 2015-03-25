@@ -80,7 +80,7 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 files: {
-                    'styles/homepage-base.css' : 'styles/homepage-base.scss',
+                    'styles/style.css' : 'styles/styles.scss',
                 }
             }
         },
