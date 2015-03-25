@@ -127,12 +127,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
     grunt.registerTask('default', [
         'useminPrepare',
         'ngtemplates',
         'concat:generated',
         'ngAnnotate',
+        'sass',
         'cssmin:generated',
         'uglify:generated',
         'usemin'
