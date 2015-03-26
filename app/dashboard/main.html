@@ -1,1 +1,113 @@
-<h5>This is the dashboard that the user will see once he/she logs in!</h5>
+<style type="text/css">
+
+	body {
+		background: rgb(245,245,247);
+	}
+
+</style>
+<span id="dashboardpage">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-2">
+
+				Quick Links
+
+			</div>
+
+			<div class="col-md-10">
+
+				<h1>Events you run:</h1>
+
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin" class="event-outer">
+
+					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+
+						{{event.name}}
+
+					</div></a>
+
+					<div class="event-content">
+
+						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}<br>
+						<span class="category">Total broadcasts:</span> {{ Event.total_broadcasts }}
+
+					</div>
+
+				</div>
+
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
+
+					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+
+						{{event.name}}
+
+					</div></a>
+
+					<div class="event-content">
+
+						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+
+					</div>
+
+				</div>
+
+				<h1>Events you've attended:</h1>
+
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
+
+					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+
+						{{event.name}}
+
+					</div></a>
+
+					<div class="event-content">
+
+						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+
+					</div>
+
+				</div>
+
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
+
+					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+
+						{{event.name}}
+
+					</div></a>
+
+					<div class="event-content">
+
+						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+
+					</div>
+
+				</div>
+
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
+
+					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+
+						{{event.name}}
+
+					</div></a>
+
+					<div class="event-content">
+
+						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</span>

@@ -1,10 +1,15 @@
+<style type="text/css">
+
+  body {
+    background: rgb(245,245,247);
+  }
+
+</style>
+<span id="adminpage">
+<div class="container-fluid">
 <div class="row header">
-  <div class="logo" style="float:left;">
-  </div>
-  <div style="float:left; margin-left: 25px">
-    <center>
+  <div class="col-md-6 col-md-offset-2">
       <h1>{{ event.name }}</h1>
-    </center>
   </div>
 </div>
 <div class="row content" >
@@ -25,7 +30,7 @@
 
   <!-- Creating new notifications -->
   <div class="col-md-9">
-    <div class="row newnotice">
+    <div class="newnotice">
       <form ng-submit="" class="new-notice-form">
         <input class="newnoticeinput" 
           type="text" placeholder="Write a new message or question..." 
@@ -39,7 +44,8 @@
     <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
       <div class="list-group survey-option">
         <form ng-submit="create_option()" class="list-group-item">
-          <input type="text" 
+          <input type="text"
+                  class="new-survey-option" 
                  style="width: 100%"
                  placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
           <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
@@ -47,7 +53,7 @@
         <a ng-repeat="option in input.options" 
           class="list-group-item slide-enter"
           ng-click="option.editing=true" >
-          <p ng-show="!option.editing">{{ option.text }}</p>
+          <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
           <input type="text"
                  style="width: 100%"
                  ng-show="option.editing"
@@ -124,6 +130,7 @@
       <div class="col-md-4 slide"
         ng-repeat="channel in data.Event.channels"
         ng-show="channel.selected">
+        <div class="actual-feed-wrapper">
         <div class="row box-title red">
           <div class="dropdown" style="float:left">
             <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
@@ -151,7 +158,10 @@
             <div class="feed-item-text"> It's lonely in here - send a message now! </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+</span>
