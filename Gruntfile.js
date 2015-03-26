@@ -79,15 +79,18 @@ module.exports = function(grunt) {
 
         sass: {
             dist: {
+                options: {
+                    sourcemap: 'none',
+                },
                 files: {
-                    'styles/style.css' : 'styles/styles.scss',
+                    'styles/style.css' : 'styles/style.scss',
                 }
             }
         },
 
         watch: {
             css: {
-                files: ['**/*.scss', 'styles/*.css'],
+                files: ['styles/*.scss', 'styles/*.css', 'styles/style.scss', 'styles/style.css'],
                 tasks: ['sass']
             }
         },
@@ -128,6 +131,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', [
         'useminPrepare',
@@ -137,7 +141,8 @@ module.exports = function(grunt) {
         'sass',
         'cssmin:generated',
         'uglify:generated',
-        'usemin'
+        'usemin',
+        'watch'
     ]);
 };
 

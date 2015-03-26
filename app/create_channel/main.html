@@ -1,11 +1,12 @@
 <div>
-	<form ng-submit="create_channel()">
+  <div class="sidepanel-wrapper">
+	<form ng-submit="create_channel()" class="channel-title">
     <input type="text"
-    		class="newchannelinput"
+    		class="newchannelinput red"
            ng-model="input.channel_name"
            placeholder="Channels"
            autofocus 
-           ng-disabled="1"/><br>
+           ng-disabled="1"/>
     <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
   </form>
     <!--<div class="channel-list" ng-repeat="channel in event.channels">-->
@@ -16,6 +17,7 @@
         ng-click="SelectChannel(channel)">
         #{{ channel.name }}
       </a>
+    </div>
     </div>
     <!--<div class="newchannel-status">{{ status }}</div>-->
 </div>
