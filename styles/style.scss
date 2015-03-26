@@ -5,12 +5,27 @@
 *:focus {
   outline: 0; }
 
+@font-face {
+  font-family: 'Avenir-Heavy';
+  src: url('Avenir-Heavy.eot?#iefix') format('embedded-opentype'),  url('/assets/fonts/Avenir-Heavy.woff') format('woff'), url('/assets/fonts/Avenir-Heavy.ttf')  format('truetype'), url('/assets/fonts/Avenir-Heavy.svg#Avenir-Heavy') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: url('/assets/fonts/Avenir-Medium.eot?#iefix') format('embedded-opentype'),  url('/assets/fonts/Avenir-Medium.woff') format('woff'), url('/assets/fonts/Avenir-Medium.ttf')  format('truetype'), url('/assets/fonts/Avenir-Medium.svg#Avenir-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .navbar-primary {
 	background: #ed6824;
 	font-family: 'Avenir-Medium';
 	padding-top: 10px;
 	padding-bottom: 10px;
 	-webkit-font-smoothing: antialiased;
+  margin-bottom: 0px!important;
 	a {
 		color: white;
 	};
@@ -5033,20 +5048,6 @@ html.bg {
 
 * {
   font-family: 'Avenir-Medium';
-}
-
-@font-face {
-  font-family: 'Avenir-Heavy';
-  src: url('Avenir-Heavy.eot?#iefix') format('embedded-opentype'),  url('/assets/fonts/Avenir-Heavy.woff') format('woff'), url('/assets/fonts/Avenir-Heavy.ttf')  format('truetype'), url('/assets/fonts/Avenir-Heavy.svg#Avenir-Heavy') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Avenir-Medium';
-  src: url('/assets/fonts/Avenir-Medium.eot?#iefix') format('embedded-opentype'),  url('/assets/fonts/Avenir-Medium.woff') format('woff'), url('/assets/fonts/Avenir-Medium.ttf')  format('truetype'), url('/assets/fonts/Avenir-Medium.svg#Avenir-Medium') format('svg');
-  font-weight: normal;
-  font-style: normal;
 }
 
 * {
