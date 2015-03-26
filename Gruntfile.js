@@ -134,15 +134,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', [
+        'sass',
         'useminPrepare',
         'ngtemplates',
         'concat:generated',
         'ngAnnotate',
-        'sass',
         'cssmin:generated',
         'uglify:generated',
         'usemin',
-        'watch'
+        'watch' //Comment this deploying
     ]);
 };
 
