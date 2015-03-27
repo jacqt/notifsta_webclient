@@ -54,6 +54,7 @@
                     channels_processed += 1;
                     if (channels_processed == event.channels.length){
                         event.total_broadcasts = total_broadcasts;
+                        GetAllNotifResponses();
                     }
                 });
                 promise.error(function(error){
@@ -83,12 +84,63 @@
                         for (var i =0 ; i != channel.notifications.length; ++i){
                             if (channel.notifications[i].id == notif.id){
                                 channel.notifications[i] = notif;
+                                GetNotifResponses(notif);
                             }
                         }
                     }
                 });
             })
+        }
 
+        function GetAllNotifResponses(){
+            var event = _data.Event;
+            event.channels.map(function(channel){
+                for (var i =0 ; i != channel.notifications.length; ++i){
+                    GetNotifResponses(channel.notifications[i]);
+                }
+            });
+        }
+
+        function GetNotifResponses(notif){
+            if (notif.type != 'Survey'){
+                // do nothing...
+                return;
+            }
+            notif.responses_pie_chart = {
+                labels: [],
+                data: []
+            }
+
+            var promise = NotifstaHttp.GetResponses(notif.id);
+            promise.success(function(resp){
+                if (resp.status == 'success'){
+                    console.log(resp);
+                }
+
+                notif.responses_pie_chart.labels = 
+                    notif.options
+                        .sort(function(a,b){return a.id - b.id})
+                        .map(function(option){
+                            return option.option_guts
+                        });
+                notif.responses_pie_chart.data = 
+                    notif.options.map(function(_){
+                        return 1;
+                    })
+                //Now set the chart accordingly
+                resp.data.map(function(response){
+                    for (var i = 0; i != notif.options.length; ++i){
+                        var option = notif.options[i];
+                        if (option.id == response.option_id){
+                            notif.responses_pie_chart.data[i] += 1;
+                        }
+                    }
+                });
+                notif.style = {
+                    height: '80px',
+                    width: '90px'
+                }
+            });
         }
 
         function OnNewNotif(data){
@@ -132,6 +184,9 @@
 
             //Updates a notification
             UpdateNotification: UpdateNotification,
+
+            //For getting response information
+            GetNotifResponses: GetNotifResponses,
 
             //for data binding purposes
             data : _data

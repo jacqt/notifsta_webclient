@@ -110,6 +110,7 @@
         }
 
         $scope.data = EventService.data;
+        $scope.GetNotifResponses = EventService.GetNotifResponses;
 
     }]);
 })();
