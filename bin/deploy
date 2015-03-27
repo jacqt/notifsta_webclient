@@ -2,7 +2,7 @@
 
 case ${PWD##*/} in
 "dist")
-  scp -r *css *.js ./index.html deployer@notifsta.com:/srv/notifsta_client
+  scp -r *css *.js ./index.html ./bower_components deployer@notifsta.com:/srv/notifsta_client
   ssh deployer@notifsta.com "touch /srv/notifsta_api/current/tmp/restart.txt"
 ;;
 *)

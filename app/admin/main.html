@@ -152,15 +152,21 @@
               <a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>
             </div>
             <div class="feed-item-text">{{ notif.notification_guts }}</div>
-            <canvas ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0"
-              class="chart chart-pie" 
-              style="width: 300px; height: 100px"
-              data="notif.responses_pie_chart.data"
-              labels="notif.responses_pie_chart.labels"
-              legend="true" 
-              options="options"
-              click="onClick">
-            </canvas>  
+            <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
+              <center>
+                <p ng-if="notif.number_responses == 0"> No responses yet! </p>
+                <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
+            </center>
+              <canvas 
+                class="chart chart-pie" 
+                ng-style="notif.style"
+                data="notif.responses_pie_chart.data"
+                labels="notif.responses_pie_chart.labels"
+                legend="true" 
+                options="options"
+                click="onClick">
+              </canvas>  
+            </div>
 
           </div>
           <div class="feed-item" ng-show="channel.notifications.length == 0">

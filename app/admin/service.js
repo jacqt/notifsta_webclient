@@ -125,8 +125,9 @@
                         });
                 notif.responses_pie_chart.data = 
                     notif.options.map(function(_){
-                        return 1;
+                        return 0;
                     })
+
                 //Now set the chart accordingly
                 resp.data.map(function(response){
                     for (var i = 0; i != notif.options.length; ++i){
@@ -136,10 +137,17 @@
                         }
                     }
                 });
-                notif.style = {
-                    height: '80px',
-                    width: '90px'
+                if (resp.data.length > 0){
+                    notif.style = {
+                        height: '70px'
+                    }
+                } else {
+                    notif.style = {
+                        height: '0px'
+                    }
                 }
+
+                notif.number_responses = resp.data.length;
             });
         }
 
