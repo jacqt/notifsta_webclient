@@ -169,6 +169,16 @@ angular.module('notifsta').controller('MainController',
             promise.success(function(result){
                 if (result.status == "success"){
                     $scope.data.user = result.data;
+                    for (var i = 0; i != $scope.data.user.subscriptions.length; ++i){
+                        var sub = $scope.data.user.subscriptions[i];
+                        for (var j = 0; j != $scope.data.user.events.length; ++j){
+                            var event = $scope.data.user.events[j];
+                            if (sub.event_id == event.id){
+                                event.admin = sub.admin;
+                                console.log(event.admin);
+                            }
+                        }
+                    }
                 } else {
                     throw "Unexpected error in retrieving user data"
                 }

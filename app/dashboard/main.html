@@ -21,7 +21,7 @@
 
 				<h1>Events you run:</h1>
 
-				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin" class="event-outer">
+				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && event.admin" class="event-outer">
 
 					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
 
@@ -42,13 +42,14 @@
 
 					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
 
-						{{event.name}}
+						{{event.name}} 
 
 					</div></a>
 
 					<div class="event-content">
 
 						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+            PLACEHOLDER
 
 					</div>
 
@@ -83,6 +84,7 @@
 					<div class="event-content">
 
 						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+            PLACEHOLDER
 
 					</div>
 
@@ -99,6 +101,7 @@
 					<div class="event-content">
 
 						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
+            PLACEHOLDER
 
 					</div>
 
