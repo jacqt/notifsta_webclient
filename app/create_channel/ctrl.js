@@ -5,7 +5,7 @@
 (function(){
     angular.module('notifsta.controllers').controller('CreateChannel',
         //['$scope', function($scope){}]);
-        ['$scope', 'NotifstaHttp', 'EventService', '$cookies',function($scope, NotifstaHttp, EventService, $cookies) {
+        ['$scope', 'NotifstaHttp', '$cookies',function($scope, NotifstaHttp, $cookies) {
 
         $scope.screen = '';
         $scope.status = '';

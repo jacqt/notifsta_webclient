@@ -3,8 +3,8 @@
  */
 (function(){
     angular.module('notifsta.controllers').controller('EventCtrl',
-    ['$scope', 'NotifstaHttp', 'EventService', '$cookies', '$timeout', '$routeParams', 
-    function($scope, NotifstaHttp, EventService, $cookies, $timeout, $routeParams) {
+    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 
+    function($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event_name = $routeParams.event_name;
@@ -14,7 +14,7 @@
         }
         var TIMEOUT = 1 * 1000;
 
-        EventService.SetEvent($scope.event.name, $scope.event.id);
+        var event_monitor = new EventMonitor.EventMonitor($scope.event.name, $scope.event.id, EventMonitor.NON_ADMIN_MONITOR);
 
         //Data binding for new notifications
         $scope.input = {
@@ -29,7 +29,7 @@
             var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.new_option_id);
             promise.success(function(resp){
                 console.log(resp);
-                EventService.UpdateNotification(notif.id, channel_id)
+                event_monitor.UpdateNotification(notif.id, channel_id)
             });
         }
 
@@ -37,7 +37,7 @@
             return $scope.data.Event.channels.filter(function(e){return e.selected}).length  ==  0;
         }
 
-        $scope.data = EventService.data;
+        $scope.data = event_monitor._data;
 
     }]);
 })();
