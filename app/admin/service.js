@@ -8,6 +8,18 @@
     function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs){
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
+
+        var event_monitors = {};
+
+        function GetMonitor(event, monitor_type){
+            var key = event.id + '_' + monitor_type;
+            if (!(key in event_monitors)){
+                var new_monitor = new EventMonitor(event.name, event.id, monitor_type);
+                event_monitors[key] = new_monitor;
+            }
+            return event_monitors[key];
+
+        }
         function EventMonitor(event_name, event_id, monitor_type){
             var self = this;
             //We wrap everything under a _data object so that we can perform databindings more easily
@@ -61,7 +73,7 @@
                 promise.success(function(e){
                     var notifications = e.data;
                     channel.notifications = [];
-                    notifications.map(function(notif){
+                    notifications.reverse().map(function(notif){
                         self.PushNewNotif(channel, notif);
                     });
                     total_broadcasts += notifications.length;
@@ -196,6 +208,7 @@
         EventMonitor.prototype.OnNewNotif = function(data){
             console.log('New notification');
             var self  = this;
+            console.log(data);
             var notif = data.notification;
             //Desktop notifications
             DesktopNotifs.FireNotification(notif);
@@ -235,6 +248,9 @@
         return {
             //Constructor for the event monitor object
             EventMonitor: EventMonitor,
+
+            //Either creates the monitor or retrieves a previously created one
+            GetMonitor: GetMonitor,
 
             ADMIN_MONITOR: ADMIN_MONITOR,
             NON_ADMIN_MONITOR: NON_ADMIN_MONITOR

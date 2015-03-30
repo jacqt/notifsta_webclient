@@ -14,7 +14,7 @@
         }
         var TIMEOUT = 1 * 1000;
 
-        var event_monitor = new EventMonitor.EventMonitor($scope.event.name, $scope.event.id, EventMonitor.NON_ADMIN_MONITOR);
+        var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.NON_ADMIN_MONITOR);
 
         //Data binding for new notifications
         $scope.input = {

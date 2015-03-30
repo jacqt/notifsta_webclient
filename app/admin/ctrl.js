@@ -13,7 +13,8 @@
         }
         var TIMEOUT = 1 * 1000;
 
-        event_monitor = new EventMonitor.EventMonitor($scope.event.name, $scope.event.id, EventMonitor.ADMIN_MONITOR);
+        console.log("SDFSDFSF");
+        var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
 
         //Data binding for new notifications
         $scope.input = {
