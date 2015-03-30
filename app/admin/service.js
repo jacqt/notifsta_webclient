@@ -107,7 +107,7 @@
                 event.channels.map(function(channel){
                     if (channel.id == notif.channel_id){
                         self.PushNewNotif(channel, notif);
-                        GetNotifResponses(notif);
+                        self.GetNotifResponses(notif);
                     }
                 });
             })
@@ -115,6 +115,7 @@
 
         //TODO see if this actually used or not
         EventMonitor.prototype.UpdateNotification = function(notif_id, channel_id){
+            var self = this;
             var promise = NotifstaHttp.GetNotification(notif_id);
             promise.success(function(resp){
                 notif = resp.data;
@@ -124,13 +125,13 @@
                 } else {
                     notif.response.new_option_id = notif.response.option_id;
                 }
-                var event = _data.Event;
+                var event = self._data.Event;
                 event.channels.map(function(channel){
                     if (channel.id == channel_id){
                         for (var i =0 ; i != channel.notifications.length; ++i){
                             if (channel.notifications[i].id == notif.id){
                                 channel.notifications[i] = notif;
-                                GetNotifResponses(notif);
+                                self.GetNotifResponses(notif);
                             }
                         }
                     }
