@@ -5300,7 +5300,8 @@
       border-top-left-radius: 5px;
       border-top-right-radius: 5px; }
   #adminpage input.new-survey-option {
-    border: 0; }
+    border: 0;
+    outline: 0; }
   #adminpage .survey-option .list-group-item:last-child {
     border-bottom-left-radius: 5px !important;
     border-bottom-right-radius: 5px !important; }
