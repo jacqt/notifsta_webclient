@@ -5206,8 +5206,7 @@
     margin-left: 0;
     margin-left: 0; }
   #adminpage .stat {
-    padding-left: 0;
-    padding-right: 0; }
+    padding: 5px 15px 5px 15px; }
   #adminpage .actual-stat {
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);

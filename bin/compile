@@ -1,6 +1,7 @@
 #!/bin/sh
 
 rm -rf dist/*
+mkdir dist
 cp index.html dist/index.html
 cp -R assets dist/assets
 mkdir -p dist/bower_components/angular-chart.js/dist
