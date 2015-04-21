@@ -12,24 +12,24 @@
       <h1>{{ event.name }}</h1>
   </div>
 </div>
-<div class="row content" >
-  <div class="col-md-2 sidepanel">
-    <div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>
-    <label class="select" ng-show="!info" style="margin-top:5px; margin-left: 10px;">
-      <span class="helper" ng-show = "selected_none()">
-        Select a channel to start broadcasting!
-      </span>
-      <span class="helper" ng-show = "!selected_none()">
-        Posting to 
-        <span ng-repeat = "channel in data.Event.channels" ng-show="channel.selected">
-          #{{ channel.name }}
-        </span>
-      </span>
-    </label>
-  </div>
+<div class="row content" style="margin-left: 15px; margin-right: 15px">
+  <!--<div class="col-md-2 sidepanel">-->
+    <!--<div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>-->
+    <!--<label class="select" ng-show="!info" style="margin-top:5px; margin-left: 10px;">-->
+      <!--<span class="helper" ng-show = "selected_none()">-->
+        <!--Select a channel to start broadcasting!-->
+      <!--</span>-->
+      <!--<span class="helper" ng-show = "!selected_none()">-->
+        <!--Posting to -->
+        <!--<span ng-repeat = "channel in data.Event.channels" ng-show="channel.selected">-->
+          <!--#{{ channel.name }}-->
+        <!--</span>-->
+      <!--</span>-->
+    <!--</label>-->
+  <!--</div>-->
 
   <!-- Creating new notifications -->
-  <div class="col-md-9">
+  <div>
     <div class="newnotice">
       <form ng-submit="" class="new-notice-form">
         <input class="newnoticeinput" 
@@ -89,7 +89,7 @@
     </div>
     <!-- Stats -->
     <div class="row stats">
-      <div class="col-md-4 stat stat-left">
+      <div class="col-md-4 stat stat-left" style="width:33%">
         <div class="actual-stat">
           <div class="stat-icon blue">
             <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 stat stat-middle">
+      <div class="col-md-4 stat stat-middle" style="width:33%">
         <div class="actual-stat">
           <div class="stat-icon orange">
             <img src="http://i.imgur.com/pdRyqvB.png" class="icon">
@@ -112,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 stat stat-right">
+      <div class="col-md-4 stat stat-right" style="width:33%">
         <div class="actual-stat">
           <div class="stat-icon green">
             <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
@@ -126,8 +126,8 @@
     </div>
 
     <!-- Feeds -->
-    <div class="row two">
-      <div class="col-md-4 slide"
+    <div class="two">
+      <div class "slide"
         ng-repeat="channel in data.Event.channels"
         ng-show="channel.selected">
         <div class="actual-feed-wrapper">
@@ -159,7 +159,7 @@
             </center>
               <canvas 
                 class="chart chart-pie" 
-                ng-style="notif.style"
+                height="75%"
                 data="notif.responses_pie_chart.data"
                 labels="notif.responses_pie_chart.labels"
                 legend="true" 

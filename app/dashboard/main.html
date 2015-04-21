@@ -23,7 +23,7 @@
 
 				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && event.admin" class="event-outer">
 
-					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
+					<a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}"><div class="event-image">
 
 						{{event.name}}
 
@@ -38,22 +38,6 @@
 
 				</div>
 
-				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
-
-					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
-
-						{{event.name}} 
-
-					</div></a>
-
-					<div class="event-content">
-
-						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
-            PLACEHOLDER
-
-					</div>
-
-				</div>
 
 				<h1>Events you've attended:</h1>
 
@@ -68,40 +52,6 @@
 					<div class="event-content">
 
 						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
-
-					</div>
-
-				</div>
-
-				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
-
-					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
-
-						{{event.name}}
-
-					</div></a>
-
-					<div class="event-content">
-
-						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
-            PLACEHOLDER
-
-					</div>
-
-				</div>
-
-				<div ng-repeat = "event in data.user.events" ng-show="LoggedIn()" class="event-outer">
-
-					<a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><div class="event-image">
-
-						{{event.name}}
-
-					</div></a>
-
-					<div class="event-content">
-
-						<span class="category">Last updated:</span> {{event.updated_at | date:'longDate'}}
-            PLACEHOLDER
 
 					</div>
 

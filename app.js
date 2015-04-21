@@ -156,6 +156,7 @@ angular.module('notifsta').controller('MainController',
     ['$scope', 'ImcService','NotifstaHttp', 'AuthService',  
     function($scope, ImcService, NotifstaHttp, AuthService, attrs) {
         $scope.data = {};
+        $scope.selected_event = null;
         $scope.LoggedIn = function(){
             return AuthService.GetCredentials().logged_in;
         }
@@ -169,6 +170,7 @@ angular.module('notifsta').controller('MainController',
             promise.success(function(result){
                 if (result.status == "success"){
                     $scope.data.user = result.data;
+                    $scope.selected_event = $scope.selected_event || $scope.data.user.events[0];
                     for (var i = 0; i != $scope.data.user.subscriptions.length; ++i){
                         var sub = $scope.data.user.subscriptions[i];
                         for (var j = 0; j != $scope.data.user.events.length; ++j){

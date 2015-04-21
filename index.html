@@ -85,12 +85,16 @@
                 <li ng-show="LoggedIn()">
                   <a href="#/dashboard"><i class="fa fa-shield"></i> Dashboard </a>
                 </li>
-                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && data.user.admin">
-                <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
+                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !event.admin">
+                  <a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
-                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn()">
-                  <a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> Normal {{ event.name }}</a>
+                <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && event.admin">
+                  <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
+                <li>
+                  <!--<select ng-options="event.name for event in data.user.events track by event.id" ng-model="selected_event">-->
+                  <!--</select>-->
+                <!--</li>-->
                 <li ng-show="LoggedIn()">
                   <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
                 </li>

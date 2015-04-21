@@ -82,6 +82,7 @@
                         event.total_broadcasts = total_broadcasts;
                         self.GetAllNotifResponses();
                     }
+                    channel.selected = true;
                 });
                 promise.error(function(error){
                     channel.messages = [
@@ -183,11 +184,12 @@
                 });
                 if (resp.data.length > 0){
                     notif.style = {
-                        height: '70px'
+                        width: '70px',
                     }
                 } else {
                     notif.style = {
-                        height: '0px'
+                        height: '0px',
+                        width: '7px'
                     }
                 }
 
