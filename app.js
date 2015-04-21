@@ -3,8 +3,13 @@ var app = angular.module('notifsta', [
     'notifsta.services',
     'ngRoute',
     'ngAnimate',
-    'chart.js'
+    'chart.js',
+    'facebook'
 ]);
+
+app.config(function(FacebookProvider){
+  FacebookProvider.init('1594616400794953');
+});
 
 app.config(function($routeProvider){
     $routeProvider
@@ -20,7 +25,7 @@ app.config(function($routeProvider){
             templateUrl: 'app/dashboard/main.html',
             controller: 'DashboardCtrl'
         })
-        
+
         // -----------------------------------------------//
         // Normal non-admin users
         //
@@ -56,6 +61,13 @@ app.config(function($routeProvider){
             controller: 'LoginCtrl'
         })
 
+        // route for the sign up page
+        .when('/signup', {
+            templateUrl: 'app/signup/main.html',
+            controller: 'DashboardCtrl'
+        })
+        
+
         // route for logging out
         .when('/logout', {
             templateUrl: 'app/logout/main.html',
@@ -66,7 +78,7 @@ app.config(function($routeProvider){
 
 //Make sure that we're logged in when making route change
 app.run(function($rootScope, $location, AuthService){
-    OKAY_URLS = ['/contact', '/', '/login', '']
+    OKAY_URLS = ['/contact', '/', '/login', '', '/signup']
     function IsRestricted(url){
         var splitted = url.split('#');
         if (splitted.length > 1){

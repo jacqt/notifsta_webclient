@@ -26,6 +26,9 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
 
+    <!--FACEBOOK ANGULAR SDK-->
+    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+
     <!-- ANGULAR BOOTSTRAP UI-->
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
@@ -74,9 +77,10 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
 
                 <!--SHOWN IF NOT LOGGED IN-->
+                <li ng-show="!LoggedIn()"><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+                <li ng-show="!LoggedIn()"><a href="#/signup"><i class="fa fa-home"></i> Sign Up</a></li>
                 <li ng-show="!LoggedIn()">
                   <a href="#/login"><i class="fa fa-shield"></i> Login </a>
                 </li>
@@ -92,9 +96,6 @@
                   <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>
                 </li>
                 <li>
-                  <!--<select ng-options="event.name for event in data.user.events track by event.id" ng-model="selected_event">-->
-                  <!--</select>-->
-                <!--</li>-->
                 <li ng-show="LoggedIn()">
                   <a href="#/logout"><i class="fa fa-shield"></i> Logout </a>
                 </li>

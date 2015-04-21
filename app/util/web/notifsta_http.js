@@ -43,6 +43,30 @@
             return promise;
         }
 
+        function FacebookLogin(email, facebook_id, facebook_token){
+            var req = {
+                url: BASE_URL + '/v1/auth/login',
+                method: 'GET',
+                params: {
+                    email: email,
+                    facebook_id: facebook_id,
+                    facebook_token: facebook_token
+                }
+            };
+            var promise = $http(req);
+            promise.success(function(e){
+                console.log(e.data);
+                if (e.data){
+                    AuthService.SetUserEmail(email);
+                    AuthService.SetUserToken(e.data.authentication_token);
+                    AuthService.SetUserId(e.data.id);
+                    ImcService.FireEvent('user state changed');
+                    ProcessCallbackBacklog();
+                }
+            })
+            return promise;
+        }
+
         // ------------------------------------------------------------ //
         // API Calls to retrieve information
         
