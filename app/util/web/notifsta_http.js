@@ -45,7 +45,7 @@
 
         function FacebookLogin(email, facebook_id, facebook_token){
             var req = {
-                url: BASE_URL + '/v1/auth/login',
+                url: BASE_URL + '/v1/auth/facebook',
                 method: 'GET',
                 params: {
                     email: email,
@@ -206,6 +206,11 @@
             // Will also alter the credentials object that holds the user 
             // token and user email
             Login: Login,
+
+            //FacebookLogin:
+            // Takes a email, facebook id, and a facebook access token
+            // and does the same thing as Login
+            FacebookLogin: FacebookLogin,
 
             //CreateEvent - CURRENTLY NOT WORKING
             // Creates an event given an event name
