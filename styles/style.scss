@@ -5221,6 +5221,56 @@ p {
 	
 }
 
+#createeventpage {
+	font-family: 'Avenir-Medium';
+	-webkit-font-smoothing: antialiased;
+	h1 {
+		text-align:center;
+		font-family:'Avenir-Heavy';
+		font-size: 2em;
+	};
+	hr {
+	};
+	label {
+		font-weight: normal;
+	};
+	.signup-box {
+		margin: 0 auto;
+		max-width: 450px;
+		padding-left: 30px;
+		padding-right: 30px;
+		padding-bottom: 30px;
+		padding-top: 30px;
+		background: rgb(250,250,250) !important;
+		border-radius: 5px;
+		margin-top: 50px;
+	};
+}
+#signuppage {
+	font-family: 'Avenir-Medium';
+	-webkit-font-smoothing: antialiased;
+	h1 {
+		text-align:center;
+		font-family:'Avenir-Heavy';
+		font-size: 2em;
+	};
+	hr {
+	};
+	label {
+		font-weight: normal;
+	};
+	.signup-box {
+		margin: 0 auto;
+		max-width: 450px;
+		padding-left: 30px;
+		padding-right: 30px;
+		padding-bottom: 30px;
+		padding-top: 30px;
+		background: rgb(250,250,250) !important;
+		border-radius: 5px;
+		margin-top: 50px;
+	};
+}
 #loginpage {
 	font-family: 'Avenir-Medium';
 	-webkit-font-smoothing: antialiased;

@@ -1,46 +1,45 @@
-<div class="col-sm-6">
-  <h1>Sign up</h1>
 
-  <form role="form" class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="WMAqTf7r6YIFhsuPMeNIvh4FvXbCZ/QOvnD9okioE26GEXiqFn7ZoSDIlEa7yfU5js6At4i7fjearR6edomXTg==">
+<span id="signuppage">
+  <div class="col-md-6 col-md-offset-3">
 
-    <div class="form-group">
-      <label for="user_email">Email</label>
-      <div class="row">
-        <div class="col-sm-6">
-          <input class="form-control" type="email" value="" name="user[email]" id="user_email">
+    <div class="signup-box">
+    <h1>Sign up</h1>
+      <form class="new_user" 
+        ng-submit="AttemptUserCreation()"
+        accept-charset="UTF-8" >
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input autofocus="autofocus" class="form-control" type="email" value="" name="user[email]" id="user_email" placeholder="Email">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="row">
-        <div class="col-sm-6">
-          <label for="user_password">Password</label>
-          <input class="form-control" type="password" name="user[password]" id="user_password">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="form-control" type="password" name="user[password]" id="user_password" placeholder="Password">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="row">
-        <div class="col-sm-6">
-          <label for="user_password_confirmation">Password confirmation</label>
-          <input class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation" placeholder="Password Confirmation">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <input type="submit" name="commit" value="Sign up" class="btn btn-primary">
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="submit" name="commit" value="Sign up" class="btn btn-primary">
+          </div>
+        </div>
+      </form>
+      <div style="margin-top: 5px">
+        <a style="cursor: pointer" ng-click="facebook_login()">Signup with Facebook</a><br>
       </div>
-    </div>
-  </form>
-
-  <div class="row shared-links">
-    <div class="col-sm-8">
-      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-      </fb:login-button>
     </div>
   </div>
-</div>
+</span>

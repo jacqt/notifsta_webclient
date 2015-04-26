@@ -5,10 +5,6 @@
     angular.module('notifsta.controllers').controller('LogoutCtrl',
         ['$scope', 'AuthService', '$cookies',function($scope, AuthService,  $cookies) {
             AuthService.Logout();
-
-            // Redirect to home page
-            setTimeout(function(){
-                window.location = '/';
-            }, 1 * 1000);
+            window.location = '#/';
     }]);
 })();

@@ -5070,6 +5070,46 @@
     font-weight: normal;
     color: white !important; }
 
+#createeventpage {
+  font-family: 'Avenir-Medium';
+  -webkit-font-smoothing: antialiased; }
+  #createeventpage h1 {
+    text-align: center;
+    font-family: 'Avenir-Heavy';
+    font-size: 2em; }
+  #createeventpage label {
+    font-weight: normal; }
+  #createeventpage .signup-box {
+    margin: 0 auto;
+    max-width: 450px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background: #fafafa !important;
+    border-radius: 5px;
+    margin-top: 50px; }
+
+#signuppage {
+  font-family: 'Avenir-Medium';
+  -webkit-font-smoothing: antialiased; }
+  #signuppage h1 {
+    text-align: center;
+    font-family: 'Avenir-Heavy';
+    font-size: 2em; }
+  #signuppage label {
+    font-weight: normal; }
+  #signuppage .signup-box {
+    margin: 0 auto;
+    max-width: 450px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background: #fafafa !important;
+    border-radius: 5px;
+    margin-top: 50px; }
+
 #loginpage {
   font-family: 'Avenir-Medium';
   -webkit-font-smoothing: antialiased; }

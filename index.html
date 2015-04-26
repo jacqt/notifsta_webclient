@@ -1,6 +1,7 @@
 <html ng-app="notifsta" ng-strict-di>
   <head>
-
+    <!--Google apis for location-->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=en-US"></script>
 
     <!-- build:css app.css -->
     <!-- animations.css goes first or else they break in minification process -->
@@ -8,6 +9,9 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/event.css">
     <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+
     <!-- endbuild -->
 
     <!-- CHART.JS -->
@@ -17,17 +21,23 @@
 
 
     <!-- build:js app.js -->
-    <!-- JQUERY -->
+    <!-- JQUERY + MOMENT + BOOTSTRAP-->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- ANGULAR -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
 
     <!--FACEBOOK ANGULAR SDK-->
     <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+
+    <!-- ANGULAR-DATETIME -->
+    <script src="./bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
 
     <!-- ANGULAR BOOTSTRAP UI-->
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -42,12 +52,14 @@
     <!-- MOMENT -->
     <script src="bower_components/moment/moment.js"></script>
 
+
     <!-- MAIN APP -->
     <script src="app.js"></script>
     <script src="app.js"></script>
     <script src="app/admin/ctrl.js"></script>
     <script src="app/admin/service.js"></script>
     <script src="app/login/ctrl.js"></script>
+    <script src="app/signup/ctrl.js"></script>
     <script src="app/logout/ctrl.js"></script>
     <script src="app/create_channel/ctrl.js"></script>
     <script src="app/home/ctrl.js"></script>
@@ -55,6 +67,7 @@
     <script src="app/notif_stats/ctrl.js"></script>
     <script src="app/notif_stats/service.js"></script>
     <script src="app/event/ctrl.js"></script>
+    <script src="app/create_event/ctrl.js"></script>
 
     <!-- UTILIY SCRIPTS -->
     <script src="/app/util/web/parse_http.js"></script>
@@ -73,7 +86,7 @@
         <nav class="navbar navbar-primary">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/"><img src="/assets/home_images/logo.png" class="logo"></a>
+                <a class="navbar-brand" href="#/"><img src="/assets/home_images/logo.png" class="logo"></a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
@@ -88,6 +101,9 @@
                 <!-- SHOWN IF LOGGED in -->
                 <li ng-show="LoggedIn()">
                   <a href="#/dashboard"><i class="fa fa-shield"></i> Dashboard </a>
+                </li>
+                <li ng-show="LoggedIn()">
+                  <a href="#/create_event"><i class="fa fa-shield"></i> Create Event </a>
                 </li>
                 <li ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !event.admin">
                   <a ng-href="#/event/{{event.name}}?event_id={{event.id}}"><i class="fa fa-shield"></i> {{ event.name }}</a>

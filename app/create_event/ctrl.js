@@ -3,42 +3,23 @@
  *
  */
 (function(){
-    angular.module('notifsta.controllers').controller('CreateEvent',
-        ['$scope', 'NotifstaHttp', '$cookies',function($scope, NotifstaHttp, $cookies) {
-            console.log("HWFEWF")
+  angular.module('notifsta.controllers').controller('CreateEventCtrl', ['$scope', 'NotifstaHttp', '$cookies', ctrl]);
+  function ctrl($scope, NotifstaHttp, $cookies)  {
+    $scope.partial_event = {
+    }
+    var autocomplete = new google.maps.places.Autocomplete($("#google_places_ac")[0], {});
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      var place = autocomplete.getPlace();
+      $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+      $scope.$apply();
+    });
 
-        $scope.screen = '';
-        // Need to make 'cmd' a child element of input. The issue is
-        // documented here:
-        // http://stackoverflow.com/questions/12618342/ng-model-does-not-update-controller-value
-        $scope.input = {
-            eventname: 'event',
-            password: 'asdfasdf'
-        };
 
-        $scope.submit = function(cmd){
-            $scope.input.cmd = '';
-        }
-
-        $scope.login = function(){
-            var p = NotifstaHttp.LoginEvent($scope.input.eventname, $scope.input.password);
-            console.log(p);
-            p.success(function(event){
-                console.log(event);
-            })
-            p.error(function(e){
-                console.log(e);
-            })
-        }
-        $scope.logout = function(){
-            var p =NotifstaHttp.LogoutEvent();
-            p.success(function(e){
-                console.log(e);
-            })
-            p.error(function(e){
-                console.log(e);
-            })
-
-        }
-    }]);
+    $scope.AttemptEventCreation = function(){
+      var promise = NotifstaHttp.CreateEvent($scope.partial_event);
+      promise.success(function(e){
+        console.log(e);
+      });
+    }
+  };
 })();

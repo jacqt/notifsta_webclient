@@ -76,10 +76,11 @@
             promises.map(function(p){
                 p.success(function(e){
                     succeeded += 1;
+                    console.log(e);
                     if (succeeded == channel_ids.length){
                         $scope.loading = false;
-                        if (e.error){
-                            $scope.info = e.error;
+                        if (e.error || e.status == "failure" ){
+                            $scope.info = e.data;
                         } else {
                             $scope.info = 'Success!';
                         }

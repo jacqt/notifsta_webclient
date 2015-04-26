@@ -1,15 +1,74 @@
-<div>
-    <div>
-      OUR EVENT ID: {{ event_id() }}
+<span id="createeventpage">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="signup-box">
+      <h1>Create an Event</h1>
+      <form class="new_user" 
+        ng-submit="AttemptEventCreation()"
+        accept-charset="UTF-8" >
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.name" id="user_email" placeholder="Event Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.description" id="user_email" placeholder="Description">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="form-control" id="google_places_ac" name="google_places_ac" type="text" ng-model="partial_event.address" class="input-block-level"/>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" class="form-control" data-ng-model="partial_event.start_datetime" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="partial_event.start_datetime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" class="form-control" data-ng-model="partial_event.end_datetime" placeholder="End date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="partial_event.end_datetime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="submit" name="commit" value="Create Event" class="btn btn-primary">
+          </div>
+        </div>
+
+      </form>
     </div>
-
-    <input type="text"
-           ng-model="input.eventname"
-           autofocus />
-    <input type="text"
-           ng-model="input.password"
-           autofocus />
-    <button ng-click="login()">LOGIN</button>
-    <button ng-click="logout()">LOGOUT</button>
-</div>
-
+  </div>
+</span>
