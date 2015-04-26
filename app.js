@@ -120,12 +120,11 @@ app.run(function($rootScope, $location, AuthService){
       console.log(splitted);
       if (splitted.length > 1){
         url_hash = splitted[1];
-        if (url_hash == '/login' || url_hash == '/sign_up'){
+        if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/'){
           $location.path('/dashboard');
         }
       }
     }
-
   });
 });
 
