@@ -5,8 +5,14 @@ var app = angular.module('notifsta', [
   'ngAnimate',
   'chart.js',
   'facebook',
+  'xeditable',
+  'uiGmapgoogle-maps',
   'ui.bootstrap.datetimepicker'
 ]);
+
+app.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 
 app.config(function(FacebookProvider){
   FacebookProvider.init('1594616400794953');

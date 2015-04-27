@@ -1,182 +1,210 @@
 <style type="text/css">
 
-  body {
-    background: rgb(245,245,247);
-  }
+body {
+  background: rgb(245,245,247);
+}
 
 </style>
 <span id="adminpage">
-<div class="container-fluid">
-<div class="row header">
-  <div class="col-md-6 col-md-offset-2">
-      <h1>{{ event.name }}</h1>
-  </div>
-</div>
-<div class="row content" style="margin-left: 15px; margin-right: 15px">
-  <!--<div class="col-md-2 sidepanel">-->
-    <!--<div ng-controller="CreateChannel" ng-include src="'app/create_channel/main.html'"></div>-->
-    <!--<label class="select" ng-show="!info" style="margin-top:5px; margin-left: 10px;">-->
-      <!--<span class="helper" ng-show = "selected_none()">-->
-        <!--Select a channel to start broadcasting!-->
-      <!--</span>-->
-      <!--<span class="helper" ng-show = "!selected_none()">-->
-        <!--Posting to -->
-        <!--<span ng-repeat = "channel in data.Event.channels" ng-show="channel.selected">-->
-          <!--#{{ channel.name }}-->
-        <!--</span>-->
-      <!--</span>-->
-    <!--</label>-->
-  <!--</div>-->
-
-  <!-- Creating new notifications -->
-  <div>
-    <div class="newnotice">
-      <form ng-submit="" class="new-notice-form">
-        <input class="newnoticeinput" 
-          type="text" placeholder="Write a new message or question..." 
-          ng-model="input.message" 
-          ng-disabled="selected_none() || loading"></input>
-        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-      </form>
-    </div>
-
-    <!-- Survey -->
-    <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
-      <div class="list-group survey-option">
-        <form ng-submit="create_option()" class="list-group-item">
-          <input type="text"
-                  class="new-survey-option" 
-                 style="width: 100%"
-                 placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
-          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-        </form>
-        <a ng-repeat="option in input.options" 
-          class="list-group-item slide-enter"
-          ng-click="option.editing=true" >
-          <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
-          <input type="text"
-                 style="width: 100%; outline: 0"
-                 ng-show="option.editing"
-                 focus-me="option.editing"
-                 ng-model="option.text"
-                 ng-blur="finish_editing(option)"
-                 ng-enter="finish_editing(option)"> </input>
-        </a>
+  <div class="container-fluid">
+    <div class="row header"  ng-style="{'background-image':'url('+data.Event.cover_photo_url+')'}">
+      <div class="col-md-6 col-md-offset-2">
+        <h1>{{ event.name }}</h1>
       </div>
     </div>
+    <div class="row content" style="margin-left: 15px; margin-right: 15px">
 
+      <!-- Creating new notifications -->
+      <div>
+        <div class="newnotice">
+          <form ng-submit="" class="new-notice-form">
+            <input class="newnoticeinput" 
+            type="text" placeholder="Write a new message or question..." 
+            ng-model="input.message" 
+            ng-disabled="selected_none() || loading"></input>
+            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+          </form>
+        </div>
 
-    <p ng-show="info" style="margin-top:5px; margin-left: 10px">
-      {{ info }}
-
-    </p>
-
-    <div ng-show="!selected_none() && input.message.length > 0" 
-      style="margin-top: 10px"
-      class="slide">
-      <button 
-        type="button" class="btn btn-default slide" 
-        ng-click="create_notification()">
-        <p style="margin: 5px" padding:"0px">Send </p>
-      </button>
-      <label> Allow Responses </label>
-      <input type="checkbox"
-        ng-show="input.message.length > 0" 
-        style="margin-top: 0px"
-        type="button" class="btn btn-default" 
-        ng-model="sending_survey">
-      </input>
-    </div>
-    <!-- Stats -->
-    <div class="row stats">
-      <div class="col-md-4 stat">
-        <div class="actual-stat">
-          <div class="stat-icon blue">
-            <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
-          </div>
-          <div class="stat-text">
-            <span class="stat-number">  187 {{ data.Event.total_subscribers }}</span>
-            <span class="stat-unit">total subscribers</span>
+        <!-- Survey -->
+        <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
+          <div class="list-group survey-option">
+            <form ng-submit="create_option()" class="list-group-item">
+              <input type="text"
+              class="new-survey-option" 
+              style="width: 100%"
+              placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+              <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+            </form>
+            <a ng-repeat="option in input.options" 
+              class="list-group-item slide-enter"
+              ng-click="option.editing=true" >
+              <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
+              <input type="text"
+              style="width: 100%; outline: 0"
+              ng-show="option.editing"
+              focus-me="option.editing"
+              ng-model="option.text"
+              ng-blur="finish_editing(option)"
+              ng-enter="finish_editing(option)"> </input>
+            </a>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-4 stat">
-        <div class="actual-stat">
-          <div class="stat-icon orange">
-            <img src="http://i.imgur.com/pdRyqvB.png" class="icon">
-          </div>
-          <div class="stat-text">
-            <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
-            <span class="stat-unit">&nbsp total broadcasts</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 stat">
-        <div class="actual-stat">
-          <div class="stat-icon green">
-            <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
-          </div>
-          <div class="stat-text">
-            <span class="stat-number">55</span>
-            <span class="stat-unit">somethings</span>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Feeds -->
-    <div class="two col-xs-4">
-      <div class "slide"
-        ng-repeat="channel in data.Event.channels"
-        ng-show="channel.selected">
-        <div class="actual-feed-wrapper">
-        <div class="row box-title red">
-          <div class="dropdown" style="float:left">
-            <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
-              <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
-            </ul>
-          </div>
-          <div style="float:left; margin-left: 15px;">
-            {{ channel.name }} - {{ channel.number_of_subscribers }}
-          </div>
-        </div>
-        <div class="actual-feed">
+        <p ng-show="info" style="margin-top:5px; margin-left: 10px">
+        {{ info }}
 
-          <div class="feed-item" ng-repeat="notif in channel.notifications">
-            <div class="feed-item-text">
-              <b>{{ notif.type }}</b> - {{ notif.time }}
-              <a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>
+        </p>
+
+        <div ng-show="!selected_none() && input.message.length > 0" 
+          style="margin-top: 10px"
+          class="slide">
+          <button 
+            type="button" class="btn btn-default slide" 
+            ng-click="create_notification()">
+            <p style="margin: 5px" padding:"0px">Send </p>
+          </button>
+          <label> Allow Responses </label>
+          <input type="checkbox"
+          ng-show="input.message.length > 0" 
+          style="margin-top: 0px"
+          type="button" class="btn btn-default" 
+          ng-model="sending_survey">
+          </input>
+        </div>
+        <!-- Stats -->
+        <div class="row stats">
+          <div class="col-md-4 stat">
+            <div class="actual-stat">
+              <div class="stat-icon blue">
+                <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
+              </div>
+              <div class="stat-text">
+                <span class="stat-number">  187 {{ data.Event.total_subscribers }}</span>
+                <span class="stat-unit">total subscribers</span>
+              </div>
             </div>
-            <div class="feed-item-text">{{ notif.notification_guts }}</div>
-            <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
-              <center>
-                <p ng-if="notif.number_responses == 0"> No responses yet! </p>
-                <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
-            </center>
-              <canvas 
-                class="chart chart-pie" 
-                height="75%"
-                data="notif.responses_pie_chart.data"
-                labels="notif.responses_pie_chart.labels"
-                legend="true" 
-                options="options"
-                click="onClick">
-              </canvas>  
-            </div>
-
           </div>
-          <div class="feed-item" ng-show="channel.notifications.length == 0">
-            <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+
+          <div class="col-md-4 stat">
+            <div class="actual-stat">
+              <div class="stat-icon orange">
+                <img src="http://i.imgur.com/pdRyqvB.png" class="icon">
+              </div>
+              <div class="stat-text">
+                <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
+                <span class="stat-unit">&nbsp total broadcasts</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 stat">
+            <div class="actual-stat">
+              <div class="stat-icon green">
+                <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
+              </div>
+              <div class="stat-text">
+                <span class="stat-number">55</span>
+                <span class="stat-unit">somethings</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Feeds -->
+        <div class="two col-xs-4">
+          <div class "slide"
+            ng-repeat="channel in data.Event.channels"
+            ng-show="channel.selected">
+            <div class="actual-feed-wrapper">
+              <div class="row box-title red">
+                <div class="dropdown" style="float:left">
+                  <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
+                  </ul>
+                </div>
+                <div style="float:left; margin-left: 15px;">
+                  {{ channel.name }} - {{ channel.number_of_subscribers }}
+                </div>
+              </div>
+              <div class="actual-feed">
+
+                <div class="feed-item" ng-repeat="notif in channel.notifications">
+                  <div class="feed-item-text">
+                    <b>{{ notif.type }}</b> - {{ notif.time }}
+                    <a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>
+                  </div>
+                  <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                  <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
+                    <center>
+                      <p ng-if="notif.number_responses == 0"> No responses yet! </p>
+                      <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
+                    </center>
+                    <canvas 
+                      class="chart chart-pie" 
+                      height="75%"
+                      data="notif.responses_pie_chart.data"
+                      labels="notif.responses_pie_chart.labels"
+                      legend="true" 
+                      options="options"
+                      click="onClick">
+                    </canvas>  
+                  </div>
+
+                </div>
+                <div class="feed-item" ng-show="channel.notifications.length == 0">
+                  <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="two col-xs-8">
+          <div class ="actual-feed-wrapper event-info">
+            <label> Event Description </label>
+            <div>
+              <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="submit_event_update()">
+                <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>
+              </a>
+            </div>
+
+            <label> Cover Photo </label>
+            <div>
+              <a href="#" editable-text="data.Event.cover_photo_url" e-rows="7" onaftersave="submit_cover_photo_update()">
+                {{ data.Event.cover_photo_url }}
+              </a>
+            </div>
+
+            <label> Location Address </label>
+            <div>
+              <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
+              <script type="text/ng-template" id="searchbox.tpl.html">
+                <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
+              </script>
+              <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
+                <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+                <ui-gmap-marker
+                        idKey='1'
+                        coords='data.Event.marker.coords'>
+                </ui-gmap-marker>
+              </ui-gmap-google-map>
+            </div>
+
+            <label> Start time</label>
+            <div>
+            </div>
+            <label> End time</label>
+            <div>
+            </div>
+
+            {{ data.Event.address }}
+          </div>
+          
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 </span>

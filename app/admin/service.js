@@ -68,6 +68,7 @@
             var event = self._data.Event;
             var total_broadcasts = 0;
             var channels_processed = 0;
+            self.ConfigureMap();
             event.channels.map(function(channel){
                 var promise = NotifstaHttp.GetNotifications(channel.id);
                 promise.success(function(e){
@@ -246,6 +247,41 @@
                 console.log(err);
             }
             setTimeout(function(){self.UpdateTimestamps()}, 1000);
+        }
+
+        EventMonitor.prototype.ConfigureMap = function(){
+          var self = this;
+          var geocoder = new google.maps.Geocoder();
+          var address = self._data.Event.address;
+          geocoder.geocode( { 'address': self._data.Event.address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              var lat = results[0].geometry.location.lat();
+              var lng = results[0].geometry.location.lng();
+              self._data.Event.map = {center: {latitude: lat, longitude: lng }, zoom: 15 };
+              self._data.Event.marker = {
+                id: 0,
+                coords: {
+                  latitude: lat,
+                  longitude: lng
+                },
+              }
+            }
+            else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+          if (self.monitor_type == ADMIN_MONITOR){
+            //FIXME: Big hack for the issue of not being able to set the initial value of the searchbox
+            function SetAddress(){
+              var el = document.getElementById('searchbox');
+              if (el == null){
+                setTimeout(SetAddress, 1000);
+              } else {
+                document.getElementById('searchbox').value = self._data.Event.address;
+              }
+            }
+            SetAddress();
+          }
         }
 
         return {

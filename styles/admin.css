@@ -80,3 +80,50 @@
 }
 
 
+.event-info {
+    display: block;
+    padding:15px;
+    background: white;
+    width: 100%;
+    border-radius: 5px;
+    border: 0;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1em;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.event-info .editable-controls textarea  {
+  width: 100%;
+}
+.event-info .editable-textarea {
+  width: 100%;
+}
+.event-info .editable-textarea .editable-controls {
+  width: 100%;
+  padding-right:90px;
+}
+.event-info .editable-text {
+  width: 100%;
+}
+.event-info .editable-controls input  {
+  width: 100%;
+}
+.event-info .editable-text .editable-controls {
+  width: 100%;
+  padding-right:90px;
+}
+#map_canvas {
+  height: 100px;
+  width: 100%;
+  margin: 0px;
+}
+
+#map_canvas {
+  position: relative;
+}
+
+.angular-google-map-container {
+  height:300px;
+  width: 100%;
+}
