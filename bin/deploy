@@ -2,8 +2,8 @@
 
 case ${PWD##*/} in
 "dist")
-  scp -r *css *.js ./index.html ./bower_components deployer@notifsta.com:/srv/notifsta_client
-  ssh deployer@notifsta.com "touch /srv/notifsta_api/current/tmp/restart.txt"
+  scp -r *css *.js ./index.html ./bower_components deployer@129.67.36.198:/srv/notifsta_client
+  ssh deployer@129.67.36.198 "touch /srv/notifsta_api/current/tmp/restart.txt"
 ;;
 *)
   echo "Please run this script from the dist/ folder."

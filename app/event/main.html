@@ -7,7 +7,7 @@ body {
 </style>
 <span id="adminpage">
   <div class="container-fluid">
-    <div class="row header">
+    <div class="row header"  ng-style="{'background-image':'url('+data.Event.cover_photo_url+')'}">
       <div class="col-md-6 col-md-offset-2">
         <h1>{{ event.name }}</h1>
       </div>
