@@ -178,6 +178,13 @@ body {
               </a>
             </div>
 
+            <label> Event Map </label>
+            <div>
+              <a href="#" editable-text="data.Event.event_map_url" e-rows="7" onaftersave="submit_cover_photo_update()">
+                {{ data.Event.event_map_url  || "Upload an event map url now!" }}
+              </a>
+            </div>
+
             <label> Location Address </label>
             <div>
               <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->

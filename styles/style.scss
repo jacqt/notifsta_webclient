@@ -19,15 +19,20 @@
   font-style: normal;
 }
 
+header {
+  border-bottom: 1px solid black;
+}
+
 .navbar-primary {
-	background: #ed6824;
+	background: white;
 	font-family: 'Avenir-Medium';
-	padding-top: 10px;
-	padding-bottom: 10px;
+	/*padding-top: 5px;*/
+	/*padding-bottom: 5px;*/
 	-webkit-font-smoothing: antialiased;
   margin-bottom: 0px!important;
+  border-bottom: 1px grey;
 	a {
-		color: white;
+		color: black;
 	};
 	.logo {
 		margin-top: -7px;
