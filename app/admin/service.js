@@ -69,7 +69,8 @@
             var total_broadcasts = 0;
             var channels_processed = 0;
             self.ConfigureMap();
-            event.start_time = moment(event.start_time).toString();
+            event.start_time = moment(event.start_time).format('LLL');
+            event.end_time = moment(event.end_time).format('LLL');
             event.channels.map(function(channel){
                 var promise = NotifstaHttp.GetNotifications(channel.id);
                 promise.success(function(e){
