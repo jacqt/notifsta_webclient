@@ -179,11 +179,11 @@ body {
                 onaftersave="submit_cover_photo_update()">
                 {{ data.Event.cover_photo_url }}
               </a>
-              <div ng-show="editing_cover_photo" ngf-drop ng-model="files" class="drop-box" 
+              <div ng-show="editing_cover_photo" ngf-drop ng-model="cover_photo_files" class="drop-box" 
                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                ngf-accept="'.jpg,.png,.pdf'">Drop Images or PDFs files here</div>
+                ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
               <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-              <button ng-show="editing_cover_photo" ngf-select ng-model="files">Choose file</button>
+              <button ng-show="editing_cover_photo" ngf-select ng-model="cover_photo_files">Choose file</button>
               <!--Image thumbnail: <img ngf-thumbnail="files[0]" class="thumb">-->
             </div>
             <label> Event Map </label>
@@ -194,11 +194,11 @@ body {
                 onaftersave="submit_cover_photo_update()">
                 {{ data.Event.event_map_url  || "Upload an event map url now!" }}
               </a>
-              <div ng-show="editing_map_url" ngf-drop ng-model="files" class="drop-box" 
+              <div ng-show="editing_map_url" ngf-drop ng-model="event_map_files" class="drop-box" 
                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                ngf-accept="'.jpg,.png,.pdf'">Drop Images or PDFs files here</div>
+                ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
               <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-              <button ng-show="editing_map_url" ngf-select ng-model="files">Choose file</button>
+              <button ng-show="editing_map_url" ngf-select ng-model="event_map_files">Choose file</button>
             </div>
 
             <label> Location Address </label>

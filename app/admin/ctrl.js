@@ -67,15 +67,27 @@
       $scope.editing_map_url = !$scope.editing_map_url;
     }
 
-    $scope.$watch('files', function () {
-      $scope.upload($scope.files);
+    $scope.$watch('cover_photo_files', function () {
+      console.log('uploading cover photo file');
+      var promise = $scope.upload($scope.cover_photo_files);
+      promise.success = function(data, status, headers, config){
+        $scope.data.Event.cover_photo_url = data.url;
+      }
+    });
+
+    $scope.$watch('event_map_files', function () {
+      var promise = $scope.upload($scope.event_map_files);
+      promise.success = function(data, status, headers, config){
+        $scope.data.Event.event_map_url = data.url;
+      }
     });
 
     $scope.upload = function (files) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          Upload.upload({
+          console.log('uploading file...');
+          return Upload.upload({
             url: 'upload/url',
             fields: {'username': $scope.username},
             file: file
