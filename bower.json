@@ -27,6 +27,7 @@
     "angular-facebook": "~0.2.3",
     "angular-bootstrap-datetimepicker": "~0.2",
     "angular-xeditable": "~0.1.9",
-    "angular-google-maps": "~2.0.19"
+    "angular-google-maps": "~2.0.19",
+    "ng-file-upload": "~4.0.4"
   }
 }

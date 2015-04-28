@@ -3,8 +3,8 @@
  */
 (function(){
   angular.module('notifsta.controllers').controller('AdminCtrl', 
-      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', ctrl]);
-  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams) {
+      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'Upload', ctrl]);
+  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, Upload) {
     //TESTING PURPOSES ONLY
     //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
     $scope.event = {
@@ -57,6 +57,37 @@
         text: ''
       }
     }
+
+    $scope.cover_photo_toggle = function(){
+      console.log('editing cover photo');
+      $scope.editing_cover_photo = !$scope.editing_cover_photo;
+    }
+    $scope.map_url_toggle = function(){
+      console.log('editing cover photo');
+      $scope.editing_map_url = !$scope.editing_map_url;
+    }
+
+    $scope.$watch('files', function () {
+      $scope.upload($scope.files);
+    });
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          Upload.upload({
+            url: 'upload/url',
+            fields: {'username': $scope.username},
+            file: file
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+          }).success(function (data, status, headers, config) {
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+          });
+        }
+      }
+    };
 
     $scope.option_keypressed = function(event, option){
     }

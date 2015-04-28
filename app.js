@@ -7,6 +7,7 @@ var app = angular.module('notifsta', [
   'facebook',
   'xeditable',
   'uiGmapgoogle-maps',
+  'ngFileUpload',
   'ui.bootstrap.datetimepicker'
 ]);
 
