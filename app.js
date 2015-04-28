@@ -19,6 +19,15 @@ app.config(function(FacebookProvider){
   FacebookProvider.init('1594616400794953');
 });
 
+app.config(['$sceDelegateProvider', function($sceDelegateProvider) {
+     $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://api.notifsta.com/**']);
+ }])
+
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.headers.patch = {
+        'Content-Type': 'application/json;charset=utf-8'
+    }
+}])
 app.config(function($routeProvider){
   $routeProvider
 
@@ -248,6 +257,12 @@ angular.module('notifsta').controller('MainController',
       UpdateUser();
 
       ImcService.AddHandler('user state changed', function(){
+        console.log('CHANGING MA SHITT');
         UpdateUser();
       });
     }]);
+
+// See the Configuring section to configure credentials in the SDK
+AWS.config.update({accessKeyId: 'AKIAIUGS47BYJKF524RQ', secretAccessKey: 'rwQKmnpjrrcxVC8DHGMP33pggqfLhLCMRozwSVgI'});
+// Configure your region
+AWS.config.region = 'us-east-1';

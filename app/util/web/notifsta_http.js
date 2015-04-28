@@ -183,18 +183,22 @@
     }
 
     function CreateEvent(event){
-      var name = event.name;
-      var description = event.description;
-      var address = event.address;
-      var start_time = event.start_time;
-      var end_time = event.event_time;
-      return $http.post(BASE_URL + '/v1/event/', {
-        name : event.name,
-        description: event.description,
-        address: event.address,
-        start_time: event.start_time,
-        end_time: event.end_time
-      });
+      var req = {
+        url: BASE_URL + '/v1/events/',
+        method: 'POST',
+        params: {
+          'user_email': AuthService.GetCredentials().user_email,
+          'user_token': AuthService.GetCredentials().user_token,
+          'event[name]': event.name,
+          'event[description]': event.description,
+          'event[cover_photo_url]': event.cover_photo_url,
+          'event[event_map_url]': event.event_map_url,
+          'event[start_time]': event.start_time,
+          'event[end_time]': event.end_time,
+          'event[address]': event.address,
+        }
+      }
+      return $http(req);
     }
 
     /* FIXME */
@@ -203,6 +207,27 @@
       return $http.post('/api/v1/event/channel', {
         name : name
       });
+    }
+
+    // ------------------------------------------------------------ //
+    // API Calls to edit objects in the database
+    function PublishEventUpdate(event){
+      var req = {
+        url: BASE_URL + '/v1/events/' + event.id,
+        method: 'POST',
+        params: {
+          'user_email': AuthService.GetCredentials().user_email,
+          'user_token': AuthService.GetCredentials().user_token,
+          'event[name]': event.name,
+          'event[description]': event.description,
+          'event[cover_photo_url]': event.cover_photo_url,
+          'event[event_map_url]': event.event_map_url,
+          'event[start_time]': event.start_time,
+          'event[end_time]': event.end_time,
+          'event[address]': event.address
+        }
+      }
+      return $http(req);
     }
 
     return {
@@ -262,6 +287,9 @@
 
       //GetUser - gets the current user
       GetUser: GetUser,
+
+      //PublishEventUpdate: updates an event
+      PublishEventUpdate: PublishEventUpdate,
     }
   }
 

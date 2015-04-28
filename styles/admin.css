@@ -128,16 +128,6 @@
   width: 100%;
 }
 
-
-.button {
-    -moz-appearance: button;
-    /* Firefox */
-    -webkit-appearance: button;
-    /* Safari and Chrome */
-    padding: 5px;
-    margin: 10px;
-    width: 100px;
-}
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;

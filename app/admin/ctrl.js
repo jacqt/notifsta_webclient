@@ -43,9 +43,22 @@
       var description = $scope.data.Event.description;
       console.log('updating end time');
     }
+
     $scope.submit_cover_photo_update = function(){
-      var description = $scope.data.Event.description;
       console.log('updating cover photo');
+    }
+    $scope.submit_event_map_update = function(){
+      console.log('updating event photo');
+    }
+
+    $scope.publish_updates = function(){
+      var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
+      promise.success(function(a,b,c){
+        console.log(a);
+        console.log(b);
+        console.log(c);
+
+      });
     }
 
     $scope.create_option = function(){
@@ -69,33 +82,36 @@
 
     $scope.$watch('cover_photo_files', function () {
       console.log('uploading cover photo file');
-      var promise = $scope.upload($scope.cover_photo_files);
-      promise.success = function(data, status, headers, config){
-        $scope.data.Event.cover_photo_url = data.url;
-      }
+      $scope.upload($scope.cover_photo_files, function(data){
+        if (data){
+          $scope.data.Event.cover_photo_url = data.Location;
+          $scope.cover_photo_editor.$hide();
+          $scope.publish_updates();
+        }
+      });
     });
 
     $scope.$watch('event_map_files', function () {
-      var promise = $scope.upload($scope.event_map_files);
-      promise.success = function(data, status, headers, config){
-        $scope.data.Event.event_map_url = data.url;
-      }
+      $scope.upload($scope.event_map_files, function(data){
+        if (data){
+          $scope.data.Event.event_map_url = data.Location;
+          $scope.event_map_editor.$hide();
+          $scope.publish_updates();
+        }
+      });
     });
 
-    $scope.upload = function (files) {
+    var bucket = new AWS.S3({params: {Bucket: 'notifsta'}});
+    $scope.upload = function (files, cb) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           console.log('uploading file...');
-          return Upload.upload({
-            url: 'upload/url',
-            fields: {'username': $scope.username},
-            file: file
-          }).progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-          }).success(function (data, status, headers, config) {
-            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+
+          var params = {Key: file.name, ContentType: file.type, Body: file};
+          bucket.upload(params, function (err, data) {
+            console.log(data);
+            cb(data);
           });
         }
       }

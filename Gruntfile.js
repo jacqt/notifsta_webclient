@@ -61,6 +61,11 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 separator: ';\n'
+            },
+
+            css: {
+                src: 'styles/*.css',
+                dest: 'dist/app-concat.css'
             }
         },
 
@@ -103,13 +108,6 @@ module.exports = function(grunt) {
                     usemin: 'dist/app.js',
                 },
             },
-        },
-
-        cssmin: {
-            options: {
-                shorthandCompacting: false,
-                roundingPrecision: -1
-            }
         },
 
         ngAnnotate: {

@@ -3,8 +3,8 @@
  *
  */
 (function(){
-  angular.module('notifsta.controllers').controller('CreateEventCtrl', ['$scope', 'NotifstaHttp', '$cookies', ctrl]);
-  function ctrl($scope, NotifstaHttp, $cookies)  {
+  angular.module('notifsta.controllers').controller('CreateEventCtrl', ['$scope', 'NotifstaHttp', '$cookies', 'ImcService', ctrl]);
+  function ctrl($scope, NotifstaHttp, $cookies, ImcService)  {
     $scope.partial_event = {
     }
     //TODO Move this into somewhere central. Duplicated at admin/ctrl.js
@@ -20,6 +20,8 @@
       var promise = NotifstaHttp.CreateEvent($scope.partial_event);
       promise.success(function(e){
         console.log(e);
+        ImcService.FireEvent('user state changed');
+        window.location = '#';
       });
     }
   };
