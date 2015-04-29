@@ -12,12 +12,12 @@
         function WebsocketEnabled(){
             return true;
         }
-        function SubscribeToNotifications(event_name, event_id){
+        function SubscribeToNotifications(guid){
             // connect to websocket for notifications after initial load
             var dispatcher = new WebSocketRails(WEBSOCKET_URL);
 
             //TODO: Fix this to the correct string pending backend update
-            var notif_socket = dispatcher.subscribe('notifications_' + event_id); 
+            var notif_socket = dispatcher.subscribe(guid); 
 
             notif_socket.on_success = function(){
                 console.log('Successfully connected to websocket');
@@ -30,7 +30,7 @@
 
             notif_socket.bind('new', function(notif){
                 console.log(notif);
-                ImcService.FireEvent('event_' + event_id + ' notif', notif);
+                ImcService.FireEvent('event_' + guid + ' notif', notif);
                 ImcService.FireEvent('new_notification', notif.notification);
             });
         }

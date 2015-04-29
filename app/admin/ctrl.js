@@ -3,8 +3,8 @@
  */
 (function(){
   angular.module('notifsta.controllers').controller('AdminCtrl', 
-      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', ctrl]);
-  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster) {
+      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'uiCalendarConfig' ,'$compile', ctrl]);
+  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, uiCalendarConfig, $compile) {
     //TESTING PURPOSES ONLY
     //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
     $scope.event = {
@@ -23,7 +23,6 @@
         text: ''
       }
     }
-
     $scope.sending_survey = false;
 
     $scope.submit_description_update = function(){
@@ -50,7 +49,7 @@
         if (e.status == 'success'){
           toaster.pop('success', 'Successfuly updated event');
         } else {
-          toaster.pop('error', e.data);
+          toaster.pop('error', e.error);
         }
 
       });
@@ -146,7 +145,7 @@
           if (succeeded == channel_ids.length){
             $scope.loading = false;
             if (e.error || e.status == "failure" ){
-              toaster.pop('error', e.data);
+              toaster.pop('error', e.error);
             } else {
               toaster.pop('success', 'Successfuly sent notification');
               $scope.input.message = '';
@@ -187,6 +186,132 @@
       }
     }
     $scope.searchbox = { template:'searchbox.tpl.html', events:events};
+
+
+    //CALENDAR
+
+    $scope.data.Event.event_sources = [{
+      events: [ ],
+      color: 'darkorange',   // an option!
+      textColor: 'white' // an option!
+    }, {
+      events: [],
+      color: 'white',
+      textColor: 'black',
+      borderColor: 'orange'
+    }]
+
+    function UpdateSubEvent(changed_event){
+      console.log(changed_event);
+      var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
+      promise.success(function(e){
+        if (e.status == 'success'){
+          toaster.pop('success', 'Successfuly updated timetable');
+        } else {
+          console.log(e);
+          toaster.pop('error', e.error);
+        }
+      });
+    }
+
+    $scope.on_day_click = function(date, jsEvent, view){
+      $scope.partial_subevent = {
+        name: null,
+        description: null,
+        start_time: moment(date).format('LLL'),
+        location: null
+      }
+      $scope.data.Event.event_sources[1].events.push({
+        title: '',
+        start: $scope.partial_subevent.start_time,
+        allDay: false
+      });
+
+      $scope.show_subevent();
+    };
+
+    $scope.show_subevent = function(){
+      setTimeout(function(){
+        $scope.editing_subevent = true;
+      }, 100);
+      $scope.subevent_editor.$show();
+    }
+    $scope.on_event_click = function(calEvent, jsEvent, view){
+      $scope.partial_subevent = calEvent;
+      $scope.show_subevent();
+    }
+    /* alert on Drop */
+     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+       console.log('HI THERE');
+       UpdateSubEvent(event);
+    };
+    /* alert on Resize */
+    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
+       UpdateSubEvent(event);
+    };
+    /* remove event */
+    $scope.remove = function(index) {
+      $scope.events.splice(index,1);
+    };
+    /* Render Tooltip */
+    $scope.eventRender = function( event, element, view ) { 
+      element.attr({'tooltip': event.title,
+                   'tooltip-append-to-body': true});
+      $compile(element)($scope);
+    };
+
+    $scope.cancel_subevent_editing = function(){
+      console.log('CANCELING');
+      $scope.editing_subevent = false;
+      $scope.data.Event.event_sources[1].events.splice(0,1);
+    }
+
+    $scope.save_subevent = function(){
+      if ($scope.partial_subevent.id){
+        var event = $scope.partial_subevent;
+        event.title = event.name + ' - ' + event.description;
+        UpdateSubEvent($scope.partial_subevent);
+        $scope.partial_subevent = null;
+        $scope.editing_subevent = false;
+      } else {
+        var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
+        promise.success(function(ev){
+          if (ev.status == 'success'){
+            var new_event = ev.data;
+            new_event.title = ev.data.name + ' - ' + ev.data.description;
+            new_event.start = moment(new_event.start_time).format();
+            new_event.end = moment(new_event.end_time).format();
+            new_event.allDay = false;
+            $scope.data.Event.event_sources[0].events.push(new_event);
+            toaster.pop('success', 'Successfuly added new event');
+            $scope.partial_subevent = null;
+            $scope.editing_subevent = false;
+            $scope.data.Event.event_sources[1].events.splice(0,1);
+          } else {
+            console.log(ev);
+            toaster.pop('error', ev.error);
+          }
+        });
+      }
+    }
+
+    $scope.uiConfig = {
+      calendar:{
+        height: 450,
+        editable: true,
+        header:{
+          left: 'month agendaWeek agendaDay',
+          center: 'title',
+          right: 'today prev,next'
+        },
+        dayClick: $scope.on_day_click,
+        eventClick: $scope.on_event_click,
+        eventDrop: $scope.alertOnDrop,
+        eventResize: $scope.alertOnResize
+      }
+    };
+
+    $scope.editing_subevent = false;
 
   }
 })();

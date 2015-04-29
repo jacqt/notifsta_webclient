@@ -21,7 +21,7 @@
       promise.success(function(e){
         console.log(e);
         ImcService.FireEvent('user state changed');
-        window.location = '#';
+        window.location = '#/';
       });
     }
   };

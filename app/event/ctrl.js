@@ -38,6 +38,27 @@
         }
 
         $scope.data = event_monitor._data;
+        $scope.data.Event.event_sources = [{
+          events: [ ],
+          color: 'darkorange',   // an option!
+          textColor: 'white' // an option!
+        }, {
+          events: [],
+          color: 'white',
+          textColor: 'black',
+          borderColor: 'orange'
+        }]
+        $scope.uiConfig = {
+          calendar:{
+            height: 450,
+            editable: false,
+            header:{
+              left: 'month agendaWeek agendaDay',
+              center: 'title',
+              right: 'prev,next'
+            },
+          }
+        };
 
     }]);
 })();

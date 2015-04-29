@@ -26,21 +26,18 @@
             //Otherwise, we will be assigning by value and things get messy quite quickly
             self._data = {
                 Event: {
-                    channels: []
+                    channels: [],
+                    event_sources: []
                 },
             }
             self.monitor_type = monitor_type;
 
             var promise = NotifstaHttp.GetEvent(event_id);
             promise.success(function(resp){
-                self._data.Event = resp.data;
-                self.GetInitialEventData();
-
-                function Handler(data){
-                    self.OnNewNotif(data);
+                for (var key in resp.data){
+                  self._data.Event[key] = resp.data[key]
                 }
-                ImcService.AddHandler('event_' + self._data.Event.id + ' notif', Handler);
-                NotifstaAdapter.SubscribeToNotifications(event_name, event_id);
+                self.GetInitialEventData();
             });
             
             promise.error(function(err){
@@ -68,6 +65,8 @@
             var total_broadcasts = 0;
             var channels_processed = 0;
             self.ConfigureMap();
+            self.ConfigureTimetable();
+            self.ConfigureWebsocket();
             event.start_time = moment(event.start_time).format('LLL');
             event.end_time = moment(event.end_time).format('LLL');
             event.channels.map(function(channel){
@@ -97,6 +96,50 @@
                     ]
                 })
             });
+        }
+
+        EventMonitor.prototype.ConfigureWebsocket = function(){
+          var self = this;
+          function Handler(data){
+            console.log('HIIII');
+              self.OnNewNotif(data);
+          }
+          ImcService.AddHandler('event_' + self._data.Event.channels[0].guid + ' notif', Handler);
+          NotifstaAdapter.SubscribeToNotifications(self._data.Event.channels[0].guid);
+        }
+
+        EventMonitor.prototype.ConfigureTimetable = function(){
+          var self = this;
+          console.log(self._data.Event);
+          var sub_events = self._data.Event.subevents;
+          for (var start_time in sub_events){
+            sub_events[start_time].map(function(sub_event){
+              console.log(sub_event);
+              sub_event.title = sub_event.name + ' - ' + sub_event.description;
+              sub_event.start = moment(sub_event.start_time).format();
+              sub_event.end = moment(sub_event.end_time).format();
+              sub_event.allDay = false;
+              self._data.Event.event_sources[0].events.push(sub_event);
+            });
+          }
+        }
+
+        EventMonitor.prototype.ConvertTimetableBack = function(){
+          var self = this;
+          console.log(self._data.Event);
+          var sub_events = self._data.Event.subevents;
+          for (var start_time in sub_events){
+            sub_events[start_time].map(function(sub_event){
+              self._data.Event.event_sources[0].events.push({
+                title: sub_event.name,
+                start: sub_event.start_time,
+                end: sub_event.end_time,
+                location: sub_event.location,
+                allDay: false,
+                id: sub_event.id
+              });
+            });
+          }
         }
 
         EventMonitor.prototype.GetNotification = function(notif_id){

@@ -9,6 +9,7 @@ var app = angular.module('notifsta', [
   'uiGmapgoogle-maps',
   'ngFileUpload',
   'toaster',
+  'ui.calendar',
   'ui.bootstrap.datetimepicker',
 ]);
 
@@ -249,7 +250,10 @@ angular.module('notifsta').controller('MainController',
               //User auth information out of date
               window.location = '#logout';
             }
-          })
+          });
+          promise.error(function(){
+            window.location = '#logout';
+          });
         }
       }
 

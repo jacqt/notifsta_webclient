@@ -29,9 +29,11 @@
     "angular-chart.js": "~0.7.0",
     "aws-sdk-js": "~2.1.26",
     "angular-bootstrap": "~0.12.1",
-    "angularjs-toaster": "~0.4.13"
+    "angularjs-toaster": "~0.4.13",
+    "angular-ui-calendar": "~0.8.1"
   },
   "resolutions": {
-    "angular": "~1.4"
+    "angular": "~1.4",
+    "jquery": ">= 1.9.1"
   }
 }

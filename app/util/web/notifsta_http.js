@@ -201,6 +201,28 @@
       return $http(req);
     }
 
+    function CreateSubEvent(event, subevent){
+      if (!subevent.end_time){
+        subevent.end_time = moment(subevent.start_time).add(2, 'hours').format();
+      }
+      subevent.start_time = moment(subevent.start_time).format();
+      console.log(subevent);
+      var req = {
+        url: BASE_URL + '/v1/events/' + event.id + '/subevents',
+        method: 'POST',
+        params: {
+          'user_email': AuthService.GetCredentials().user_email,
+          'user_token': AuthService.GetCredentials().user_token,
+          'name': subevent.name,
+          'location': subevent.location,
+          'description': subevent.description,
+          'start_time': subevent.start_time,
+          'end_time': subevent.end_time,
+        }
+      }
+      return $http(req);
+    }
+
     /* FIXME */
     function CreateChannel(event_id, channel_name){
       throw "CREATE CHANNEL NOT IMPLEMENTED";
@@ -225,6 +247,23 @@
           'event[start_time]': event.start_time,
           'event[end_time]': event.end_time,
           'event[address]': event.address
+        }
+      }
+      return $http(req);
+    }
+    
+    function PublishSubEventUpdate(event, subevent){
+      var req = {
+        url: BASE_URL + '/v1/subevents/' + subevent.id,
+        method: 'POST',
+        params: {
+          'user_email': AuthService.GetCredentials().user_email,
+          'user_token': AuthService.GetCredentials().user_token,
+          'name': subevent.name,
+          'description': subevent.description,
+          'start_time': subevent.start,
+          'end_time': subevent.end,
+          'location': subevent.location,
         }
       }
       return $http(req);
@@ -284,12 +323,19 @@
       //CreateEvent:
       // Given an event object, create the event
       CreateEvent: CreateEvent,
+      
+      //CreateSubEvent:
+      // Given an event object, and the new subevent create the subevent
+      CreateSubEvent: CreateSubEvent,
 
       //GetUser - gets the current user
       GetUser: GetUser,
 
       //PublishEventUpdate: updates an event
       PublishEventUpdate: PublishEventUpdate,
+
+      //PublishEventUpdate: updates an event in a timetable
+      PublishSubEventUpdate: PublishSubEventUpdate,
     }
   }
 
