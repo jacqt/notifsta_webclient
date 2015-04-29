@@ -59,10 +59,6 @@ module.exports = function(grunt) {
         //},
 
         concat: {
-            css: {
-                src: 'styles/*.css',
-                dest: 'dist/app-concat.css'
-            }
         },
 
         uglify: {

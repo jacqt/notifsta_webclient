@@ -57,17 +57,16 @@ body {
 
         </p>
 
-        <div ng-show="!selected_none() && input.message.length > 0" 
+        <div ng-show="input.message.length > 0" 
           style="margin-top: 10px"
           class="slide">
           <button 
-            type="button" class="btn btn-default slide" 
+            type="button" class="btn btn-default" 
             ng-click="create_notification()">
             <p style="margin: 5px" padding:"0px">Send </p>
           </button>
           <label> Allow Responses </label>
           <input type="checkbox"
-          ng-show="input.message.length > 0" 
           style="margin-top: 0px"
           type="button" class="btn btn-default" 
           ng-model="sending_survey">
