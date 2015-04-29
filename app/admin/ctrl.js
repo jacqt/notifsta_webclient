@@ -153,8 +153,6 @@
       }
 
       $scope.loading = true;
-      $scope.info = 'Sending...';
-
       var succeeded = 0;
       promises.map(function(p){
         p.success(function(e){
@@ -163,29 +161,19 @@
           if (succeeded == channel_ids.length){
             $scope.loading = false;
             if (e.error || e.status == "failure" ){
-              $scope.info = e.data;
+              toaster.pop('error', e.data);
             } else {
-              $scope.info = 'Success!';
-            }
-            $timeout(function() {
+              toaster.pop('success', 'Successfuly sent notification');
               $scope.input.message = '';
               $scope.input.options = [];
               $scope.input.next_option.text = '';
-            });
-            ClearInfoTimeout();
+            }
           }
         });
         p.error(function(e){
           $scope.loading = false;
         });
-
       })
-    }
-
-    function ClearInfoTimeout(){
-      setTimeout(function(){
-        $scope.info = '';
-      }, 3000);
     }
 
 
