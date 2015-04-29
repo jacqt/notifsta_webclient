@@ -120,7 +120,6 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
 
   // register listener to watch route changes
   $rootScope.$on("$locationChangeStart", function(event, next, current) {
-    console.log(next);
     if (!AuthService.GetCredentials().logged_in) {
       // no logged user, we should be going to #login if we're going to a
       // restricted url
@@ -134,7 +133,6 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
 
     } else {
       var splitted = next.split('#');
-      console.log(splitted);
       if (splitted.length > 1){
         url_hash = splitted[1];
         if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/'){
@@ -170,7 +168,6 @@ app.directive('focusMe', ['$timeout', function($timeout) {
     link: function(scope, element, attrs) {
       scope.$watch(attrs.focusMe, function(value) {
         if(value === true) { 
-          console.log('value=',value);
           $timeout(function() {
             element[0].focus();
             scope[attrs.focusMe] = false;
@@ -233,32 +230,33 @@ angular.module('notifsta').controller('MainController',
       }
 
       function UpdateUser(){
-        var promise = NotifstaHttp.GetUser();
-        promise.success(function(result){
-          if (result.status == "success" ){
-            $scope.data.user = result.data;
-            $scope.selected_event = $scope.selected_event || $scope.data.user.events[0];
-            for (var i = 0; i != $scope.data.user.subscriptions.length; ++i){
-              var sub = $scope.data.user.subscriptions[i];
-              for (var j = 0; j != $scope.data.user.events.length; ++j){
-                var event = $scope.data.user.events[j];
-                if (sub.event_id == event.id){
-                  event.admin = sub.admin;
-                  console.log(event.admin);
+        if ($scope.LoggedIn()){
+          var promise = NotifstaHttp.GetUser();
+          promise.success(function(result){
+            if (result.status == "success" ){
+              $scope.data.user = result.data;
+              $scope.selected_event = $scope.selected_event || $scope.data.user.events[0];
+              for (var i = 0; i != $scope.data.user.subscriptions.length; ++i){
+                var sub = $scope.data.user.subscriptions[i];
+                for (var j = 0; j != $scope.data.user.events.length; ++j){
+                  var event = $scope.data.user.events[j];
+                  if (sub.event_id == event.id){
+                    event.admin = sub.admin;
+                  }
                 }
               }
+            } else {
+              //User auth information out of date
+              window.location = '#logout';
             }
-          } else {
-            window.location = '#logout';
-          }
-        })
+          })
+        }
       }
 
       //Try to get the user
       UpdateUser();
 
       ImcService.AddHandler('user state changed', function(){
-        console.log('CHANGING MA SHITT');
         UpdateUser();
       });
     }]);

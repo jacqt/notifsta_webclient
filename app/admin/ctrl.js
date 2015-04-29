@@ -13,7 +13,6 @@
     }
     var TIMEOUT = 1 * 1000;
 
-    console.log("SDFSDFSF");
     var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
 
     //Data binding for new notifications
@@ -29,32 +28,25 @@
 
     $scope.submit_description_update = function(){
       var description = $scope.data.Event.description;
-      console.log('updating description');
     }
     $scope.submit_address_update = function(){
       var description = $scope.data.Event.description;
-      console.log('updating address');
     }
     $scope.submit_start_time_update = function(){
       var description = $scope.data.Event.description;
-      console.log('updating start time');
     }
     $scope.submit_end_time_update = function(){
       var description = $scope.data.Event.description;
-      console.log('updating end time');
     }
 
     $scope.submit_cover_photo_update = function(){
-      console.log('updating cover photo');
     }
     $scope.submit_event_map_update = function(){
-      console.log('updating event photo');
     }
 
     $scope.publish_updates = function(){
       var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
       promise.success(function(e){
-        console.log(e);
         if (e.status == 'success'){
           toaster.pop('success', 'Successfuly updated event');
         } else {
@@ -65,7 +57,6 @@
     }
 
     $scope.create_option = function(){
-      console.log($scope.input.next_option.text);
       $scope.input.options.unshift({
         text: $scope.input.next_option.text
       });
@@ -75,16 +66,13 @@
     }
 
     $scope.cover_photo_toggle = function(){
-      console.log('editing cover photo');
       $scope.editing_cover_photo = !$scope.editing_cover_photo;
     }
     $scope.map_url_toggle = function(){
-      console.log('editing cover photo');
       $scope.editing_map_url = !$scope.editing_map_url;
     }
 
     $scope.$watch('cover_photo_files', function () {
-      console.log('uploading cover photo file');
       $scope.upload($scope.cover_photo_files, function(data){
         if (data){
           $scope.data.Event.cover_photo_url = data.Location;
@@ -109,8 +97,6 @@
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          console.log('uploading file...');
-
           var params = {Key: file.name, ContentType: file.type, Body: file};
           bucket.upload(params, function (err, data) {
             console.log(data);
@@ -157,7 +143,6 @@
       promises.map(function(p){
         p.success(function(e){
           succeeded += 1;
-          console.log(e);
           if (succeeded == channel_ids.length){
             $scope.loading = false;
             if (e.error || e.status == "failure" ){
@@ -187,8 +172,6 @@
     $scope.options = {scrollwheel: false};
     var events = {
       places_changed: function (searchBox) {
-        console.log(searchBox);
-        console.log(searchBox.getPlaces());
         var places = searchBox.getPlaces();
         if (places.length > 0){
           var place = places[0];

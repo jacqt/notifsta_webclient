@@ -39,7 +39,6 @@
                 function Handler(data){
                     self.OnNewNotif(data);
                 }
-                console.log("Hi there");
                 ImcService.AddHandler('event_' + self._data.Event.id + ' notif', Handler);
                 NotifstaAdapter.SubscribeToNotifications(event_name, event_id);
             });
@@ -83,7 +82,9 @@
                     channels_processed += 1;
                     if (channels_processed == event.channels.length){
                         event.total_broadcasts = total_broadcasts;
-                        self.GetAllNotifResponses();
+                        if (self.monitor_type == ADMIN_MONITOR){
+                          self.GetAllNotifResponses();
+                        }
                     }
                     channel.selected = true;
                 });
@@ -135,7 +136,9 @@
                         for (var i =0 ; i != channel.notifications.length; ++i){
                             if (channel.notifications[i].id == notif.id){
                                 channel.notifications[i] = notif;
-                                self.GetNotifResponses(notif);
+                                if (self.monitor_type == ADMIN_MONITOR){
+                                  self.GetNotifResponses(notif);
+                                }
                             }
                         }
                     }

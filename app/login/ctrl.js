@@ -37,7 +37,6 @@
 
       function HandleLoginPromise(promise){
         promise.success(function(data){
-          console.log(data);
           if (data.status === "failure"){
             $scope.info = "Invalid email and password combination";
           } 
