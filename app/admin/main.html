@@ -166,7 +166,7 @@ body {
           <div class ="actual-feed-wrapper event-info">
             <label> Event Description </label>
             <div>
-              <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="submit_event_update()">
+              <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="publish_updates()">
                 <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>
               </a>
             </div>
@@ -181,15 +181,18 @@ body {
                 e-form="cover_photo_editor"
                 onhide="cover_photo_toggle();"
                 onshow="cover_photo_toggle()"
-                onaftersave="submit_cover_photo_update()">
+                onaftersave="publish_updates()">
                 {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
               </a>
-              <div ng-show="editing_cover_photo" ngf-drop ng-model="cover_photo_files" class="drop-box" 
-                ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
-              <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-              <button ng-show="editing_cover_photo" ngf-select  ng-click="cover_photo_editor.$show()" ng-model="cover_photo_files">Choose file</button>
-              <!--Image thumbnail: <img ngf-thumbnail="files[0]" class="thumb">-->
+              <div ng-show="editing_cover_photo" class="slide" >
+                <div ngf-drop ng-model="cover_photo_files" class="drop-box" 
+                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                  ngf-accept="'.jpg,.png,'">
+                  Drop Image files (.jpg .png) here
+                </div>
+                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                <button ngf-select  ng-click="cover_photo_editor.$show()" ng-model="cover_photo_files">Choose file</button>
+              </div>
             </div>
             <label> Event Map </label>
             <div>
@@ -201,14 +204,16 @@ body {
                 e-form="event_map_editor"
                 onhide="map_url_toggle()"
                 onshow="map_url_toggle()"
-                onaftersave="submit_cover_photo_update()">
+                onaftersave="publish_updates()">
                 {{ data.Event.event_map_url  || "Upload an event map now!" }}
               </a>
-              <div ng-show="editing_map_url" ngf-drop ng-model="event_map_files" class="drop-box" 
-                ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
-              <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-              <button ng-show="editing_map_url" ngf-select ng-model="event_map_files">Choose file</button>
+              <div ng-show="editing_map_url" class="slide" >
+                <div ngf-drop ng-model="event_map_files" class="drop-box" 
+                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                  ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
+                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                <button ngf-select ng-model="event_map_files">Choose file</button>
+              </div>
             </div>
 
             <label> Location Address </label>

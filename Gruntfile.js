@@ -59,10 +59,6 @@ module.exports = function(grunt) {
         //},
 
         concat: {
-            options: {
-                separator: ';\n'
-            },
-
             css: {
                 src: 'styles/*.css',
                 dest: 'dist/app-concat.css'

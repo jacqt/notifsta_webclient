@@ -2,9 +2,6 @@
   <head>
     <!--Google apis for location-->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=en-US"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.26.min.js"></script>
-    <script type="text/javascript">
-    </script>
 
     <!-- build:css app.css -->
     <!-- animations.css goes first or else they break in minification process -->
@@ -15,8 +12,7 @@
     <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" href="styles/admin.css">
-
-    <!-- endbuild -->
+    <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.min.css"/>
 
     <!-- CHART.JS -->
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
@@ -30,6 +26,9 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <!-- AMAZON AWS SDK -->
+    <script src="bower_components/aws-sdk-js/dist/aws-sdk.min.js"></script>
+
     <!-- ANGULAR -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -40,6 +39,7 @@
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+    <script src="bower_components/angularjs-toaster/toaster.min.js"></script>
 
     <!--FACEBOOK ANGULAR SDK-->
     <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
@@ -48,7 +48,7 @@
     <script src="./bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
 
     <!-- ANGULAR BOOTSTRAP UI-->
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <!-- ANGULAR CHART.JS + CHART.JS -->
     <script src="bower_components/chart.js/chart.js"></script>
@@ -89,6 +89,7 @@
 
   </head>
   <body ng-controller="MainController">
+    <toaster-container></toaster-container>
     <!-- HEADER AND NAVBAR -->
     <header>
         <nav class="navbar navbar-primary">

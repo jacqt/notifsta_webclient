@@ -8,9 +8,10 @@
         ['$cookies', service]);
     function service($cookies){
         function GetCredentials(){
-            var user_email = $cookies.user_email;
-            var user_token = $cookies.user_token;
-            var user_id = $cookies.user_id;
+            var cookies = $cookies.getAll();
+            var user_email = cookies.user_email;
+            var user_token = cookies.user_token;
+            var user_id = cookies.user_id;
             var logged_in = (user_email !== undefined 
                 && user_token !== undefined
                 && user_id !== undefined);
@@ -23,21 +24,21 @@
         }
 
         function SetUserEmail(user_email){
-            $cookies.user_email = user_email;
+            $cookies.put('user_email', user_email);
         }
 
         function SetUserId(user_id){
-            $cookies.user_id = user_id;
+            $cookies.put('user_id', user_id);
         }
 
         function SetUserToken(user_token){
-            $cookies.user_token = user_token;
+            $cookies.put('user_token', user_token);
         }
 
         function Logout(){
-            delete $cookies.user_email;
-            delete $cookies.user_token;
-            delete $cookies.user_id;
+            $cookies.remove('user_email');
+            $cookies.remove('user_token');
+            $cookies.remove('user_id');
         }
 
         return {

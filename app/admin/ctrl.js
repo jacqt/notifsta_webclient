@@ -3,8 +3,8 @@
  */
 (function(){
   angular.module('notifsta.controllers').controller('AdminCtrl', 
-      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'Upload', ctrl]);
-  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, Upload) {
+      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', ctrl]);
+  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster) {
     //TESTING PURPOSES ONLY
     //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
     $scope.event = {
@@ -53,10 +53,13 @@
 
     $scope.publish_updates = function(){
       var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
-      promise.success(function(a,b,c){
-        console.log(a);
-        console.log(b);
-        console.log(c);
+      promise.success(function(e){
+        console.log(e);
+        if (e.status == 'success'){
+          toaster.pop('success', 'Successfuly updated event');
+        } else {
+          toaster.pop('error', e.data);
+        }
 
       });
     }

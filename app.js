@@ -8,16 +8,17 @@ var app = angular.module('notifsta', [
   'xeditable',
   'uiGmapgoogle-maps',
   'ngFileUpload',
-  'ui.bootstrap.datetimepicker'
+  'toaster',
+  'ui.bootstrap.datetimepicker',
 ]);
 
-app.run(function(editableOptions) {
+app.run(['editableOptions', function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-});
+}]);
 
-app.config(function(FacebookProvider){
+app.config(['FacebookProvider', function(FacebookProvider){
   FacebookProvider.init('1594616400794953');
-});
+}]);
 
 app.config(['$sceDelegateProvider', function($sceDelegateProvider) {
      $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://api.notifsta.com/**']);
@@ -28,7 +29,7 @@ app.config(['$httpProvider', function($httpProvider) {
         'Content-Type': 'application/json;charset=utf-8'
     }
 }])
-app.config(function($routeProvider){
+app.config(['$routeProvider', function($routeProvider){
   $routeProvider
 
   // route for the home page
@@ -96,11 +97,11 @@ app.config(function($routeProvider){
     templateUrl: 'app/logout/main.html',
     controller: 'LogoutCtrl'
   })
-})
+}])
 
 
 //Make sure that we're logged in when making route change
-app.run(function($rootScope, $location, AuthService){
+app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, AuthService){
   OKAY_URLS = ['/contact', '/', '/login', '', '/signup']
   function IsRestricted(url){
     var splitted = url.split('#');
@@ -142,7 +143,7 @@ app.run(function($rootScope, $location, AuthService){
       }
     }
   });
-});
+}]);
 
 
 // For animatig slide up and slide downs
@@ -164,7 +165,7 @@ app.animation('.slide', function() {
 
 
 //For autofocus TODO: move outside of app.js file
-app.directive('focusMe', function($timeout) {
+app.directive('focusMe', ['$timeout', function($timeout) {
   return {
     link: function(scope, element, attrs) {
       scope.$watch(attrs.focusMe, function(value) {
@@ -178,7 +179,7 @@ app.directive('focusMe', function($timeout) {
       });
     }
   };
-});
+}]);
 
 
 app.directive('googlePlaces', function(){

@@ -18,8 +18,9 @@
 
             //TODO: Fix this to the correct string pending backend update
             console.log(event_name);
-            var notif_socket = dispatcher.subscribe('notifications_' + event_name); 
+            var notif_socket = dispatcher.subscribe('notifications_' + event_id); 
 
+            console.log(event_id);
             notif_socket.on_success = function(){
                 console.log('Successfully connected to websocket');
             }
