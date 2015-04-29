@@ -15,90 +15,85 @@ body {
     <div class="row content" style="margin-left: 15px; margin-right: 15px">
 
       <!-- Creating new notifications -->
-      <div>
-        <div class="newnotice">
-          <form ng-submit="" class="new-notice-form">
-            <input class="newnoticeinput" 
-            type="text" placeholder="Write a new message or question..." 
-            ng-model="input.message" 
-            ng-disabled="selected_none() || loading"></input>
-            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-          </form>
-        </div>
-
-        <!-- Survey -->
-        <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
-          <div class="list-group survey-option">
-            <form ng-submit="create_option()" class="list-group-item">
-              <input type="text"
-              class="new-survey-option" 
-              style="width: 100%"
-              placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+      <div class="col-md-12">
+        <div>
+          <div class="newnotice">
+            <form ng-submit="" class="new-notice-form">
+              <input class="newnoticeinput" 
+              type="text" placeholder="Write a new message or question..." 
+              ng-model="input.message" 
+              ng-disabled="selected_none() || loading"></input>
               <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
             </form>
-            <a ng-repeat="option in input.options" 
-              class="list-group-item slide-enter"
-              ng-click="option.editing=true" >
-              <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
-              <input type="text"
-              style="width: 100%; outline: 0"
-              ng-show="option.editing"
-              focus-me="option.editing"
-              ng-model="option.text"
-              ng-blur="finish_editing(option)"
-              ng-enter="finish_editing(option)"> </input>
-            </a>
           </div>
-        </div>
 
-        <div ng-show="input.message.length > 0" 
-          style="margin-top: 10px"
-          class="slide">
-          <button 
-            type="button" class="btn btn-default" 
-            ng-click="create_notification()">
-            <p style="margin: 5px" padding:"0px">Send </p>
-          </button>
-          <label> Allow Responses </label>
-          <input type="checkbox"
-          style="margin-top: 0px"
-          type="button" class="btn btn-default" 
-          ng-model="sending_survey">
-          </input>
-        </div>
-        <!-- Stats -->
-        <div class="row stats">
-          <div class="col-md-4 stat">
-            <div class="actual-stat">
-              <div class="stat-icon blue">
-                <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
-              </div>
-              <div class="stat-text">
-                <span class="stat-number">  187 {{ data.Event.total_subscribers }}</span>
-                <span class="stat-unit">total subscribers</span>
-              </div>
+          <!-- Survey -->
+          <div ng-show="!selected_none() && sending_survey && input.message.length > 0" class="slide">
+            <div class="list-group survey-option">
+              <form ng-submit="create_option()" class="list-group-item">
+                <input type="text"
+                class="new-survey-option" 
+                style="width: 100%"
+                placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+                <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+              </form>
+              <a ng-repeat="option in input.options" 
+                class="list-group-item slide-enter"
+                ng-click="option.editing=true" >
+                <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
+                <input type="text"
+                style="width: 100%; outline: 0"
+                ng-show="option.editing"
+                focus-me="option.editing"
+                ng-model="option.text"
+                ng-blur="finish_editing(option)"
+                ng-enter="finish_editing(option)"> </input>
+              </a>
             </div>
           </div>
 
-          <div class="col-md-4 stat">
-            <div class="actual-stat">
-              <div class="stat-icon orange">
-                <img src="http://i.imgur.com/pdRyqvB.png" class="icon">
+          <div ng-show="input.message.length > 0" 
+            style="margin-top: 10px"
+            class="slide">
+            <button 
+              type="button" class="btn btn-default" 
+              ng-click="create_notification()">
+              <p style="margin: 5px" padding:"0px">Send </p>
+            </button>
+            <label> Allow Responses </label>
+            <input type="checkbox"
+            style="margin-top: 0px"
+            type="button" class="btn btn-default" 
+            ng-model="sending_survey">
+            </input>
+          </div>
+        </div>
+      </div>
+        <!-- Stats -->
+        <div class="col-md-12 stats" >
+          <div class="stat actual-stat" style="padding-bottom: 15px">
+            <div class="col-md-4 stat">
+              <div class="stat-text">
+                <span class="stat-number"> 187 </span>
+                <div>
+                  <span class="stat-unit">Total Subscribers</span>
+                </div>
               </div>
+            </div>
+            <div class="col-md-4 stat">
               <div class="stat-text">
                 <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
-                <span class="stat-unit">&nbsp total broadcasts</span>
+                <div>
+                  <span class="stat-unit">Total Broadcasts</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4 stat">
-            <div class="actual-stat">
-              <div class="stat-icon green">
-                <img src="http://i.imgur.com/EAvk6oK.png" class="icon">
-              </div>
+            <div class="col-md-4 stat">
               <div class="stat-text">
                 <span class="stat-number">55</span>
-                <span class="stat-unit">somethings</span>
+                <div>
+                  <span class="stat-unit">Amazing People</span>
+                </div>
               </div>
             </div>
           </div>
@@ -184,7 +179,11 @@ body {
                   Drop Image files (.jpg .png) here
                 </div>
                 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                <button ngf-select  ng-click="cover_photo_editor.$show()" ng-model="cover_photo_files">Choose file</button>
+                <button 
+                  class="btn btn-default"
+                  ngf-select 
+                  ng-click="cover_photo_editor.$show()" 
+                  ng-model="cover_photo_files">Choose file</button>
               </div>
             </div>
             <label> Event Map </label>
@@ -205,7 +204,10 @@ body {
                   ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                   ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
                 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                <button ngf-select ng-model="event_map_files">Choose file</button>
+                <button
+                  class="btn btn-default"
+                  ngf-select 
+                  ng-model="event_map_files">Choose file</button>
               </div>
             </div>
 

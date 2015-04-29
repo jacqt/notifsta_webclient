@@ -131,9 +131,13 @@
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;
-    width: 200px;
     height: 100px;
     text-align: center;
     padding-top: 25px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+  margin-top: 5px;
 }
