@@ -235,7 +235,7 @@ angular.module('notifsta').controller('MainController',
       function UpdateUser(){
         var promise = NotifstaHttp.GetUser();
         promise.success(function(result){
-          if (result.status == "success"){
+          if (result.status == "success" ){
             $scope.data.user = result.data;
             $scope.selected_event = $scope.selected_event || $scope.data.user.events[0];
             for (var i = 0; i != $scope.data.user.subscriptions.length; ++i){
@@ -249,7 +249,7 @@ angular.module('notifsta').controller('MainController',
               }
             }
           } else {
-            throw "Unexpected error in retrieving user data"
+            window.location = '#logout';
           }
         })
       }
