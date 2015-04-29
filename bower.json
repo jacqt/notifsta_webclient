@@ -15,10 +15,10 @@
   ],
   "dependencies": {
     "moment": "~2.9.0",
-    "angular-cookies": "1.4",
-    "angular-route": "1.4",
+    "angular-cookies": "~1.4",
+    "angular-route": "~1.4",
     "websocket-rails": "~0.7.0",
-    "angular-animate": "1.4",
+    "angular-animate": "~1.4",
     "jquery": "~2.1.4",
     "angular": "~1.4",
     "angular-facebook": "~0.2.3",

@@ -18,14 +18,14 @@ body {
       <div class="col-md-12">
         <div>
           <div class="newnotice">
-            <form ng-submit="" class="new-notice-form">
+            <div ng-submit="" class="new-notice-form">
               <input class="newnoticeinput" 
               type="text" placeholder="Send a new message or question to your guests!" 
               ng-model="input.message" 
               ng-focus="input.focus_notice = true"
               ng-disabled="selected_none() || loading"></input>
               <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-            </form>
+            </div>
           </div>
 
           <!-- Survey -->

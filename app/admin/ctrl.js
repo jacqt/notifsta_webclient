@@ -151,6 +151,7 @@
               $scope.input.message = '';
               $scope.input.options = [];
               $scope.input.next_option.text = '';
+              $scope.input.focus_notice = false;
             }
           }
         });
