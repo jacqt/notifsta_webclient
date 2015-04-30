@@ -259,7 +259,7 @@
       $scope.partial_subevent = calEvent;
       $scope.show_subevent();
     }
-    /* alert on Drop */
+
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
        event.end_time = event.end;
        console.log('droppin');

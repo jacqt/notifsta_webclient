@@ -27,7 +27,8 @@
             self._data = {
                 Event: {
                     channels: [],
-                    event_sources: []
+                    event_sources: [],
+                    subevent_grouped_array: []
                 },
             }
             self.monitor_type = monitor_type;
@@ -113,14 +114,22 @@
           var self = this;
           var sub_events = self._data.Event.subevents;
           for (var start_time in sub_events){
+            self._data.Event.subevent_grouped_array.push({
+              start_time : moment(start_time).format('LLL'),
+              events: sub_events[start_time]
+            });
             sub_events[start_time].map(function(sub_event){
               sub_event.title = sub_event.name + ' - ' + sub_event.description;
               sub_event.start = moment(sub_event.start_time).format('LLL');
               sub_event.end = moment(sub_event.end_time).format('LLL');
               sub_event.start_time = sub_event.start;
-              sub_event.end_time = sub_event.tart;
+              sub_event.end_time = sub_event.end;
+              sub_event.start_day_time = moment(sub_event.start).format('hh:mm');
+              sub_event.end_day_time = moment(sub_event.end).format('hh:mm');
               sub_event.allDay = false;
-              self._data.Event.event_sources[0].events.push(sub_event);
+              if (self._data.Event.event_sources[0]){
+                self._data.Event.event_sources[0].events.push(sub_event);
+              }
             });
           }
         }

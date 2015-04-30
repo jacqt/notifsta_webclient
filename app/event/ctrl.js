@@ -38,30 +38,9 @@
         }
 
         $scope.data = event_monitor._data;
-        $scope.data.Event.event_sources = [{
-          events: [ ],
-          color: 'darkorange',   // an option!
-          textColor: 'white' // an option!
-        }, {
-          events: [],
-          color: 'white',
-          textColor: 'black',
-          borderColor: 'orange'
-        }]
-        $scope.data.Event.uiConfig = {
-          calendar:{
-            height: 650,
-            editable: false,
-            defaultView: 'agendaWeek',
-            header:{
-              left: 'month agendaWeek agendaDay',
-              center: 'title',
-              right: 'prev,next'
-            },
-          }
-        };
+
         ImcService.AddHandler('event_loaded ' + $scope.event.id, function(data){
-          $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+          // do something
         });
 
     }]);
