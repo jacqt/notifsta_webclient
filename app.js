@@ -161,23 +161,32 @@ app.animation('.slide', function() {
     }
   }
 });
-
-app.animation('.slide-right', function() {
-  var NG_HIDE_CLASS = 'ng-hide';
+app.animation('.fade-view', function() {
   return {
-    beforeAddClass: function(element, className, done) {
-      if(className === NG_HIDE_CLASS) {
-        element.slideUp(done);
-      }
+    enter : function(element, done) {
+      jQuery(element).css({
+        //position:'absolute',
+        'z-index':100,
+        //top:600,
+        opacity:0
+      });
+      jQuery(element).animate({
+        //top:0,
+        opacity:1
+      }, done);
     },
-    removeClass: function(element, className, done) {
-      if(className === NG_HIDE_CLASS) {
-        element.hide().slideDown(done);
-      }
-    }
-  }
-});
 
+    leave : function(element, done) {
+      jQuery(element).css({
+        opacity:1,
+        'z-index':101,
+      });
+      jQuery(element).animate({
+        opacity:0
+      }, done);
+    }
+  };
+});   
 
 //For autofocus TODO: move outside of app.js file
 app.directive('focusMe', ['$timeout', function($timeout) {
