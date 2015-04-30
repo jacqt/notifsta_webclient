@@ -116,8 +116,10 @@
             sub_events[start_time].map(function(sub_event){
               console.log(sub_event);
               sub_event.title = sub_event.name + ' - ' + sub_event.description;
-              sub_event.start = moment(sub_event.start_time).format();
-              sub_event.end = moment(sub_event.end_time).format();
+              sub_event.start = moment(sub_event.start_time).format('LLL');
+              sub_event.end = moment(sub_event.end_time).format('LLL');
+              sub_event.start_time = sub_event.start;
+              sub_event.end_time = sub_event.tart;
               sub_event.allDay = false;
               self._data.Event.event_sources[0].events.push(sub_event);
             });

@@ -1,3 +1,30 @@
+.subevent-editor-side {
+  margin-left:98%;
+  width:400px!important;
+  margin-top:-350px;
+  padding-left:15px;
+  padding-top:15px;
+  padding-bottom:15px;
+  background: white;
+  border-radius: 5px;
+  border: 0;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1em;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid grey;
+  z-index:100;
+  position:absolute;
+}
+
+.subevent-editor-side .editable-controls{
+  padding-right:15px!important;
+}
+.subevent-editor-side form{
+  margin-bottom:0px !important;
+}
+
 .navbar {
     margin-bottom: 0 !important;
     border:none !important;

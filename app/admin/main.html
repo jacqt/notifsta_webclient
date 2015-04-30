@@ -103,57 +103,7 @@ body {
           </div>
         </div>
 
-        <!-- Feeds -->
-        <div class="two col-xs-4">
-          <div class "slide"
-            ng-repeat="channel in data.Event.channels"
-            ng-show="channel.selected">
-            <div class="actual-feed-wrapper">
-              <div class="row box-title red">
-                <div class="dropdown" style="float:left">
-                  <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
-                  </ul>
-                </div>
-                <div style="float:left; margin-left: 15px;">
-                  {{ channel.name }} - {{ channel.number_of_subscribers }}
-                </div>
-              </div>
-              <div class="actual-feed">
-
-                <div class="feed-item" ng-repeat="notif in channel.notifications">
-                  <div class="feed-item-text">
-                    <b>{{ notif.type }}</b> - {{ notif.time }}
-                    <a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>
-                  </div>
-                  <div class="feed-item-text">{{ notif.notification_guts }}</div>
-                  <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
-                    <center>
-                      <p ng-if="notif.number_responses == 0"> No responses yet! </p>
-                      <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
-                    </center>
-                    <canvas 
-                      class="chart chart-pie" 
-                      height="75%"
-                      data="notif.responses_pie_chart.data"
-                      labels="notif.responses_pie_chart.labels"
-                      legend="true" 
-                      options="options"
-                      click="onClick">
-                    </canvas>  
-                  </div>
-
-                </div>
-                <div class="feed-item" ng-show="channel.notifications.length == 0">
-                  <div class="feed-item-text"> It's lonely in here - send a message now! </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div class="two col-xs-8" style="margin-bottom: 15px">
             <div class="row box-title red">
               <div class="dropdown" style="float:left">
@@ -278,49 +228,103 @@ body {
             </div>
             <label> Timetable </label>
             <div ui-calendar="uiConfig.calendar" ng-model="data.Event.event_sources"></div>
-            <div ng-show="editing_subevent" class="slide" >
-              <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
-                <div>
-                  <!-- editable username (text with validation) -->
-                  <span class="title">Event name: </span>
-                  <span editable-text="partial_subevent.name" e-name="name" e-required>{{ partial_subevent.name || 'Enter an event name!' }}</span>
-                </div> 
+            <div>
+              <div ng-show="editing_subevent" class="slide-right subevent-editor-side" >
+                <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
+                  <div>
+                    <!-- editable username (text with validation) -->
+                    <span class="title">Event name: </span>
+                    <span editable-text="partial_subevent.name" e-name="name" e-required>{{ partial_subevent.name || 'Enter an event name!' }}</span>
+                  </div> 
 
-                <div>
-                  <span class="title">Description: </span>
-                  <span editable-text="partial_subevent.description" e-name="description" e-required>
-                    {{ partial_subevent.description || 'Enter a description!' }}
-                  </span>
-                </div>  
+                  <div>
+                    <span class="title">Description: </span>
+                    <span editable-text="partial_subevent.description" e-name="description" e-required>
+                      {{ partial_subevent.description || 'Enter a description!' }}
+                    </span>
+                  </div>  
 
-                <div>
-                  <span class="title">Location:</span>
-                  <span editable-text="partial_subevent.location" e-name="location" e-required>
-                    {{ partial_subevent.location || 'Enter a location!' }}
-                  </span>
-                </div>  
-                <div>
-                  <span class="title">Start time</span>
-                  <span>
-                    {{ partial_subevent.start_time }}
-                  </span>
-                </div>  
-                <div>
-                  <!-- button to show form -->
-                  <button type="button" class="btn btn-default" ng-click="subevent_editor.$show()" ng-show="!subevent_editor.$visible">
-                    Edit
-                  </button>
-                  <!-- buttons to submit / cancel form -->
-                  <span ng-show="subevent_editor.$visible">
-                    <button type="submit" class="btn btn-primary" ng-disabled="subevent_editor.$waiting">
-                      Save
+                  <div>
+                    <span class="title">Location:</span>
+                    <span editable-text="partial_subevent.location" e-name="location" e-required>
+                      {{ partial_subevent.location || 'Enter a location!' }}
+                    </span>
+                  </div>  
+                  <div>
+                    <span class="title">Start time</span>
+                    <span>
+                      {{ partial_subevent.start_time }}
+                    </span>
+                  </div>  
+                  <div>
+                    <!-- button to show form -->
+                    <button type="button" class="btn btn-default" ng-click="subevent_editor.$show()" ng-show="!subevent_editor.$visible">
+                      Edit
                     </button>
-                    <button type="button" class="btn btn-default" ng-disabled="subevent_editor.$waiting" ng-click="subevent_editor.$cancel()">
-                      Cancel
-                    </button>
-                  </span>
+                    <!-- buttons to submit / cancel form -->
+                    <span ng-show="subevent_editor.$visible">
+                      <button type="submit" class="btn btn-primary" ng-disabled="subevent_editor.$waiting">
+                        Save
+                      </button>
+                      <button type="button" class="btn btn-default" ng-disabled="subevent_editor.$waiting" ng-click="subevent_editor.$cancel()">
+                        Cancel
+                      </button>
+                    </span>
+                  </div>
+                </form>  
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feeds -->
+        <div class="two col-xs-4">
+          <div class "slide"
+            ng-repeat="channel in data.Event.channels"
+            ng-show="channel.selected">
+            <div class="actual-feed-wrapper">
+              <div class="row box-title red">
+                <div class="dropdown" style="float:left">
+                  <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
+                  </ul>
                 </div>
-              </form>  
+                <div style="float:left; margin-left: 15px;">
+                  {{ channel.name }} - {{ channel.number_of_subscribers }}
+                </div>
+              </div>
+              <div class="actual-feed">
+
+                <div class="feed-item" ng-repeat="notif in channel.notifications">
+                  <div class="feed-item-text">
+                    <b>{{ notif.type }}</b> - {{ notif.time }}
+                    <!--<a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
+                  </div>
+                  <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                  <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
+                    <center>
+                      <p ng-if="notif.number_responses == 0"> No responses yet! </p>
+                      <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
+                    </center>
+                    <canvas 
+                      class="chart chart-pie" 
+                      height="75%"
+                      data="notif.responses_pie_chart.data"
+                      labels="notif.responses_pie_chart.labels"
+                      legend="true" 
+                      options="options"
+                      click="onClick">
+                    </canvas>  
+                  </div>
+
+                </div>
+                <div class="feed-item" ng-show="channel.notifications.length == 0">
+                  <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

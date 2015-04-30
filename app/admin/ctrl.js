@@ -246,20 +246,6 @@
        console.log('HI THERE');
        UpdateSubEvent(event);
     };
-    /* alert on Resize */
-    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-       UpdateSubEvent(event);
-    };
-    /* remove event */
-    $scope.remove = function(index) {
-      $scope.events.splice(index,1);
-    };
-    /* Render Tooltip */
-    $scope.eventRender = function( event, element, view ) { 
-      element.attr({'tooltip': event.title,
-                   'tooltip-append-to-body': true});
-      $compile(element)($scope);
-    };
 
     $scope.cancel_subevent_editing = function(){
       console.log('CANCELING');
@@ -280,8 +266,8 @@
           if (ev.status == 'success'){
             var new_event = ev.data;
             new_event.title = ev.data.name + ' - ' + ev.data.description;
-            new_event.start = moment(new_event.start_time).format();
-            new_event.end = moment(new_event.end_time).format();
+            new_event.start = moment(new_event.start_time).format('LLL');
+            new_event.end = moment(new_event.end_time).format('LLL');
             new_event.allDay = false;
             $scope.data.Event.event_sources[0].events.push(new_event);
             toaster.pop('success', 'Successfuly added new event');
