@@ -235,7 +235,7 @@ body {
             <label> Timetable </label>
             <div ui-calendar="data.Event.uiConfig.calendar" ng-model="data.Event.event_sources" calendar="timetable_c"></div>
             <div>
-              <div ng-show="editing_subevent" class="slide-right subevent-editor-side" >
+              <div ng-show="editing_subevent" class="slide subevent-editor-side" >
                 <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
                   <div>
                     <!-- editable username (text with validation) -->
