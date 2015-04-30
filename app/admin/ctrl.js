@@ -3,8 +3,8 @@
  */
 (function(){
   angular.module('notifsta.controllers').controller('AdminCtrl', 
-      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'uiCalendarConfig' ,'$compile', ctrl]);
-  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, uiCalendarConfig, $compile) {
+      ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService' ,'$compile', ctrl]);
+  function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile) {
     //TESTING PURPOSES ONLY
     //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
     $scope.event = {
@@ -204,6 +204,8 @@
 
     function UpdateSubEvent(changed_event){
       console.log(changed_event);
+      changed_event.start_time = moment(changed_event.start).format('LLL');
+      changed_event.end_time = moment(changed_event.end).format('LLL');
       var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
       promise.success(function(e){
         if (e.status == 'success'){
@@ -243,7 +245,12 @@
     }
     /* alert on Drop */
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-       console.log('HI THERE');
+       event.end_time = event.end;
+       console.log('droppin');
+       UpdateSubEvent(event);
+    };
+
+     $scope.on_event_resize = function(event, delta, revertFunc, jsEvent, ui, view){
        UpdateSubEvent(event);
     };
 
@@ -282,10 +289,15 @@
       }
     }
 
-    $scope.uiConfig = {
+    ImcService.AddHandler('event_loaded ' + $scope.event.id, function(data){
+      $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+    });
+
+    $scope.data.Event.uiConfig={
       calendar:{
         height: 450,
         editable: true,
+        defaultView: 'agendaWeek',
         header:{
           left: 'month agendaWeek agendaDay',
           center: 'title',
@@ -294,9 +306,9 @@
         dayClick: $scope.on_day_click,
         eventClick: $scope.on_event_click,
         eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
+        eventResize: $scope.on_event_resize
       }
-    };
+    }
 
     $scope.editing_subevent = false;
 

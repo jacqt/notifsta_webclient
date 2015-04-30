@@ -4,8 +4,8 @@
 
 (function(){
     angular.module('notifsta.services').service('EventMonitor', 
-        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs', service]);
-    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs){
+        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs','uiCalendarConfig', service]);
+    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs, uiCalendarConfig){
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
 
@@ -96,6 +96,7 @@
                     ]
                 })
             });
+            ImcService.FireEvent('event_loaded ' + self._data.Event.id);
         }
 
         EventMonitor.prototype.ConfigureWebsocket = function(){
@@ -110,7 +111,6 @@
 
         EventMonitor.prototype.ConfigureTimetable = function(){
           var self = this;
-          console.log(self._data.Event);
           var sub_events = self._data.Event.subevents;
           for (var start_time in sub_events){
             sub_events[start_time].map(function(sub_event){

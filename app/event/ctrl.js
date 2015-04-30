@@ -3,8 +3,8 @@
  */
 (function(){
     angular.module('notifsta.controllers').controller('EventCtrl',
-    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 
-    function($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams) {
+    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams' ,'ImcService', 
+    function($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event_name = $routeParams.event_name;
@@ -48,10 +48,11 @@
           textColor: 'black',
           borderColor: 'orange'
         }]
-        $scope.uiConfig = {
+        $scope.data.Event.uiConfig = {
           calendar:{
             height: 450,
             editable: false,
+            defaultView: 'agendaWeek',
             header:{
               left: 'month agendaWeek agendaDay',
               center: 'title',
@@ -59,6 +60,9 @@
             },
           }
         };
+        ImcService.AddHandler('event_loaded ' + $scope.event.id, function(data){
+          $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+        });
 
     }]);
 })();

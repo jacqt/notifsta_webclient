@@ -111,7 +111,7 @@ body {
             {{ data.Event.end_time }}
           </div>
           <label> Timetable </label>
-          <div ui-calendar="uiConfig.calendar" ng-model="data.Event.event_sources"></div>
+          <div ui-calendar="data.Event.uiConfig.calendar" ng-model="data.Event.event_sources" calendar="timetable_c"></div>
         </div>
 
       </div>
