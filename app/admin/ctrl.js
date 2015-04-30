@@ -43,6 +43,18 @@
     $scope.submit_event_map_update = function(){
     }
 
+    $scope.on_time_set =  function(newDate, oldDate){
+      var  n = moment(newDate).unix();
+      var  o = moment(oldDate).unix();
+      if (n != o){
+        $scope.publish_updates();
+      }
+      $scope.data.Event.start_time = 
+        moment($scope.data.Event.start_time).format('LLL');
+      $scope.data.Event.end_time = 
+        moment($scope.data.Event.end_time).format('LLL');
+    }
+
     $scope.publish_updates = function(){
       var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
       promise.success(function(e){

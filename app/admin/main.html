@@ -194,7 +194,7 @@ body {
 
             <label> Start time</label>
             <div class="dropdown">
-              <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">
+              <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-12">
@@ -206,12 +206,15 @@ body {
                 </div>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="data.Event.start_time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                <datetimepicker 
+                  data-on-set-time="on_time_set(newDate, oldDate)"
+                  data-ng-model="data.Event.start_time"
+                  data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }"/>
               </ul>
             </div>
             <label> End time</label>
             <div class="dropdown">
-              <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">
+              <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-12">
@@ -223,7 +226,10 @@ body {
                 </div>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="data.Event.end_time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                <datetimepicker 
+                  data-on-set-time="on_time_set(newDate, oldDate)"
+                  data-ng-model="data.Event.end_time" 
+                  data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }"/>
               </ul>
             </div>
             <label> Timetable </label>

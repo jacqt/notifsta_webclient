@@ -25,6 +25,10 @@
   margin-bottom:0px !important;
 }
 
+.datetimepicker {
+  width:350px!important
+}
+
 .navbar {
     margin-bottom: 0 !important;
     border:none !important;
