@@ -5183,15 +5183,16 @@ header {
 #dashboardpage .category {
   color: #3c3c3c; }
 
+.header {
+  /*background: url('https://chrisneillsdirtykitchen.files.wordpress.com/2013/04/london-at-night.jpg');*/
+  background-size: cover;
+  /*color: white;*/
+  -webkit-font-smoothing: antialiased;
+  /*padding-bottom: 50px;*/ }
+
 #adminpage {
   font-family: 'Avenir-Medium';
   -webkit-font-smoothing: antialiased; }
-  #adminpage .header {
-    background: url("https://chrisneillsdirtykitchen.files.wordpress.com/2013/04/london-at-night.jpg");
-    background-size: cover;
-    color: white;
-    -webkit-font-smoothing: antialiased;
-    padding-bottom: 50px; }
   #adminpage .channel-title {
     margin-bottom: 0;
     border-bottom-left-radius: 0px;
