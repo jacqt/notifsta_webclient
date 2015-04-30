@@ -114,7 +114,6 @@
           var sub_events = self._data.Event.subevents;
           for (var start_time in sub_events){
             sub_events[start_time].map(function(sub_event){
-              console.log(sub_event);
               sub_event.title = sub_event.name + ' - ' + sub_event.description;
               sub_event.start = moment(sub_event.start_time).format('LLL');
               sub_event.end = moment(sub_event.end_time).format('LLL');

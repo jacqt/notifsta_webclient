@@ -295,7 +295,7 @@
 
     $scope.data.Event.uiConfig={
       calendar:{
-        height: 450,
+        height: 650,
         editable: true,
         defaultView: 'agendaWeek',
         header:{
@@ -303,6 +303,7 @@
           center: 'title',
           right: 'today prev,next'
         },
+        snapMinutes: 10,
         dayClick: $scope.on_day_click,
         eventClick: $scope.on_event_click,
         eventDrop: $scope.alertOnDrop,
