@@ -169,6 +169,7 @@
     $scope.data = event_monitor._data;
     $scope.GetNotifResponses = event_monitor.GetNotifResponses;
 
+    /* GOOGLE MAPS */
     $scope.options = {scrollwheel: false};
     var events = {
       places_changed: function (searchBox) {
@@ -183,6 +184,7 @@
           $scope.data.Event.marker.coords.latitude = lat;
           $scope.data.Event.marker.coords.longitude = lng;
           $scope.data.Event.address = place.name + ', ' + place.formatted_address;
+          $scope.publish_updates();
         }
       }
     }
