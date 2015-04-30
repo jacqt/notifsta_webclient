@@ -1,0 +1,30 @@
+.dashboard-events {
+  margin-top: 25px;
+}
+.dashboard-events td {
+  padding: 15px;
+  vertical-align: top;
+}
+.dashboard-events .event-box {
+  margin-right: 15px;
+}
+
+.dashboard-events tr {
+  border-top: 1px solid lightgrey
+}
+
+.creating-event-button {
+  margin: 5px;
+}
+
+.dashboard-info {
+  margin-top: 15px;
+}
+
+.dashboard-info h1 {
+  font-size: 200%!important;
+}
+.dashboard-info h3 {
+  font-size: 130%;
+  line-height: 1.5;
+}
