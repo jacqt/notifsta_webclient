@@ -15,7 +15,6 @@ body {
     <div class="row content" style="margin-left: 15px; margin-right: 15px">
       <div class="col-md-4 two">
         <div class="slide"
-          style="margin-left: 15px;"
           ng-repeat="channel in data.Event.channels">
           <div class="row box-title red">
             <div class="dropdown" style="float:left">
@@ -36,7 +35,7 @@ body {
 
             <div class="feed-item" ng-repeat="notif in channel.notifications">
               <div class="feed-item-text">
-                <b>{{ notif.type }}</b> - {{ notif.time }}
+                <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
               </div>
               <div class="feed-item-text">{{ notif.notification_guts }}</div>
               <form ng-show="notif.type == 'Survey'">
@@ -79,7 +78,7 @@ body {
             Event Information
           </div>
         </div>
-        <div class ="actual-feed-wrapper event-info">
+        <div class ="actual-feed-wrapper event-info shaded-border">
           <label> Welcome! </label>
           <div>
             <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>

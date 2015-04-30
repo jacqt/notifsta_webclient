@@ -306,7 +306,7 @@ body {
 
                 <div class="feed-item" ng-repeat="notif in channel.notifications">
                   <div class="feed-item-text">
-                    <b>{{ notif.type }}</b> - {{ notif.time }}
+                    <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
                     <!--<a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
                   </div>
                   <div class="feed-item-text">{{ notif.notification_guts }}</div>
