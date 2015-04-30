@@ -50,7 +50,7 @@
         }]
         $scope.data.Event.uiConfig = {
           calendar:{
-            height: 450,
+            height: 650,
             editable: false,
             defaultView: 'agendaWeek',
             header:{

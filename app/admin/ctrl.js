@@ -205,16 +205,18 @@
 
     //CALENDAR
 
-    $scope.data.Event.event_sources = [{
-      events: [ ],
-      color: 'darkorange',   // an option!
-      textColor: 'white' // an option!
-    }, {
-      events: [],
-      color: 'white',
-      textColor: 'black',
-      borderColor: 'orange'
-    }]
+    if ($scope.data.Event.event_sources.length < 2){
+      $scope.data.Event.event_sources = [{
+        events: [ ],
+        color: 'darkorange',   // an option!
+        textColor: 'white' // an option!
+      }, {
+        events: [],
+        color: 'white',
+        textColor: 'black',
+        borderColor: 'orange'
+      }]
+    }
 
     function UpdateSubEvent(changed_event){
       console.log(changed_event);
@@ -306,6 +308,12 @@
     ImcService.AddHandler('event_loaded ' + $scope.event.id, function(data){
       $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
     });
+
+    if ($scope.data.Event.start_time){
+      setTimeout(function(){
+        $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+      }, 100);
+    }
 
     $scope.data.Event.uiConfig={
       calendar:{
