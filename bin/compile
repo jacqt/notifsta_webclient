@@ -4,6 +4,7 @@ rm -rf dist/*
 mkdir dist
 cp index.html dist/index.html
 cp -R assets dist/assets
+cp -R fonts dist/fonts
 mkdir -p dist/bower_components/angular-chart.js/dist
 cp bower_components/angular-chart.js/dist/angular-chart.css  dist/bower_components/angular-chart.js/dist/angular-chart.css
 cp bower_components/angular-chart.js/dist/angular-chart.css.map  dist/bower_components/angular-chart.js/dist/angular-chart.css.map
