@@ -14,10 +14,13 @@
 
 .pad-top{
   margin-top:60px;
+}
+
+.non-homepage h1 {
   color: black;
 }
 
-.pad-top h1 {
+.non-homepage {
   color: black;
 }
 

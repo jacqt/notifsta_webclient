@@ -1,3 +1,14 @@
+.event-title {
+  margin-top:80px!important;
+  text-align:left;
+  margin-left: 20% !important;
+  color: white!important;
+}
+
+.event-header {
+  height: 200px;
+  margin-bottom: 15px;
+}
 
 .subevent-editor-side {
   margin-left:98%;

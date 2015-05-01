@@ -146,9 +146,14 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
       } else {
         $(".navbar").addClass("fus-navbar-solid");
       }
-
     } else {
-      $(".navbar").addClass("fus-navbar-solid");
+
+      var h = splitted[1].split('/');
+      if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event'){
+        $(".navbar").removeClass("fus-navbar-solid");
+      } else {
+        $(".navbar").addClass("fus-navbar-solid");
+      }
       if (splitted.length > 1){
         url_hash = splitted[1];
         if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/'){

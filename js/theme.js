@@ -28,13 +28,29 @@ $(document).ready(function() {
   });
 
 
+  function get_hash_url(){
+    var h = window.location.hash.split('/');
+    if (h.length < 2){
+      return '';
+    } else {
+      return h[1];
+    }
+  }
+
   $(window).scroll(function () {
-
-  		if ($(this).scrollTop() > 695 ) {
-  		  $(".navbar").addClass("fus-navbar-solid");
-  		} else if ( window.location.hash == '#/') {
-  			$(".navbar").removeClass("fus-navbar-solid");
-  		}
-
-  	});
+    var h = get_hash_url();
+    if (h == ''){
+      if ($(this).scrollTop() > 695){
+        $(".navbar").addClass("fus-navbar-solid");
+      } else {
+        $(".navbar").removeClass("fus-navbar-solid");
+      }
+    } else if (['event', 'event_admin'].indexOf(h) > -1){
+      if ($(this).scrollTop() > 150 ) {
+        $(".navbar").addClass("fus-navbar-solid");
+      } else {
+        $(".navbar").removeClass("fus-navbar-solid");
+      }
+    }
+  });
 });

@@ -6,11 +6,9 @@ body {
 
 </style>
 <span id="adminpage">
-  <div class="container-fluid pad-top">
-    <div class="row header"  ang-style="{'background-image':'url('+data.Event.cover_photo_url+')'}">
-      <center >
-        <h1>{{ event.name }}</h1>
-      </center>
+  <div class="container-fluid non-homepage">
+    <div class="row header event-header" ng-style="{'background-image':'url('+data.Event.cover_photo_url+')'}">
+      <h1 class="event-title">{{ event.name }}</h1>
     </div>
     <div class="row content" style="margin-left: 15px; margin-right: 15px">
 
