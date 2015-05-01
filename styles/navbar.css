@@ -24,6 +24,13 @@
   color: black;
 }
 
+.non-homepage td {
+  color: black;
+}
+.non-homepage tr {
+  color: black;
+}
+
 .navbar a {
   background: transparent!important;
 }
