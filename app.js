@@ -79,6 +79,11 @@ app.config(['$routeProvider', function($routeProvider){
 
   // -----------------------------------------------//
   // Everybody
+  
+  // route for privacy policy
+  .when('/privacy', {
+    templateUrl: 'app/privacy/main.html',
+  })
 
   // route for logging in
   .when('/login', {
@@ -103,7 +108,7 @@ app.config(['$routeProvider', function($routeProvider){
 
 //Make sure that we're logged in when making route change
 app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, AuthService){
-  OKAY_URLS = ['/contact', '/', '/login', '', '/signup']
+  OKAY_URLS = ['/contact', '/', '/login', '', '/signup', '/privacy']
   function IsRestricted(url){
     var splitted = url.split('#');
     if (splitted.length > 1){
