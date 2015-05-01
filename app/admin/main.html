@@ -117,12 +117,15 @@ body {
               </div>
             </div>
           <div class ="actual-feed-wrapper event-info">
-            <div>
-              <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="publish_updates()">
-                <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>
-              </a>
+            <div class="col-md-12">
+              <div>
+                <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="publish_updates()">
+                  <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>
+                </a>
+              </div>
             </div>
 
+            <div class="col-md-6">
             <label> Cover Photo </label>
             <div>
               <a editable-text="data.Event.cover_photo_url" e-rows="7" 
@@ -150,87 +153,98 @@ body {
                   ng-model="cover_photo_files">Choose file</button>
               </div>
             </div>
-            <label> Event Map </label>
-            <div>
-              <a editable-text="data.Event.event_map_url" e-rows="7"
-                blur="ignore"
-                class="editable editable-click"
-                style="cursor: pointer"
-                ng-click="event_map_editor.$show()"
-                e-form="event_map_editor"
-                onhide="map_url_toggle()"
-                onshow="map_url_toggle()"
-                onaftersave="publish_updates()">
-                {{ data.Event.event_map_url  || "Upload an event map now!" }}
-              </a>
-              <div ng-show="editing_map_url" class="slide" >
-                <div ngf-drop ng-model="event_map_files" class="drop-box" 
-                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                  ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
-                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                <button
-                  class="btn btn-default"
-                  ngf-select 
-                  ng-model="event_map_files">Choose file</button>
+            </div>
+            <div class="col-md-6">
+              <label> Event Map </label>
+              <div>
+                <a editable-text="data.Event.event_map_url" e-rows="7"
+                  blur="ignore"
+                  class="editable editable-click"
+                  style="cursor: pointer"
+                  ng-click="event_map_editor.$show()"
+                  e-form="event_map_editor"
+                  onhide="map_url_toggle()"
+                  onshow="map_url_toggle()"
+                  onaftersave="publish_updates()">
+                  {{ data.Event.event_map_url  || "Upload an event map now!" }}
+                </a>
+                <div ng-show="editing_map_url" class="slide" >
+                  <div ngf-drop ng-model="event_map_files" class="drop-box" 
+                    ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                    ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
+                  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                  <button
+                    class="btn btn-default"
+                    ngf-select 
+                    ng-model="event_map_files">Choose file</button>
+                </div>
               </div>
             </div>
 
-            <label> Location Address </label>
-            <div>
-              <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
-              <script type="text/ng-template" id="searchbox.tpl.html">
-<input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
-              </script>
-              <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
-              <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
-              <ui-gmap-marker
-              idKey='1'
-              coords='data.Event.marker.coords'>
-              </ui-gmap-marker>
-              </ui-gmap-google-map>
+            <div class="col-md-12">
+              <label> Location Address </label>
+              <div>
+                <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
+                <script type="text/ng-template" id="searchbox.tpl.html">
+  <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
+                </script>
+                <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
+                <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+                <ui-gmap-marker
+                idKey='1'
+                coords='data.Event.marker.coords'>
+                </ui-gmap-marker>
+                </ui-gmap-google-map>
+              </div>
             </div>
 
-            <label> Start time</label>
-            <div class="dropdown">
-              <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <div class="col-md-6">
+              <label> Start time</label>
+              <div class="dropdown">
+                <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="input-group">
+                          <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker 
-                  data-on-set-time="on_time_set(newDate, oldDate)"
-                  data-ng-model="data.Event.start_time"
-                  data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }"/>
-              </ul>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  <datetimepicker 
+                    data-on-set-time="on_time_set(newDate, oldDate)"
+                    data-ng-model="data.Event.start_time"
+                    data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }"/>
+                </ul>
+              </div>
             </div>
-            <label> End time</label>
-            <div class="dropdown">
-              <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <div class="col-md-6">
+              <label> End time</label>
+              <div class="dropdown">
+                <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="input-group">
+                          <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker 
-                  data-on-set-time="on_time_set(newDate, oldDate)"
-                  data-ng-model="data.Event.end_time" 
-                  data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }"/>
-              </ul>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  <datetimepicker 
+                    data-on-set-time="on_time_set(newDate, oldDate)"
+                    data-ng-model="data.Event.end_time" 
+                    data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }"/>
+                </ul>
+              </div>
             </div>
-            <label> Timetable </label>
+            <div class="col-md-12">
+              <label> Timetable </label>
+            </div>
             <div ui-calendar="data.Event.uiConfig.calendar" ng-model="data.Event.event_sources" calendar="timetable_c"></div>
             <div>
               <div ng-show="editing_subevent" class="slide subevent-editor-side" >

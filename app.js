@@ -147,7 +147,6 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
         $(".navbar").addClass("fus-navbar-solid");
       }
     } else {
-
       var h = splitted[1].split('/');
       if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event'){
         $(".navbar").removeClass("fus-navbar-solid");
@@ -184,7 +183,6 @@ app.animation('.slide', function() {
 app.animation('.fade-view', function() {
   return {
     enter : function(element, done) {
-      console.log(window.location);
       if (window.location.hash == '#/login'){
         done();
         return;

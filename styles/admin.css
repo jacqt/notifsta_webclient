@@ -5,6 +5,20 @@
   color: white!important;
 }
 
+.event-info .col-md-12{
+  padding-left: 0px;
+}
+.event-info .col-md-6{
+  padding-left: 0px;
+}
+
+.event-info .col-md-12 label{
+  margin-left: 0px;
+}
+
+.red {
+  background: lightcoral; 
+}
 .event-header {
   height: 200px;
   margin-bottom: 15px;
@@ -334,8 +348,6 @@ label {
     background: #e67e22; }
   #adminpage .green {
     background: #27ae60; }
-  #adminpage .red {
-    background: #e74c3c; }
   #adminpage .feed {
     padding-right: 25px;
     padding-left: 0; }
