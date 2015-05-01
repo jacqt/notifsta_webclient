@@ -25,6 +25,7 @@
 }
 
 .non-homepage td {
+  min-height: 100%;
   color: black;
 }
 .non-homepage tr {
@@ -44,4 +45,13 @@
 
 .glyphicon {
   font-family: 'Glyphicons Halflings';
+}
+
+body {
+  height: 100%;
+}
+.footer {
+  z-index: 10;
+  height: 3em;
+  margin-top: -3em;
 }
