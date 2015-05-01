@@ -5,12 +5,13 @@
     <div class="signup-box">
     <h1>Sign up</h1>
       <form class="new_user" 
-        ng-submit="AttemptUserCreation()"
+        ng-submit="AttemptSignup()"
         accept-charset="UTF-8" >
         <div class="form-group">
           <div class="row">
             <div class="col-sm-12">
-              <input autofocus="autofocus" class="form-control" type="email" value="" name="user[email]" id="user_email" placeholder="Email">
+              <input autofocus="autofocus" class="form-control" ng-model="credentials.email"
+                type="email" value="" name="user[email]" id="user_email" placeholder="Email">
             </div>
           </div>
         </div>
@@ -18,7 +19,8 @@
         <div class="form-group">
           <div class="row">
             <div class="col-sm-12">
-              <input class="form-control" type="password" name="user[password]" id="user_password" placeholder="Password">
+              <input class="form-control" type="password" ng-model="credentials.password" 
+                name="user[password]" id="user_password" placeholder="Password">
             </div>
           </div>
         </div>
@@ -26,7 +28,9 @@
         <div class="form-group">
           <div class="row">
             <div class="col-sm-12">
-              <input class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation" placeholder="Password Confirmation">
+              <input 
+                class="form-control" type="password" ng-model="credentials.confirm_password" 
+                name="user[password_confirmation]" id="user_password_confirmation" placeholder="Password Confirmation">
             </div>
           </div>
         </div>

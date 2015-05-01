@@ -3,7 +3,7 @@
  */
 (function(){
   angular.module('notifsta.controllers').controller('SignupCtrl',
-    ['$scope', 'NotifstaHttp', '$cookies', 'Facebook', function($scope, NotifstaHttp,  $cookies, Facebook) {
+    ['$scope', 'NotifstaHttp', '$cookies', 'Facebook', 'toaster', function($scope, NotifstaHttp,  $cookies, Facebook, toaster) {
 
       $scope.credentials = {
         email: '',
@@ -21,7 +21,7 @@
             console.log(user);
             var email = user.email;
             var promise = NotifstaHttp.FacebookLogin(email, id, facebook_token);
-            HandleLoginPromise(promise);
+            HandleSignupPromise(promise);
 
           });
         }, {scope:'email'});
@@ -29,20 +29,24 @@
       }
       $scope.info = "";
 
-      $scope.AttemptLogin = function(){
+      $scope.AttemptSignup = function(){
         $scope.info = "Logging in...";
-        var promise = NotifstaHttp.Login($scope.credentials.email, $scope.credentials.password);
-        HandleLoginPromise(promise);
+        if ($scope.credentials.password != $scope.credentials.confirm_password){
+          toaster.pop('error', 'passwords do not match!');
+        } else {
+          var promise = NotifstaHttp.CreateUser($scope.credentials);
+          HandleSignupPromise(promise);
+        }
       }
 
-      function HandleLoginPromise(promise){
+      function HandleSignupPromise(promise){
         promise.success(function(data){
           console.log(data);
           if (data.status === "failure"){
-            $scope.info = "Invalid email and password combination";
+            toaster.pop('error', data.error);
           } 
           else if (data.status === "success"){
-            $scope.info = "Successfuly logged in!";
+            toaster.pop('success', 'Signup up successful!');
             window.location = '#dashboard'
           } 
           else {

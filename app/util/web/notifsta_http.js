@@ -19,6 +19,19 @@
   function service($http, AuthService, ImcService){
     // ------------------------------------------------------------ //
     // Authorization
+    //
+    function HandleLoginPromise(promise){
+      promise.success(function(e){
+        console.log(e.data);
+        if (e.data){
+          AuthService.SetUserEmail(e.data.email);
+          AuthService.SetUserToken(e.data.authentication_token);
+          AuthService.SetUserId(e.data.id);
+          ImcService.FireEvent('user state changed');
+          ProcessCallbackBacklog();
+        }
+      })
+    }
 
     function Login(email, password){
       var req = {
@@ -30,16 +43,7 @@
         }
       };
       var promise = $http(req);
-      promise.success(function(e){
-        console.log(e.data);
-        if (e.data){
-          AuthService.SetUserEmail(email);
-          AuthService.SetUserToken(e.data.authentication_token);
-          AuthService.SetUserId(e.data.id);
-          ImcService.FireEvent('user state changed');
-          ProcessCallbackBacklog();
-        }
-      })
+      HandleLoginPromise(promise);
       return promise;
     }
 
@@ -54,16 +58,7 @@
         }
       };
       var promise = $http(req);
-      promise.success(function(e){
-        console.log(e.data);
-        if (e.data){
-          AuthService.SetUserEmail(email);
-          AuthService.SetUserToken(e.data.authentication_token);
-          AuthService.SetUserId(e.data.id);
-          ImcService.FireEvent('user state changed');
-          ProcessCallbackBacklog();
-        }
-      })
+      HandleLoginPromise(promise);
       return promise;
     }
 
@@ -182,6 +177,19 @@
       return $http(req);
     }
 
+    function CreateUser(user){
+      var req = {
+        url: BASE_URL + '/v1/auth/register',
+        method: 'POST',
+        params: {
+          'email': user.email,
+          'password': user.password
+        }
+      }
+      var promise = $http(req);
+      HandleLoginPromise(promise);
+      return promise;
+    }
     function CreateEvent(event){
       var req = {
         url: BASE_URL + '/v1/events/',
@@ -327,6 +335,10 @@
       //CreateSubEvent:
       // Given an event object, and the new subevent create the subevent
       CreateSubEvent: CreateSubEvent,
+
+      //CreateUser:
+      // Given a user object with email and password fields, create a user 
+      CreateUser: CreateUser,
 
       //GetUser - gets the current user
       GetUser: GetUser,
