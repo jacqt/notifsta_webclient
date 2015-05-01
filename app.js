@@ -81,6 +81,10 @@ app.config(['$routeProvider', function($routeProvider){
   // Everybody
   
   // route for privacy policy
+  .when('/contact', {
+    templateUrl: 'app/contact/main.html',
+  })
+  // route for privacy policy
   .when('/privacy', {
     templateUrl: 'app/privacy/main.html',
   })
@@ -126,6 +130,7 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
 
   // register listener to watch route changes
   $rootScope.$on("$locationChangeStart", function(event, next, current) {
+    var splitted = next.split('#');
     if (!AuthService.GetCredentials().logged_in) {
       // no logged user, we should be going to #login if we're going to a
       // restricted url
@@ -136,9 +141,14 @@ app.run(['$rootScope', '$location', 'AuthService', function($rootScope, $locatio
         // OK url, no redirect needed
         // Check if we're going to the login page
       }
+      if( splitted[1] == '/'){
+        $(".navbar").removeClass("fus-navbar-solid");
+      } else {
+        $(".navbar").addClass("fus-navbar-solid");
+      }
 
     } else {
-      var splitted = next.split('#');
+      $(".navbar").addClass("fus-navbar-solid");
       if (splitted.length > 1){
         url_hash = splitted[1];
         if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/'){
@@ -182,7 +192,7 @@ app.animation('.fade-view', function() {
           opacity:0
         });
         jQuery(element).animate({
-          'margin-top': 0,
+          'margin-top': 60,
           opacity:1
         }, done);
       } else { //just fade in

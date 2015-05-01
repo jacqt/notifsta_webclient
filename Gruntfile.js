@@ -80,14 +80,14 @@ module.exports = function(grunt) {
                     sourcemap: 'none',
                 },
                 files: {
-                    'styles/style.css' : 'styles/style.scss',
+                    'styles/theme.css' : 'styles/theme.scss',
                 }
             }
         },
 
         watch: {
             css: {
-                files: ['styles/*.scss', 'styles/*.css', 'styles/style.scss', 'styles/style.css'],
+                files: ['styles/*.scss'],
                 tasks: ['sass']
             }
         },
@@ -127,12 +127,11 @@ module.exports = function(grunt) {
         'sass',
         'useminPrepare',
         'ngtemplates',
-        'concat:generated',
         'ngAnnotate',
+        'concat:generated',
         'cssmin:generated',
         'uglify:generated',
         'usemin',
-        'watch' //Comment this deploying
     ]);
 };
 

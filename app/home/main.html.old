@@ -1,0 +1,123 @@
+<span id="homepage">
+<span id="home">
+<div id="hero">
+  <header class="navbar hero" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <span class="navbar-brand"><h1>Notifsta</h1></span>
+      </div>
+      <ul class="navbar navbar-nav navbar-right">
+
+          <li><a class="navlink" href="#sign_up">Sign Up</a></li>
+          <li><a class="navlink" href="#login">Login</a></li>
+
+      </ul>
+    </div>
+  </header>
+  <div class="container main">
+    <h1 class="animated fadeInDown">
+      Better events for everyone.
+    </h1>
+    <div class="row split">
+
+      <div class="col-md-5 animated fadeInDown">
+
+        <h3>For organisers:</h3>
+        <p>Send custom push notifications to your attendees with the touch of a button.</p>
+
+      </div>
+
+      <div class="col-md-5 animated fadeInDown">
+
+        <h3>For attendees:</h3> 
+        <p>Keep updated with breaking news and announcements at events.</p>
+
+      </div>
+
+    </div>
+    <div class="cta animated fadeInDown">
+      <a href="#signup" class="button">Sign up free</a>
+      <a href="https://play.google.com/store/apps/details?id=com.hacklondon.notify">
+        <img alt="Get it on Google Play" class="gplay"
+        src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="features">
+  <div class="container">
+    <div class="row header">
+      <div class="col-md-12">
+        <h2>Getting started couldn't be easier.</h2>
+        <p>Sign up in 30 seconds, revolutionise the rest of your life.</p>
+      </div>
+    </div>
+    <div class="row feature">
+      <div class="col-sm-6 info">
+        <h4>Get event notifications straight to your phone.</h4>
+        <p>
+        Receive real-time event updates, like changes of plans, reminders, and announcements on your phone
+        </p>
+      </div>
+    </div>
+    <div class="divider" style="margin-top:0"></div>
+    <div class="row feature backwards">
+      <div class="col-sm-6 info">
+        <h4>Send push notifications to segmented groups of your attendees.</h4>
+        <p>
+        Our slick admin interface let's you send notifications, surveys, and set options like custom event maps
+        </p>
+      </div>
+      <div class="col-sm-6 info">
+        <img style="width: 100%" src="/assets/home_images/admin_panel_screenshot.png">
+      </div>
+      <div class="col-sm-6 ">
+      </div>
+    </div>
+    <!--<div class="divider"></div>-->
+    <!--<div class="row feature">-->
+      <!--<div class="col-sm-6 info">-->
+        <!--<h4>Where's the iOS app?</h4>-->
+        <!--<p>-->
+        <!--We're working on it! Check back later. Windows Phone is also a work-in-progress.-->
+        <!--</p>-->
+      <!--</div>-->
+      <!--<div class="col-sm-6 info">-->
+        <!--<h4>Say hi</h4>-->
+        <!--<p>We'd love to hear your thoughts on Notifsta - <a href="mailto:hi@notifsta.com" target="_top">hi@notifsta.com</a>. </p>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+</div>
+
+<div id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>About</h3>
+        <br>
+        <p>
+        We started Notifsta because we wanted to make the world a better place.
+        <br>
+        We're extremely privileged to be able to help people in the way that we do.
+        <br>
+        <br>
+        Thank you for being part of our journey.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-white">
+  <div class="container">
+    <div class="row credits">
+      <div class="col-md-12">
+       © 2015, Notifsta
+      </div>
+    </div>
+  </div>
+</div>
+</span>
+</span>

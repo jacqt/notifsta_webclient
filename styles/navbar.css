@@ -2,7 +2,32 @@
   background: transparent
 }
 
+.navbar-brand img {
+  margin-top: -5px;
+  height: 30px!important;
+}
+
 .overlay-navbar {
   margin-top:-60px;
   height: 200px;
+}
+
+.pad-top{
+  margin-top:60px;
+  color: black;
+}
+
+.pad-top h1 {
+  color: black;
+}
+
+.navbar a {
+  background: transparent!important;
+}
+.navbar li {
+  background: transparent!important;
+}
+
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+  border-color:black!important;
 }

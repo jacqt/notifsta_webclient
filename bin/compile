@@ -10,4 +10,4 @@ cp bower_components/angular-chart.js/dist/angular-chart.css.map  dist/bower_comp
 mkdir -p dist/bower_components/bootstrap/dist/css
 cp bower_components/bootstrap/dist/css/bootstrap.min.css dist/bower_components/bootstrap/dist/css/bootstrap.min.css 
 cp -R bower_components/bootstrap/dist/fonts dist/bower_components/bootstrap/dist/fonts
-grunt
+grunt --force
