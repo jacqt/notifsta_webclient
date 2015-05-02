@@ -6,7 +6,6 @@
     angular.module('notifsta.controllers').controller('CreateChannel',
         //['$scope', function($scope){}]);
         ['$scope', 'NotifstaHttp', '$cookies',function($scope, NotifstaHttp, $cookies) {
-
         $scope.screen = '';
         $scope.status = '';
         // Need to make 'cmd' a child element of input. The issue is

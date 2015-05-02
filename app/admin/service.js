@@ -1,3 +1,5 @@
+/// <reference path="../../bower_components/angular/angular.js" />
+
 /** Anthony Guo (anthony.guo@some.ox.ac.uk)
  * Model of the admin interface
  */
@@ -6,6 +8,7 @@
     angular.module('notifsta.services').service('EventMonitor', 
         ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs','uiCalendarConfig', service]);
     function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs, uiCalendarConfig){
+        var self = this;
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
 

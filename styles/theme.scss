@@ -408,6 +408,9 @@ body .fus-btns .btn {
 .fus-tab-content > .tab-pane > .row > [class*="col-"].fus-photo img{
   max-width: 400px;
 }
+.fus-tab-content > .tab-pane > .row > [class*="col-"].fus-photo-wide img{
+  max-width: 700px;
+}
 
 .fus-tab-content > .tab-pane > .row > .fus-fullwidth-content {
   text-align: center;
