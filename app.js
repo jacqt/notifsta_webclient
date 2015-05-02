@@ -13,6 +13,7 @@ var app = angular.module('notifsta', [
   'ui.bootstrap.datetimepicker',
 ]);
 
+angular.module('notifsta.controllers', ['notifsta.services']);
 
 app.run(['editableOptions', function (editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'

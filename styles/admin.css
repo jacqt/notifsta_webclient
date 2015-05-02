@@ -24,6 +24,9 @@
   margin-bottom: 15px;
 }
 
+table.fc-header {
+    float:left;
+}
 .timetable-disabled .fc-widget-header + div {
     overflow-y: hidden!important;
 }

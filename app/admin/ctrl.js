@@ -5,7 +5,6 @@
 
 
 (function () {
-    angular.module('notifsta.controllers', ['notifsta.services']);
     angular.module('notifsta.controllers').controller('AdminCtrl',
         ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile',
     function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile) {
