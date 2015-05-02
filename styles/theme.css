@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
 body {
   font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica';
   color: #fff;
@@ -12,10 +12,10 @@ body .navbar.navbar-fixed-top {
 
 body .navbar {
   background: transparent;
-  -webkit-transition: background 0.4s ease;
-  -moz-transition: background 0.4s ease;
-  -o-transition: background 0.4s ease;
-  transition: background 0.4s ease; }
+  -webkit-transition: background .4s ease;
+  -moz-transition: background .4s ease;
+  -o-transition: background .4s ease;
+  transition: background .4s ease; }
 
 body .navbar.fus-navbar-solid {
   background: rgba(58, 146, 215, 0.87); }
@@ -74,10 +74,10 @@ body .btn {
   -webkit-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease; }
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease; }
 
 body .btn:hover {
   background: #404041;
@@ -168,10 +168,10 @@ body .fus-overlay {
   height: 100%;
   background: #3A92D7;
   opacity: 0.15;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease; }
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease; }
 
 body .jumbotron .container {
   display: table;
@@ -301,10 +301,10 @@ body .fus-btns .btn {
   -o-border-radius: 50px;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
-  -webkit-transition: background 0.4s ease;
-  -moz-transition: background 0.4s ease;
-  -o-transition: background 0.4s ease;
-  transition: background 0.4s ease; }
+  -webkit-transition: background .4s ease;
+  -moz-transition: background .4s ease;
+  -o-transition: background .4s ease;
+  transition: background .4s ease; }
 
 .fus-tabs li a .fus-subtitle {
   text-transform: uppercase;
@@ -488,11 +488,11 @@ body .fus-nobtn:hover {
 .fus-about .thumbnail.fus-text-on-top .caption {
   color: white;
   padding-top: 250px;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(90%, rgba(0, 0, 0, 0.69)));
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.69) 90%);
-  background: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.69) 90%);
-  background: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.69) 90%);
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.69) 90%); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, transparent), color-stop(90%, rgba(0, 0, 0, 0.69)));
+  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.69) 90%);
+  background: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.69) 90%);
+  background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.69) 90%);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.69) 90%); }
 
 .fus-about .thumbnail.fus-text-on-top .caption a {
   color: white; }
@@ -572,9 +572,7 @@ body.fus-red .navbar.fus-navbar-solid {
 
 @media (max-width: 768px) {
   body.fus-red .navbar-collapse {
-    background: rgba(215, 58, 64, 0.88); }
- }
-
+    background: rgba(215, 58, 64, 0.88); } }
 /* Yellow */
 body.fus-yellow .fus-overlay, body.fus-yellow .fus-tabs li.active a .glyphicon {
   background: #FFD600;
@@ -598,9 +596,7 @@ body.fus-yellow .navbar.fus-navbar-solid {
 
 @media (max-width: 768px) {
   body.fus-yellow .navbar-collapse {
-    background: rgba(255, 173, 0, 0.93); }
- }
-
+    background: rgba(255, 173, 0, 0.93); } }
 /* Yellow */
 body.fus-green .fus-overlay, body.fus-green .fus-tabs li.active a .glyphicon {
   background: #46C994;
@@ -656,17 +652,13 @@ body.fus-black .navbar.fus-navbar-solid {
 
   body footer {
     background: url("../images/jumbotron.jpg") center center no-repeat;
-    background-size: cover; }
- }
-
+    background-size: cover; } }
 @media (max-width: 500px) {
   body .fus-tab-content > .tab-pane > .row > [class*="col-"].fus-photo img {
     width: 100%; }
 
   body #select-options li:first-child {
-    display: none; }
- }
-
+    display: none; } }
 @media (max-width: 767px) {
   body .navbar-collapse {
     background: rgba(58, 146, 215, 0.87); }
@@ -678,9 +670,7 @@ body.fus-black .navbar.fus-navbar-solid {
     background: rgba(0, 0, 0, 0.43); }
 
   .container {
-    width: 100%; }
- }
-
+    width: 100%; } }
 @media (max-width: 989px) {
   body .navbar-toggle .icon-bar {
     background: #FFF;
@@ -723,7 +713,4 @@ body.fus-black .navbar.fus-navbar-solid {
 
   body footer ul > li > a {
     margin-bottom: 0;
-    display: inline-block; }
- }
-
-/*# sourceMappingURL=theme.css.map */
+    display: inline-block; } }

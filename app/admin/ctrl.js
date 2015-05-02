@@ -208,6 +208,23 @@
 
 
         //CALENDAR
+        $scope.calendar_editable = true;
+        function disable_all_events() {
+            $scope.calendar_editable = false;
+            $scope.data.Event.event_sources.map(function (event_source) {
+                event_source.events.map(function (event) {
+                    event.editable = false;
+                })
+            })
+        }
+        function enable_all_events() {
+            $scope.calendar_editable = true;
+            $scope.data.Event.event_sources.map(function (event_source) {
+                event_source.events.map(function (event) {
+                    event.editable = true;
+                })
+            })
+        }
 
         if ($scope.data.Event.event_sources.length < 2) {
             $scope.data.Event.event_sources = [{
@@ -237,7 +254,31 @@
             });
         }
 
+        $scope.event_editor_popup = {
+            posX: 0,
+        }
+        $scope.timetable_clicked = function (ev) {
+            if (!$scope.calendar_editable) return;
+            console.log(ev);
+            var CALENDAR_LEFT_LABEL_WIDTH = 53;
+            var w = $('.fc-col0').width();
+            var x_offset = $('.fc-col0').offset().left;
+            var x_rel = ev.pageX - x_offset;
+            var x_rel = Math.floor(x_rel / w) * w;
+            console.log(x_rel);
+            if (x_rel - 350 > 0) {
+                $scope.event_editor_popup.posX = x_rel - 400 - 20  + CALENDAR_LEFT_LABEL_WIDTH;
+            } else {
+                $scope.event_editor_popup.posX = x_rel + w + 20 + CALENDAR_LEFT_LABEL_WIDTH;
+            }
+            console.log(ev.pageY);
+            console.log($('.fc-header').offset().top);
+            $scope.event_editor_popup.posY =  ev.pageY - $('.fc-header').offset().top - 670;
+        }
+
+
         $scope.on_day_click = function (date, jsEvent, view) {
+            if (!$scope.calendar_editable) return;
             $scope.partial_subevent = {
                 name: null,
                 description: null,
@@ -256,31 +297,36 @@
         $scope.show_subevent = function () {
             setTimeout(function () {
                 $scope.editing_subevent = true;
+                disable_all_events();
             }, 100);
             $scope.subevent_editor.$show();
         }
         $scope.on_event_click = function (calEvent, jsEvent, view) {
+            if (!$scope.calendar_editable) return;
             $scope.partial_subevent = calEvent;
             $scope.show_subevent();
         }
 
         $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
+            if (!$scope.calendar_editable) return;
             event.end_time = event.end;
             console.log('droppin');
             UpdateSubEvent(event);
         };
 
         $scope.on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
+            if (!$scope.calendar_editable) return;
             UpdateSubEvent(event);
         };
 
         $scope.cancel_subevent_editing = function () {
-            console.log('CANCELING');
+            enable_all_events();
             $scope.editing_subevent = false;
             $scope.data.Event.event_sources[1].events.splice(0, 1);
         }
 
         $scope.save_subevent = function () {
+            enable_all_events();
             if ($scope.partial_subevent.id) {
                 var event = $scope.partial_subevent;
                 event.title = event.name + ' - ' + event.description;

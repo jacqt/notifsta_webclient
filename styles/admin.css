@@ -24,8 +24,10 @@
   margin-bottom: 15px;
 }
 
+.timetable-disabled .fc-widget-header + div {
+    overflow-y: hidden!important;
+}
 .subevent-editor-side {
-  margin-left:98%;
   width:400px!important;
   margin-top:-350px;
   padding-left:15px;

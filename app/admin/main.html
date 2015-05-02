@@ -242,12 +242,18 @@ body {
                 </ul>
               </div>
             </div>
+              {{ mouse.posX }}
             <div class="col-md-12">
               <label> Timetable </label>
             </div>
-            <div ui-calendar="data.Event.uiConfig.calendar" ng-model="data.Event.event_sources" calendar="timetable_c"></div>
+            <div id="timetable_c" ng-click="timetable_clicked($event)" 
+                 ng-class="{'timetable-disabled' : !calendar_editable  }"
+                 ui-calendar="data.Event.uiConfig.calendar"
+                 ng-model="data.Event.event_sources" calendar="timetable_c"></div>
             <div>
-              <div ng-show="editing_subevent" class="slide subevent-editor-side" >
+              <div ng-show="editing_subevent" 
+                   ng-style="{'margin-left': event_editor_popup.posX +  'px', 'margin-top': event_editor_popup.posY + 'px'}" 
+                   class="slide subevent-editor-side" >
                 <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
                   <div>
                     <!-- editable username (text with validation) -->
