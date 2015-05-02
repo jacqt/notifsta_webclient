@@ -83,11 +83,10 @@ p {
 * {
   -webkit-font-smoothing: antialiased !important; }
 
-.split .col-md-5 {
+.split .right {
   border-left: 2px solid white;
-  padding-left: 40px;
-  padding-bottom: 0;
-  margin-right: 20px; }
+  padding-bottom: 15px;
+}
 
 #hero {
   box-shadow: none !important; }
