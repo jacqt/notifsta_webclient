@@ -13,7 +13,6 @@ var app = angular.module('notifsta', [
   'ui.bootstrap.datetimepicker',
 ]);
 
-angular.module('notifsta.controllers', ['notifsta.services']);
 
 app.run(['editableOptions', function (editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -278,11 +277,20 @@ app.directive('ngEnter', function () {
 
 angular.module('notifsta.services', ['ngCookies']);
 
-angular.module('notifsta.controllers', ['ngCookies']);
+angular.module('notifsta.controllers', ['notifsta.services', 'ngCookies']);
 
-angular.module('notifsta').controller('MainController',
+angular.module('notifsta.controllers').controller('MainController',
   ['$scope', 'ImcService', 'NotifstaHttp', 'AuthService',
     function ($scope, ImcService, NotifstaHttp, AuthService, attrs) {
+        $scope.on_homepage = function () {
+            console.log('ok');
+            if (AuthService.GetCredentials().logged_in) {
+                return false;
+            } else {
+                console.log(window.location.hash);
+                return (window.location.hash == '#/');
+            }
+        }
         $scope.data = {};
         $scope.selected_event = null;
         $scope.LoggedIn = function () {

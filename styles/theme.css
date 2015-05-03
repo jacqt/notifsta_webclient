@@ -229,6 +229,9 @@ body .fus-btns .btn {
 .fus-section.fus-white-bg .fus-section-header {
   border-bottom: 1px solid #f1f1f2; }
 
+.fus-pricing .fus-section-header {
+    margin-bottom: 0!important;
+}
 .fus-section .fus-section-header {
   padding: 35px 0;
   margin-bottom: 35px;

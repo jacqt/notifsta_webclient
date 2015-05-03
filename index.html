@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="styles/dashboard.css">
 
     <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/homepage.css">
     <!-- endbuild -->
     <!-- build:js dependencies.js -->
     <!-- JQUERY + MOMENT + BOOTSTRAP-->
@@ -153,7 +154,7 @@
         <!-- ANGULAR INJECTED CODE -->
         <div ng-view class="fade-view"></div>
     </div>
-    <div class="col-md-12 footer">
+    <div class="col-md-12 footer" ng-style="{'display': on_homepage() ? 'none' : 'block'}">
         <ul style="">
             <li>
                 <a href="#contact">Contact Us</a>

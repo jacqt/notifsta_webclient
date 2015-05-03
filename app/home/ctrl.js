@@ -4,7 +4,6 @@
 (function () {
     angular.module('notifsta.controllers').controller('HomeCtrl',
         ['$scope', 'NotifstaHttp', '$cookies', function ($scope, NotifstaHttp, $cookies) {
-
             $("a.scrollto").click(function (e) {
                 e.preventDefault();
                 var el = $($(this).attr("scroll-to"));
