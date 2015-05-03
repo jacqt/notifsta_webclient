@@ -1,358 +1,339 @@
 <style type="text/css">
-
-body {
-  background: rgb(245,245,247);
-}
-
+    body {
+        background: rgb(245,245,247);
+    }
 </style>
 <span id="adminpage">
-  <div class="container-fluid non-homepage">
-    <div class="row header event-header" ng-style="{'background-image':'url('+data.Event.cover_photo_url+')'}">
-      <h1 class="event-title">{{ event.name }}</h1>
-    </div>
-    <div class="row content" style="margin-left: 15px; margin-right: 15px">
-
-      <!-- Creating new notifications -->
-      <div class="col-md-12">
-        <div>
-          <div class="newnotice">
-            <div ng-submit="" class="new-notice-form">
-              <input class="newnoticeinput" 
-              type="text" placeholder="Send a new message or question to your guests!" 
-              ng-model="input.message" 
-              ng-focus="input.focus_notice = true"
-              ng-disabled="selected_none() || loading"></input>
-              <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-            </div>
-          </div>
-
-          <!-- Survey -->
-          <div ng-show="!selected_none() && sending_survey && input.focus_notice " class="slide">
-            <div class="list-group survey-option">
-              <form ng-submit="create_option()" class="list-group-item">
-                <input type="text"
-                class="new-survey-option" 
-                style="width: 100%"
-                placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
-                <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-              </form>
-              <a ng-repeat="option in input.options" 
-                class="list-group-item slide-enter"
-                ng-click="option.editing=true" >
-                <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
-                <input type="text"
-                style="width: 100%; outline: 0"
-                ng-show="option.editing"
-                focus-me="option.editing"
-                ng-model="option.text"
-                ng-blur="finish_editing(option)"
-                ng-enter="finish_editing(option)"> </input>
-              </a>
-            </div>
-          </div>
-
-          <div ng-show="input.focus_notice" 
-            style="margin-top: 10px"
-            class="slide">
-            <button 
-              type="button" class="btn btn-default" 
-              ng-click="create_notification()">
-              Send
-            </button>
-            <button 
-              type="button" class="btn btn-default" 
-              ng-click="input.focus_notice=false"> Cancel </button>
-            <label> Allow Responses </label>
-            <input type="checkbox"
-            style="margin-top: 0px"
-            type="button" class="btn btn-default" 
-            ng-model="sending_survey">
-            </input>
-          </div>
+    <div class="container-fluid non-homepage">
+        <div class="row header event-header" ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%'}">
+            <h1 class="event-title">{{ event.name }}</h1>
         </div>
-      </div>
-        <!-- Stats -->
-        <div class="col-md-12 stats" >
-          <div class="stat actual-stat" style="padding-bottom: 15px">
-            <div class="col-md-4 stat">
-              <div class="stat-text">
-                <span class="stat-number"> 187 </span>
-                <div>
-                  <span class="stat-unit">Total Subscribers</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 stat">
-              <div class="stat-text">
-                <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
-                <div>
-                  <span class="stat-unit">Total Broadcasts</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 stat">
-              <div class="stat-text">
-                <span class="stat-number">55</span>
-                <div>
-                  <span class="stat-unit">Amazing People</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        
-        <div class="two col-xs-8" style="margin-bottom: 15px">
-            <div class="row box-title red">
-              <div class="dropdown" style="float:left">
-                <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
-                </ul>
-              </div>
-              <div style="float:left; margin-left: 15px;">
-                Event Information
-              </div>
-            </div>
-          <div class ="actual-feed-wrapper event-info">
+        <div class="row content" style="margin-left: 15px; margin-right: 15px">
+            <!-- Creating new notifications -->
             <div class="col-md-12">
-              <div>
-                <a href="#" editable-textarea="data.Event.description" e-rows="7" onaftersave="publish_updates()">
-                  <pre style="font-family: inherit">{{ data.Event.description || 'no description' }}</pre>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-            <label> Cover Photo </label>
-            <div>
-              <a editable-text="data.Event.cover_photo_url" e-rows="7" 
-                blur="ignore"
-                class="editable editable-click"
-                style="cursor: pointer"
-                ng-click="cover_photo_editor.$show()"
-                e-form="cover_photo_editor"
-                onhide="cover_photo_toggle();"
-                onshow="cover_photo_toggle()"
-                onaftersave="publish_updates()">
-                {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
-              </a>
-              <div ng-show="editing_cover_photo" class="slide" >
-                <div ngf-drop ng-model="cover_photo_files" class="drop-box" 
-                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                  ngf-accept="'.jpg,.png,'">
-                  Drop Image files (.jpg .png) here
-                </div>
-                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                <button 
-                  class="btn btn-default"
-                  ngf-select 
-                  ng-click="cover_photo_editor.$show()" 
-                  ng-model="cover_photo_files">Choose file</button>
-              </div>
-            </div>
-            </div>
-            <div class="col-md-6">
-              <label> Event Map </label>
-              <div>
-                <a editable-text="data.Event.event_map_url" e-rows="7"
-                  blur="ignore"
-                  class="editable editable-click"
-                  style="cursor: pointer"
-                  ng-click="event_map_editor.$show()"
-                  e-form="event_map_editor"
-                  onhide="map_url_toggle()"
-                  onshow="map_url_toggle()"
-                  onaftersave="publish_updates()">
-                  {{ data.Event.event_map_url  || "Upload an event map now!" }}
-                </a>
-                <div ng-show="editing_map_url" class="slide" >
-                  <div ngf-drop ng-model="event_map_files" class="drop-box" 
-                    ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                    ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
-                  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                  <button
-                    class="btn btn-default"
-                    ngf-select 
-                    ng-model="event_map_files">Choose file</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label> Location Address </label>
-              <div>
-                <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
-                <script type="text/ng-template" id="searchbox.tpl.html">
-  <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
-                </script>
-                <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
-                <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
-                <ui-gmap-marker
-                idKey='1'
-                coords='data.Event.marker.coords'>
-                </ui-gmap-marker>
-                </ui-gmap-google-map>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label> Start time</label>
-              <div class="dropdown">
-                <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="input-group">
-                          <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                <div>
+                    <div class="newnotice">
+                        <div ng-submit="" class="new-notice-form">
+                            <input class="newnoticeinput"
+                                   type="text" placeholder="Send a new message or question to your guests!"
+                                   ng-model="input.message"
+                                   ng-focus="input.focus_notice = true"
+                                   ng-disabled="selected_none() || loading"></input>
+                            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                  <datetimepicker 
-                    data-on-set-time="on_time_set(newDate, oldDate)"
-                    data-ng-model="data.Event.start_time"
-                    data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }"/>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label> End time</label>
-              <div class="dropdown">
-                <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="input-group">
-                          <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <!-- Survey -->
+                    <div ng-show="!selected_none() && sending_survey && input.focus_notice " class="slide">
+                        <div class="list-group survey-option">
+                            <form ng-submit="create_option()" class="list-group-item">
+                                <input type="text"
+                                       class="new-survey-option"
+                                       style="width: 100%"
+                                       placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+                                <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+                            </form>
+                            <a ng-repeat="option in input.options"
+                               class="list-group-item slide-enter"
+                               ng-click="option.editing=true">
+                                <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
+                                <input type="text"
+                                       style="width: 100%; outline: 0"
+                                       ng-show="option.editing"
+                                       focus-me="option.editing"
+                                       ng-model="option.text"
+                                       ng-blur="finish_editing(option)"
+                                       ng-enter="finish_editing(option)"> </input>
+                            </a>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                  <datetimepicker 
-                    data-on-set-time="on_time_set(newDate, oldDate)"
-                    data-ng-model="data.Event.end_time" 
-                    data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }"/>
-                </ul>
-              </div>
+                    <div ng-show="input.focus_notice"
+                         style="margin-top: 10px"
+                         class="slide">
+                        <button type="button" class="btn btn-default"
+                                ng-click="create_notification()">
+                            Send
+                        </button>
+                        <button type="button" class="btn btn-default"
+                                ng-click="input.focus_notice=false">
+                            Cancel
+                        </button>
+                        <label> Allow Responses </label>
+                        <input type="checkbox"
+                               style="margin-top: 0px"
+                               type="button" class="btn btn-default"
+                               ng-model="sending_survey">
+                        </input>
+                    </div>
+                </div>
             </div>
-              {{ mouse.posX }}
-            <div class="col-md-12">
-              <label> Timetable </label>
+            <!-- Stats -->
+            <div class="col-md-12 stats">
+                <div class="stat actual-stat" style="padding-bottom: 15px">
+                    <div class="col-md-4 stat">
+                        <div class="stat-text">
+                            <span class="stat-number"> 187 </span>
+                            <div>
+                                <span class="stat-unit">Total Subscribers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 stat">
+                        <div class="stat-text">
+                            <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
+                            <div>
+                                <span class="stat-unit">Total Broadcasts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 stat">
+                        <div class="stat-text">
+                            <span class="stat-number">55</span>
+                            <div>
+                                <span class="stat-unit">Amazing People</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="timetable_c" ng-click="timetable_clicked($event)" 
-                 ng-class="{'timetable-disabled' : !calendar_editable  }"
-                 ui-calendar="data.Event.uiConfig.calendar"
-                 ng-model="data.Event.event_sources" calendar="timetable_c"></div>
-            <div>
-              <div ng-show="editing_subevent" 
-                   ng-style="{'margin-left': event_editor_popup.posX +  'px', 'margin-top': event_editor_popup.posY + 'px'}" 
-                   class="slide subevent-editor-side" >
-                <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
-                  <div>
-                    <!-- editable username (text with validation) -->
-                    <span class="title">Event name: </span>
-                    <span editable-text="partial_subevent.name" e-name="name" e-required>{{ partial_subevent.name || 'Enter an event name!' }}</span>
-                  </div> 
 
-                  <div>
-                    <span class="title">Description: </span>
-                    <span editable-text="partial_subevent.description" e-name="description" e-required>
-                      {{ partial_subevent.description || 'Enter a description!' }}
-                    </span>
-                  </div>  
+            <div class="two col-xs-8" style="margin-bottom: 15px">
+                <div class="actual-feed-wrapper event-info" style="padding: 0">
+                    <md-tabs md-dynamic-height md-border-bottom class="md-accent">
+                        <md-tab label="general information">
+                            <md-content class="md-padding">
+                                <div class="col-md-12">
+                                    <label> Event Description </label>
+                                    <div>
+                                        <a href="#" editable-text="data.Event.description" onaftersave="publish_updates()">
+                                            {{ data.Event.description || 'no description' }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Cover Photo </label>
+                                    <div>
+                                        <a editable-text="data.Event.cover_photo_url" e-rows="7"
+                                           blur="ignore"
+                                           class="editable editable-click"
+                                           style="cursor: pointer"
+                                           ng-click="cover_photo_editor.$show()"
+                                           e-form="cover_photo_editor"
+                                           onhide="cover_photo_toggle();"
+                                           onshow="cover_photo_toggle()"
+                                           onaftersave="publish_updates()">
+                                            {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
+                                        </a>
+                                        <div ng-show="editing_cover_photo" class="slide">
+                                            <div ngf-drop ng-model="cover_photo_files" class="drop-box"
+                                                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                                                 ngf-accept="'.jpg,.png,'">
+                                                Drop Image files (.jpg .png) here
+                                            </div>
+                                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                            <button class="btn btn-default"
+                                                    ngf-select
+                                                    ng-click="cover_photo_editor.$show()"
+                                                    ng-model="cover_photo_files">
+                                                Choose file
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Event Map </label>
+                                    <div>
+                                        <a editable-text="data.Event.event_map_url" e-rows="7"
+                                           blur="ignore"
+                                           class="editable editable-click"
+                                           style="cursor: pointer"
+                                           ng-click="event_map_editor.$show()"
+                                           e-form="event_map_editor"
+                                           onhide="map_url_toggle()"
+                                           onshow="map_url_toggle()"
+                                           onaftersave="publish_updates()">
+                                            {{ data.Event.event_map_url  || "Upload an event map now!" }}
+                                        </a>
+                                        <div ng-show="editing_map_url" class="slide">
+                                            <div ngf-drop ng-model="event_map_files" class="drop-box"
+                                                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                                                 ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
+                                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                            <button class="btn btn-default"
+                                                    ngf-select
+                                                    ng-model="event_map_files">
+                                                Choose file
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Start time</label>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-on-set-time="on_time_set(newDate, oldDate)"
+                                                            data-ng-model="data.Event.start_time"
+                                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> End time</label>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-on-set-time="on_time_set(newDate, oldDate)"
+                                                            data-ng-model="data.Event.end_time"
+                                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Location Address </label>
+                                    <div>
+                                        <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
+                                        <script type="text/ng-template" id="searchbox.tpl.html">
+                                            <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
+                                        </script>
+                                        <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
+                                            <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+                                            <ui-gmap-marker idkey='1'
+                                                            coords='data.Event.marker.coords'>
+                                            </ui-gmap-marker>
+                                        </ui-gmap-google-map>
+                                    </div>
+                                </div>
 
-                  <div>
-                    <span class="title">Location:</span>
-                    <span editable-text="partial_subevent.location" e-name="location" e-required>
-                      {{ partial_subevent.location || 'Enter a location!' }}
-                    </span>
-                  </div>  
-                  <div>
-                    <span class="title">Start time</span>
-                    <span>
-                      {{ partial_subevent.start_time }}
-                    </span>
-                  </div>  
-                  <div>
-                    <!-- button to show form -->
-                    <button type="button" class="btn btn-default" ng-click="subevent_editor.$show()" ng-show="!subevent_editor.$visible">
-                      Edit
-                    </button>
-                    <!-- buttons to submit / cancel form -->
-                    <span ng-show="subevent_editor.$visible">
-                      <button type="submit" class="btn btn-primary" ng-disabled="subevent_editor.$waiting">
-                        Save
-                      </button>
-                      <button type="button" class="btn btn-default" ng-disabled="subevent_editor.$waiting" ng-click="subevent_editor.$cancel()">
-                        Cancel
-                      </button>
-                    </span>
-                  </div>
-                </form>  
-              </div>
+
+                            </md-content>
+                        </md-tab>
+                        <md-tab label="Timetable" md-on-select="show_calendar($event)">
+                            <md-content class="md-padding">
+                                <div id="timetable_c" ng-click="timetable_clicked($event)"
+                                     ng-class="{'timetable-disabled' : !calendar_editable  }"
+                                     ui-calendar="data.Event.uiConfig.calendar"
+                                     ng-model="data.Event.event_sources" calendar="timetable_c"></div>
+                            </md-content>
+                        </md-tab>
+                    </md-tabs>
+                    <div>
+                        <div ng-show="editing_subevent"
+                             ng-style="{'margin-left': event_editor_popup.posX +  'px', 'margin-top': event_editor_popup.posY + 'px'}"
+                             class="slide subevent-editor-side">
+                            <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
+                                <div>
+                                    <!-- editable username (text with validation) -->
+                                    <span class="title">Event name: </span>
+                                    <span editable-text="partial_subevent.name" e-name="name" e-required>
+                                        {{
+ partial_subevent.name || 'Enter an event name!'
+                                        }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="title">Description: </span>
+                                    <span editable-text="partial_subevent.description" e-name="description" e-required>
+                                        {{ partial_subevent.description || 'Enter a description!' }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="title">Location:</span>
+                                    <span editable-text="partial_subevent.location" e-name="location" e-required>
+                                        {{ partial_subevent.location || 'Enter a location!' }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="title">Start time</span>
+                                    <span>
+                                        {{ partial_subevent.start_time }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <!-- button to show form -->
+                                    <button type="button" class="btn btn-default" ng-click="subevent_editor.$show()" ng-show="!subevent_editor.$visible">
+                                        Edit
+                                    </button>
+                                    <!-- buttons to submit / cancel form -->
+                                    <span ng-show="subevent_editor.$visible">
+                                        <button type="submit" class="btn btn-primary" ng-disabled="subevent_editor.$waiting">
+                                            Save
+                                        </button>
+                                        <button type="button" class="btn btn-default" ng-disabled="subevent_editor.$waiting" ng-click="subevent_editor.$cancel()">
+                                            Cancel
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-          </div>
+            <!-- Feeds -->
+            <div class="two col-xs-4">
+                <div class "slide"
+                     ng-repeat="channel in data.Event.channels"
+                     ng-show="channel.selected">
+                    <div class="actual-feed-wrapper">
+                        <div class="row box-title red">
+                            <div style="float:left; ">
+                                NOTIFICATIONS
+                            </div>
+                        </div>
+                        <div class="actual-feed">
+                            <div clas
+                            <div class="feed-item" ng-repeat="notif in channel.notifications">
+                                <div class="feed-item-text">
+
+
+                                    <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
+                                    <!--<a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
+
+                                </div>
+                                <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                                <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
+                                    <center>
+                                        <p ng-if="notif.number_responses == 0"> No responses yet! </p>
+                                        <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
+                                    </center>
+                                    <canvas class="chart chart-pie"
+                                            height="75%"
+                                            data="notif.responses_pie_chart.data"
+                                            labels="notif.responses_pie_chart.labels"
+                                            legend="true"
+                                            options="options"
+                                            click="onClick"></canvas>
+                                </div>
+                            </div>
+                            <div class="feed-item" ng-show="channel.notifications.length == 0">
+                                <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Feeds -->
-        <div class="two col-xs-4">
-          <div class "slide"
-            ng-repeat="channel in data.Event.channels"
-            ng-show="channel.selected">
-            <div class="actual-feed-wrapper">
-              <div class="row box-title red">
-                <div class="dropdown" style="float:left">
-                  <a  class='icon-click dropdown-toggle' id="dropdownmenu"data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i></a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Invite People</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Rename</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" >Delete</a></li>
-                  </ul>
-                </div>
-                <div style="float:left; margin-left: 15px;">
-                  {{ channel.name }} - {{ channel.number_of_subscribers }}
-                </div>
-              </div>
-              <div class="actual-feed">
-
-                <div class="feed-item" ng-repeat="notif in channel.notifications">
-                  <div class="feed-item-text">
-                    <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
-                    <!--<a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
-                  </div>
-                  <div class="feed-item-text">{{ notif.notification_guts }}</div>
-                  <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
-                    <center>
-                      <p ng-if="notif.number_responses == 0"> No responses yet! </p>
-                      <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
-                    </center>
-                    <canvas 
-                      class="chart chart-pie" 
-                      height="75%"
-                      data="notif.responses_pie_chart.data"
-                      labels="notif.responses_pie_chart.labels"
-                      legend="true" 
-                      options="options"
-                      click="onClick">
-                    </canvas>  
-                  </div>
-
-                </div>
-                <div class="feed-item" ng-show="channel.notifications.length == 0">
-                  <div class="feed-item-text"> It's lonely in here - send a message now! </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </span>

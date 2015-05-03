@@ -4,7 +4,13 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic);
 *:focus {
   outline: 0; }
+md-input-container.editable-controls {
+  padding: 0;
+}
 
+md-input-container.editable-controls [ng-message] {
+  position: static;
+}
 @font-face {
   font-family: 'Avenir-Heavy';
   src: url("Avenir-Heavy.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/Avenir-Heavy.woff") format("woff"), url("/assets/fonts/Avenir-Heavy.ttf") format("truetype"), url("/assets/fonts/Avenir-Heavy.svg#Avenir-Heavy") format("svg");

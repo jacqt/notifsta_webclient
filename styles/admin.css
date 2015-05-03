@@ -1,8 +1,23 @@
+.notifsta md-content {
+  background-color: transparent !important; }
+  .notifsta md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; }
+    .notifsta md-content md-tabs md-tabs-canvas {
+      background: white; }
+  .notifsta md-content h1:first-child {
+    margin-top: 0; }
+
 .event-title {
   margin-top:80px!important;
   text-align:left;
   margin-left: 20% !important;
   color: white!important;
+}
+
+.container-fluid {
+    padding-left:0px;
+    padding-right:0px;
 }
 
 .event-info .col-md-12{
@@ -15,10 +30,19 @@
 .event-info .col-md-12 label{
   margin-left: 0px;
 }
+md-tabs-ink-bar {
+    height: 3px;
+    background: rgb(187, 230, 255) !important;
+}
 
 .red {
-  background: lightcoral; 
+  background: #da4e4e!important; 
 }
+
+.md-header-items {
+  background: #da4e4e!important; 
+}
+
 .event-header {
   height: 200px;
   margin-bottom: 15px;
@@ -27,8 +51,11 @@
 table.fc-header {
     float:left;
 }
-.timetable-disabled .fc-widget-header + div {
-    overflow-y: hidden!important;
+.fc-scroller {
+}
+
+.md-tab-content {
+    height: auto!important;
 }
 .subevent-editor-side {
   width:400px!important;
@@ -37,31 +64,34 @@ table.fc-header {
   padding-top:15px;
   padding-bottom:15px;
   background: white;
-  border-radius: 5px;
+  border-radius: 2px;
   border: 0;
   -webkit-font-smoothing: antialiased;
   font-size: 1em;
   width: 100%;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
   border: 1px solid grey;
   z-index:100;
   position:absolute;
 }
+.subevent-editor-side div {
+    padding-bottom: 5px;
+}
 
-.subevent-editor-side .editable-controls{
+/*.subevent-editor-side .editable-controls{
   padding-right:15px!important;
 }
 .subevent-editor-side form{
   margin-bottom:0px !important;
-}
+}*/
 
 .datetimepicker {
   width:350px!important
 }
 
 .shaded-border {
-  border-radius: 7px;
+  border-radius: 2px;
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
@@ -118,7 +148,7 @@ b {
 
 .selected { 
     border: 1px solid grey;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 * {
@@ -157,7 +187,7 @@ b {
     color: gray;
     width: 100%;
     outline: 0;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 .newnoticeinput {
@@ -166,7 +196,7 @@ b {
     font-size: 1.4em;
     width: 100%;
     height: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
     padding-left: 30px;
     outline: 0;
 }
@@ -181,12 +211,12 @@ b {
     background: white;
     color: gray;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
     border: 0;
     -webkit-font-smoothing: antialiased;
     font-size: 1em;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
     height:55px;
     text-align:center;
     font-size: 1.4em;
@@ -198,14 +228,18 @@ b {
     padding:15px;
     background: white;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
     border: 0;
     -webkit-font-smoothing: antialiased;
     font-size: 1em;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
+
+.event-info label {
+    margin-top: 10px;
+}
 .event-info .editable-controls textarea  {
   width: 100%;
 }
@@ -273,8 +307,8 @@ label {
     border-bottom-right-radius: 0px;
     background: gray; }
   #adminpage .sidepanel-wrapper {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2); }
@@ -321,14 +355,14 @@ label {
   #adminpage .actual-stat {
     width: 100%;
     min-height: 80px;
-    border-radius: 7px;
+    border-radius: 2px;
     background: white;
     text-align: center; }
   #adminpage .stat-icon {
     width: 60px;
     height: 60px;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
     display: inline-block;
     float: left; }
   #adminpage .stat-icon .icon {
@@ -378,29 +412,29 @@ label {
   #adminpage .actual-feed {
     background: white; }
   #adminpage .actual-feed-wrapper {
-    border-radius: 7px;
+    border-radius: 2px;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2); }
   #adminpage .actual-feed:last-child {
-    border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px; }
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px; }
   #adminpage .dropdown a, #adminpage .dropdown a:hover {
     color: white; }
   #adminpage .survey-option {
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 7px; }
+    border-radius: 2px; }
     #adminpage .survey-option .list-group-item:first-child {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px; }
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px; }
   #adminpage input.new-survey-option {
     border: 0;
     outline: 0; }
   #adminpage .survey-option .list-group-item:last-child {
-    border-bottom-left-radius: 5px !important;
-    border-bottom-right-radius: 5px !important; }
+    border-bottom-left-radius: 2px !important;
+    border-bottom-right-radius: 2px !important; }
   #adminpage .box-title {
     width: 100%;
     margin: 0;
@@ -409,6 +443,6 @@ label {
     padding-left: 20px;
     -webkit-font-smoothing: antialiased;
     font-family: 'Tahoma';
-    height: 40px;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px; }
+    height: 50px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; }

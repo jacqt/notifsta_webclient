@@ -2,6 +2,10 @@
     display: none;
 }
 
+#pricing .fus-section-header {
+    margin-bottom: 0 !important;
+}
+
 #seen-on {
     /*display: none;*/
 }

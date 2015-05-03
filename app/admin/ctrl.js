@@ -6,8 +6,8 @@
 
 (function () {
     angular.module('notifsta.controllers').controller('AdminCtrl',
-        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile',
-    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile) {
+        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile', 'uiCalendarConfig',
+    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event = {
@@ -185,7 +185,7 @@
         $scope.GetNotifResponses = event_monitor.GetNotifResponses;
 
         /* GOOGLE MAPS */
-        $scope.options = { scrollwheel: false };
+        $scope.options = { scrollwheel: false, draggable: false };
         var events = {
             places_changed: function (searchBox) {
                 var places = searchBox.getPlaces();
@@ -228,13 +228,13 @@
         if ($scope.data.Event.event_sources.length < 2) {
             $scope.data.Event.event_sources = [{
                 events: [],
-                color: 'darkorange',   // an option!
+                color: '#da4e4e',   // an option!
                 textColor: 'white' // an option!
             }, {
                 events: [],
                 color: 'white',
                 textColor: 'black',
-                borderColor: 'orange'
+                borderColor: 'red'
             }]
         }
 
@@ -256,23 +256,45 @@
         $scope.event_editor_popup = {
             posX: 0,
         }
+
+        //Super bad hack that we need.
+        //Keep trying to render the calendar 
+        //This is needed because the FullCalendar library does not render calendars that are not visible! 
+        var __c = 0;
+        $scope.show_calendar = function () {
+            setTimeout(function () {
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+                //Referesh the event sources
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[0]);
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[0]);
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[1]);
+                uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[1]);
+                if (__c < 5) {
+                    //$scope.show_calendar();
+                    ++__c;
+                } 
+
+            }, 400);
+        }
         $scope.timetable_clicked = function (ev) {
             if (!$scope.calendar_editable) return;
             console.log(ev);
             var CALENDAR_LEFT_LABEL_WIDTH = 53;
-            var w = $('.fc-col0').width();
-            var x_offset = $('.fc-col0').offset().left;
+            var w = $('.fc-day').width();
+            var x_offset = 117;//$('.fc-widget-content').offset().left;
             var x_rel = ev.pageX - x_offset;
             var x_rel = Math.floor(x_rel / w) * w;
+            console.log(ev.pageX);
             console.log(x_rel);
             if (x_rel - 350 > 0) {
-                $scope.event_editor_popup.posX = x_rel - 400 - 20  + CALENDAR_LEFT_LABEL_WIDTH;
+                $scope.event_editor_popup.posX = x_rel - 400 + 20  + CALENDAR_LEFT_LABEL_WIDTH;
             } else {
-                $scope.event_editor_popup.posX = x_rel + w + 20 + CALENDAR_LEFT_LABEL_WIDTH;
+                $scope.event_editor_popup.posX = x_rel + w + 40 + CALENDAR_LEFT_LABEL_WIDTH;
             }
             console.log(ev.pageY);
-            console.log($('.fc-header').offset().top);
-            $scope.event_editor_popup.posY =  ev.pageY - $('.fc-header').offset().top - 670;
+            console.log($('.fc-center').offset().top);
+            $scope.event_editor_popup.posY =  ev.pageY - $('.fc-center').offset().top - 800;
         }
 
 
@@ -355,7 +377,8 @@
         }
 
         ImcService.AddHandler('event_loaded ' + $scope.event.id, function (data) {
-            $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+            console.log(uiCalendarConfig)
+            uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
         });
 
         if ($scope.data.Event.start_time) {

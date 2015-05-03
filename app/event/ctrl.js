@@ -14,6 +14,7 @@
         }
         var TIMEOUT = 1 * 1000;
 
+        $scope.options = { scrollwheel: false, draggable: false };
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.NON_ADMIN_MONITOR);
 
         //Data binding for new notifications

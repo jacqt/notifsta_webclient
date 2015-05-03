@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" />
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="styles/admin.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.min.css" />
-    <link rel="stylesheet" href="bower_components/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
     <link rel="stylesheet" href="styles/dashboard.css">
 
     <link rel="stylesheet" href="styles/theme.css">
@@ -26,7 +27,7 @@
     <!-- endbuild -->
     <!-- build:js dependencies.js -->
     <!-- JQUERY + MOMENT + BOOTSTRAP-->
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -46,11 +47,13 @@
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
     <script src="bower_components/angularjs-toaster/toaster.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
 
     <!-- ANGULAR UI CALENDAR -->
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-    <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
-    <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal"></script>
 
     <!--FACEBOOK ANGULAR SDK-->
     <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
@@ -100,7 +103,7 @@
     <!-- endbuild -->
 
 </head>
-<body ng-controller="MainController" class="fus-red">
+<body ng-controller="MainController" class="fus-red" style="height: auto">
     <toaster-container></toaster-container>
     <!-- HEADER AND NAVBAR -->
     <span class="theme-css">

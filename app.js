@@ -9,13 +9,23 @@ var app = angular.module('notifsta', [
   'uiGmapgoogle-maps',
   'ngFileUpload',
   'toaster',
+  'ngMaterial',
   'ui.calendar',
   'ui.bootstrap.datetimepicker',
 ]);
+app.run(['editableOptions', 'editableThemes', function(editableOptions, editableThemes) {
+  editableThemes['angular-material'] = {
+    formTpl:      '<form class="editable-wrap"></form>',
+    noformTpl:    '<span class="editable-wrap"></span>',
+    controlsTpl:  '<md-input-container placeholder="asdf" class="editable-controls" ng-class="{\'md-input-invalid\': $error}"></md-input-container>',
+    inputTpl:     '',
+    errorTpl:     '<div ng-messages="{message: $error}"><div class="editable-error" ng-message="message">{{$error}}</div></div>',
+    buttonsTpl:   '<span class="editable-buttons"></span>',
+    submitTpl:    '<md-button type="submit" class="md-primary">save</md-button>',
+    cancelTpl:    '<md-button type="button" class="md-warn" ng-click="$form.$cancel()">cancel</md-button>'
+  };
 
-
-app.run(['editableOptions', function (editableOptions) {
-    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+  editableOptions.theme = 'bs3';
 }]);
 
 app.config(['FacebookProvider', function (FacebookProvider) {
@@ -283,11 +293,9 @@ angular.module('notifsta.controllers').controller('MainController',
   ['$scope', 'ImcService', 'NotifstaHttp', 'AuthService',
     function ($scope, ImcService, NotifstaHttp, AuthService, attrs) {
         $scope.on_homepage = function () {
-            console.log('ok');
             if (AuthService.GetCredentials().logged_in) {
                 return false;
             } else {
-                console.log(window.location.hash);
                 return (window.location.hash == '#/');
             }
         }
