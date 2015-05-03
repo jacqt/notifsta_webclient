@@ -287,7 +287,7 @@ app.directive('ngEnter', function () {
 
 angular.module('notifsta.services', ['ngCookies']);
 
-angular.module('notifsta.controllers', ['notifsta.services', 'ngCookies']);
+angular.module('notifsta.controllers', ['notifsta.services', 'ngCookies', 'ngFileUpload']);
 
 angular.module('notifsta.controllers').controller('MainController',
   ['$scope', 'ImcService', 'NotifstaHttp', 'AuthService',

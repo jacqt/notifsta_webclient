@@ -10,6 +10,18 @@
     function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
+        $scope.cover_photo_files = [];
+        $scope.event_map_files = [];
+        $scope.temp = {};
+        $scope.revert_changes = function () {
+            if ($scope.temp.event_map_url) {
+                $scope.data.Event.event_map_url = $scope.temp.event_map_url;
+            }
+            if ($scope.temp.cover_photo_url) {
+                $scope.data.Event.cover_photo_url = $scope.temp.cover_photo_url;
+            }
+            $scope.temp = {};
+        }
         $scope.event = {
             name: $routeParams.event_name,
             id: $routeParams.event_id
@@ -59,6 +71,7 @@
         }
 
         $scope.publish_updates = function () {
+            $scope.temp = {};
             var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
             promise.success(function (e) {
                 if (e.status == 'success') {
@@ -88,10 +101,11 @@
 
         $scope.$watch('cover_photo_files', function () {
             $scope.upload($scope.cover_photo_files, function (data) {
+                console.log(data);
                 if (data) {
+                    $scope.temp.cover_photo_url = $scope.data.Event.cover_photo_url;
                     $scope.data.Event.cover_photo_url = data.Location;
-                    $scope.cover_photo_editor.$hide();
-                    $scope.publish_updates();
+                    $scope.loading = false;
                 }
             });
         });
@@ -99,19 +113,22 @@
         $scope.$watch('event_map_files', function () {
             $scope.upload($scope.event_map_files, function (data) {
                 if (data) {
+                    $scope.temp.event_map_url = $scope.data.Event.event_map_url;
                     $scope.data.Event.event_map_url = data.Location;
-                    $scope.event_map_editor.$hide();
-                    $scope.publish_updates();
+                    $scope.loading = false;
                 }
             });
         });
 
         var bucket = new AWS.S3({ params: { Bucket: 'notifsta' } });
         $scope.upload = function (files, cb) {
+            console.log(files);
+            console.log('HELP ME PLS');
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     var params = { Key: file.name, ContentType: file.type, Body: file };
+                    $scope.loading = true;
                     bucket.upload(params, function (err, data) {
                         console.log(data);
                         cb(data);

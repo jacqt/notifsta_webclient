@@ -1,3 +1,7 @@
+.load-block {
+    opacity: 0.5;
+}
+
 .notifsta md-content {
   background-color: transparent !important; }
   .notifsta md-content md-tabs {

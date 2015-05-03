@@ -5,7 +5,7 @@
 </style>
 <span id="adminpage">
     <div class="container-fluid non-homepage">
-        <div class="row header event-header" 
+        <div class="row header event-header"
              ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
@@ -119,13 +119,15 @@
                                            style="cursor: pointer"
                                            ng-click="cover_photo_editor.$show()"
                                            e-form="cover_photo_editor"
+                                           e-ng-model="data.Event.cover_photo_url"
                                            onhide="cover_photo_toggle();"
                                            onshow="cover_photo_toggle()"
+                                           oncancel="revert_changes()"
                                            onaftersave="publish_updates()">
                                             {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
                                         </a>
-                                        <div ng-show="editing_cover_photo" class="slide">
-                                            <div ngf-drop ng-model="cover_photo_files" class="drop-box"
+                                        <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
+                                            <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
                                                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                                  ngf-accept="'.jpg,.png,'">
                                                 Drop Image files (.jpg .png) here
@@ -133,8 +135,9 @@
                                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                                             <button class="btn btn-default"
                                                     ngf-select
+                                                    ng-disabled="loading"
                                                     ng-click="cover_photo_editor.$show()"
-                                                    ng-model="cover_photo_files">
+                                                    ng-model="$parent.cover_photo_files">
                                                 Choose file
                                             </button>
                                         </div>
@@ -149,19 +152,22 @@
                                            style="cursor: pointer"
                                            ng-click="event_map_editor.$show()"
                                            e-form="event_map_editor"
+                                           e-ng-model="data.Event.event_map_url"
                                            onhide="map_url_toggle()"
                                            onshow="map_url_toggle()"
+                                           oncancel="revert_changes()"
                                            onaftersave="publish_updates()">
                                             {{ data.Event.event_map_url  || "Upload an event map now!" }}
                                         </a>
-                                        <div ng-show="editing_map_url" class="slide">
-                                            <div ngf-drop ng-model="event_map_files" class="drop-box"
+                                        <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
+                                            <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
                                                  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                                  ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
                                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                                             <button class="btn btn-default"
                                                     ngf-select
-                                                    ng-model="event_map_files">
+                                                    ng-disabled="loading"
+                                                    ng-model="$parent.event_map_files">
                                                 Choose file
                                             </button>
                                         </div>
