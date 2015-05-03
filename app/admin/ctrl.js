@@ -260,19 +260,19 @@
         //Super bad hack that we need.
         //Keep trying to render the calendar 
         //This is needed because the FullCalendar library does not render calendars that are not visible! 
-        var __c = 0;
+        var first_time = true;
         $scope.show_calendar = function () {
             setTimeout(function () {
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
-                //Referesh the event sources
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[0]);
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[0]);
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[1]);
-                uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[1]);
-                if (__c < 5) {
-                    //$scope.show_calendar();
-                    ++__c;
+                console.log(uiCalendarConfig.calendars.timetable_c);
+                if (first_time ){
+                    //Referesh the event sources
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[0]);
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[0]);
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[1]);
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[1]);
+                    first_time = false;
                 } 
 
             }, 400);
