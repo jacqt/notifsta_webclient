@@ -26,56 +26,102 @@ body {
               <button 
                 ng-click="go_create_event()"
                 class="btn btn-success btn-lg creating-event-button"> Create an event now! </button>
-              <button 
+              <!--<button 
                 ng-click="say_sorry()"
                 class="btn btn-info btn-lg creating-event-button"> Browse available events </button>
-            </center>
+            </center>-->
           </div>
         </div>
         <table class="dashboard-events col-md-12">
           <tr>
-            <td style="border-right: 1px solid lightgrey; ">
-              <h1>Events you run:</h1>
+              <td style="border-right: 1px solid lightgrey; ">
+                  <h1>Events you run:</h1>
 
-              <div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && event.admin" class="event-outer">
+                  <div ng-repeat="event in data.user.events" ng-show="LoggedIn() && event.admin" class="event-outer">
 
-                <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}" >
-                  <div class="event-image"ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
+                      <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}">
+                          <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
 
-                    {{event.name}}
+                              {{event.name}}
 
-                </div></a>
+                          </div>
+                      </a>
 
-                <div class="event-content">
+                      <div class="event-content">
+                          <table>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-info-sign"></i>
+                                  </td>
+                                  <td>
+                                      <div style="height: auto" data-ng-bind="event.description"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-calendar"></i>
+                                  </td>
+                                  <td>
+                                      <div ng-bind="get_date(event.start_time)"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-map-marker"></i>
+                                  </td>
+                                  <td>
+                                      <div data-ng-bind="event.address" class="ellipsis"></div>
+                                  </td>
+                              </tr>
+                          </table>
 
-                  <center>	{{event.start_time | date:'longDate'}}</center>
-                  <br>
-                  {{ event.description }} <br/>
-
-                </div>
-              </div>
-            </td>
+                      </div>
+                  </div>
+              </td>
 
 
-            <td>
-              <h1>Events you've attended:</h1>
+              <td>
+                  <h1>Events you've attended:</h1>
 
-              <div ng-repeat = "event in data.user.events" ng-show="LoggedIn() && !event.admin" class="event-outer">
+                  <div ng-repeat="event in data.user.events" ng-show="LoggedIn() && !event.admin" class="event-outer">
 
-                <a ng-href="#/event/{{event.name}}?event_id={{event.id}}">
-                  <div class="event-image"ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
-                    {{event.name}}
+                      <a ng-href="#/event/{{event.name}}?event_id={{event.id}}">
+                          <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
+                              {{event.name}}
 
-                </div></a>
+                          </div>
+                      </a>
 
-                <div class="event-content">
-
-                  <center>	{{event.start_time | date:'longDate'}}</center>
-                  <br>
-                  {{ event.description }}
-                </div>
-              </div>
-            </td>
+                      <div class="event-content">
+                          <table>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-info-sign"></i>
+                                  </td>
+                                  <td>
+                                      <div style="height: auto" data-ng-bind="event.description"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-calendar"></i>
+                                  </td>
+                                  <td>
+                                      <div ng-bind="get_date(event.start_time)"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="width:10px; padding-left: 0; padding-right:0">
+                                      <i class="glyphicon glyphicon-map-marker"></i>
+                                  </td>
+                                  <td>
+                                      <div data-ng-bind="event.address" class="ellipsis"></div>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+              </td>
           </tr>
         </table>
 
