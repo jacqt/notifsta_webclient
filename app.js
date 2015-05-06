@@ -283,6 +283,7 @@ angular.module('notifsta.controllers').controller('MainController',
                         window.location = '#logout';
 
                     }
+                    console.log(result.data);
                 });
                 promise.error(function () {
                     window.location = '#logout';

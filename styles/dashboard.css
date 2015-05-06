@@ -1,6 +1,24 @@
+.event-box-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .dashboard-events {
   margin-top: 25px;
 }
+
+.event-status {
+    height: 40px;
+    padding : 5px;
+}
+
+.event-status i {
+    color: green;
+}
+
+.event-status div {
+}
+
 .dashboard-events td {
   padding: 15px;
   vertical-align: top;
@@ -28,3 +46,61 @@
   font-size: 130%;
   line-height: 1.5;
 }
+
+.label-icon {
+    width:10px;
+    padding-left: 0;
+    padding-right:5px;
+    vertical-align:top;
+}
+#dashboardpage h1 {
+  font-family: 'Avenir-Medium';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.4em;
+  margin-bottom: 0px; }
+#dashboardpage .event-outer {
+   float: left;
+  display: inline-block;
+  width: 270px;
+  margin-right: 12px;
+  margin-left: 12px;
+  margin-top: 25px;
+  height: 270px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2); }
+#dashboardpage .event-image {
+  width: 100%;
+  height: 70px;
+  background: url("https://chrisneillsdirtykitchen.files.wordpress.com/2013/04/london-at-night.jpg");
+  background-size: cover;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  color: white;
+  font-family: 'Avenir-Medium';
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.6em;
+  text-align: center;
+  padding-top: 20px; }
+  #dashboardpage .event-image a {
+    color: white; }
+#dashboardpage .event-content {
+  width: 100%;
+  height: 160px;
+  background: white;
+  font-family: 'Avenir-Medium';
+  -webkit-font-smoothing: antialiased;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  overflow: auto;
+  color: #787878; }
+#dashboardpage .category {
+  color: #3c3c3c; }

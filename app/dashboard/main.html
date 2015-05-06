@@ -1,132 +1,131 @@
 <style type="text/css">
-
-body {
-  background: rgb(245,245,247);
-}
-
+    body {
+        background: rgb(245,245,247);
+    }
 </style>
 <span id="dashboardpage">
 
-  <div class="container pad-top non-homepage">
+    <div class="container pad-top non-homepage">
 
-    <div class="row">
+        <div class="row">
 
-      <!--<div class="col-md-2">-->
+            <!--<div class="col-md-2">-->
+            <!--</div>-->
 
+            <div>
 
-      <!--</div>-->
+                <div class="dashboard-info col-md-12">
+                    <div class="actual-feed-wrapper event-info shaded-border">
+                        <h1> Weclome to Notifsta! </h1>
+                        <h3> We're excited to have you with us! <br />We're still working on all our features right now - if you've got any ideas or bug reports please email us at hi@notifsta.com!</h3>
+                        <center>
+                            <button ng-click="go_create_event()"
+                                    class="btn btn-success btn-lg creating-event-button">
+                                Create an event now!
+                            </button>
+                    </div>
+                </div>
+                <h1> Events </h1>
+                <div class="event-box-group">
 
-      <div >
+                    <div ng-repeat="event in events.subscribed" class="event-outer">
 
-        <div class="dashboard-info col-md-12">
-          <div class ="actual-feed-wrapper event-info shaded-border">
-            <h1> Weclome to Notifsta! </h1>
-            <h3> We're excited to have you with us! <br />We're still working on all our features right now - if you've got any ideas or bug reports please email us at hi@notifsta.com!</h3>
-            <center>
-              <button 
-                ng-click="go_create_event()"
-                class="btn btn-success btn-lg creating-event-button"> Create an event now! </button>
-              <!--<button 
-                ng-click="say_sorry()"
-                class="btn btn-info btn-lg creating-event-button"> Browse available events </button>
-            </center>-->
-          </div>
+                        <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}">
+                            <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
+
+                                {{event.name}}
+
+                            </div>
+                        </a>
+
+                        <div class="event-content">
+                            <table>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </td>
+                                    <td>
+                                        <div style="height: auto" data-ng-bind="event.description"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </td>
+                                    <td>
+                                        <div ng-bind="get_date(event.start_time)"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                    </td>
+                                    <td>
+                                        <div data-ng-bind="event.address" class="ellipsis"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="event-status">
+                            <div ng-show="LoggedIn() && event.admin">
+                                <i class="glyphicon glyphicon-user"></i>
+                                OWNER
+                            </div>
+                            <div ng-show="LoggedIn() && !event.admin">
+                                <button class="btn btn-default" ng-click="unsubscribe_to_event(event)">
+                                    Unsubscribe
+                                </button>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                SUBSCRIBED
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="event in events.not_subscribed" ng-show="LoggedIn() && !event.admin" class="event-outer">
+
+                        <!--<a ng-href="#/event/{{event.name}}?event_id={{event.id}}">
+                        </a>-->
+
+                        <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
+                            {{event.name}}
+                        </div>
+                        <div class="event-content">
+                            <table>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </td>
+                                    <td>
+                                        <div style="height: auto" data-ng-bind="event.description"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </td>
+                                    <td>
+                                        <div ng-bind="get_date(event.start_time)"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-icon">
+                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                    </td>
+                                    <td>
+                                        <div data-ng-bind="event.address" class="ellipsis"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="event-status">
+                            <button class="btn btn-default" ng-click="subscribe_to_event(event)">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        <table class="dashboard-events col-md-12">
-          <tr>
-              <td style="border-right: 1px solid lightgrey; ">
-                  <h1>Events you run:</h1>
 
-                  <div ng-repeat="event in data.user.events" ng-show="LoggedIn() && event.admin" class="event-outer">
-
-                      <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}">
-                          <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
-
-                              {{event.name}}
-
-                          </div>
-                      </a>
-
-                      <div class="event-content">
-                          <table>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-info-sign"></i>
-                                  </td>
-                                  <td>
-                                      <div style="height: auto" data-ng-bind="event.description"></div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-calendar"></i>
-                                  </td>
-                                  <td>
-                                      <div ng-bind="get_date(event.start_time)"></div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-map-marker"></i>
-                                  </td>
-                                  <td>
-                                      <div data-ng-bind="event.address" class="ellipsis"></div>
-                                  </td>
-                              </tr>
-                          </table>
-
-                      </div>
-                  </div>
-              </td>
-
-
-              <td>
-                  <h1>Events you've attended:</h1>
-
-                  <div ng-repeat="event in data.user.events" ng-show="LoggedIn() && !event.admin" class="event-outer">
-
-                      <a ng-href="#/event/{{event.name}}?event_id={{event.id}}">
-                          <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
-                              {{event.name}}
-
-                          </div>
-                      </a>
-
-                      <div class="event-content">
-                          <table>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-info-sign"></i>
-                                  </td>
-                                  <td>
-                                      <div style="height: auto" data-ng-bind="event.description"></div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-calendar"></i>
-                                  </td>
-                                  <td>
-                                      <div ng-bind="get_date(event.start_time)"></div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td style="width:10px; padding-left: 0; padding-right:0">
-                                      <i class="glyphicon glyphicon-map-marker"></i>
-                                  </td>
-                                  <td>
-                                      <div data-ng-bind="event.address" class="ellipsis"></div>
-                                  </td>
-                              </tr>
-                          </table>
-                      </div>
-                  </div>
-              </td>
-          </tr>
-        </table>
-
-      </div>
-
-    </div>
-
-  </span>
+</span>

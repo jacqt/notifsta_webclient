@@ -26,6 +26,7 @@
             }
         }
 
+
         $scope.submit_option = function(notif, channel_id){
             var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.new_option_id);
             promise.success(function(resp){
