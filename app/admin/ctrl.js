@@ -358,7 +358,7 @@
                 allDay: false
             });
 
-            $scope.show_subevent();
+            show_subevent();
         };
 
         var show_subevent = function () {
