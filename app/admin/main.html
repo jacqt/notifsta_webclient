@@ -12,7 +12,7 @@
         <div class="row content" style="margin-left: 15px; margin-right: 15px">
             <!-- Creating new notifications -->
             <div class="col-md-12">
-                <div>
+                <div class="">
                     <div class="newnotice">
                         <div ng-submit="" class="new-notice-form">
                             <input class="newnoticeinput"
@@ -24,46 +24,48 @@
                         </div>
                     </div>
                     <!-- Survey -->
-                    <div ng-show="!selected_none() && sending_survey && input.focus_notice " class="slide">
-                        <div class="list-group survey-option">
-                            <form ng-submit="create_option()" class="list-group-item">
-                                <input type="text"
-                                       class="new-survey-option"
-                                       style="width: 100%"
-                                       placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
-                                <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
-                            </form>
-                            <a ng-repeat="option in input.options"
-                               class="list-group-item slide-enter"
-                               ng-click="option.editing=true">
-                                <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
-                                <input type="text"
-                                       style="width: 100%; outline: 0"
-                                       ng-show="option.editing"
-                                       focus-me="option.editing"
-                                       ng-model="option.text"
-                                       ng-blur="finish_editing(option)"
-                                       ng-enter="finish_editing(option)"> </input>
-                            </a>
+                    <div>
+                        <div ng-show="!selected_none() && sending_survey && input.focus_notice " class="slide">
+                            <div class="list-group survey-option">
+                                <form ng-submit="create_option()" class="list-group-item">
+                                    <input type="text"
+                                           class="new-survey-option"
+                                           style="width: 100%"
+                                           placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+                                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+                                </form>
+                                <a ng-repeat="option in input.options"
+                                   class="list-group-item slide-enter"
+                                   ng-click="option.editing=true">
+                                    <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
+                                    <input type="text"
+                                           style="width: 100%; outline: 0"
+                                           ng-show="option.editing"
+                                           focus-me="option.editing"
+                                           ng-model="option.text"
+                                           ng-blur="finish_editing(option)"
+                                           ng-enter="finish_editing(option)"> </input>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div ng-show="input.focus_notice"
-                         style="margin-top: 10px"
-                         class="slide">
-                        <button type="button" class="btn btn-default"
-                                ng-click="create_notification()">
-                            Send
-                        </button>
-                        <button type="button" class="btn btn-default"
-                                ng-click="input.focus_notice=false">
-                            Cancel
-                        </button>
-                        <label> Allow Responses </label>
-                        <input type="checkbox"
-                               style="margin-top: 0px"
-                               type="button" class="btn btn-default"
-                               ng-model="sending_survey">
-                        </input>
+                        <div ng-show="input.focus_notice"
+                             style="margin-top: 10px"
+                             class="slide">
+                            <button type="button" class="btn btn-default"
+                                    ng-click="create_notification()">
+                                Send
+                            </button>
+                            <button type="button" class="btn btn-default"
+                                    ng-click="input.focus_notice=false">
+                                Cancel
+                            </button>
+                            <label> Allow Responses </label>
+                            <input type="checkbox"
+                                   style="margin-top: 0px"
+                                   type="button" class="btn btn-default"
+                                   ng-model="sending_survey">
+                            </input>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -235,8 +237,9 @@
                             </md-content>
                         </md-tab>
                         <md-tab label="Timetable" md-on-select="show_calendar($event)">
-                            <md-content class="md-padding">
+                            <md-content class="md-padding" style="padding-bottom: 20px">
                                 <div id="timetable_c" ng-click="timetable_clicked($event)"
+                                     style="padding-bottom:30px"
                                      ng-class="{'timetable-disabled' : !calendar_editable  }"
                                      ui-calendar="data.Event.uiConfig.calendar"
                                      ng-model="data.Event.event_sources" calendar="timetable_c"></div>
@@ -259,7 +262,7 @@
                                 </div>
                                 <div>
                                     <span class="title">Description: </span>
-                                    <span editable-text="partial_subevent.description" e-name="description" e-required>
+                                    <span editable-text="partial_subevent.description" e-name="description">
                                         {{ partial_subevent.description || 'Enter a description!' }}
                                     </span>
                                 </div>
@@ -270,16 +273,18 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="title">Start time</span>
-                                    <span>
+                                    <span class="title">Start time:</span>
+                                    <span editable-text="partial_subevent.start_time" e-name="start_time" e-required>
                                         {{ partial_subevent.start_time }}
                                     </span>
                                 </div>
                                 <div>
-                                    <!-- button to show form -->
-                                    <button type="button" class="btn btn-default" ng-click="subevent_editor.$show()" ng-show="!subevent_editor.$visible">
-                                        Edit
-                                    </button>
+                                    <span class="title">End time:</span>
+                                    <span editable-text="partial_subevent.end_time" e-name="end_time" e-required>
+                                        {{ partial_subevent.end_time }}
+                                    </span>
+                                </div>
+                                <div>
                                     <!-- buttons to submit / cancel form -->
                                     <span ng-show="subevent_editor.$visible">
                                         <button type="submit" class="btn btn-primary" ng-disabled="subevent_editor.$waiting">

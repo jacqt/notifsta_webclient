@@ -201,8 +201,8 @@
           'event[description]': event.description,
           'event[cover_photo_url]': event.cover_photo_url,
           'event[event_map_url]': event.event_map_url,
-          'event[start_time]': event.start_time,
-          'event[end_time]': event.end_time,
+          'event[start_time]': moment(event.start_time).utc().toString(),
+          'event[end_time]': moment(event.end_time).utc().toString(),
           'event[address]': event.address,
         }
       }
@@ -224,8 +224,8 @@
           'name': subevent.name,
           'location': subevent.location,
           'description': subevent.description,
-          'start_time': subevent.start_time,
-          'end_time': subevent.end_time,
+          'start_time': moment(subevent.start_time).utc().toString(),
+          'end_time': moment(subevent.end_time).utc().toString(),
         }
       }
       return $http(req);
@@ -252,8 +252,8 @@
           'event[description]': event.description,
           'event[cover_photo_url]': event.cover_photo_url,
           'event[event_map_url]': event.event_map_url,
-          'event[start_time]': event.start_time,
-          'event[end_time]': event.end_time,
+          'event[start_time]': moment(event.start_time).utc().toString(),
+          'event[end_time]': moment(event.end_time).utc().toString(),
           'event[address]': event.address
         }
       }
@@ -261,6 +261,7 @@
     }
     
     function PublishSubEventUpdate(event, subevent){
+
       var req = {
         url: BASE_URL + '/v1/subevents/' + subevent.id,
         method: 'POST',
@@ -269,11 +270,12 @@
           'user_token': AuthService.GetCredentials().user_token,
           'name': subevent.name,
           'description': subevent.description,
-          'start_time': subevent.start,
-          'end_time': subevent.end,
+          'start_time': moment(subevent.start_time.toString()).utc().toString(),
+          'end_time': moment(subevent.end_time.toString()).utc().toString(),
           'location': subevent.location,
         }
       }
+      console.log(req.params);
       return $http(req);
     }
 

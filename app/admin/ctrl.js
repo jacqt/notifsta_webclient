@@ -256,13 +256,20 @@
         }
 
         function UpdateSubEvent(changed_event) {
-            console.log(changed_event);
             changed_event.start_time = moment(changed_event.start).format('LLL');
             changed_event.end_time = moment(changed_event.end).format('LLL');
             var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
             promise.success(function (e) {
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly updated timetable');
+                    var evs = $scope.data.Event.event_sources[0].events;
+                    for (var i = 0 ; i != evs.length; ++i) {
+                        if (evs[i].id == changed_event.id) {
+                            uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
+                            $scope.partial_subevent = null;
+                            $scope.editing_subevent = false;
+                        }
+                    }
                 } else {
                     console.log(e);
                     toaster.pop('error', e.error);
@@ -281,16 +288,38 @@
         $scope.show_calendar = function () {
             setTimeout(function () {
                 console.log(uiCalendarConfig.calendars.timetable_c);
-                if (first_time ){
-                    //Referesh the event sources
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[0]);
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[0]);
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('removeEventSource', $scope.data.Event.event_sources[1]);
-                    uiCalendarConfig.calendars.timetable_c.fullCalendar('addEventSource', $scope.data.Event.event_sources[1]);
+                if (!$scope.data.Event.uiConfig){
+                    $scope.data.Event.uiConfig = {
+                        calendar: {
+                            height: 650,
+                            editable: true,
+                            defaultView: 'agendaDay',
+                            header: {
+                                left: 'month agendaWeek agendaDay',
+                                center: 'title',
+                                right: 'today prev,next'
+                            },
+                            firstDay: moment($scope.data.Event.start_time).format('d'),
+                            defaultDate: new Date($scope.data.Event.start_time),
+                            scrollTime: moment($scope.data.Event.start_time).format('HH:mm:ss'),
+                            snapDuration: { minutes: 5 },
+                            allDaySlot: false,
+                            slotDuration: { minutes: 15 },
+                            dayClick: on_day_click,
+                            eventClick: on_event_click,
+                            eventDrop: alertOnDrop,
+                            eventResize: on_event_resize
+                        }
+                    }
+
+                    setTimeout(function () {
+                        uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
+                        console.log('WTF NO BUGS');
+                    }, 1000);
                     first_time = false;
-                } 
+                } else {
+                    uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
+                }
 
             }, 400);
         }
@@ -311,11 +340,11 @@
             }
             console.log(ev.pageY);
             console.log($('.fc-center').offset().top);
-            $scope.event_editor_popup.posY =  ev.pageY - $('.fc-center').offset().top - 800;
+            $scope.event_editor_popup.posY =  Math.min(ev.pageY - $('.fc-center').offset().top - 800, -400);
         }
 
 
-        $scope.on_day_click = function (date, jsEvent, view) {
+        var on_day_click = function (date, jsEvent, view) {
             if (!$scope.calendar_editable) return;
             $scope.partial_subevent = {
                 name: null,
@@ -332,27 +361,27 @@
             $scope.show_subevent();
         };
 
-        $scope.show_subevent = function () {
+        var show_subevent = function () {
             setTimeout(function () {
                 $scope.editing_subevent = true;
                 disable_all_events();
             }, 100);
             $scope.subevent_editor.$show();
         }
-        $scope.on_event_click = function (calEvent, jsEvent, view) {
+        var on_event_click = function (calEvent, jsEvent, view) {
             if (!$scope.calendar_editable) return;
             $scope.partial_subevent = calEvent;
-            $scope.show_subevent();
+            show_subevent();
         }
 
-        $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
+        var alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
             if (!$scope.calendar_editable) return;
             event.end_time = event.end;
             console.log('droppin');
             UpdateSubEvent(event);
         };
 
-        $scope.on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
+        var on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
             if (!$scope.calendar_editable) return;
             UpdateSubEvent(event);
         };
@@ -368,9 +397,26 @@
             if ($scope.partial_subevent.id) {
                 var event = $scope.partial_subevent;
                 event.title = event.name + ' - ' + event.description;
+
+                //We need to use the setters here because we are directly manipulating the FullCalendar FCMoment object
+                //which is an augmented version of moment, and is something we do not have access to!
+                var s = moment($scope.partial_subevent.start_time);
+                $scope.partial_subevent.start.set({
+                    year: s.get('year'),
+                    month: s.get('month'),
+                    date: s.get('date'),
+                    hour: s.get('hour'),
+                    minute: s.get('minute')
+                });
+                var e = moment($scope.partial_subevent.end_time);
+                $scope.partial_subevent.end.set({
+                    year: e.get('year'),
+                    month: e.get('month'),
+                    date: e.get('date'),
+                    hour: e.get('hour'),
+                    minute: e.get('minute')
+                });
                 UpdateSubEvent($scope.partial_subevent);
-                $scope.partial_subevent = null;
-                $scope.editing_subevent = false;
             } else {
                 var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
                 promise.success(function (ev) {
@@ -394,32 +440,25 @@
         }
 
         ImcService.AddHandler('event_loaded ' + $scope.event.id, function (data) {
-            console.log(uiCalendarConfig)
-            uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+            //console.log(uiCalendarConfig)
+            //uiCalendarConfig.calendars.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+            ////uiCalendarConfig.calendars.timetable_c.fullCalendar({ 'scrollTime': moment($scope.data.Event.start_time).format('hh:mm') });
+            //    $('timetable_c').fullCalendar({
+            //        defaultView: 'agendaWeek',
+            //        scrollTime: '00:00:00'
+            //    });
+            //    uiCalendarConfig.calendars.timetable_c.fullCalendar('render');
+            //console.log('HEEy');
         });
 
         if ($scope.data.Event.start_time) {
             setTimeout(function () {
-                $scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+                //$scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
+                    //$('timetable_c').fullCalendar({
+                    //    defaultView: 'agendaWeek',
+                    //    scrollTime: '00:00:00'
+                    //});
             }, 100);
-        }
-
-        $scope.data.Event.uiConfig = {
-            calendar: {
-                height: 650,
-                editable: true,
-                defaultView: 'agendaWeek',
-                header: {
-                    left: 'month agendaWeek agendaDay',
-                    center: 'title',
-                    right: 'today prev,next'
-                },
-                snapMinutes: 10,
-                dayClick: $scope.on_day_click,
-                eventClick: $scope.on_event_click,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.on_event_resize
-            }
         }
 
         $scope.editing_subevent = false;

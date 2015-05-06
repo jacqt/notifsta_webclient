@@ -2,6 +2,10 @@
     opacity: 0.5;
 }
 
+.message-box {
+    background-color: white;
+}
+
 .event-content tr {
     border-top:none!important;
     padding-bottom:5px;
