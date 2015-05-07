@@ -17,24 +17,28 @@
                 <div class="dashboard-info col-md-12">
                     <div class="actual-feed-wrapper event-info shaded-border">
                         <h1> Weclome to Notifsta! </h1>
-                        <h3> We're excited to have you with us! <br />We're still working on all our features right now - if you've got any ideas or bug reports please email us at hi@notifsta.com!</h3>
+                        <br />
                         <center>
                             <button ng-click="go_create_event()"
                                     class="btn btn-success btn-lg creating-event-button">
                                 Create an event now!
                             </button>
+                            <h4> OR </h4>
+                            <h3> Subscribe to one of the events below!</h3>
+                        </center>
                     </div>
                 </div>
                 <h1> Events </h1>
                 <div class="event-box-group">
-
                     <div ng-repeat="event in events.subscribed" class="event-outer">
-
-                        <a ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}">
+                        <a ng-if="event.admin" ng-href="#/event_admin/{{event.name}}?event_id={{event.id}}">
                             <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
-
                                 {{event.name}}
-
+                            </div>
+                        </a>
+                        <a ng-if="!event.admin" ng-href="#/event/{{event.name}}?event_id={{event.id}}">
+                            <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
+                                {{event.name}}
                             </div>
                         </a>
 
@@ -68,21 +72,20 @@
                         </div>
                         <div class="event-status">
                             <div ng-show="LoggedIn() && event.admin" style="margin-top:5px; margin-left: 10px">
+                                Owner
                                 <i class="glyphicon glyphicon-user"></i>
-                                OWNER
                             </div>
                             <div ng-show="LoggedIn() && !event.admin">
-                                <button class="btn btn-default" ng-click="unsubscribe_to_event(event)">
-                                    Unsubscribe
-                                </button>
-                                <i class="glyphicon glyphicon-ok"></i>
-                                SUBSCRIBED
+                                <a class="icon-button" href="" n btn-default" ng-click="subscribe_to_event(event)">
+                                    Remove <i class="glyphicon glyphicon-minus"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div ng-repeat="event in events.not_subscribed" ng-show="LoggedIn() && !event.admin" class="event-outer">
 
-                        <!--<a ng-href="#/event/{{event.name}}?event_id={{event.id}}">
+                        <!--<a ng-hr
+                        ef="#/event/{{event.name}}?event_id={{event.id}}">
                         </a>-->
 
                         <div class="event-image" ng-style="{'background-image':'url('+event.cover_photo_url+')'}">
@@ -117,9 +120,9 @@
                             </table>
                         </div>
                         <div class="event-status">
-                            <button class="btn btn-default" ng-click="subscribe_to_event(event)">
-                                Subscribe
-                            </button>
+                            <a class="icon-button" href="" n btn-default" ng-click="subscribe_to_event(event)">
+                                Add <i class="glyphicon glyphicon-plus"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@
                         $scope.data.user.subscriptions.map(function (sub) {
                             if (sub.event_id == event.id) {
                                 event.admin = sub.admin;
+                                console.log(sub);
                             }
                         });;
                     })

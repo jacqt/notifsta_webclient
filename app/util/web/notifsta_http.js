@@ -225,6 +225,7 @@
             if (!subevent.end_time) {
                 subevent.end_time = moment(subevent.start_time).add(2, 'hours').format();
             }
+            console.log(subevent.start_time);
             var req = {
                 url: BASE_URL + '/v1/events/' + event.id + '/subevents',
                 method: 'POST',

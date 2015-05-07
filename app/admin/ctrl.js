@@ -10,6 +10,7 @@
     function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
+        $scope.partial_subevent = {};
         $scope.cover_photo_files = [];
         $scope.event_map_files = [];
         $scope.temp = {};
@@ -257,8 +258,6 @@
         }
 
         function UpdateSubEvent(changed_event) {
-            changed_event.start_time = moment(changed_event.start).format('LLL');
-            changed_event.end_time = moment(changed_event.end).format('LLL');
             var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
             promise.success(function (e) {
                 if (e.status == 'success') {
@@ -267,7 +266,11 @@
                     for (var i = 0 ; i != evs.length; ++i) {
                         if (evs[i].id == changed_event.id) {
                             uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
-                            $scope.partial_subevent = null;
+                            $scope.partial_subevent.start_time = null;
+                            $scope.partial_subevent.end_time = null;
+                            $scope.partial_subevent.name = null;
+                            $scope.partial_subevent.description = null;
+                            $scope.partial_subevent.location = null;
                             $scope.editing_subevent = false;
                         }
                     }
@@ -348,11 +351,12 @@
         var on_day_click = function (date, jsEvent, view) {
             if (!$scope.calendar_editable) return;
             disable_all_events();
+            console.log(date);
             $scope.partial_subevent = {
                 name: null,
                 description: null,
-                start_time: moment(date).format('LLL'),
-                end_time: moment(date).add(2, 'hour').format('LLL'),
+                start_time: moment(date.format('LLL')).format('LLL'),
+                end_time: moment(date.format('LLL')).add(2, 'hour').format('LLL'),
                 location: null
             }
             $scope.data.Event.event_sources[1].events.push({
@@ -376,25 +380,39 @@
                 jsEvent.stopPropagation()
                 return;
             }
-            $scope.partial_subevent = calEvent;
+            console.log(calEvent);
+            calEvent.start_time = moment(calEvent.start.format('LLL')).format('LLL');
+            calEvent.end_time = moment(calEvent.end.format('LLL')).format('LLL');
+            for (var key in calEvent) {
+                $scope.partial_subevent[key ] = calEvent[key]
+            }
             show_subevent();
         }
 
         var alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
             if (!$scope.calendar_editable) return;
-            event.end_time = event.end;
-            console.log('droppin');
+            event.start_time = moment(event.start.format('LLL')).format('LLL');
+            event.end_time = moment(event.end.format('LLL')).format('LLL');
+            console.log(event.end);
             UpdateSubEvent(event);
         };
 
         var on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
             if (!$scope.calendar_editable) return;
+            event.start_time = moment(event.start.format('LLL')).format('LLL');
+            event.end_time = moment(event.end.format('LLL')).format('LLL');
+            console.log(event.end);
             UpdateSubEvent(event);
         };
 
         $scope.cancel_subevent_editing = function () {
             enable_all_events();
             $scope.editing_subevent = false;
+            $scope.partial_subevent.start_time = null;
+            $scope.partial_subevent.end_time = null;
+            $scope.partial_subevent.name = null;
+            $scope.partial_subevent.description = null;
+            $scope.partial_subevent.location = null;
             $scope.data.Event.event_sources[1].events.splice(0, 1);
         }
 
@@ -406,7 +424,7 @@
 
                 //We need to use the setters here because we are directly manipulating the FullCalendar FCMoment object
                 //which is an augmented version of moment, and is something we do not have access to!
-                var s = moment($scope.partial_subevent.start_time);
+                var s = moment($scope.partial_subevent.start_time).zone(moment().zone());
                 $scope.partial_subevent.start.set({
                     year: s.get('year'),
                     month: s.get('month'),
@@ -414,7 +432,7 @@
                     hour: s.get('hour'),
                     minute: s.get('minute')
                 });
-                var e = moment($scope.partial_subevent.end_time);
+                var e = moment($scope.partial_subevent.end_time).zone(moment().zone());
                 $scope.partial_subevent.end.set({
                     year: e.get('year'),
                     month: e.get('month'),
@@ -429,14 +447,23 @@
                 var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
                 promise.success(function (ev) {
                     if (ev.status == 'success') {
+                        console.log(ev.data);
                         var new_event = ev.data;
-                        new_event.title = ev.data.name + ' - ' + ev.data.description;
-                        new_event.start = moment(new_event.start_time).format('LLL');
-                        new_event.end = moment(new_event.end_time).format('LLL');
-                        new_event.allDay = false;
+                          new_event.title = new_event.name + ' - ' + new_event.description;
+                          new_event.start = moment(new_event.start_time).format('LLL');
+                          new_event.end = moment(new_event.end_time).format('LLL');
+                          new_event.start_time = new_event.start;
+                          new_event.end_time = new_event.end;
+                          new_event.start_day_time = moment(new_event.start).format('hh:mm');
+                          new_event.end_day_time = moment(new_event.end).format('hh:mm');
+                          new_event.allDay = false;
                         $scope.data.Event.event_sources[0].events.push(new_event);
                         toaster.pop('success', 'Successfuly added new event');
-                        $scope.partial_subevent = null;
+                        $scope.partial_subevent.start_time = null;
+                        $scope.partial_subevent.end_time = null;
+                        $scope.partial_subevent.name = null;
+                        $scope.partial_subevent.description = null;
+                        $scope.partial_subevent.location = null;
                         $scope.editing_subevent = false;
                         $scope.data.Event.event_sources[1].events.splice(0, 1);
                     } else {

@@ -278,11 +278,11 @@
                                 </div>
                                 <div>
                                     <span class="title">Start time:</span>
-                                    <div class="input-group" combinedtpicker ng-model="partial_subevent.start_time"></div>
+                                    <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.start_time"></div>
                                 </div>
                                 <div>
                                     <span class="title">End time:</span>
-                                    <div class="input-group" combinedtpicker ng-model="partial_subevent.end_time"></div>
+                                    <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.end_time"></div>
                                 </div>
                                 <div>
                                     <!-- buttons to submit / cancel form -->
