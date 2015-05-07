@@ -12,6 +12,8 @@ var app = angular.module('notifsta', [
   'toaster',
   'ngMaterial',
   'ui.calendar',
+  'ui.bootstrap.datepicker',
+  'ui.bootstrap.timepicker',
   'ui.bootstrap.datetimepicker',
 ]);
 app.run(['editableOptions', 'editableThemes', function(editableOptions, editableThemes) {

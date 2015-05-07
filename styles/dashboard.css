@@ -1,7 +1,32 @@
+.input-group {
+    display: flex;
+    padding-bottom:5px;
+}
+
+.input-group label {
+    padding:5;
+    width:120px;
+}
+
+.datepicker {
+    width: 35%!important;
+    margin-right:5px;
+}
+
+.mytime .btn-link {
+    display: none;
+}
+
+.mytime tbody tr.text-center{
+    display: none;
+}
+
+
 .event-box-group {
-  display: flex;
+  display: block;
   justify-content: center;
   width: 100%;
+  margin-bottom:50px;
 }
 .dashboard-events {
   margin-top: 25px;
@@ -62,7 +87,7 @@
 #dashboardpage .event-outer {
    float: left;
   display: inline-block;
-  width: 270px;
+  width: 260px;
   margin-right: 12px;
   margin-left: 12px;
   margin-top: 25px;

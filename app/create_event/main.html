@@ -1,74 +1,63 @@
 <span id="createeventpage">
-  <div class="col-md-6 col-md-offset-3 pad-top non-homepage">
-    <div class="signup-box">
-      <h1>Create an Event</h1>
-      <form class="new_user" 
-        ng-submit="AttemptEventCreation()"
-        accept-charset="UTF-8" >
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-12">
-              <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.name" id="user_email" placeholder="Event Name">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-12">
-              <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.description" id="user_email" placeholder="Description">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-12">
-              <input class="form-control" id="google_places_ac" name="google_places_ac" type="text" ng-model="partial_event.address" class="input-block-level"/>
-            </div>
-          </div>
-        </div>
-        <div class="dropdown">
-          <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="input-group">
-                    <input type="text" class="form-control" data-ng-model="partial_event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                  </div>
+    <div class="col-md-6 col-md-offset-3 pad-top non-homepage">
+        <div class="signup-box">
+            <h1>Create an Event</h1>
+            <form class="new_user"
+                  ng-submit="AttemptEventCreation()"
+                  accept-charset="UTF-8">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.name" id="user_email" placeholder="Event Name" ng-required="true">
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <datetimepicker data-ng-model="partial_event.start_time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
-          </ul>
-        </div>
-        <div class="dropdown">
-          <a class="dropdown-toggle" id="dropdown3" role="button" data-toggle="dropdown" data-target="#1" href="">
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="input-group">
-                    <input type="text" class="form-control" data-ng-model="partial_event.end_time" placeholder="End date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                  </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.description" id="user_email" placeholder="Description" ng-required="true">
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <datetimepicker data-ng-model="partial_event.end_time" data-datetimepicker-config="{ dropdownSelector: '#dropdown3' }"/>
-          </ul>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input class="form-control" id="google_places_ac" name="google_places_ac" type="text" ng-model="partial_event.address" class="input-block-level" ng-required="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <label> Start datetime</label>
+                            <input type="date" class="form-control datepicker"
+                                   ng-model="partial_event.start_date"
+                                   is-open="opened"
+                                   shortcut-propagation="false"
+                                   ng-required="true" close-text="Close" />
+                            <timepicker class="mytime" ng-model="partial_event.start_hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="true"></timepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <label> End datetime</label>
+                            <input type="date" class="form-control datepicker"
+                                   datepicker-popup
+                                   ng-model="partial_event.end_date"
+                                   shortcut-propagation="false"
+                                   ng-required="true" close-text="Close" />
+                            <timepicker class="mytime" ng-model="partial_event.end_hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="true"></timepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" name="commit" value="Create Event" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <div class="row">
-          <div class="col-sm-6">
-            <input type="submit" name="commit" value="Create Event" class="btn btn-primary">
-          </div>
-        </div>
-
-      </form>
     </div>
-  </div>
 </span>

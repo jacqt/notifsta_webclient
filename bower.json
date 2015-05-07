@@ -18,7 +18,7 @@
     "angular-cookies": "~1.4",
     "angular-route": "~1.4",
     "websocket-rails": "~0.7.0",
-    "bootstrap": "latest",
+    "angular-bootstrap": "~0.13.0",
     "angular-animate": "~1.4",
     "jquery": "~2.1.4",
     "angular": "~1.4",
@@ -29,10 +29,11 @@
     "ng-file-upload": "~4.0.4",
     "angular-chart.js": "~0.7.0",
     "aws-sdk-js": "~2.1.26",
-    "angular-bootstrap": "latest",
     "angularjs-toaster": "~0.4.13",
     "angular-material": "~0.8.3",
     "angular-calendar": "latest",
+    "bootstrap": "~3.3.4",
+    "angular-ui-bootstrap": "~0.13.0"
   },
   "resolutions": {
     "angular": ">= 1.1.7",

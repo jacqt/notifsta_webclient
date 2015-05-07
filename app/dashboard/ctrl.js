@@ -11,6 +11,21 @@
                 promise.success(function (ev) {
                     console.log(ev);
                     $scope.events = ev.data;
+                    $scope.events.subscribed.map(function (event) {
+                        if (!event.cover_photo_url) {
+                            event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
+                        }
+                        $scope.data.user.subscriptions.map(function (sub) {
+                            if (sub.event_id == event.id) {
+                                event.admin = sub.admin;
+                            }
+                        });;
+                    })
+                    $scope.events.not_subscribed.map(function (event) {
+                        if (!event.cover_photo_url) {
+                            event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
+                        }
+                    })
                 })
                 promise.error(function (ev) {
                     console.log(ev);
@@ -29,19 +44,14 @@
             }
 
             $scope.unsubscribe_to_event = function (event) {
-                $scope.data.user.subscriptions.map(function (sub) {
-                    if (sub.event_id == event.id) {
-                        var promise = NotifstaHttp.SubscribeToEvent(sub.id);
-                        promise.success(function (ev) {
-                            console.log(ev);
-                            update_events();
-                        })
-                        promise.error(function(ev){
-                            console.log(ev)
-                        })
-                    }
+                var promise = NotifstaHttp.UnsubscribeToEvent(event.id);
+                promise.success(function (ev) {
+                    console.log(ev);
+                    update_events();
                 })
-                console.log($scope.data.user);
+                promise.error(function(ev){
+                    console.log(ev)
+                })
             }
 
             $scope.get_date = function(time){

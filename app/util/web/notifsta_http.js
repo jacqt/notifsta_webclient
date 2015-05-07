@@ -305,14 +305,14 @@
             return $http(req);
         }
 
-        function UnsubscribeToEvent(sub_id) {
+        function UnsubscribeToEvent(event_id) {
             var req = {
-                url: BASE_URL + '/v1/subscriptions/' + sub_id,
+                url: BASE_URL + '/v1/events/' + event_id + '/subscriptions',
                 method: 'DELETE',
                 params: {
                     'user_email': AuthService.GetCredentials().user_email,
                     'user_token': AuthService.GetCredentials().user_token,
-                    'event_id' : sub_id
+                    'event_id' : event_id
                 }
             }
             console.log(req);

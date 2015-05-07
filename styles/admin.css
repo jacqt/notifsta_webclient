@@ -2,6 +2,10 @@
     opacity: 0.5;
 }
 
+.mytime {
+    float: left;
+}
+
 .message-box {
     background-color: white;
 }
