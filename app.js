@@ -238,7 +238,10 @@ app.animation('.fade-view', function () {
     };
 });
 
-angular.module('notifsta.directives', []);
+angular.module('notifsta.directives', [
+  'ui.bootstrap.datepicker',
+  'ui.bootstrap.timepicker',
+]);
 
 angular.module('notifsta.services', ['ngCookies']);
 

@@ -9,8 +9,15 @@
 }
 
 .datepicker {
-    width: 35%!important;
+    width: 175px!important;
     margin-right:5px;
+}
+
+.md-tab-content {
+    padding-bottom: 30px;
+}
+#adminpage .input-group {
+    display: inline-table;
 }
 
 .mytime .btn-link {

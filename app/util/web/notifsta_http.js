@@ -225,8 +225,6 @@
             if (!subevent.end_time) {
                 subevent.end_time = moment(subevent.start_time).add(2, 'hours').format();
             }
-            subevent.start_time = moment(subevent.start_time).format();
-            console.log(subevent);
             var req = {
                 url: BASE_URL + '/v1/events/' + event.id + '/subevents',
                 method: 'POST',
@@ -240,6 +238,7 @@
                     'end_time': moment(subevent.end_time).utc().toString(),
                 }
             }
+            console.log(req);
             return $http(req);
         }
 

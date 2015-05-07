@@ -240,6 +240,7 @@
                     event.editable = true;
                 })
             })
+            uiCalendarConfig.calendars.timetable_c.fullCalendar({ 'editable': false });
         }
 
         if ($scope.data.Event.event_sources.length < 2) {
@@ -346,10 +347,12 @@
 
         var on_day_click = function (date, jsEvent, view) {
             if (!$scope.calendar_editable) return;
+            disable_all_events();
             $scope.partial_subevent = {
                 name: null,
                 description: null,
                 start_time: moment(date).format('LLL'),
+                end_time: moment(date).add(2, 'hour').format('LLL'),
                 location: null
             }
             $scope.data.Event.event_sources[1].events.push({
@@ -369,7 +372,10 @@
             $scope.subevent_editor.$show();
         }
         var on_event_click = function (calEvent, jsEvent, view) {
-            if (!$scope.calendar_editable) return;
+            if (!$scope.calendar_editable) {
+                jsEvent.stopPropagation()
+                return;
+            }
             $scope.partial_subevent = calEvent;
             show_subevent();
         }
@@ -416,6 +422,8 @@
                     hour: e.get('hour'),
                     minute: e.get('minute')
                 });
+                console.log(s);
+                console.log(e);
                 UpdateSubEvent($scope.partial_subevent);
             } else {
                 var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
@@ -434,6 +442,8 @@
                     } else {
                         console.log(ev);
                         toaster.pop('error', ev.error);
+                        console.log($scope.partial_subevent);
+                        show_subevent();
                     }
                 });
             }
