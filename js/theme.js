@@ -18,6 +18,22 @@ $(document).ready(function () {
         $("body").addClass("fus-" + $(this).attr("href").substring(1));
     });
 
+    //Do this to auto close the menus once we click a link
+    //$('.navbar-nav > li > a').click(function () {
+    //    console.log(this.className);
+    //    if (this.className != 'dropdown-toggle') {
+    //        if ($('#nav-collapsible').hasClass('in'))
+    //            $('#nav-collapsible').collapse('hide');
+    //    }
+    //});
+    $('body').click(function (ev) {
+        console.log(ev);
+        if (ev.target.id != "event-menu") {
+            if ($('#nav-collapsible').hasClass('in'))
+                $('#nav-collapsible').collapse('hide');
+        }
+    });
+
 
     function get_hash_url() {
         var h = window.location.hash.split('/');
