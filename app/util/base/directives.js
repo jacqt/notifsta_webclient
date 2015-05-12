@@ -88,7 +88,7 @@ app.directive('combinedtpicker', [function () {
             });
 
         },
-        template: '<input type="date" clear-text="Clear" class="form-control datepicker" ng-model="date"/> <timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="true"></timepicker>',
+        template: '<input type="date" clear-text="Clear" class="form-control datepicker" ng-model="date"/> <timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="false"></timepicker>',
 
     }
 }])

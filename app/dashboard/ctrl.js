@@ -5,12 +5,12 @@
     angular.module('notifsta.controllers').controller('DashboardCtrl',
         ['$scope', 'NotifstaHttp', 'toaster', function ($scope, NotifstaHttp, toaster, $cookies) {
             update_events();
-
             function update_events() {
                 var promise = NotifstaHttp.GetAllEvents();
                 promise.success(function (ev) {
                     console.log(ev);
                     $scope.events = ev.data;
+                    $scope.events.all = [];
                     $scope.events.subscribed.map(function (event) {
                         if (!event.cover_photo_url) {
                             event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
@@ -20,17 +20,20 @@
                                 event.admin = sub.admin;
                                 console.log(sub);
                             }
-                        });;
+                        });
+                        event.subscribed = true;
+                        $scope.events.all.push(event);
                     })
                     $scope.events.not_subscribed.map(function (event) {
                         if (!event.cover_photo_url) {
                             event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
                         }
+                        event.subscribed = null;
+                        $scope.events.all.push(event);
                     })
                 })
                 promise.error(function (ev) {
                     console.log(ev);
-
                 });
             }
             $scope.subscribe_to_event = function (event) {

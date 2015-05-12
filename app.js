@@ -15,6 +15,7 @@ var app = angular.module('notifsta', [
   'ui.bootstrap.datepicker',
   'ui.bootstrap.timepicker',
   'ui.bootstrap.datetimepicker',
+  'akoenig.deckgrid',
 ]);
 app.run(['editableOptions', 'editableThemes', function(editableOptions, editableThemes) {
   editableThemes['angular-material'] = {
@@ -126,11 +127,12 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 //Make sure that we're logged in when making route change
 app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
-    OKAY_URLS = ['/contact', '/', '/login', '', '/signup', '/privacy']
+    OKAY_URLS = ['contact', '/', 'login', '', 'signup', 'privacy']
     function IsRestricted(url) {
         var splitted = url.split('#');
         if (splitted.length > 1) {
-            url_hash = splitted[1];
+            url_hash = splitted[1].split('/')[1];
+            console.log(url_hash);
             for (var i = 0; i != OKAY_URLS.length; ++i) {
                 if (url_hash == OKAY_URLS[i]) {
                     return false;
@@ -169,11 +171,14 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
             }
             if (splitted.length > 1) {
                 url_hash = splitted[1];
+                console.log(url_hash);
                 if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/') {
                     $location.path('/dashboard');
                 }
             }
         }
+        if ($('#nav-collapsible').hasClass('in'))
+            $('#nav-collapsible').collapse('hide');
     });
 }]);
 
@@ -194,49 +199,36 @@ app.animation('.slide', function () {
         }
     }
 });
-//app.animation('.fade-view', function () {
-//    return {
-//        enter: function (element, done) {
-//            if (window.location.hash == '#/login') {
-//                done();
-//                return;
-//            }
-//            if (window.location.hash == '#/dashboard') { //slide up if it's the dashboard for WOW factor
-//                jQuery(element).css({
-//                    'z-index': 101,
-//                    'margin-top': 600,
-//                    width: '100%',
-//                    opacity: 0
-//                });
-//                jQuery(element).animate({
-//                    'margin-top': 60,
-//                    opacity: 1
-//                }, done);
-//            } else { //just fade in
-//                jQuery(element).css({
-//                    'z-index': 101,
-//                    width: '100%',
-//                    opacity: 0
-//                });
-//                jQuery(element).animate({
-//                    opacity: 1
-//                }, done);
-//            }
-//        },
+app.animation('.fade-view', function () {
+    return {
+        enter: function (element, done) {
+            if (window.location.hash == '#/login') {
+                done();
+                return;
+            }
+            jQuery(element).css({
+                'z-index': 101,
+                width: '100%',
+                opacity: 0
+            });
+            jQuery(element).animate({
+                opacity: 1
+            }, done);
+        },
 
-//        leave: function (element, done) {
-//            jQuery(element).css({
-//                position: 'absolute',
-//                width: '100%',
-//                opacity: 1,
-//                'z-index': 100,
-//            });
-//            jQuery(element).animate({
-//                opacity: 0
-//            }, done);
-//        }
-//    };
-//});
+        leave: function (element, done) {
+            jQuery(element).css({
+                position: 'absolute',
+                width: '100%',
+                opacity: 0.35,
+                'z-index': 100,
+            });
+            jQuery(element).animate({
+                opacity: 0
+            }, done);
+        }
+    };
+});
 
 angular.module('notifsta.directives', [
   'ui.bootstrap.datepicker',

@@ -84,6 +84,7 @@ md-tabs-ink-bar {
 }
 
 .event-header {
+    margin-left:0px;
   height: 200px;
   margin-bottom: 15px;
 }

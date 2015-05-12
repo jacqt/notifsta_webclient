@@ -36,7 +36,7 @@
 
       <div class="row">
         <div class="col-sm-6">
-          <input type="submit" class="btn btn-primary">
+          <input type="submit" class="btn btn-primary" ng-disabled="submitted">
         </div>
       </div>
     </form>
@@ -45,7 +45,7 @@
     <div class="row shared-links">
       <div class="col-sm-12">
         <a href="#/signup">Sign up</a><br>
-        <a style="cursor: pointer" ng-click="facebook_login()">Login with Facebook</a><br>
+        <a style="cursor: pointer" ng-click="facebook_login($event)">Login with Facebook</a><br>
       </div>
     </div>
 

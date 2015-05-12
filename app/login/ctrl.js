@@ -9,8 +9,12 @@
               email: '',
               password: ''
           };
+          $scope.submitted = false;
 
-          $scope.facebook_login = function () {
+          $scope.facebook_login = function (event) {
+              if (event.$material) {
+                  return; //Don't handle angular material bullshit
+              }
               $scope.info = "Logging in...";
               Facebook.login(function (response) {
                   var facebook_token = response.authResponse.accessToken;
@@ -31,6 +35,7 @@
 
           $scope.AttemptLogin = function () {
               $scope.info = "Logging in...";
+              $scope.submitted = true;
               var promise = NotifstaHttp.Login($scope.credentials.email, $scope.credentials.password);
               HandleLoginPromise(promise);
           }
@@ -42,13 +47,15 @@
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Successfully logged in!');
-                      window.location = '#dashboard'
+                      window.location = ''; //Tempory fix
                   }
                   else {
                   }
                   $scope.info = "";
+                  $scope.submitted = false;
               });
               promise.error(function (data) {
+                  $scope.submitted = false;
                   toaster.pop('error', 'Incorrect username and password combination');
                   $scope.info = "";
               })
