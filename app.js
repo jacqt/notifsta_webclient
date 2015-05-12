@@ -194,49 +194,49 @@ app.animation('.slide', function () {
         }
     }
 });
-app.animation('.fade-view', function () {
-    return {
-        enter: function (element, done) {
-            if (window.location.hash == '#/login') {
-                done();
-                return;
-            }
-            if (window.location.hash == '#/dashboard') { //slide up if it's the dashboard for WOW factor
-                jQuery(element).css({
-                    'z-index': 101,
-                    'margin-top': 600,
-                    width: '100%',
-                    opacity: 0
-                });
-                jQuery(element).animate({
-                    'margin-top': 60,
-                    opacity: 1
-                }, done);
-            } else { //just fade in
-                jQuery(element).css({
-                    'z-index': 101,
-                    width: '100%',
-                    opacity: 0
-                });
-                jQuery(element).animate({
-                    opacity: 1
-                }, done);
-            }
-        },
+//app.animation('.fade-view', function () {
+//    return {
+//        enter: function (element, done) {
+//            if (window.location.hash == '#/login') {
+//                done();
+//                return;
+//            }
+//            if (window.location.hash == '#/dashboard') { //slide up if it's the dashboard for WOW factor
+//                jQuery(element).css({
+//                    'z-index': 101,
+//                    'margin-top': 600,
+//                    width: '100%',
+//                    opacity: 0
+//                });
+//                jQuery(element).animate({
+//                    'margin-top': 60,
+//                    opacity: 1
+//                }, done);
+//            } else { //just fade in
+//                jQuery(element).css({
+//                    'z-index': 101,
+//                    width: '100%',
+//                    opacity: 0
+//                });
+//                jQuery(element).animate({
+//                    opacity: 1
+//                }, done);
+//            }
+//        },
 
-        leave: function (element, done) {
-            jQuery(element).css({
-                position: 'absolute',
-                width: '100%',
-                opacity: 1,
-                'z-index': 100,
-            });
-            jQuery(element).animate({
-                opacity: 0
-            }, done);
-        }
-    };
-});
+//        leave: function (element, done) {
+//            jQuery(element).css({
+//                position: 'absolute',
+//                width: '100%',
+//                opacity: 1,
+//                'z-index': 100,
+//            });
+//            jQuery(element).animate({
+//                opacity: 0
+//            }, done);
+//        }
+//    };
+//});
 
 angular.module('notifsta.directives', [
   'ui.bootstrap.datepicker',
