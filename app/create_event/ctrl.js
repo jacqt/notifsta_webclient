@@ -5,6 +5,7 @@
 (function () {
     angular.module('notifsta.controllers').controller('CreateEventCtrl', ['$scope', 'NotifstaHttp', '$cookies', 'ImcService', 'toaster', ctrl]);
     function ctrl($scope, NotifstaHttp, $cookies, ImcService, toaster) {
+        $scope.submitting = false;
         $scope.partial_event = {
             start_hh_mm: moment('2015-01-01 00:00'),
             end_hh_mm: moment('2015-01-01 00:00'),
@@ -42,7 +43,9 @@
             }
             
             var promise = NotifstaHttp.CreateEvent($scope.partial_event);
+            $scope.submitting = true;
             promise.success(function (e) {
+                $scope.submitting = false;
                 if (e.status == 'success') {
                     console.log(e);
                     window.location = '#/';
