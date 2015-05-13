@@ -1,10 +1,10 @@
 /** Anthony Guo (anthony.guo@some.ox.ac.uk)
  *
  */
-(function(){
+(function () {
     angular.module('notifsta.controllers').controller('EventCtrl',
-    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams' ,'ImcService', 
-    function($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService) {
+    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'ImcService',
+    function ($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event_name = $routeParams.event_name;
@@ -27,23 +27,46 @@
         }
 
 
-        $scope.submit_option = function(notif, channel_id){
+        $scope.submit_option = function (notif, channel_id) {
             var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.new_option_id);
-            promise.success(function(resp){
+            promise.success(function (resp) {
                 console.log(resp);
                 event_monitor.UpdateNotification(notif.id, channel_id)
             });
         }
 
-        $scope.selected_none = function(){
-            return $scope.data.Event.channels.filter(function(e){return e.selected}).length  ==  0;
+        $scope.selected_none = function () {
+            return $scope.data.Event.channels.filter(function (e) { return e.selected }).length == 0;
         }
 
         $scope.data = event_monitor._data;
 
-        ImcService.AddHandler('event_loaded ' + $scope.event.id, function(data){
-          // do something
+        ImcService.AddHandler('event_loaded ' + $scope.event.id, function (data) {
+            CreateTwitterTimeline();
         });
+
+        if ($scope.data.Event.channels.length > 0) {
+            CreateTwitterTimeline();
+        }
+
+        function CreateTwitterTimeline() {
+            console.log($scope.data.Event.twitter_hashtag);
+            if (!$scope.data.Event.twitter_hashtag) {
+                return;
+            }
+            twttr.widgets.createTimeline(
+              //$scope.data.Event.twitter_widget_id,
+              //$scope.data.Event.twitter_hashtag,
+              '598232558812459008',
+              document.getElementById('twitter_timeline'),
+              {
+                  width: '1000',
+                  height: '300',
+                  related: 'twitterdev,twitterapi'
+              }).then(function (el) {
+                  console.log("Embedded a timeline.")
+              });
+        }
 
     }]);
 })();

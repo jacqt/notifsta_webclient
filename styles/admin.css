@@ -6,6 +6,10 @@
     float: left;
 }
 
+.twitter-timeline {
+    width: 1000px!important;
+}
+
 .message-box {
     background-color: white;
 }

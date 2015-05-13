@@ -117,6 +117,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
+                                    <label> Twitter Widget Id </label>
+                                    <div>
+                                        <a href="#" editable-text="data.Event.twitter_hashtag" onaftersave="publish_updates()">
+                                            {{ data.Event.twitter_hashtag || 'no description' }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
                                     <label> Cover Photo </label>
                                     <div>
                                         <a editable-text="data.Event.cover_photo_url" e-rows="7"
