@@ -39,13 +39,15 @@ $(document).ready(function () {
 
     $(window).scroll(function () {
         var h = get_hash_url();
+        console.log('hiii');
+        console.log(h);
         if (h == '') {
             if ($(this).scrollTop() > 695) {
                 $(".navbar").addClass("fus-navbar-solid");
             } else {
                 $(".navbar").removeClass("fus-navbar-solid");
             }
-        } else if (['event', 'event_admin'].indexOf(h) > -1) {
+        } else if (['event', 'event_admin', 'dashboard'].indexOf(h) > -1) {
             if ($(this).scrollTop() > 150) {
                 $(".navbar").addClass("fus-navbar-solid");
             } else {

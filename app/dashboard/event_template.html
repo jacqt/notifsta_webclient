@@ -1,47 +1,81 @@
 ﻿
-<div class="event-outer">
+<div class="event-outer" ng-mouseenter="card.showme=true" ng-mouseleave="card.showme=false">
     <a ng-if="card.admin" ng-href="#/event_admin/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             {{card.name}}
+
+            <div ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
+                <table>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                        </td>
+                        <td>
+                            <div style="height: auto" data-ng-bind="card.description"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </td>
+                        <td>
+                            <div ng-bind="mother.get_date(card.start_time)"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </td>
+                        <td>
+                            <div data-ng-bind="card.address"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
     </a>
     <a ng-if="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
-            {{card.name}}
+            <div>
+                {{card.name}}
+            </div>
+            <div ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
+                <table>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                        </td>
+                        <td>
+                            <div style="height: auto" data-ng-bind="card.description"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </td>
+                        <td>
+                            <div ng-bind="mother.get_date(card.start_time)"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-icon">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </td>
+                        <td>
+                            <div data-ng-bind="card.address"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
+
+
     </a>
-    <div class="event-content">
-        <table>
-            <tr>
-                <td class="label-icon">
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                </td>
-                <td>
-                    <div style="height: auto" data-ng-bind="card.description"></div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-icon">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                </td>
-                <td>
-                    <div ng-bind="mother.get_date(card.start_time)"></div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-icon">
-                    <i class="glyphicon glyphicon-map-marker"></i>
-                </td>
-                <td>
-                    <div data-ng-bind="card.address"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
     <div class="event-status">
-        <div ng-show="card.admin && card.subscribed" style="margin-top:5px; margin-left: 10px">
-            Owner
-            <i class="glyphicon glyphicon-user"></i>
+        <div ng-show="card.admin && card.subscribed" style="margin-top:2px; margin-left: 10px">
+            Admin <i class="glyphicon glyphicon-user"></i>
         </div>
         <div ng-show="!card.admin && card.subscribed">
             <a class="icon-button" href="" n btn-default" ng-click="mother.unsubscribe_to_event(card)">

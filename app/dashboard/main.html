@@ -4,8 +4,13 @@
     }
 </style>
 <span id="dashboardpage">
+    <div class="row header dashboard-header"
+         style="background-image: url('assets/home_images/dashboard-header.jpg'); opacity: 0.95"
+         ng-style="{'width': '100%', 'background-position' : 'left bottom'}">
+        <h1 class="dashboard-title">Find your next experience!</h1>
+    </div>
 
-    <div class="container pad-top non-homepage">
+    <div class="container non-homepage">
 
         <div class="row" style="margin-bottom:80px">
 
@@ -14,7 +19,7 @@
 
             <div>
 
-                <div class="dashboard-info col-md-12">
+                <div class="dashboard-info col-md-12" style="display:none">
                     <div class="actual-feed-wrapper event-info shaded-border">
                         <h1> Weclome to Notifsta! </h1>
                         <br />
@@ -28,9 +33,20 @@
                         </center>
                     </div>
                 </div>
-                <h1> Events </h1>
-                <div>
-                    <div deckgrid source="events.all" cardtemplate="app/dashboard/event_template.html" class="deckgrid"></div>
+
+                <div class="event-group-container">
+                    <h1> Your Events </h1>
+                    <div deckgrid source="events.subscribed" cardtemplate="app/dashboard/event_template.html" class="deckgrid"></div>
+                    <center ng-if="events.subscribed.length == 0">
+                        Subscribe to an event below now!
+                    </center>
+                </div>
+                <div class="event-group-container">
+                    <h1> New Events </h1>
+                    <div deckgrid source="events.not_subscribed" cardtemplate="app/dashboard/event_template.html" class="deckgrid"></div>
+                    <center ng-show="events.not_subscribed.length == 0">
+                        No more new events!
+                    </center>
                 </div>
             </div>
         </div>

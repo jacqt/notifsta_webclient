@@ -7,7 +7,12 @@
 md-input-container.editable-controls {
   padding: 0;
 }
+@media (min-width: 1430px) {
 
+    .container {
+        width: 1400px!important;
+    }
+}
 
 md-input-container.editable-controls [ng-message] {
   position: static;

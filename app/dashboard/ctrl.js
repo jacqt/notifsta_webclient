@@ -40,6 +40,7 @@
                 var promise = NotifstaHttp.SubscribeToEvent(event.id);
                 promise.success(function (ev) {
                     update_events();
+                    ImcService.FireEvent('user state changed');
                     console.log(ev);
                 })
                 promise.error(function(ev){
@@ -51,6 +52,7 @@
                 var promise = NotifstaHttp.UnsubscribeToEvent(event.id);
                 promise.success(function (ev) {
                     console.log(ev);
+                    ImcService.FireEvent('user state changed');
                     update_events();
                 })
                 promise.error(function(ev){

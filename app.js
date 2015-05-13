@@ -164,7 +164,7 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
             }
         } else {
             var h = splitted[1].split('/');
-            if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event') {
+            if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event' || h[1] == 'dashboard') {
                 $(".navbar").removeClass("fus-navbar-solid");
             } else {
                 $(".navbar").addClass("fus-navbar-solid");
@@ -199,6 +199,22 @@ app.animation('.slide', function () {
         }
     }
 });
+//// For animatig zoom ins and outs
+//app.animation('.zoom', function () {
+//    var NG_HIDE_CLASS = 'ng-hide';
+//    return {
+//        beforeAddClass: function (element, className, done) {
+//            if (className === NG_HIDE_CLASS) {
+//                element.addClass('animated bounceOutLeft')
+//            }
+//        },
+//        removeClass: function (element, className, done) {
+//            if (className === NG_HIDE_CLASS) {
+//                element.removeClass('animated bounceOutLeft')
+//            }
+//        }
+//    }
+//});
 app.animation('.fade-view', function () {
     return {
         enter: function (element, done) {
