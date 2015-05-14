@@ -1,6 +1,24 @@
 ﻿var app = angular.module('notifsta.directives');
 
+
+app.directive("ngTouchStart", [function () {
+    return function (scope, elem, attrs) {
+        elem.bind("touchstart click", function (e) {
+            scope.$apply(attrs["ngTouchStart"]);
+        });
+    }
+}])
+
+
+app.directive("ngTouchEnd", [function () {
+    return function (scope, elem, attrs) {
+        elem.bind("touchend", function (e) {
+            scope.$apply(attrs["ngTouchEnd"]);
+        });
+    }
+}])
 app.directive('combinedtpicker', [function () {
+
     return {
         restrict: 'A',
         require: '^ngModel',

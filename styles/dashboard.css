@@ -115,10 +115,11 @@
     }
 
     .dashboard-title {
-        margin-top: 90px !important;
+        margin-top: 80px !important;
         text-align: left;
         font-size: 250% !important;
-        margin-left: 18% !important;
+        margin-left: 40px !important;
+        margin-right: 20px!important;
         color: white !important;
     }
 
@@ -128,7 +129,23 @@
     }
     .deckgrid {
         padding: 0;
-        padding-top: 10px;
+    }
+
+    #dashboardpage .event-group-container center {
+        padding: 30px;
+        background: white;
+    }
+    #dashboardpage .event-group-container h1 {
+        padding: 15px!important;
+        margin: 0!important;
+        background: #b94343!important;
+        color:white;
+        text-align: left;
+        padding-left: 40px!important;
+    }
+
+    .event-group-container {
+        padding: 0!important;
     }
 
     .deckgrid .column {
@@ -136,17 +153,18 @@
         padding-left: 0!important;
         padding-right: 0!important;
     }
-        .deckgrid[deckgrid]::before {
-            content: '1 .column.size-1-1';
-        }
+    .deckgrid[deckgrid]::before {
+        content: '1 .column.size-1-1';
+    }
 }
 
 @media only screen and (max-device-width : 320px), only screen and (max-width : 520px) {
     .dashboard-title {
-        margin-top: 90px !important;
+        margin-top: 80px !important;
         text-align: left;
         font-size: 250% !important;
-        margin-left: 18% !important;
+        margin-left: 40px !important;
+        margin-right: 20px!important;
         color: white !important;
     }
     #dashboardpage .event-outer {
@@ -154,9 +172,26 @@
         margin-top: 0!important;
     }
 
+    .event-group-container {
+        padding: 0!important;
+    }
     .deckgrid {
         padding: 0;
     }
+    #dashboardpage .event-group-container center {
+        padding: 30px;
+        background: white;
+    }
+
+    #dashboardpage .event-group-container h1 {
+        padding: 15px!important;
+        margin: 0!important;
+        background: #b94343!important;
+        color:white;
+        text-align: left;
+        padding-left: 40px!important;
+    }
+
 
     .deckgrid .column {
         float: left;

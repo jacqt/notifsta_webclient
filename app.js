@@ -4,6 +4,7 @@ var app = angular.module('notifsta', [
   'notifsta.controllers',
   'ngRoute',
   'ngAnimate',
+  'ngTouch',
   'chart.js',
   'facebook',
   'xeditable',

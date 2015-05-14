@@ -40,7 +40,7 @@
 }
 
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
-  border-color:black!important;
+  border-color:black;
 }
 
 .glyphicon {

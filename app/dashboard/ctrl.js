@@ -81,5 +81,12 @@
             $scope.say_sorry = function () {
                 toaster.pop('info', 'Sorry - we\'re still working on all our features!');
             }
+
+            $scope.showcard = function (card) {
+                card.showme = true;
+            }
+            $scope.hidecard = function (card) {
+                card.showme = false;
+            }
         }]);
 })();

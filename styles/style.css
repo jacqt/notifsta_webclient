@@ -7,6 +7,52 @@
 md-input-container.editable-controls {
   padding: 0;
 }
+md-tabs.md-default-theme.md-accent .md-header {
+    background: #da4e4e;
+}
+.row.content {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+@media screen and (min-width: 281px) and (max-width: 750px) {
+    .row.content {
+        margin: 0!important;
+    }
+    .event-header {
+        margin-bottom: 0!important;
+    }
+    #adminpage .actual-feed-wrapper {
+    }
+    .event-title {
+        margin-top: 90px !important;
+        text-align: left;
+        font-size: 250% !important;
+        margin-left: 40px !important;
+        margin-right: 20px !important;
+        color: white !important;
+    }
+    .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+        border-color: white!important;
+    }
+
+    a.event-list-member {
+        color: white!important;
+    }
+
+    .shaded-border {
+        margin-bottom: 5px!important;
+        box-shadow: none!important;
+    }
+    .md-header-items-container {
+    }
+    md-content {
+        min-height: 50%
+    }
+
+    md-tab-content {
+        min-width: 100%;
+    }
+}
 @media (min-width: 1430px) {
 
     .container {

@@ -3,8 +3,13 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('EventCtrl',
-    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'ImcService',
-    function ($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService) {
+    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'ImcService', '$window',
+    function ($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService, $window) {
+
+
+
+
+
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event_name = $routeParams.event_name;
@@ -67,6 +72,44 @@
                   console.log("Embedded a timeline.")
               });
         }
+
+        // Make this page responsive
+        $scope.selected = {};
+        $scope.selected.index = 0;
+        $scope.firsttab = function () {
+            $scope.selected.index = 0;
+        }
+        $scope.lasttab = function () {
+            $scope.selected.index = 2;
+        }
+        $scope.nexttab = function () {
+            $scope.selected.index += 1;
+            console.log('next tab');
+            console.log($scope.selected.index);
+        }
+        $scope.prevtab = function () {
+            $scope.selected.index -= 1;
+            console.log('prev tab');
+            console.log($scope.selected.index);
+        }
+        $scope.never = "never";
+        $scope.pls = true;
+
+        var w = angular.element($window);
+        $scope.getWindowDimensions = function () {
+            return {
+                'h': w.height(),
+                'w': w.width()
+            };
+        };
+        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
+            $scope.windowHeight = newValue.h;
+            $scope.windowWidth = newValue.w;
+        }, true);
+
+        w.bind('resize', function () {
+            $scope.$apply();
+        });
 
     }]);
 })();

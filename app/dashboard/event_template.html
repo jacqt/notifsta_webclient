@@ -1,5 +1,9 @@
 ﻿
-<div class="event-outer" ng-mouseenter="card.showme=true" ng-mouseleave="card.showme=false">
+<div class="event-outer" 
+     ng-touch-start="mother.showcard(card)"
+     ng-touch-end="mother.hidecard(card)"
+     ng-mouseenter="card.showme=true"
+     ng-mouseleave="card.showme=false">
     <a ng-if="card.admin" ng-href="#/event_admin/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             {{card.name}}
