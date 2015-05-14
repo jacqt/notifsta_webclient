@@ -1,5 +1,6 @@
 .event-add-remove-icon {
   position: relative;
+  height: 0px;
   top: 30px;
   float: right;
   right: 30px;
@@ -335,7 +336,6 @@
 #dashboardpage .event-image {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
     width: 100%;
     background: url("https://chrisneillsdirtykitchen.files.wordpress.com/2013/04/london-at-night.jpg");

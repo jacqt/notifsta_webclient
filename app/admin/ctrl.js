@@ -211,17 +211,15 @@
                 var places = searchBox.getPlaces();
                 if (places.length > 0) {
                     $scope.data.Event.address = $('#searchbox').val();
-                    //var place = places[0];
-                    //var lat = place.geometry.location.lat();
-                    //var lng = place.geometry.location.lng();
-                    //$scope.data.Event.map.center.latitude = lat;
-                    //$scope.data.Event.map.center.longitude = lng;
-                    //$scope.data.Event.map.zoom = 15;
-                    //$scope.data.Event.marker.coords.latitude = lat;
-                    //$scope.data.Event.marker.coords.longitude = lng;
+                    var place = places[0];
+                    var lat = place.geometry.location.lat();
+                    var lng = place.geometry.location.lng();
+                    $scope.data.Event.map.center.latitude = lat;
+                    $scope.data.Event.map.center.longitude = lng;
+                    $scope.data.Event.map.zoom = 15;
+                    $scope.data.Event.marker.coords.latitude = lat;
+                    $scope.data.Event.marker.coords.longitude = lng;
 
-                    //var partial_address = AddressService.ShortenAddress(place);
-                    //$scope.data.Event.address = place.name + partial_address;
                     $scope.$apply();
                     $scope.publish_updates();
                 }
