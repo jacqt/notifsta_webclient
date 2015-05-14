@@ -1,5 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
 
+.theme-css .container {
+        width: 1100px!important;
+    }
+}
 body {
   font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica';
   color: #fff;
@@ -673,7 +677,7 @@ body.fus-red .fus-overlay, body.fus-red .fus-tabs li.active a .glyphicon {
 
 body.fus-red .btn-primary {
   color: #FFF;
-  background: #FF0062;
+  background: #ff0024;
   border-color: #FF0062;
 }
 

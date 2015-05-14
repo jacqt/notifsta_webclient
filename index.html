@@ -105,6 +105,7 @@
     <script src="/app/util/base/imc_service.js"></script>
     <script src="/app/util/base/desktop_notifs.js"></script>
     <script src="/app/util/base/directives.js"></script>
+    <script src="/app/util/base/address.js"></script>
     <!-- endbuild -->
 
 </head>
@@ -158,7 +159,7 @@
         </div>
     </span>
 
-    <div style="min-height: 100%; padding-bottom:50px">
+    <div style="min-height: 100%;" ng-style="{'display': on_homepage() ? '0px!important' : '50px'}'">
         <!-- ANGULAR INJECTED CODE -->
         <div ng-view class="fade-view"></div>
     </div>

@@ -6,8 +6,8 @@
 
 (function () {
     angular.module('notifsta.controllers').controller('AdminCtrl',
-        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile', 'uiCalendarConfig',
-    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig) {
+        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile', 'uiCalendarConfig', 'AddressService',
+    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.partial_subevent = {};
@@ -77,6 +77,7 @@
             promise.success(function (e) {
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly updated event');
+                    console.log($scope.data.Event.address);
                 } else {
                     toaster.pop('error', e.error);
                 }
@@ -206,17 +207,22 @@
         $scope.options = { scrollwheel: false, draggable: false };
         var events = {
             places_changed: function (searchBox) {
+                console.log(searchBox);
                 var places = searchBox.getPlaces();
                 if (places.length > 0) {
-                    var place = places[0];
-                    var lat = place.geometry.location.lat();
-                    var lng = place.geometry.location.lng();
-                    $scope.data.Event.map.center.latitude = lat;
-                    $scope.data.Event.map.center.longitude = lng;
-                    $scope.data.Event.map.zoom = 15;
-                    $scope.data.Event.marker.coords.latitude = lat;
-                    $scope.data.Event.marker.coords.longitude = lng;
-                    $scope.data.Event.address = place.name + ', ' + place.formatted_address;
+                    $scope.data.Event.address = $('#searchbox').val();
+                    //var place = places[0];
+                    //var lat = place.geometry.location.lat();
+                    //var lng = place.geometry.location.lng();
+                    //$scope.data.Event.map.center.latitude = lat;
+                    //$scope.data.Event.map.center.longitude = lng;
+                    //$scope.data.Event.map.zoom = 15;
+                    //$scope.data.Event.marker.coords.latitude = lat;
+                    //$scope.data.Event.marker.coords.longitude = lng;
+
+                    //var partial_address = AddressService.ShortenAddress(place);
+                    //$scope.data.Event.address = place.name + partial_address;
+                    $scope.$apply();
                     $scope.publish_updates();
                 }
             }

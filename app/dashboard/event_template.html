@@ -34,17 +34,16 @@
             </div>
         </div>
     </a>
-    <div class="event-add-remove-icon" ng-show="!card.admin && card.subscribed">
-        <a class="icon-button" href="" n btn-default" ng-click="mother.unsubscribe_to_event(card)">
-            <i class="glyphicon glyphicon-remove" style="color: white"></i>
-        </a>
-    </div>
+    <!--<div class="event-add-remove-icon" ng-show="!card.admin && card.subscribed">-->
+        <!--<a class="icon-button" href=""  ng-click="mother.unsubscribe_to_event(card)">-->
+            <!--<i class="glyphicon glyphicon-remove" style="color: white"></i>-->
+        <!--</a>-->
+    <!--</div>-->
     <div class="event-add-remove-icon" ng-show="!card.subscribed">
-        <a class="icon-button" href="" n btn-default" ng-click="mother.subscribe_to_event(card)">
+        <a class="icon-button" href="" ng-click="mother.subscribe_to_event(card)">
             <i class="glyphicon glyphicon-plus" style="color:white"></i>
         </a>
-    </div>
-    <a ng-show="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
+    </div>    <a ng-show="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             <div>
                 {{card.name}}

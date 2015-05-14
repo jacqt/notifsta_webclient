@@ -47,7 +47,9 @@
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Successfully logged in!');
-                      window.location = ''; //Tempory fix
+                      setTimeout(function () {
+                          window.location = ''; //Tempory fix
+                      }, 50);
                   }
                   else {
                   }

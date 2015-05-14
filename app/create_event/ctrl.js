@@ -3,8 +3,9 @@
  *
  */
 (function () {
-    angular.module('notifsta.controllers').controller('CreateEventCtrl', ['$scope', 'NotifstaHttp', '$cookies', 'ImcService', 'toaster', ctrl]);
-    function ctrl($scope, NotifstaHttp, $cookies, ImcService, toaster) {
+    angular.module('notifsta.controllers').controller('CreateEventCtrl',
+        ['$scope', 'NotifstaHttp', '$cookies', 'ImcService', 'toaster', 'AddressService', ctrl]);
+    function ctrl($scope, NotifstaHttp, $cookies, ImcService, toaster, AddressService) {
         $scope.submitting = false;
         $scope.partial_event = {
             start_hh_mm: moment('2015-01-01 00:00'),
@@ -15,11 +16,18 @@
         //TODO Move this into somewhere central. Duplicated at admin/ctrl.js
         var autocomplete = new google.maps.places.Autocomplete($("#google_places_ac")[0], {});
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            var place = autocomplete.getPlace();
-            console.log(place);
-            $scope.partial_event.address = place.name + ',' + place.formatted_address;
-            $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-            $scope.$apply();
+            console.log($('#google_places_ac').val());
+            $scope.partial_event.address = $('#google_places_ac').val();
+            //var place = autocomplete.getPlace();
+            //console.log(place);
+            //var partial_address = AddressService.ShortenAddress(place);
+            //console.log(partial_address);
+            //$scope.partial_event.address = place.name + partial_address;
+            //$scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+            //setTimeout(function () {
+            //    console.log('hii');
+            //    $('#google_places_ac').val($scope.partial_event.address);
+            //},0);
         });
 
         $scope.AttemptEventCreation = function () {
