@@ -164,11 +164,16 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
             }
         } else {
             var h = splitted[1].split('/');
-            if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event' || h[1] == 'dashboard') {
-                $(".navbar").removeClass("fus-navbar-solid");
-            } else {
+            if (h.length > 1 && h[1] == 'create_event') {
                 $(".navbar").addClass("fus-navbar-solid");
+            } else {
+                $(".navbar").removeClass("fus-navbar-solid");
             }
+            //if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event' || h[1] == 'dashboard') {
+            //    $(".navbar").removeClass("fus-navbar-solid");
+            //} else {
+            //    $(".navbar").addClass("fus-navbar-solid");
+            //}
             if (splitted.length > 1) {
                 url_hash = splitted[1];
                 console.log(url_hash);
@@ -218,21 +223,33 @@ app.animation('.slide', function () {
 app.animation('.fade-view', function () {
     return {
         enter: function (element, done) {
-            if (window.location.hash == '#/login') {
-                done();
-                return;
-            }
             jQuery(element).css({
                 'z-index': 101,
                 width: '100%',
                 opacity: 0
             });
+            if (window.location.hash != '#/create_event') {
+                setTimeout(function () {
+                    jQuery(element).css({
+                        'z-index': 101,
+                        width: '100%',
+                        opacity: 1
+                    });
+                    done();
+                }, 400);
+                return;
+            }
             jQuery(element).animate({
                 opacity: 1
             }, done);
         },
 
         leave: function (element, done) {
+            if (window.location.hash != '#/create_event') {
+                done();
+                return;
+            }
+            console.log(element);
             jQuery(element).css({
                 position: 'absolute',
                 width: '100%',
@@ -297,6 +314,7 @@ angular.module('notifsta.controllers').controller('MainController',
 
                     }
                     console.log(result.data);
+                    ImcService.FireEvent('user updated')
                 });
                 promise.error(function () {
                     window.location = '#logout';

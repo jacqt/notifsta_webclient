@@ -39,8 +39,6 @@ $(document).ready(function () {
 
     $(window).scroll(function () {
         var h = get_hash_url();
-        console.log('hiii');
-        console.log(h);
         if (h == '') {
             if ($(this).scrollTop() > 695) {
                 $(".navbar").addClass("fus-navbar-solid");

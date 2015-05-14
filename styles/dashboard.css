@@ -1,3 +1,11 @@
+.event-add-remove-icon {
+  position: relative;
+  top: 30px;
+  float: right;
+  right: 30px;
+  color: white!important;
+}
+
 .zoom.ng-hide-add, .zoom.ng-hide-remove {
     -webkit-animation: zoomIn .25s;
     -moz-animation: zoomIn .25s;

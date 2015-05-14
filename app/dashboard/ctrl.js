@@ -3,8 +3,12 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('DashboardCtrl',
-        ['$scope', 'NotifstaHttp', 'toaster', function ($scope, NotifstaHttp, toaster, $cookies) {
+        ['$scope', 'NotifstaHttp', 'toaster','ImcService', function ($scope, NotifstaHttp, toaster, ImcService ) {
             $scope.events = {};
+            ImcService.Add
+            ImcService.AddHandler('user updated', function () {
+                update_events();
+            });
             update_events();
             function update_events() {
                 var promise = NotifstaHttp.GetAllEvents();
@@ -44,7 +48,6 @@
             $scope.subscribe_to_event = function (event) {
                 var promise = NotifstaHttp.SubscribeToEvent(event.id);
                 promise.success(function (ev) {
-                    update_events();
                     ImcService.FireEvent('user state changed');
                     console.log(ev);
                 })
