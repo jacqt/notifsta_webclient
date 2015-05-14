@@ -4,32 +4,37 @@
 (function () {
     angular.module('notifsta.controllers').controller('DashboardCtrl',
         ['$scope', 'NotifstaHttp', 'toaster', function ($scope, NotifstaHttp, toaster, $cookies) {
+            $scope.events = {};
             update_events();
             function update_events() {
                 var promise = NotifstaHttp.GetAllEvents();
                 promise.success(function (ev) {
-                    console.log(ev);
-                    $scope.events = ev.data;
-                    $scope.events.all = [];
-                    $scope.events.subscribed.map(function (event) {
+                    $scope.events.admin = [];
+                    $scope.events.subscribed = [];
+                    $scope.events.not_subscribed = [];
+                    ev.data.subscribed.map(function (event) {
                         if (!event.cover_photo_url) {
                             event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
                         }
                         $scope.data.user.subscriptions.map(function (sub) {
                             if (sub.event_id == event.id) {
                                 event.admin = sub.admin;
+                                if (event.admin) {
+                                    $scope.events.admin.push(event);
+                                } else {
+                                    $scope.events.subscribed.push(event);
+                                }
                                 console.log(sub);
                             }
                         });
                         event.subscribed = true;
-                        $scope.events.all.push(event);
                     })
-                    $scope.events.not_subscribed.map(function (event) {
+                    ev.data.not_subscribed.map(function (event) {
                         if (!event.cover_photo_url) {
                             event.cover_photo_url = "http://cdn.notifsta.com/images/walking.jpg";
                         }
                         event.subscribed = null;
-                        $scope.events.all.push(event);
+                        $scope.events.not_subscribed.push(event);
                     })
                 })
                 promise.error(function (ev) {

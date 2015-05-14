@@ -267,7 +267,7 @@
                     'event[start_time]': moment(event.start_time).utc().toString(),
                     'event[end_time]': moment(event.end_time).utc().toString(),
                     'event[address]': event.address,
-                    'event[twitter_hashtag]': event.twitter_hashtag.toString()
+                    'event[twitter_hashtag]': event.twitter_hashtag ? event.twitter_hashtag.toString() : null
                 }
             }
             console.log(req.params);

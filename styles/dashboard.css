@@ -1,15 +1,15 @@
 .zoom.ng-hide-add, .zoom.ng-hide-remove {
-    -webkit-animation: zoomIn 1s;
-    -moz-animation: zoomIn 1s;
-    -ms-animation: zoomIn 1s;
-    animation: zoomIn 1s;
+    -webkit-animation: zoomIn .25s;
+    -moz-animation: zoomIn .25s;
+    -ms-animation: zoomIn .25s;
+    animation: zoomIn .25s;
 }
 
 .zoom.ng-hide {
-    -webkit-animation: zoomOut 1s;
-    -moz-animation: zoomOut 1s;
-    -ms-animation: zoomOut 1s;
-    animation: zoomOut 1s;
+    -webkit-animation: zoomOut .25s;
+    -moz-animation: zoomOut .25s;
+    -ms-animation: zoomOut .25s;
+    animation: zoomOut .25s;
 }
 
 .event-group-container {
@@ -264,7 +264,7 @@
     font-size: 1.6em;
     text-align: center;
     padding-left: 10px;
-    height: 300px;
+    height: 320px;
     padding-right: 10px;
     padding-bottom: 20px;
     padding-top: 20px;
@@ -285,7 +285,6 @@
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
-    overflow: auto;
     color: white;
 }
 
