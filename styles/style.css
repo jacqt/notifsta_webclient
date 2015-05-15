@@ -15,9 +15,16 @@ md-tabs.md-default-theme.md-accent .md-header {
     margin-right: 15px;
 }
 @media screen and (min-width: 281px) and (max-width: 750px) {
+    .event-group-container center.bottom {
+        margin-bottom: 50px;
+    }
     .container {
         margin:0!important;
         padding:0!important;
+    }
+
+    .theme-css .container a {
+        margin-left: 25px;
     }
 
     .fc-center h2 {
