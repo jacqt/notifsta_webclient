@@ -30,7 +30,7 @@
     "angular-chart.js": "~0.7.0",
     "aws-sdk-js": "~2.1.26",
     "angularjs-toaster": "~0.4.13",
-    "angular-material": "~0.8.3",
+    "angular-material": "0.9",
     "angular-calendar": "latest",
     "bootstrap": "~3.3.4",
     "angular-ui-bootstrap": "~0.13.0",
@@ -42,6 +42,7 @@
     "angular": "~1.4",
     "jquery": ">= 1.9.1",
     "angular-animate": "latest",
-    "fullcalendar": "2.1.1"
+    "fullcalendar": "2.1.1",
+    "angular-material": "0.9"
   }
 }

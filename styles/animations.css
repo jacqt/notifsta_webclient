@@ -1,12 +1,14 @@
 /* Animations */
 .slide-enter{
-  transition: 1s;
-  -webkit-transition: 1s;
+  transition: .2s;
+  -webkit-transition: .2s;
+  -moz-transition: .2s;
+  -ms-transition: .2s;
 }
 
 .slide-enter.ng-enter {
   margin-top: -42px;
-  z-index: -3;
+  z-index: 3;
 }
 
 .slide-enter.ng-enter-active {
@@ -18,15 +20,6 @@
 }
 
 .slide-enter.ng-leave-active {
-  z-index: -3;
+  z-index: 3;
   margin-top: -42px;
 }
-
-.slide-enter.ng-move {
-  background: gold;
-}
-
-.slide-enter.ng-move-active {
-  background: #fff;
-}
-

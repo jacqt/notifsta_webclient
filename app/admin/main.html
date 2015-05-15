@@ -6,7 +6,7 @@
 <span id="adminpage">
     <div class="container-fluid non-homepage">
         <div class="row header event-header"
-             ng-if="data.Event.cover_photo_url" ng-style="{'background-image':'url('+ data.Event.cover_photo_url +')'}">
+             ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
         <div class="row header event-header"
@@ -29,7 +29,7 @@
                     </div>
                     <!-- Survey -->
                     <div>
-                        <div ng-show="!selected_none() && sending_survey && input.focus_notice " class="slide">
+                        <div ng-show="config.sending_survey" class="slide">
                             <div class="list-group survey-option">
                                 <form ng-submit="create_option()" class="list-group-item">
                                     <input type="text"
@@ -53,8 +53,8 @@
                             </div>
                         </div>
                         <div ng-show="input.focus_notice"
-                             style="margin-top: 10px"
-                             class="slide">
+                             style="padding-top: 10px"
+                             class="slide send-notifs-buttons">
                             <button type="button" class="btn btn-default"
                                     ng-click="create_notification()">
                                 Send
@@ -63,11 +63,13 @@
                                     ng-click="input.focus_notice=false">
                                 Cancel
                             </button>
-                            <label> Allow Responses </label>
-                            <input type="checkbox"
-                                   style="margin-top: 0px"
-                                   type="button" class="btn btn-default"
-                                   ng-model="sending_survey">
+                            <label style="display: inline-flex">
+                                Allow Responses
+                                <md-checkbox 
+                                             id="stupid-checkbox"
+                                             style="margin-top: 2px; margin-left: 5px" class="md-warn" 
+                                             ng-model="config.sending_survey"></md-checkbox>
+                            </label>
                             </input>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
             <!-- Stats -->
             <div class="col-md-12 stats">
                 <div class="stat actual-stat" style="padding-bottom: 15px">
-                    <div class="col-md-4 stat">
+                    <div class="col-xs-4 stat">
                         <div class="stat-text">
                             <span class="stat-number"> 187 </span>
                             <div>
@@ -84,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 stat">
+                    <div class="col-xs-4 stat">
                         <div class="stat-text">
                             <span class="stat-number"> {{ data.Event.total_broadcasts }}</span>
                             <div>
@@ -92,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 stat">
+                    <div class="col-xs-4 stat">
                         <div class="stat-text">
                             <span class="stat-number">55</span>
                             <div>
@@ -103,90 +105,106 @@
                 </div>
             </div>
 
-            <div class="two col-xs-8" style="margin-bottom: 15px">
+            <div class="two col-md-8" style="margin-bottom: 15px">
                 <div class="actual-feed-wrapper event-info" style="padding: 0">
 
                     <md-tabs md-dynamic-height md-border-bottom class="md-accent">
-                        <md-tab label="general information">
+                        <md-tab label="event info">
                             <md-content class="md-padding">
                                 <div class="col-md-12">
                                     <label> Event Description </label>
-                                    <div>
-                                        <a href="#" editable-text="data.Event.description" onaftersave="publish_updates()">
+                                    <div class="editable-item">
+                                        <span editable-textarea="data.Event.description" onaftersave="publish_updates()" e-form="event_description_form">
                                             {{ data.Event.description || 'Describe this event here!' }}
-                                        </a>
+                                        </span>
+                                        <button class="btn-default" ng-click="event_description_form.$show()" ng-hide="event_description_form.$visible">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label> Twitter Widget Id </label>
-                                    <div>
-                                        <a href="#" editable-text="data.Event.twitter_hashtag" onaftersave="publish_updates()">
-                                            {{ data.Event.twitter_hashtag || 'Enter a twitter widget ID here' }}
-                                        </a>
+                                    <div class="editable-item">
+                                        <span editable-text="data.Event.twitter_hashtag" onaftersave="publish_updates()" e-form="twitter_hashtag_form">
+                                            {{ data.Event.twitter_hashtag || 'Enter a twitter hashtag' }}
+                                        </span>
+                                        <button class="btn-default" ng-click="twitter_hashtag_form.$show()" ng-hide="twitter_hashtag_form.$visible">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label> Cover Photo </label>
-                                    <div>
-                                        <a editable-text="data.Event.cover_photo_url" e-rows="7"
+                                    <div class="editable-item">
+                                        <a editable-text="data.Event.cover_photo_url"
+                                           ng-href="{{data.Event.cover_photo_url}}"
                                            blur="ignore"
-                                           class="editable editable-click"
-                                           style="cursor: pointer"
-                                           ng-click="cover_photo_editor.$show()"
                                            e-form="cover_photo_editor"
                                            e-ng-model="data.Event.cover_photo_url"
                                            onhide="cover_photo_toggle();"
                                            onshow="cover_photo_toggle()"
                                            oncancel="revert_changes()"
-                                           onaftersave="publish_updates()">
+                                           onaftersave="publish_updates()"
+                                           popover-template="cover_photo_preview.templateUrl"
+                                           popover-placement="bottom"
+                                           popover-trigger="mouseenter">
                                             {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
                                         </a>
-                                        <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
-                                            <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
-                                                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                                                 ngf-accept="'.jpg,.png,'">
-                                                Drop Image files (.jpg .png) here
-                                            </div>
-                                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                                            <button class="btn btn-default"
-                                                    ngf-select
-                                                    ng-disabled="loading"
-                                                    ng-click="cover_photo_editor.$show()"
-                                                    ng-model="$parent.cover_photo_files">
-                                                Choose file
-                                            </button>
+                                        <button class="btn-default" ng-click="cover_photo_editor.$show()" ng-hide="cover_photo_editor.$visible">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
+                                        <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
+                                             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                                             ngf-accept="'.jpg,.png,'">
+                                            Drop Image files (.jpg .png) here
                                         </div>
+                                        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                        <button class="btn btn-default"
+                                                ngf-select
+                                                ng-disabled="loading"
+                                                ng-click="cover_photo_editor.$show()"
+                                                ng-model="$parent.cover_photo_files">
+                                            Choose file
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label> Event Map </label>
-                                    <div>
-                                        <a editable-text="data.Event.event_map_url" e-rows="7"
+                                    <div class="editable-item">
+                                        <a editable-text="data.Event.event_map_url"
+                                           ng-href="{{data.Event.event_map_url}}"
                                            blur="ignore"
-                                           class="editable editable-click"
-                                           style="cursor: pointer"
-                                           ng-click="event_map_editor.$show()"
                                            e-form="event_map_editor"
                                            e-ng-model="data.Event.event_map_url"
                                            onhide="map_url_toggle()"
                                            onshow="map_url_toggle()"
                                            oncancel="revert_changes()"
-                                           onaftersave="publish_updates()">
+                                           onaftersave="publish_updates()"
+                                           popover-template="event_map_preview.templateUrl"
+                                           popover-placement="bottom"
+                                           popover-trigger="mouseenter">
                                             {{ data.Event.event_map_url  || "Upload an event map now!" }}
                                         </a>
-                                        <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
-                                            <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
-                                                 ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-                                                 ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
-                                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                                            <button class="btn btn-default"
-                                                    ngf-select
-                                                    ng-disabled="loading"
-                                                    ng-model="$parent.event_map_files">
-                                                Choose file
-                                            </button>
-                                        </div>
+                                        <button class="btn-default" ng-click="event_map_editor.$show()" ng-hide="event_map_editor.$visible">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
                                     </div>
+
+                                    <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
+                                        <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
+                                             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                                             ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
+                                        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                        <button class="btn btn-default"
+                                                ngf-select
+                                                ng-disabled="loading"
+                                                ng-model="$parent.event_map_files">
+                                            Choose file
+                                        </button>
+                                    </div>
+
                                 </div>
                                 <div class="col-md-12">
                                     <label> Start time</label>
@@ -195,7 +213,7 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="input-group">
+                                                        <div class="input-group-date">
                                                             <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                         </div>
                                                     </div>
@@ -216,7 +234,7 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="input-group">
+                                                        <div class="input-group-date">
                                                             <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                         </div>
                                                     </div>
@@ -259,11 +277,15 @@
                             </md-content>
                         </md-tab>
                     </md-tabs>
-                    <div>
+                    <div class="subeventeditor">
                         <div ng-show="editing_subevent"
                              ng-style="{'margin-left': event_editor_popup.posX +  'px', 'margin-top': event_editor_popup.posY + 'px'}"
                              class="slide subevent-editor-side">
-                            <form editable-form name="subevent_editor" oncancel="cancel_subevent_editing()" onaftersave="save_subevent()" class="slide">
+                            <form class="subevent-editor-form"
+                                  style="margin-bottom: 0"
+                                  editable-form name="subevent_editor"
+                                  oncancel="cancel_subevent_editing()"
+                                  onaftersave="save_subevent()" class="slide">
                                 <div>
                                     <!-- editable username (text with validation) -->
                                     <span class="title">Event name: </span>
@@ -286,12 +308,16 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="title">Start time:</span>
-                                    <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.start_time"></div>
+                                    <div class="input-group">
+                                        <span style="width: 50px; padding-top: 5px;" class="title">Start</span>
+                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.start_time"></div>
+                                    </div>
                                 </div>
                                 <div>
-                                    <span class="title">End time:</span>
-                                    <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.end_time"></div>
+                                    <div class="input-group">
+                                        <span style="width: 50px; padding-top: 5px;" class="title">End</span>
+                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.end_time"></div>
+                                    </div>
                                 </div>
                                 <div>
                                     <!-- buttons to submit / cancel form -->
@@ -312,7 +338,7 @@
                 </div>
             </div>
             <!-- Feeds -->
-            <div class="two col-xs-4">
+            <div class="two col-md-4">
                 <div class "slide"
                      ng-repeat="channel in data.Event.channels"
                      ng-show="channel.selected">

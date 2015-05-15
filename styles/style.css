@@ -15,13 +15,84 @@ md-tabs.md-default-theme.md-accent .md-header {
     margin-right: 15px;
 }
 @media screen and (min-width: 281px) and (max-width: 750px) {
+    .container {
+        margin:0!important;
+        padding:0!important;
+    }
+
+    .fc-center h2 {
+        font-size: 130%!important;
+        margin-top: 5px!important;
+    }
+
     .row.content {
         margin: 0!important;
+    }
+
+    .newnoticeinput {
+        font-size: 1em!important;
+        padding-left: 15px!important;
+        border-bottom: 1px solid #3c3c3c!important;
+    }
+
+
+    .row {
+        margin: 0!important;
+    }
+
+    .list-group.survey-option {
+        margin: 0!important
+    }
+    .list-group.survey-option input {
+        padding-left: 30px!important;
+    }
+    .list-group.survey-option li {
+        padding-left: 30px!important;
+    }
+    
+
+    .send-notifs-buttons {
+        background: #FFD5D5;
+        padding-left: 5px;
+        padding-bottom:10px;
+    }
+
+    .stats {
+        border-top: 1px solid #e2e2e2;
+        border-bottom: 1px solid #e2e2e2;
+        margin: 0!important;
+    }
+    #adminpage .two{
+        margin-top: 0!important;
+    }
+
+    .form-control {
+        width: 85%!important;
+    }
+    .col-sm-12 {
+        margin-right:0!important;
+        padding-right:0!important;
     }
     .event-header {
         margin-bottom: 0!important;
     }
-    #adminpage .actual-feed-wrapper {
+    #adminpage .two {
+      margin-bottom: 50px!important;
+    }
+    #adminpage .col-md-8 {
+        margin:0;
+        padding-left:0;
+        padding-right:0;
+    }
+    #adminpage .col-md-4 {
+        margin:0;
+        padding-left:0;
+        padding-right:0;
+    }
+    #adminpage .col-md-12 {
+        margin:0;
+        padding-left:0;
+        padding-right:0;
     }
     .event-title {
         margin-top: 90px !important;
@@ -33,6 +104,17 @@ md-tabs.md-default-theme.md-accent .md-header {
     }
     .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
         border-color: white!important;
+    }
+
+    .stat-number {
+        font-size:1.5em!important;
+    }
+    .stat-unit {
+        font-size: 0.85em!important;
+    }
+
+    .stat-text {
+        margin-left: 0!important;
     }
 
     a.event-list-member {

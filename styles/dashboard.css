@@ -160,6 +160,19 @@
 }
 
 @media only screen and (max-device-width : 320px), only screen and (max-width : 520px) {
+    .zoom.ng-hide-add, .zoom.ng-hide-remove {
+        -webkit-animation: fadeIn .15s;
+        -moz-animation: fadeIn .15s;
+        -ms-animation: fadeIn .15s;
+        animation: fadeIn .15s;
+    }
+
+    .zoom.ng-hide {
+        -webkit-animation: fadeOut .15s;
+        -moz-animation: fadeOut .15s;
+        -ms-animation: fadeOut .15s;
+        animation: fadeOut .15s;
+    }
     .dashboard-title {
         margin-top: 80px !important;
         text-align: left;
@@ -227,10 +240,6 @@
 
 .md-tab-content {
     padding-bottom: 30px;
-}
-
-#adminpage .input-group {
-    display: inline-table;
 }
 
 .icon-button {
@@ -336,6 +345,7 @@
 #dashboardpage .event-image {
     display: flex;
     justify-content: center;
+    /*align-items: center;*/
     flex-direction: column;
     width: 100%;
     background: url("https://chrisneillsdirtykitchen.files.wordpress.com/2013/04/london-at-night.jpg");

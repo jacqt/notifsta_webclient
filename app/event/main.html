@@ -104,8 +104,6 @@
                             <tr class="details">
                                 <td> {{ subevent.end_day_time }} </td>
                                 <td>
-                                    {{ subevent.description }}
-                                    <br />
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                     {{ subevent.location }}
                                 </td>
@@ -122,7 +120,7 @@
             <md-tabs md-no-pagination="pls" md-stretch-tabs="never" md-dynamic-height md-border-bottom class="md-accent" md-selected="selected.index">
 
                 <md-tab label="info">
-                    <md-content class="md-padding" md-tab-stretching="never" ng-swipe-left="nexttab()" ng-swipe-right="lasttab()">
+                    <md-content class="md-padding" md-tab-stretching="never" ng-swipe-right="lasttab()">
                         <!--Info panel-->
                         <div class="actual-feed-wrapper event-info shaded-border">
                             <label> Welcome! </label>
@@ -158,7 +156,7 @@
 
 
                 <md-tab label="notifs" md-tab-stretching="never">
-                    <md-content class="md-padding" ng-swipe-left="nexttab()" ng-swipe-right="prevtab()">
+                    <md-content class="md-padding">
                         <div class="col-md-4 two">
                             <div class="slide"
                                  ng-repeat="channel in data.Event.channels">
@@ -196,7 +194,7 @@
                 </md-tab>
 
                 <md-tab label="timetable" md-tab-stretching="never">
-                    <md-content class="md-padding" ng-swipe-right="prevtab()" ng-swipe-left="firsttab()">
+                    <md-content class="md-padding" ng-swipe-left="firsttab()">
 
                         <div class="actual-feed event-info shaded-border">
                             <div ng-if="data.Event.subevent_grouped_array.length == 0">
@@ -213,8 +211,6 @@
                                     <tr class="details">
                                         <td> {{ subevent.end_day_time }} </td>
                                         <td>
-                                            {{ subevent.description }}
-                                            <br />
                                             <i class="glyphicon glyphicon-map-marker"></i>
                                             {{ subevent.location }}
                                         </td>

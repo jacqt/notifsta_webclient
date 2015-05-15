@@ -16,6 +16,7 @@ var app = angular.module('notifsta', [
   'ui.bootstrap.datepicker',
   'ui.bootstrap.timepicker',
   'ui.bootstrap.datetimepicker',
+  'ui.bootstrap.popover',
   'akoenig.deckgrid',
 ]);
 app.run(['editableOptions', 'editableThemes', function(editableOptions, editableThemes) {

@@ -10,10 +10,18 @@
     function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
+
+        $scope.cover_photo_preview = {
+            templateUrl: 'app/admin/cover_photo_preview.html'
+        }
+        $scope.event_map_preview = {
+            templateUrl: 'app/admin/event_map_preview.html'
+        }
         $scope.partial_subevent = {};
         $scope.cover_photo_files = [];
         $scope.event_map_files = [];
         $scope.temp = {};
+        $scope.config = {sending_survey : false};
         $scope.revert_changes = function () {
             if ($scope.temp.event_map_url) {
                 $scope.data.Event.event_map_url = $scope.temp.event_map_url;
@@ -39,7 +47,6 @@
                 text: ''
             }
         }
-        $scope.sending_survey = false;
 
         $scope.submit_description_update = function () {
             var description = $scope.data.Event.description;
@@ -139,6 +146,21 @@
             }
         };
 
+        $scope.toggle_survey = function ($event) {
+            console.log($event);
+            if (!$event.$material) {
+                $scope.config.sending_survey = !$scope.config.sending_survey;
+                $scope.config.sending_survey_sep = $scope.config.sending_survey;
+                $scope.config.sending_survey_sep_2 = $scope.config.sending_survey;
+                setTimeout(function () {
+                    $scope.$apply();
+                }, 10);
+            }
+        }
+        $scope.sending_survey = function () {
+            return !$scope.config.sending_survey;
+        }
+
         $scope.option_keypressed = function (event, option) {
         }
 
@@ -160,7 +182,7 @@
             .map(function (channel) {
                 return channel.id;
             })
-            if ($scope.sending_survey) {
+            if ($scope.config.sending_survey) {
                 var question = $scope.input.message;
                 var options = $scope.input.options.map(function (opt) {
                     return opt.text;
@@ -303,9 +325,9 @@
                             editable: true,
                             defaultView: 'agendaDay',
                             header: {
-                                left: 'month agendaWeek agendaDay',
+                                left: 'agendaWeek agendaDay',
                                 center: 'title',
-                                right: 'today prev,next'
+                                right: 'prev,next'
                             },
                             firstDay: moment($scope.data.Event.start_time).format('d'),
                             defaultDate: new Date($scope.data.Event.start_time),
@@ -424,7 +446,7 @@
             enable_all_events();
             if ($scope.partial_subevent.id) {
                 var event = $scope.partial_subevent;
-                event.title = event.name + ' - ' + event.description;
+                event.title = event.name;
 
                 //We need to use the setters here because we are directly manipulating the FullCalendar FCMoment object
                 //which is an augmented version of moment, and is something we do not have access to!

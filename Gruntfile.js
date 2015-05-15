@@ -74,16 +74,17 @@ module.exports = function(grunt) {
             }
         },
 
-        sass: {
-            dist: {
-                options: {
-                    sourcemap: 'none',
-                },
-                files: {
-                    'styles/theme.css' : 'styles/theme.scss',
-                }
-            }
-        },
+        //sass: {
+            //dist: {
+                //options: {
+                    //sourcemap: 'none',
+                //},
+                //files: {
+                    //'styles/theme.css' : 'styles/theme.scss',
+                //}
+            //}
+        //},
+
 
         watch: {
             css: {

@@ -77,21 +77,25 @@
         $scope.selected = {};
         $scope.selected.index = 0;
         $scope.firsttab = function () {
-            $scope.selected.index = 0;
+            setTimeout(function () {
+                $scope.selected.index = 0;
+            }, 1);
         }
         $scope.lasttab = function () {
-            $scope.selected.index = 2;
+            setTimeout(function () {
+                $scope.selected.index = 2;
+            }, 1);
         }
-        $scope.nexttab = function () {
-            $scope.selected.index += 1;
-            console.log('next tab');
-            console.log($scope.selected.index);
-        }
-        $scope.prevtab = function () {
-            $scope.selected.index -= 1;
-            console.log('prev tab');
-            console.log($scope.selected.index);
-        }
+        //$scope.nexttab = function () {
+        //    $scope.selected.index += 1;
+        //    console.log('next tab');
+        //    console.log($scope.selected.index);
+        //}
+        //$scope.prevtab = function () {
+        //    $scope.selected.index -= 1;
+        //    console.log('prev tab');
+        //    console.log($scope.selected.index);
+        //}
         $scope.never = "never";
         $scope.pls = true;
 
