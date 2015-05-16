@@ -46,10 +46,18 @@ $(document).ready(function () {
                 $(".navbar").removeClass("fus-navbar-solid");
             }
         } else if (['event', 'event_admin', 'dashboard'].indexOf(h) > -1) {
-            if ($(this).scrollTop() > 150) {
-                $(".navbar").addClass("fus-navbar-solid");
+            if ($(window).width() <= 750) {
+                if ($(this).scrollTop() > 40) {
+                    $(".navbar").addClass("fus-navbar-solid");
+                } else {
+                    $(".navbar").removeClass("fus-navbar-solid");
+                }
             } else {
-                $(".navbar").removeClass("fus-navbar-solid");
+                if ($(this).scrollTop() > 150) {
+                    $(".navbar").addClass("fus-navbar-solid");
+                } else {
+                    $(".navbar").removeClass("fus-navbar-solid");
+                }
             }
         }
     });
