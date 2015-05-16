@@ -18,13 +18,19 @@ md-tabs.md-default-theme.md-accent .md-header {
     .event-group-container center.bottom {
         margin-bottom: 50px;
     }
+    div.col-md-12.footer {
+        display : none!important;
+    }
     .container {
         margin:0!important;
         padding:0!important;
     }
 
-    .theme-css .container a {
-        margin-left: 25px;
+    .theme-css .container .navbar a {
+        margin-left: 25px!important;
+    }
+    .navbar-brand {
+        margin-left: 10px!important;
     }
 
     .fc-center h2 {
