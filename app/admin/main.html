@@ -65,9 +65,8 @@
                             </button>
                             <label style="display: inline-flex">
                                 Allow Responses
-                                <md-checkbox 
-                                             id="stupid-checkbox"
-                                             style="margin-top: 2px; margin-left: 5px" class="md-warn" 
+                                <md-checkbox id="stupid-checkbox"
+                                             style="margin-top: 2px; margin-left: 5px" class="md-warn"
                                              ng-model="config.sending_survey"></md-checkbox>
                             </label>
                             </input>
@@ -146,8 +145,8 @@
                                            oncancel="revert_changes()"
                                            onaftersave="publish_updates()"
                                            popover-template="cover_photo_preview.templateUrl"
-                                           popover-placement="bottom"
-                                           popover-trigger="mouseenter">
+                                           popover-placement="bottom">
+                                            <!--popover-trigger="mouseenter">-->
                                             {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
                                         </a>
                                         <button class="btn-default" ng-click="cover_photo_editor.$show()" ng-hide="cover_photo_editor.$visible">
@@ -183,8 +182,8 @@
                                            oncancel="revert_changes()"
                                            onaftersave="publish_updates()"
                                            popover-template="event_map_preview.templateUrl"
-                                           popover-placement="bottom"
-                                           popover-trigger="mouseenter">
+                                           popover-placement="bottom">
+                                            <!--popover-trigger="mouseenter">-->
                                             {{ data.Event.event_map_url  || "Upload an event map now!" }}
                                         </a>
                                         <button class="btn-default" ng-click="event_map_editor.$show()" ng-hide="event_map_editor.$visible">

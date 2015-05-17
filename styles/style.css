@@ -80,8 +80,12 @@ md-tabs.md-default-theme.md-accent .md-header {
     }
 
     .form-control {
-        width: 85%!important;
+        width: 85%;
     }
+
+    /*.text-center .form-control {
+        width: 50px!important;
+    }*/
     .col-sm-12 {
         margin-right:0!important;
         padding-right:0!important;
