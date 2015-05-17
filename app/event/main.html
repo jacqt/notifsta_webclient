@@ -11,7 +11,7 @@
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
 
-        <div class="row content" ng-if="windowWidth > 999">
+        <div class="row content" ng-if="window_size.width > 999">
             <div class="col-md-4 two">
                 <div class="slide"
                      ng-repeat="channel in data.Event.channels">
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <div class="row content" ng-if="windowWidth <= 999">
+        <div class="row content" ng-if="window_size.width <= 999">
             <md-tabs md-no-pagination="pls" md-stretch-tabs="never" md-dynamic-height md-border-bottom class="md-accent" md-selected="selected.index">
 
                 <md-tab label="info">

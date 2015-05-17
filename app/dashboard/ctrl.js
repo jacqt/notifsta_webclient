@@ -3,7 +3,9 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('DashboardCtrl',
-        ['$scope', 'NotifstaHttp', 'toaster','ImcService', function ($scope, NotifstaHttp, toaster, ImcService ) {
+        ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService',
+        function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService) {
+            $scope.window_size = WindowSizeService.window_size;
             $scope.events = {};
             ImcService.Add
             ImcService.AddHandler('user updated', function () {

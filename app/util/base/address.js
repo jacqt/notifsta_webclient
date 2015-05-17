@@ -1,5 +1,4 @@
 ﻿/**Anthony Guo (anthony.guo@some.ox.ac.uk) 
- * Intermodule communicator service 
  */
 (function(){
     var eventToCallbackMap = {};

@@ -654,11 +654,11 @@ body.fus-black .navbar.fus-navbar-solid {
     position: absolute; }
 
   body #pricing {
-    background: url("../images/jumbotron.jpg") center center no-repeat;
+    background: url("../assets/home_images/bg.jpg") center center no-repeat;
     background-size: cover; }
 
   body footer {
-    background: url("../images/jumbotron.jpg") center center no-repeat;
+    background: url("../assets/home_images/bg.jpg") center center no-repeat;
     background-size: cover; } }
 @media (max-width: 500px) {
   body .fus-tab-content > .tab-pane > .row > [class*="col-"].fus-photo img {

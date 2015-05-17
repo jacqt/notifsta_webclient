@@ -1,5 +1,5 @@
 ﻿
-<div class="event-outer" 
+<div class="event-outer"
      ng-touch-start="mother.showcard(card)"
      ng-touch-end="mother.hidecard(card)"
      ng-mouseenter="card.showme=true"
@@ -7,8 +7,11 @@
     <a ng-if="card.admin" ng-href="#/event_admin/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             {{card.name}}
+            <div ng-if="mother.window_size.width <= 750" style="font-size: 14px">
+                {{ card.address }} <br /> {{ mother.get_date(card.start_time) }}
+            </div>
 
-            <div ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
+            <div ng-if="mother.window_size.width > 750" ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
                 <table>
                     <tr>
                         <td class="label-icon">
@@ -39,9 +42,9 @@
         </div>
     </a>
     <!--<div class="event-add-remove-icon" ng-show="!card.admin && card.subscribed">-->
-        <!--<a class="icon-button" href=""  ng-click="mother.unsubscribe_to_event(card)">-->
-            <!--<i class="glyphicon glyphicon-remove" style="color: white"></i>-->
-        <!--</a>-->
+    <!--<a class="icon-button" href=""  ng-click="mother.unsubscribe_to_event(card)">-->
+    <!--<i class="glyphicon glyphicon-remove" style="color: white"></i>-->
+    <!--</a>-->
     <!--</div>-->
     <div class="event-add-remove-icon" ng-show="!card.subscribed">
         <a class="icon-button" href="" ng-click="mother.subscribe_to_event(card)">
@@ -52,7 +55,10 @@
             <div>
                 {{card.name}}
             </div>
-            <div ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
+            <div ng-if="mother.window_size.width <= 750" style="font-size: 14px">
+                {{ card.address }} <br /> {{ mother.get_date(card.start_time) }}
+            </div>
+            <div ng-if="mother.window_size.width > 750" ng-show="card.showme" ng-mouseenter="card.showme=true" class="event-content zoom">
                 <table>
                     <tr>
                         <td class="label-icon">

@@ -113,6 +113,7 @@
     <script src="/app/util/base/desktop_notifs.js"></script>
     <script src="/app/util/base/directives.js"></script>
     <script src="/app/util/base/address.js"></script>
+    <script src="/app/util/base/window_size.js"></script>
     <!-- endbuild -->
 
 </head>
@@ -171,11 +172,13 @@
         <div ng-view class="fade-view"></div>
     </div>
     <div class="col-md-12 footer" ng-style="{'display': on_homepage() ? 'none' : 'block'}" style="padding-top:10px; background-color:whitesmoke">
-        <ul style="">
-            <li>
-                <a href="#contact">Contact Us</a>
-            </li>
-        </ul>
+        <center>
+            <ul style="">
+                <li>
+                    <a href="#contact">Contact Us</a>
+                </li>
+            </ul>
+        </center>
     </div>
     <script>
         (function (i, s, o, g, r, a, m) {

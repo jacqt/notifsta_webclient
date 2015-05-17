@@ -3,8 +3,8 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('EventCtrl',
-    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'ImcService', '$window',
-    function ($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService, $window) {
+    ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'ImcService', 'WindowSizeService',
+    function ($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, ImcService, WindowSizeService) {
 
 
 
@@ -99,21 +99,7 @@
         $scope.never = "never";
         $scope.pls = true;
 
-        var w = angular.element($window);
-        $scope.getWindowDimensions = function () {
-            return {
-                'h': w.height(),
-                'w': w.width()
-            };
-        };
-        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
-            $scope.windowHeight = newValue.h;
-            $scope.windowWidth = newValue.w;
-        }, true);
 
-        w.bind('resize', function () {
-            $scope.$apply();
-        });
-
+        $scope.window_size = WindowSizeService.window_size;
     }]);
 })();
