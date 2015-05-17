@@ -559,7 +559,8 @@ footer .credit a {
 /* Red */
 body.fus-red .fus-overlay, body.fus-red .fus-tabs li.active a .glyphicon {
   background: #da4e4e;
-  border-color: #da4e4e; }
+  border-color: #da4e4e; 
+}
 
 body.fus-red .btn-primary {
   color: #FFF;
@@ -581,6 +582,8 @@ body.fus-red .navbar.fus-navbar-solid {
 @media (max-width: 768px) {
   body.fus-red .navbar-collapse {
     background: rgba(215, 58, 64, 0.88); } }
+    body.fus-red .navbar.fus-navbar-solid .navbar-collapse{
+      background: rgba(215, 58, 64, 0.0); }
 /* Yellow */
 body.fus-yellow .fus-overlay, body.fus-yellow .fus-tabs li.active a .glyphicon {
   background: #FFD600;
