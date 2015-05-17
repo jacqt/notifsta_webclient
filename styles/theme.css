@@ -67,7 +67,7 @@ body .navbar .navbar-header .navbar-brand {
   font-weight: bold;
   line-height: 75%; }
 
-body .btn {
+body .theme-css .btn {
   color: #333;
   font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica';
   border: 1px solid #333;
@@ -86,7 +86,7 @@ body .btn {
   -o-transition: all .4s ease;
   transition: all .4s ease; }
 
-body .btn:hover {
+body .theme-css  .btn:hover {
   background: #404041;
   color: #fff;
   border-color: #404041; }
@@ -95,11 +95,11 @@ body .btn-lg {
   font-size: 14px;
   padding: 10px 20px; }
 
-body .fus-btn-white {
+body .theme-css .fus-btn-white {
   color: white;
   border-color: white; }
 
-body .fus-btn-white:hover {
+body .theme-css .fus-btn-white:hover {
   color: #fff;
   border-color: white;
   background: rgba(255, 255, 255, 0.25); }

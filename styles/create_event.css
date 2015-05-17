@@ -1,0 +1,16 @@
+﻿.input-group-btn {
+    position: relative;
+    margin-right: 40px;
+}
+
+    .input-group-btn button {
+        padding-bottom: 10px;
+        margin-top: 1px;
+        padding-right: 8px;
+    }
+
+    .btn-info.active, .open .dropdown-toggle.btn-info {
+  color: #fff;
+  background-color: #39b3d7;
+  border-color: #269abc;
+}

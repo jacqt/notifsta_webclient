@@ -30,6 +30,19 @@
             //},0);
         });
 
+        $scope.$watch('partial_event.start_time', function (newVal) {
+            console.log(newVal);
+            if (!$scope.partial_event.end_time) {
+                $scope.partial_event.end_time = newVal;
+                return;
+            }
+            var sv = moment(newVal);
+            var ev = moment($scope.partial_event.end_time);
+            if (sv > ev) {
+                $scope.partial_event.end_time = newVal;
+            }
+        });
+
         $scope.AttemptEventCreation = function () {
             var required_fields = ['name', 'description', 'address', 'start_time', 'end_time'];
             var to_english = {
