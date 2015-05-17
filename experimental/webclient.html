@@ -1,4 +1,0 @@
-<%= stylesheet_link_tag "webclient", media: "all", "data-turbolinks-track" => true %>
-
-<%= react_component('Event', event_name: @event_name, websocket_url: ENV["WEBSOCKET_SERVER_URL"],
-                    initial_channel_data: @initial_channel_hash.as_json) %>
