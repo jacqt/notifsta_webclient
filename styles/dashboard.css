@@ -141,12 +141,12 @@
         background: white;
     }
     #dashboardpage .event-group-container h1 {
-        padding: 15px!important;
-        margin: 0!important;
-        background: #b94343!important;
-        color:white;
+        padding: 10px !important;
+        margin: 0 !important;
+        background: #1B1B1B !important;
+        color: rgb(242, 242, 242);
         text-align: left;
-        padding-left: 40px!important;
+        padding-left: 20px !important;
     }
 
     .event-group-container {

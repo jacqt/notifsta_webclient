@@ -558,13 +558,14 @@ footer .credit a {
 ****************************/
 /* Red */
 body.fus-red .fus-overlay, body.fus-red .fus-tabs li.active a .glyphicon {
-  background: #D73A40;
-  border-color: #D73A40; }
+  background: #da4e4e;
+  border-color: #da4e4e; }
 
 body.fus-red .btn-primary {
   color: #FFF;
-  background: #ff2d2d;
-  border-color: #FF0062; }
+  background: #e62424;
+  border-color: #ff0000; 
+}
 
 body.fus-red .btn-primary:hover {
   color: #FFF;
@@ -572,7 +573,7 @@ body.fus-red .btn-primary:hover {
   border-color: #FF0062; }
 
 body.fus-red .fus-tabs li.active a .fus-subtitle {
-  color: #ff2d2d; }
+  color: #da4e4e; }
 
 body.fus-red .navbar.fus-navbar-solid {
   background: rgba(215, 58, 64, 0.88); }
