@@ -7,7 +7,12 @@
 <span id="adminpage">
     <div class="container-fluid non-homepage">
         <div class="row header event-header"
+             ng-if="data.Event.cover_photo_url != null && data.Event.cover_photo_url.length >= 4" 
              ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
+            <h1 class="event-title">{{ event.name }}</h1>
+        </div>
+        <div class="row header event-header"
+             ng-if="data.Event.cover_photo_url == null || data.Event.cover_photo_url.length < 4" style="background-color: black">
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
 

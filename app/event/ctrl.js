@@ -55,14 +55,11 @@
         }
 
         function CreateTwitterTimeline() {
-            console.log($scope.data.Event.twitter_hashtag);
-            if (!$scope.data.Event.twitter_hashtag) {
+            if (!$scope.data.Event.twitter_widget_id) {
                 return;
             }
             twttr.widgets.createTimeline(
-              //$scope.data.Event.twitter_widget_id,
-              //$scope.data.Event.twitter_hashtag,
-              '598232558812459008',
+              $scope.data.Event.twitter_widget_id,
               document.getElementById('twitter_timeline'),
               {
                   width: '1000',

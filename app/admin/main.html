@@ -6,11 +6,12 @@
 <span id="adminpage">
     <div class="container-fluid non-homepage">
         <div class="row header event-header"
+             ng-if="data.Event.cover_photo_url != null && data.Event.cover_photo_url.length >= 4"
              ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
         <div class="row header event-header"
-             ng-if="data.Event.cover_photo_url ==null" style="background-image:url('http://cdn.notifsta.com/images/walking.jpg')">
+             ng-if="data.Event.cover_photo_url == null || data.Event.cover_photo_url.length < 4" style="background-color: black">
             <h1 class="event-title">{{ event.name }}</h1>
         </div>
         <div class="row content" style="margin-left: 15px; margin-right: 15px">
@@ -124,8 +125,8 @@
                                 <div class="col-md-12">
                                     <label> Twitter Widget Id </label>
                                     <div class="editable-item">
-                                        <span editable-text="data.Event.twitter_hashtag" onaftersave="publish_updates()" e-form="twitter_hashtag_form">
-                                            {{ data.Event.twitter_hashtag || 'Enter a twitter hashtag' }}
+                                        <span editable-text="data.Event.twitter_widget_id" onaftersave="publish_updates()" e-form="twitter_hashtag_form">
+                                            {{ data.Event.twitter_widget_id || 'Your twitter widget id' }}
                                         </span>
                                         <button class="btn-default" ng-click="twitter_hashtag_form.$show()" ng-hide="twitter_hashtag_form.$visible">
                                             <i class="glyphicon glyphicon-pencil"></i>
@@ -144,7 +145,6 @@
                                            onshow="cover_photo_toggle()"
                                            oncancel="revert_changes()"
                                            onaftersave="publish_updates()"
-                                           popover-template="cover_photo_preview.templateUrl"
                                            popover-placement="bottom">
                                             <!--popover-trigger="mouseenter">-->
                                             {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
@@ -154,7 +154,7 @@
                                         </button>
                                     </div>
                                     <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
-                                        <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
+                                        <div ngf-drop ng-model="cover_photo_files" class="drop-box"
                                              ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                              ngf-accept="'.jpg,.png,'">
                                             Drop Image files (.jpg .png) here
@@ -164,13 +164,13 @@
                                                 ngf-select
                                                 ng-disabled="loading"
                                                 ng-click="cover_photo_editor.$show()"
-                                                ng-model="$parent.cover_photo_files">
+                                                ng-model="cover_photo_files">
                                             Choose file
                                         </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <label> Event Map </label>
+                                    <label> Event Map  </label>
                                     <div class="editable-item">
                                         <a editable-text="data.Event.event_map_url"
                                            ng-href="{{data.Event.event_map_url}}"
@@ -181,7 +181,6 @@
                                            onshow="map_url_toggle()"
                                            oncancel="revert_changes()"
                                            onaftersave="publish_updates()"
-                                           popover-template="event_map_preview.templateUrl"
                                            popover-placement="bottom">
                                             <!--popover-trigger="mouseenter">-->
                                             {{ data.Event.event_map_url  || "Upload an event map now!" }}
@@ -192,14 +191,14 @@
                                     </div>
 
                                     <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
-                                        <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
+                                        <div ngf-drop ng-model="event_map_files" class="drop-box"
                                              ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                              ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
                                         <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                                         <button class="btn btn-default"
                                                 ngf-select
                                                 ng-disabled="loading"
-                                                ng-model="$parent.event_map_files">
+                                                ng-model="event_map_files">
                                             Choose file
                                         </button>
                                     </div>
