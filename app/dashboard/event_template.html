@@ -15,7 +15,7 @@
                 <table>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <i class="glyphicon mdi mdi-information-outline"></i>
                         </td>
                         <td>
                             <div style="height: auto" data-ng-bind="card.description"></div>
@@ -23,7 +23,7 @@
                     </tr>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-calendar"></i>
+                            <i class="glyphicon mdi mdi-clock"></i>
                         </td>
                         <td>
                             <div ng-bind="mother.get_date(card.start_time)"></div>
@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <i class="glyphicon mdi mdi-map-marker"></i>
                         </td>
                         <td>
                             <div data-ng-bind="card.address"></div>
@@ -50,7 +50,8 @@
         <a class="icon-button" href="" ng-click="mother.subscribe_to_event(card)">
             <i class="glyphicon glyphicon-plus" style="font-size: 25px!important; color:white; "></i>
         </a>
-    </div>    <a ng-show="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
+    </div>
+    <a ng-show="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
         <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             <div>
                 {{card.name}}
@@ -62,7 +63,7 @@
                 <table>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <i class="glyphicon mdi mdi-information-outline"></i>
                         </td>
                         <td>
                             <div style="height: auto" data-ng-bind="card.description"></div>
@@ -70,7 +71,7 @@
                     </tr>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-calendar"></i>
+                            <i class="glyphicon mdi mdi-clock"></i>
                         </td>
                         <td>
                             <div ng-bind="mother.get_date(card.start_time)"></div>
@@ -78,7 +79,7 @@
                     </tr>
                     <tr>
                         <td class="label-icon">
-                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <i class="glyphicon mdi mdi-map-marker"></i>
                         </td>
                         <td>
                             <div data-ng-bind="card.address"></div>
