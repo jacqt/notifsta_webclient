@@ -11,23 +11,44 @@
   color: white!important;
 }
 
+.grow image-zoom-hover {
+  -webkit-transition: all .5s;
+     -moz-transition: all .5s;
+       -o-transition: all .5s;
+      -ms-transition: all .5s;
+          transition: all .5s;
+}
+
+.ii
+
+.zoom {
+  -webkit-transition: all .5s;
+     -moz-transition: all .5s;
+       -o-transition: all .5s;
+      -ms-transition: all .5s;
+          transition: all .5s;
+}
+
 .zoom.ng-hide-add, .zoom.ng-hide-remove {
-    -webkit-animation: zoomIn .25s;
-    -moz-animation: zoomIn .25s;
-    -ms-animation: zoomIn .25s;
-    animation: zoomIn .25s;
+    -webkit-animation: zoomIn .5s;
+    -moz-animation: zoomIn .5s;
+    -ms-animation: zoomIn .5s;
+    animation: zoomIn .5s;
+    height: 140px!important;
 }
 
 .zoom.ng-hide {
-    -webkit-animation: zoomOut .25s;
-    -moz-animation: zoomOut .25s;
-    -ms-animation: zoomOut .25s;
-    animation: zoomOut .25s;
+    -webkit-animation: zoomOut .5s;
+    -moz-animation: zoomOut .5s;
+    -ms-animation: zoomOut .5s;
+    animation: zoomOut .5s;
+    height:0!important;
+    width:0!important;
+    overflow:hidden!important;
 }
 
 .event-group-container {
     overflow-y: hidden;
-    padding-bottom: 15px;
 }
 
 .dashboard-title {
@@ -374,15 +395,12 @@
 
 #dashboardpage .event-content {
     width: 100%;
-    height: auto;
+    height: 140px;
     font-family: 'Avenir-Medium';
     -webkit-font-smoothing: antialiased;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
     text-align: left;
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 15px;
     color: white;
 }
 
