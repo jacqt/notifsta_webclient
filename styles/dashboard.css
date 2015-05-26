@@ -11,15 +11,18 @@
   color: white!important;
 }
 
-.grow image-zoom-hover {
+.grow-image{
   -webkit-transition: all .5s;
      -moz-transition: all .5s;
        -o-transition: all .5s;
       -ms-transition: all .5s;
           transition: all .5s;
+          background-position: center!important;
 }
 
-.ii
+.grow-image:hover {
+    height: 370px!important;
+}
 
 .zoom {
   -webkit-transition: all .5s;

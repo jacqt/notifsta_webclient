@@ -52,7 +52,7 @@
         </a>
     </div>
     <a ng-show="!card.admin" ng-href="#/event/{{card.name}}?event_id={{card.id}}">
-        <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
+        <div class="event-image grow-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             <div style="margin-bottom: 10px">{{card.name}}</div>
             <div ng-if="mother.window_size.width <= 750" style="font-size: 14px">
                 {{ card.address }} <br /> {{ mother.get_date(card.start_time) }}
