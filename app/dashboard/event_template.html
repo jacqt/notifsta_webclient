@@ -5,7 +5,7 @@
      ng-mouseenter="card.showme=true"
      ng-mouseleave="card.showme=false">
     <a ng-if="card.admin" ng-href="#/event_admin/{{card.name}}?event_id={{card.id}}">
-        <div class="event-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
+        <div class="event-image grow-image" ng-style="{'background-image':'url('+card.cover_photo_url+')'}">
             <div style="margin-bottom: 10px">{{card.name}}</div>
             <div ng-if="mother.window_size.width <= 750" style="font-size: 14px">
                 {{ card.address }} <br /> {{ mother.get_date(card.start_time) }}
@@ -18,7 +18,7 @@
                             <i class="glyphicon mdi mdi-information-outline"></i>
                         </td>
                         <td>
-                            <div style="height: auto" data-ng-bind="card.description"></div>
+                            <div style="height: auto; max-height:4em; overflow-y:hidden; overflow-wrap:break-word; " data-ng-bind="card.description"></div>
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +64,7 @@
                             <i class="glyphicon mdi mdi-information-outline"></i>
                         </td>
                         <td>
-                            <div style="height: auto" data-ng-bind="card.description"></div>
+                            <div style="height: auto; max-height:4em; overflow-y:hidden; overflow-wrap:break-word; " data-ng-bind="card.description"></div>
                         </td>
                     </tr>
                     <tr>
