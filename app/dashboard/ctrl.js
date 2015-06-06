@@ -3,11 +3,11 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('DashboardCtrl',
-        ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService',
-        function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService) {
+        ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService', 'DesktopNotifs',
+        function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService, DesktopNotifs) {
             $scope.window_size = WindowSizeService.window_size;
             $scope.events = {};
-            ImcService.Add
+            DesktopNotifs.RequestNotification();
             ImcService.AddHandler('user updated', function () {
                 update_events();
             });
