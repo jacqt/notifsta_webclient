@@ -1,3 +1,11 @@
+.dropdown-menu .text-center .btn {
+    border-left:none;
+    border-bottom:none;
+    border-radius:0px;
+    margin:0px;
+
+}
+
 .popover-content {
     padding: 0!important;
 }
@@ -7,6 +15,79 @@
 .photo-preview img {
     height: 150px;
 }
+
+.editable-item {
+    display: flex;
+    border-bottom:1px solid #e2e2e2;
+}
+.editable-object {
+    display: flex;
+    border-bottom:1px solid #e2e2e2;
+}
+
+    .editable-object span {
+        padding-bottom: 5px;
+    }
+    .editable-object a {
+        width: 100%;
+    }
+
+    .editable-object button {
+        -ms-animation-play-state: paused;
+        -o-animation-play-state: paused;
+        -moz-animation-play-state: paused;
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border-radius: 4px;
+    }
+    .editable-object edit {
+        -ms-animation-play-state: paused;
+        -o-animation-play-state: paused;
+        -moz-animation-play-state: paused;
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: none;
+        border-radius: 4px;
+    }
+
+.editable-object button i {
+    margin-left: -2px;
+}
+
 
 .editable-item {
     display: flex;

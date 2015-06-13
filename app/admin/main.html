@@ -180,7 +180,7 @@
                                            onhide="map_url_toggle()"
                                            onshow="map_url_toggle()"
                                            oncancel="revert_changes()"
-                                           onaftersave="publish_updates()"
+                                           onaftersave="    publish_updates()"
                                            popover-placement="bottom">
                                             <!--popover-trigger="mouseenter">-->
                                             {{ data.Event.event_map_url  || "Upload an event map now!" }}
@@ -206,44 +206,54 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label> Start time</label>
+                                    <div ng-hide="timeoption.editing">
+                                        {{ format_date(data.Event.start_time) }}
+                                    </div>
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="">
-                                            <div class="form-group">
+                                        <a class="dropdown-toggle" ng-show="timeoption.editing">
+                                            <div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <input type="text" class="form-control" data-ng-model="data.Event.start_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            <div class="input-group" combinedtpicker ng-model="timeoption.start_time"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-on-set-time="on_time_set(newDate, oldDate)"
-                                                            data-ng-model="data.Event.start_time"
-                                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown4' }" />
-                                        </ul>
+
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label> End time</label>
+                                    <div ng-hide="timeoption.editing">
+                                        <div class="editable-item">
+                                            <div style="width:100%">{{ format_date(data.Event.end_time) }}</div>
+                                            <button class="btn-default" ng-click="timeoption.edit()" ng-hide="timeoption.editing">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle" id="dropdown5" role="button" data-toggle="dropdown" data-target="#" href="">
-                                            <div class="form-group">
+                                        <a class="dropdown-toggle" ng-show="timeoption.editing">
+                                            <div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <input type="text" class="form-control" data-ng-model="data.Event.end_time" placeholder="Start date and time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            <div style="width: 100%" class="input-group" combinedtpicker ng-model="timeoption.end_time"></div>
+                                                            <div style="width: 95px; border-bottom: none;" class="editable-item">
+                                                                <button class="btn-default btn-primary" ng-click="timeoption.save()">
+                                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                                </button>
+                                                                <button style="margin-left: 5px" class="btn-default btn-default" ng-click="timeoption.cancel()">
+                                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-on-set-time="on_time_set(newDate, oldDate)"
-                                                            data-ng-model="data.Event.end_time"
-                                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown5' }" />
-                                        </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

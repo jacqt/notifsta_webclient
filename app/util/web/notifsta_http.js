@@ -254,6 +254,7 @@
         // ------------------------------------------------------------ //
         // API Calls to edit objects in the database
         function PublishEventUpdate(event) {
+            console.log(event.id);
             var req = {
                 url: BASE_URL + '/v1/events/' + event.id,
                 method: 'POST',

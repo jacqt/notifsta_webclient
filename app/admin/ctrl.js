@@ -35,6 +35,50 @@
             name: $routeParams.event_name,
             id: $routeParams.event_id
         }
+
+        $scope.timeoption = {
+            editing: false,
+            edit: function(){
+                $scope.timeoption.start_time = $scope.data.Event.start_time;
+                $scope.timeoption.end_time = $scope.data.Event.end_time;
+                $scope.timeoption.editing = true;
+            },
+            cancel: function () {
+                $scope.timeoption.editing = false;
+            },
+            save: function () {
+                $scope.timeoption.editing = false;
+                $scope.data.Event.start_time = $scope.timeoption.start_time;
+                $scope.data.Event.end_time = $scope.timeoption.end_time;
+                $scope.publish_updates();
+            },
+            start_time: null,
+            end_time: null
+        
+        };
+        $scope.$watch('timeoption.start_time', function (newVal) {
+            if (!$scope.timeoption.start_time) {
+                return;
+            }
+            console.log(newVal);
+            var sv = moment(newVal);
+            var ev = moment($scope.timeoption.end_time);
+            if (sv > ev) {
+                $scope.timeoption.end_time = sv.add(2,'hours');
+            } 
+        });
+
+        $scope.$watch('timeoption.end_time', function (newVal) {
+            if (!$scope.timeoption.end_time) {
+                return;
+            }
+            console.log(newVal);
+            var ev = moment(newVal);
+            var sv = moment($scope.timeoption.start_time);
+            if (sv > ev) {
+                $scope.timeoption.start_time = newVal;
+            } 
+        });
         var TIMEOUT = 1 * 1000;
 
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
@@ -90,6 +134,10 @@
                 }
 
             });
+        }
+
+        $scope.format_date = function(time_string){
+            return moment(time_string).format('LLL');
         }
 
         $scope.create_option = function () {

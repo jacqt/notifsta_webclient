@@ -87,7 +87,8 @@ app.directive('combinedtpicker', [function () {
                 var refs = attrs.ngModel.split('.');
                 var obj = scope;
                 for (var i = 0; i != refs.length-1; ++i) {
-                    obj = scope[refs[i]]
+                    obj = obj[refs[i]]
+                    console.log(obj);
                 }
                 var new_val = moment(convert_to_date());
                 var last_ref = refs[refs.length - 1];
@@ -115,7 +116,7 @@ app.directive('combinedtpicker', [function () {
             });
 
         },
-        template: '<input type="text" datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" is-open="datepicker.opened" class="form-control datepicker" ng-model="date"/>' +
+        template: '<input type="text" show-weeks="false" show-button-bar="false" datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" is-open="datepicker.opened" class="form-control datepicker" ng-model="date"/>' +
               '<span class="input-group-btn">' +
                 '<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>'+
               '</span><timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="false"></timepicker>',
