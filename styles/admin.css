@@ -6,6 +6,10 @@
 
 }
 
+.dropdown-menu th .btn-default {
+ border: none;
+}
+
 .popover-content {
     padding: 0!important;
 }

@@ -77,6 +77,12 @@ app.directive('combinedtpicker', [function () {
                     convert_from_moment(v);
                 }
             });
+            scope.$watch(attrs.minDate, function (v) {
+                if (!v) {
+                    return;
+                }
+                scope.minDate = v;
+            })
 
             scope.$watch('date', function (v) {
                 update();
@@ -116,7 +122,7 @@ app.directive('combinedtpicker', [function () {
             });
 
         },
-        template: '<input type="text" show-weeks="false" show-button-bar="false" datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" is-open="datepicker.opened" class="form-control datepicker" ng-model="date"/>' +
+        template: '<input type="text" min-date="minDate" show-weeks="false" show-button-bar="false" datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" is-open="datepicker.opened" class="form-control datepicker" ng-model="date"/>' +
               '<span class="input-group-btn">' +
                 '<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>'+
               '</span><timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="false"></timepicker>',

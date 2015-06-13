@@ -17,6 +17,15 @@ module.exports = function(grunt) {
             html: 'dist/index.html'
         },
 
+        purifycss: {
+            options: {},
+            target: {
+                src: ['dist/index.html', 'dist/*.js', 'dist/*/*/*.js'],
+                css: ['dist/app.css'],
+                dest: 'dist/app-p.css'
+            }
+        },
+
         // TODO: Enable to lint for high quality code.
         //jshint: {
         //    options: {
@@ -122,6 +131,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-purifycss');
 
     grunt.registerTask('default', [
         'useminPrepare',
@@ -131,6 +141,10 @@ module.exports = function(grunt) {
         'cssmin:generated',
         'uglify:generated',
         'usemin',
+        'purifycss',
+    ]);
+    grunt.registerTask('purify', [
+        'purifycss',
     ]);
 };
 
