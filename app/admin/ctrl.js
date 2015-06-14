@@ -18,6 +18,42 @@
             templateUrl: 'app/admin/event_map_preview.html'
         }
         $scope.partial_subevent = {};
+
+        $scope.$watch('partial_subevent.start_time', function (newVal) {
+            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources[1].events.length == 0) {
+                return;
+            }
+            if (newVal == $scope.data.Event.event_sources[1].events[0].start) {
+                return;
+            }
+            console.log($scope.data.Event.event_sources[1].events[0]);
+            var evs = uiCalendarConfig.calendars.timetable_c.fullCalendar('clientEvents', function (ev) {
+                return ev.partial;
+            });
+            console.log(evs);
+            if (evs.length == 0) {
+                return;
+            }
+            evs[0].start = moment($scope.partial_subevent.start_time);
+            evs[0].end = moment($scope.partial_subevent.end_time);
+            uiCalendarConfig.calendars.timetable_c.fullCalendar('updateEvent', evs[0]);
+        });
+        $scope.$watch('partial_subevent.end_time', function (newVal) {
+            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources[1].events.length == 0) {
+                return;
+            }
+            var evs = uiCalendarConfig.calendars.timetable_c.fullCalendar('clientEvents', function (ev) {
+                return ev.partial;
+            });
+            console.log(evs);
+            if (evs.length == 0) {
+                return;
+            }
+            evs[0].start = moment($scope.partial_subevent.start_time);
+            evs[0].end = moment($scope.partial_subevent.end_time);
+            uiCalendarConfig.calendars.timetable_c.fullCalendar('updateEvent', evs[0]);
+        });
+
         $scope.cover_photo_files = [];
         $scope.event_map_files = [];
         $scope.temp = {};
@@ -301,12 +337,14 @@
         //CALENDAR
         $scope.calendar_editable = true;
         function disable_all_events() {
+            console.log('disabling events...');
             $scope.calendar_editable = false;
             $scope.data.Event.event_sources.map(function (event_source) {
                 event_source.events.map(function (event) {
                     event.editable = false;
                 })
             })
+            console.log($scope.data.Event.event_sources);
         }
         function enable_all_events() {
             $scope.calendar_editable = true;
@@ -404,7 +442,7 @@
         $scope.timetable_clicked = function (ev) {
             if (!$scope.calendar_editable) return;
             console.log(ev);
-            var CALENDAR_LEFT_LABEL_WIDTH = 53;
+            var CALENDAR_LEFT_LABEL_WIDTH = 93;
             var w = $('.fc-day').width();
             var x_offset = 117;//$('.fc-widget-content').offset().left;
             var x_rel = ev.pageX - x_offset;
@@ -416,6 +454,7 @@
             } else {
                 $scope.event_editor_popup.posX = x_rel + w + 40 + CALENDAR_LEFT_LABEL_WIDTH;
             }
+            $scope.event_editor_popup.posX = x_rel + CALENDAR_LEFT_LABEL_WIDTH;
             console.log(ev.pageY);
             console.log($('.fc-center').offset().top);
             $scope.event_editor_popup.posY =  Math.min(ev.pageY - $('.fc-center').offset().top - 800, -400);
@@ -424,19 +463,21 @@
 
         var on_day_click = function (date, jsEvent, view) {
             if (!$scope.calendar_editable) return;
-            disable_all_events();
+            //disable_all_events();
             console.log(date);
             $scope.partial_subevent = {
                 name: null,
                 description: null,
                 start_time: moment(date.format('LLL')).format('LLL'),
-                end_time: moment(date.format('LLL')).add(2, 'hour').format('LLL'),
+                end_time: moment(date.format('LLL')).add(1, 'hour').format('LLL'),
                 location: null
             }
             $scope.data.Event.event_sources[1].events.push({
                 title: '',
-                start: $scope.partial_subevent.start_time,
-                allDay: false
+                start: moment($scope.partial_subevent.start_time),
+                end: moment($scope.partial_subevent.end_time),
+                allDay: false,
+                partial: true
             });
 
             show_subevent();
@@ -445,7 +486,7 @@
         var show_subevent = function () {
             setTimeout(function () {
                 $scope.editing_subevent = true;
-                disable_all_events();
+                //disable_all_events();
             }, 100);
             $scope.subevent_editor.$show();
         }
@@ -464,23 +505,30 @@
         }
 
         var alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
-            if (!$scope.calendar_editable) return;
-            event.start_time = moment(event.start.format('LLL')).format('LLL');
-            event.end_time = moment(event.end.format('LLL')).format('LLL');
-            console.log(event.end);
-            UpdateSubEvent(event);
+            console.log(event.partial);
+            if (event.partial) { //update the partial event 
+                $scope.partial_subevent.start_time = moment(event.start.format('LLL')).format('LLL');
+                $scope.partial_subevent.end_time = moment(event.end.format('LLL')).format('LLL');
+            } else {
+                event.start_time = moment(event.start.format('LLL')).format('LLL');
+                event.end_time = moment(event.end.format('LLL')).format('LLL');
+                UpdateSubEvent(event);
+            }
         };
 
         var on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
-            if (!$scope.calendar_editable) return;
-            event.start_time = moment(event.start.format('LLL')).format('LLL');
-            event.end_time = moment(event.end.format('LLL')).format('LLL');
-            console.log(event.end);
-            UpdateSubEvent(event);
+            if (event.partial) { //update the partial event 
+                $scope.partial_subevent.start_time = moment(event.start.format('LLL')).format('LLL');
+                $scope.partial_subevent.end_time = moment(event.end.format('LLL')).format('LLL');
+            } else {
+                event.start_time = moment(event.start.format('LLL')).format('LLL');
+                event.end_time = moment(event.end.format('LLL')).format('LLL');
+                UpdateSubEvent(event);
+            }
         };
 
         $scope.cancel_subevent_editing = function () {
-            enable_all_events();
+            //enable_all_events();
             $scope.editing_subevent = false;
             $scope.partial_subevent.start_time = null;
             $scope.partial_subevent.end_time = null;
@@ -491,7 +539,7 @@
         }
 
         $scope.save_subevent = function () {
-            enable_all_events();
+            //enable_all_events();
             if ($scope.partial_subevent.id) {
                 var event = $scope.partial_subevent;
                 event.title = event.name;

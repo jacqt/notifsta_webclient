@@ -64,7 +64,6 @@ app.directive('combinedtpicker', [function () {
                 scope.datepicker.old_value = moment(convert_to_date());
             }
             scope.$watch(attrs.ngModel, function (v) {
-                console.log('value changed, new value is: ' + v);
                 if (!v) {
                     return;
                 }
@@ -72,8 +71,6 @@ app.directive('combinedtpicker', [function () {
                     v = moment(v);
                 }
                 if (!scope.datepicker.old_value || v.valueOf() != scope.datepicker.old_value.valueOf()) {
-                    console.log(scope.datepicker.old_value.valueOf())
-                    console.log(v.valueOf())
                     convert_from_moment(v);
                 }
             });
@@ -89,12 +86,10 @@ app.directive('combinedtpicker', [function () {
             });
 
             function update() {
-                console.log('updating');
                 var refs = attrs.ngModel.split('.');
                 var obj = scope;
                 for (var i = 0; i != refs.length-1; ++i) {
                     obj = obj[refs[i]]
-                    console.log(obj);
                 }
                 var new_val = moment(convert_to_date());
                 var last_ref = refs[refs.length - 1];
