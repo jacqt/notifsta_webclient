@@ -324,7 +324,7 @@
                 var message = $scope.input.message;
                 var start_time = $scope.config.scheduled_notif.start_time;
                 var event_id = $scope.data.Event.id;
-                var promises = NotifstaHttp.CreateScheduledNotification(message, start_time, event_id, channel_ids);
+                var promises = NotifstaHttp.CreateScheduledNotification(message, start_time, channel_ids);
             }
 
             var succeeded = 0;
@@ -369,7 +369,6 @@
             var promise = NotifstaHttp.UpdateScheduledNotification(
                 notif.temp.message,
                 notif.temp.start_time,
-                event_id,
                 notif.channel_id,
                 notif.id
             );
@@ -387,7 +386,6 @@
             var event_id = $scope.data.Event.id;
             var promise = NotifstaHttp.DeleteScheduledNotification(
                 notif.channel_id,
-                event_id,
                 notif.id
             );
             promise.success(function (resp) {
