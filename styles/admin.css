@@ -1,3 +1,18 @@
+.notif-item-text {
+    line-height: 30px;
+
+}
+
+.schedulenotif {
+    padding-top: 10px;
+    display:flex;
+}
+
+.schedulenotif b {
+    padding-top: 8px;
+    padding-right:10px;
+}
+
 .dropdown-menu .text-center .btn {
     border-left:none;
     border-bottom:none;
@@ -22,6 +37,7 @@
 
 .editable-item {
     display: flex;
+    padding-bottom:5px;
     border-bottom:1px solid #e2e2e2;
 }
 .editable-object {

@@ -57,7 +57,16 @@
         $scope.cover_photo_files = [];
         $scope.event_map_files = [];
         $scope.temp = {};
-        $scope.config = {sending_survey : false};
+        $scope.config = {
+            sending_survey: false,
+            scheduled_notif: {
+                show: false,
+                start_time: moment(),
+                showme: function () {
+                    return $scope.config.scheduled_notif.show
+                }
+            },
+        };
         $scope.revert_changes = function () {
             if ($scope.temp.event_map_url) {
                 $scope.data.Event.event_map_url = $scope.temp.event_map_url;
@@ -216,7 +225,6 @@
         var bucket = new AWS.S3({ params: { Bucket: 'notifsta' } });
         $scope.upload = function (files, cb) {
             console.log(files);
-            console.log('HELP ME PLS');
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
@@ -301,6 +309,94 @@
             })
         }
 
+        $scope.schedule_notification = function(){
+            $scope.config.scheduled_notif.start_time = moment();
+            $scope.config.scheduled_notif.show = true;
+            setTimeout(function () {
+                $scope.$apply();
+            }, 10);
+
+        }
+        $scope.create_scheduled_notification = function () {
+            var channel_ids = [$scope.data.Event.channels[0].id];
+            if ($scope.config.sending_survey) {
+                throw "Scheduling surveys is not implemented yet";
+            } else {
+                var message = $scope.input.message;
+                var start_time = $scope.config.scheduled_notif.start_time;
+                var promises = NotifstaHttp.CreateScheduledNotification(message, start_time, channel_ids);
+            }
+
+            var succeeded = 0;
+            promises.map(function (p) {
+                p.success(function (e) {
+                    succeeded += 1;
+                    if (succeeded == channel_ids.length) {
+                        if (e.error || e.status == "failure") {
+                            toaster.pop('error', e.error);
+                        } else {
+                            toaster.pop('success', 'Successfuly scheduled notification');
+                            $scope.input.message = '';
+                            $scope.input.options = [];
+                            $scope.input.next_option.text = '';
+                            $scope.input.focus_notice = false;
+                            $scope.config.scheduled_notif.show = false;
+                            event_monitor.UpdateScheduledNotifications();
+                        }
+                    }
+                });
+                p.error(function (e) {
+                    $scope.loading = false;
+                });
+            })
+        }
+
+        $scope.edit_scheduled_notification = function (notif) {
+            console.log(notif);
+            notif.editing = true;
+            notif.temp = {
+                start_time: notif.start_time.clone(),
+                message: notif.message
+            };
+        }
+
+        $scope.cancel_edit_scheduled_notification = function (notif) {
+            notif.editing = false;
+        }
+
+        $scope.save_edit_scheduled_notification = function (notif) {
+            var promise = NotifstaHttp.UpdateScheduledNotification(
+                notif.temp.message,
+                notif.temp.start_time,
+                notif.channel_id,
+                notif.id
+            );
+            promise.success(function (resp) {
+                console.log(resp);
+                if (resp.status === "success") {
+                    notif.start_time = moment(resp.data.start_time, moment.ISO8061);
+                    notif.message = resp.data.message;
+                    toaster.pop('success', 'Successfuly updated notification');
+                }
+                notif.editing = false;
+            })
+        }
+        $scope.delete_scheduled_notification = function (notif) {
+            var promise = NotifstaHttp.DeleteScheduledNotification(
+                notif.channel_id,
+                notif.id
+            );
+            promise.success(function (resp) {
+                console.log(resp);
+                if (resp.status === "success") {
+                    event_monitor.UpdateScheduledNotifications();
+                    toaster.pop('success', 'Successfuly deleted notification');
+                }
+                notif.editing = false;
+            })
+
+            notif.editing = false;
+        }
 
         $scope.selected_none = function () {
             return $scope.data.Event.channels.filter(function (e) { return e.selected }).length == 0;

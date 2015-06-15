@@ -1,0 +1,43 @@
+﻿<div ng-repeat="notif in data.Event.scheduled_notifications">
+    <div ng-show="!notif.editing">
+        <div class="notif-item-text" style="padding-top: 10px; padding-bottom:10px">
+            <b> Message</b> <span class="lighter-color" style="margin-left: 5px"> {{ notif.start_time.format('LLL') }} </span>
+        </div>
+        <div class="editable-item">
+            <div style="width:100%">
+                <div class="feed-item-text">{{ notif.message }}</div>
+            </div>
+            <div>
+                <button class="btn-default" ng-click="edit_scheduled_notification(notif)">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="notif.editing">
+        <div class="notif-item-text" style="padding-top: 10px; padding-bottom:10px">
+            <div style="display:flex">
+                <b> Message</b>  <span style="margin-left: 5px"> <div class="input-group" combinedtpicker ng-model="notif.temp.start_time"></div> </span>
+            </div>
+        </div>
+        <div class="editable-item">
+            <div style="width:100%;">
+                <input ng-model="notif.temp.message" style="padding: 5px">
+                <button class="btn-default btn-danger" ng-click="delete_scheduled_notification(notif)" style="margin-left: 10px">
+                    Delete
+                </button>
+            </div>
+            <div style="width: 95px; border-bottom: none;">
+                <button class="btn-default btn-primary" ng-click="save_edit_scheduled_notification(notif)">
+                    <i class="glyphicon glyphicon-ok"></i>
+                </button>
+                <button style="margin-left: 5px" class="btn-default btn-default" ng-click="cancel_edit_scheduled_notification(notif)">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="feed-item" ng-show="data.Event.scheduled_notifications.length == 0">
+    <div class="feed-item-text"> It's lonely in here - schedule a notification now! </div>
+</div>

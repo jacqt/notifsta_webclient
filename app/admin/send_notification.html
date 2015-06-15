@@ -1,0 +1,77 @@
+﻿
+<div class="">
+    <div class="newnotice">
+        <div ng-submit="" class="new-notice-form">
+            <input class="newnoticeinput"
+                   type="text" placeholder="Send a new message or question to your guests!"
+                   ng-model="input.message"
+                   ng-focus="input.focus_notice = true"
+                   ng-disabled="selected_none() || loading"></input>
+            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+        </div>
+    </div>
+    <!-- Survey -->
+    <div>
+        <div ng-show="config.sending_survey" class="slide">
+            <div class="list-group survey-option">
+                <form ng-submit="create_option()" class="list-group-item">
+                    <input type="text"
+                           class="new-survey-option"
+                           style="width: 100%"
+                           placeholder="Enter a possible response to your question..." ng-model="input.next_option.text"></input>
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"></input>
+                </form>
+                <a ng-repeat="option in input.options"
+                   class="list-group-item slide-enter"
+                   ng-click="option.editing=true">
+                    <span ng-show="!option.editing"><li>{{ option.text }}</li></span>
+                    <input type="text"
+                           style="width: 100%; outline: 0"
+                           ng-show="option.editing"
+                           focus-me="option.editing"
+                           ng-model="option.text"
+                           ng-blur="finish_editing(option)"
+                           ng-enter="finish_editing(option)"> </input>
+                </a>
+            </div>
+        </div>
+        <div ng-if="input.focus_notice && !config.scheduled_notif.show"
+             style="padding-top: 10px"
+             class="slide send-notifs-buttons">
+            <button type="button" class="btn btn-default"
+                    ng-click="create_notification()">
+                Send
+            </button>
+            <button type="button" class="btn btn-default"
+                    ng-click="schedule_notification()">
+                Send Later
+            </button>
+            <button type="button" class="btn btn-default"
+                    ng-click="input.focus_notice=false">
+                Cancel
+            </button>
+            <label style="display: inline-flex">
+                Allow Responses
+                <md-checkbox id="stupid-checkbox"
+                             style="margin-top: 2px; margin-left: 5px" class="md-warn"
+                             ng-model="config.sending_survey"></md-checkbox>
+            </label>
+            </input>
+        </div>
+        <div ng-if="config.scheduled_notif.showme()" class="slide">
+            <div class="schedulenotif">
+                <b> Send at </b>
+                <div class="input-group" combinedtpicker ng-model="config.scheduled_notif.start_time"></div>
+            </div>
+            <button type="button" class="btn btn-default"
+                    ng-click="create_scheduled_notification()">
+                Confirm
+            </button>
+            <button type="button" class="btn btn-default"
+                    ng-click="config.scheduled_notif.show=false">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+

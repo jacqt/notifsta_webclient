@@ -2,7 +2,8 @@
   "version": "0.0.1",
   "name": "notifsta_webclient",
   "dependencies": {
-    "grunt-purifycss": "^0.1.0"
+    "grunt-purifycss": "^0.1.0",
+    "multer": "^0.1.8"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

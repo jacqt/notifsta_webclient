@@ -19,6 +19,8 @@
             if (!(key in event_monitors)){
                 var new_monitor = new EventMonitor(event.name, event.id, monitor_type);
                 event_monitors[key] = new_monitor;
+            } else {
+                event_monitors[key].GetInitialEventData(); // Update the event data when re-requesting an event
             }
             return event_monitors[key];
 
@@ -31,7 +33,8 @@
                 Event: {
                     channels: [],
                     event_sources: [],
-                    subevent_grouped_array: []
+                    subevent_grouped_array: [],
+                    scheduled_notifications: []
                 },
             }
             self.monitor_type = monitor_type;
@@ -71,6 +74,7 @@
             self.ConfigureMap();
             self.ConfigureTimetable();
             self.ConfigureWebsocket();
+            self.UpdateScheduledNotifications();
             event.start_time = moment(event.start_time).format('LLL');
             event.end_time = moment(event.end_time).format('LLL');
             event.channels.map(function(channel){
@@ -103,10 +107,26 @@
             ImcService.FireEvent('event_loaded ' + self._data.Event.id);
         }
 
+
+        EventMonitor.prototype.UpdateScheduledNotifications = function () {
+            var data = this._data;
+            var promise = NotifstaHttp.GetScheduledNotification(data.Event.channels[0].id);
+            promise.success(function (resp) {
+                data.Event.scheduled_notifications.length = 0;
+                resp.data.map(function(s_notif){
+                    s_notif.start_time = moment(s_notif.start_time, moment.ISO8061)
+                    data.Event.scheduled_notifications.push(s_notif);
+                })
+                data.Event.scheduled_notifications.sort(function (a, b) {
+                    return a.start_time > b.start_time;
+                })
+            });
+
+        }
+
         EventMonitor.prototype.ConfigureWebsocket = function(){
           var self = this;
           function Handler(data){
-            console.log('HIIII');
               self.OnNewNotif(data);
           }
           ImcService.AddHandler('event_' + self._data.Event.channels[0].guid + ' notif', Handler);
@@ -290,6 +310,9 @@
                     }
                 });
             }
+
+            //Update scheduled notifications
+            self.UpdateScheduledNotifications();
         }
 
         EventMonitor.prototype.UpdateTimestamps = function(){
