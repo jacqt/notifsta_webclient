@@ -110,7 +110,7 @@
 
         EventMonitor.prototype.UpdateScheduledNotifications = function () {
             var data = this._data;
-            var promise = NotifstaHttp.GetScheduledNotification(data.Event.channels[0].id);
+            var promise = NotifstaHttp.GetScheduledNotification(data.Event.id, data.Event.channels[0].id);
             promise.success(function (resp) {
                 data.Event.scheduled_notifications.length = 0;
                 resp.data.map(function(s_notif){

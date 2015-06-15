@@ -5,7 +5,7 @@
 (function () {
     angular.module('notifsta.services').service('NotifstaHttp', ['$http', 'AuthService', 'ImcService', service]);
     var BASE_URL = 'http://api.notifsta.com';
-    var SCHEDULE_BASE_URL = 'http://localhost:3403';
+    var SCHEDULE_BASE_URL = 'http://cron.notifsta.com';
 
     //List of callbacks that required authentication, but
     //the authentication details were not available at call time
@@ -326,7 +326,7 @@
         // ------------------------------------------------------------ //
         // API Calls to interact with the Node JS scheduler backend
 
-        function CreateScheduledNotification(message, start_time, channel_ids) {
+        function CreateScheduledNotification(message, start_time, event_id, channel_ids) {
             return channel_ids.map(function (channel_id) {
                 var req = {
                     url: SCHEDULE_BASE_URL + '/scheduled_notifications/' + channel_id,
@@ -334,6 +334,7 @@
                     params: {
                         'user_email': AuthService.GetCredentials().user_email,
                         'user_token': AuthService.GetCredentials().user_token,
+                        'event_id': event_id,
                         'notification[notification_guts]': message,
                         'notification[type]': 'Message',
                         'notification[start_time]': start_time.toISOString()
@@ -343,13 +344,14 @@
             })
         }
 
-        function UpdateScheduledNotification(message, start_time, channel_id, notif_id) {
+        function UpdateScheduledNotification(message, start_time, event_id, channel_id, notif_id) {
             var req = {
                 url: SCHEDULE_BASE_URL + '/scheduled_notifications/' + channel_id + '/' + notif_id, 
                 method: 'PATCH',
                 params: {
                     'user_email': AuthService.GetCredentials().user_email,
                     'user_token': AuthService.GetCredentials().user_token,
+                    'event_id': event_id,
                     'notification[notification_guts]': message,
                     'notification[type]': 'Message',
                     'notification[start_time]': start_time.toISOString()
@@ -358,25 +360,27 @@
             return $http(req);
         }
 
-        function GetScheduledNotification(channel_id) {
+        function GetScheduledNotification(event_id, channel_id) {
             var req = {
                 url: SCHEDULE_BASE_URL + '/scheduled_notifications/' + channel_id,
                 method: 'GET',
                 params: {
                     'user_email': AuthService.GetCredentials().user_email,
                     'user_token': AuthService.GetCredentials().user_token,
+                    'event_id': event_id
                 }
             }
             return $http(req);
         }
 
-        function DeleteScheduledNotification(channel_id, notif_id) {
+        function DeleteScheduledNotification(event_id, channel_id, notif_id) {
             var req = {
                 url: SCHEDULE_BASE_URL + '/scheduled_notifications/' + channel_id + '/' + notif_id, 
                 method: 'DELETE',
                 params: {
                     'user_email': AuthService.GetCredentials().user_email,
                     'user_token': AuthService.GetCredentials().user_token,
+                    'event_id': event_id
                 }
             }
             return $http(req);

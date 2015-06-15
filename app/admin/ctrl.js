@@ -224,7 +224,6 @@
 
         var bucket = new AWS.S3({ params: { Bucket: 'notifsta' } });
         $scope.upload = function (files, cb) {
-            console.log(files);
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
@@ -324,7 +323,8 @@
             } else {
                 var message = $scope.input.message;
                 var start_time = $scope.config.scheduled_notif.start_time;
-                var promises = NotifstaHttp.CreateScheduledNotification(message, start_time, channel_ids);
+                var event_id = $scope.data.Event.id;
+                var promises = NotifstaHttp.CreateScheduledNotification(message, start_time, event_id, channel_ids);
             }
 
             var succeeded = 0;
@@ -365,9 +365,11 @@
         }
 
         $scope.save_edit_scheduled_notification = function (notif) {
+            var event_id = $scope.data.Event.id;
             var promise = NotifstaHttp.UpdateScheduledNotification(
                 notif.temp.message,
                 notif.temp.start_time,
+                event_id,
                 notif.channel_id,
                 notif.id
             );
@@ -382,8 +384,10 @@
             })
         }
         $scope.delete_scheduled_notification = function (notif) {
+            var event_id = $scope.data.Event.id;
             var promise = NotifstaHttp.DeleteScheduledNotification(
                 notif.channel_id,
+                event_id,
                 notif.id
             );
             promise.success(function (resp) {
@@ -499,7 +503,6 @@
         var first_time = true;
         $scope.show_calendar = function () {
             setTimeout(function () {
-                console.log(uiCalendarConfig.calendars.timetable_c);
                 if (!$scope.data.Event.uiConfig){
                     $scope.data.Event.uiConfig = {
                         calendar: {
@@ -526,7 +529,6 @@
 
                     setTimeout(function () {
                         uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
-                        console.log('WTF NO BUGS');
                     }, 1000);
                     first_time = false;
                 } else {
