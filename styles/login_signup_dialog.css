@@ -1,4 +1,6 @@
-﻿
+﻿md-backdrop.md-opaque {
+    background-color: rgba(0,0,0,0.5);
+}
 .login-dialog {
     padding: 15px;
 }
