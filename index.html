@@ -215,7 +215,7 @@
     </script>
 
     <style>
-        .ios.no-icon {
+        .ios.shown {
             display: none;
         }
 
@@ -229,7 +229,10 @@
             }
     </style>
     <script type="text/javascript">
-        $.smartbanner();
+        var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
+        if (!iOS){
+            $.smartbanner();
+        }
     </script>
 
 </body>

@@ -20,7 +20,7 @@
                 var new_monitor = new EventMonitor(event.name, event.id, monitor_type);
                 event_monitors[key] = new_monitor;
             } else {
-                event_monitors[key].GetInitialEventData(); // Update the event data when re-requesting an event
+                event_monitors[key].UpdateData(); // Update the event data when re-requesting an event
             }
             return event_monitors[key];
 
@@ -64,6 +64,8 @@
                     return events[i].admin;
                 }
             }
+        }
+        EventMonitor.prototype.UpdateData = function () {
         }
         
         EventMonitor.prototype.GetInitialEventData = function(){
