@@ -1,0 +1,69 @@
+﻿<md-dialog id="contactpages" class="login-box pad-top non-homepage">
+    <div class="login-dialog">
+        <a style="cursor: pointer" ng-click="facebook_login($event)" class="wide-button facebook-login">
+            <span class="label-icon">
+                <i class="glyphicon mdi mdi-facebook"></i>
+            </span>
+            <span ng-if="logging_in">
+                Login with Facebook
+            </span>
+            <span ng-if="!logging_in">
+                Signup with Facebook
+            </span>
+        </a>
+        <div class="signup-or-separator">
+            <span class="h6 signup-or-separator--text">or</span>
+            <hr>
+        </div>
+        <form class="new_user"
+              ng-submit="AttemptLogin()"
+              ng-if="logging_in"
+              accept-charset="UTF-8">
+
+            <md-input-container flex>
+                <label> Email </label>
+                <input ng-model="credentials.email" autofocus ng-required="true">
+            </md-input-container>
+            <md-input-container flex>
+                <label> Password </label>
+                <input type="password" ng-model="credentials.password" ng-required="true">
+            </md-input-container>
+            <input type="submit" style="display: none" />
+
+            <a style="cursor: pointer;   margin-top: 10px;" ng-click="AttemptLogin()" class="wide-button btn btn-primary">
+                Login
+            </a>
+        </form>
+        <form class="new_user"
+              ng-submit="AttemptSignup()"
+              ng-if="!logging_in"
+              accept-charset="UTF-8">
+
+            <md-input-container flex>
+                <label> Email </label>
+                <input ng-model="credentials.email" autofocus ng-required="true">
+            </md-input-container>
+            <md-input-container flex>
+                <label> Password </label>
+                <input type="password" ng-model="credentials.password" ng-required="true">
+            </md-input-container>
+            <md-input-container flex>
+                <label> Confirm password </label>
+                <input type="password" ng-model="credentials.confirm_password" ng-required="true">
+            </md-input-container>
+            <input type="submit" style="display: none" />
+
+            <a style="cursor: pointer;   margin-top: 10px;" ng-click="AttemptSignup()" class="wide-button btn btn-primary">
+                Signup
+            </a>
+        </form>
+        <div class="row shared-links">
+            <div class="col-md-12" ng-show="logging_in">
+                Don't have an account? <a ng-click="logging_in = false" style="cursor: pointer">Signup</a><br>
+            </div>
+            <div class="col-md-12" ng-show="!logging_in">
+                Already have an account? <a ng-click="logging_in = true" style="cursor: pointer">Login</a><br>
+            </div>
+        </div>
+    </div>
+</md-dialog>

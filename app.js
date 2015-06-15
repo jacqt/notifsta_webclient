@@ -153,7 +153,7 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
             // no logged user, we should be going to #login if we're going to a
             // restricted url
             if (IsRestricted(next)) {
-                $location.path("/login");
+                $location.path("/");
                 // redirect to login
             } else {
                 // OK url, no redirect needed
@@ -275,8 +275,8 @@ angular.module('notifsta.services', ['ngCookies']);
 angular.module('notifsta.controllers', ['notifsta.services', 'ngCookies', 'ngFileUpload']);
 
 angular.module('notifsta.controllers').controller('MainController',
-  ['$scope', 'ImcService', 'NotifstaHttp', 'AuthService',
-    function ($scope, ImcService, NotifstaHttp, AuthService, attrs) {
+  ['$scope', 'ImcService', 'NotifstaHttp', 'AuthService', '$mdDialog', '$controller',
+    function ($scope, ImcService, NotifstaHttp, AuthService, $mdDialog, $controller, attrs) {
         $scope.on_homepage = function () {
             if (AuthService.GetCredentials().logged_in) {
                 return false;
@@ -324,6 +324,43 @@ angular.module('notifsta.controllers').controller('MainController',
             }
         }
 
+
+        // Get the signup and login dialogs working
+        $scope.showLoginDialog = function (ev) {
+            console.log('????????');
+            $scope.logging_in = true;
+            $mdDialog.show({
+                templateUrl: 'app/login_signup/main.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                controller: 'LoginSignupCtrl',
+                scope: $scope,
+                preserveScope: true,
+                focusOnOpen: true,
+                clickOutsideToClose: true,
+            })
+            .then(function (answer) {
+            }, function () {
+            });
+        };
+
+        // Get the signup and login dialogs working
+        $scope.showSignupDialog = function (ev) {
+            $scope.logging_in = false;
+            $mdDialog.show({
+                templateUrl: 'app/login_signup/main.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                controller: 'LoginSignupCtrl',
+                scope: $scope,
+                preserveScope: true,
+                focusOnOpen: true,
+                clickOutsideToClose: true,
+            })
+            .then(function (answer) {
+            }, function () {
+            });
+        };
         //Try to get the user
         UpdateUser();
 

@@ -1,0 +1,41 @@
+﻿
+.login-dialog {
+    padding: 15px;
+}
+
+.login-dialog hr {
+    margin-top: -16px;
+}
+
+.login-dialog md-input-container {
+    padding-bottom: 5px;
+}
+
+.login-dialog .signup-or-separator {
+    text-align: center;
+    height: 20px;
+}
+.login-dialog .signup-or-seperator hr {
+    margin-top: -16px;
+}
+.login-dialog .signup-or-separator--text {
+  display: inline-block;
+  background: white;
+  z-index: 30;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.login-dialog .wide-button {
+ display:block;
+ padding:10px;
+ margin-bottom: 10px;
+ color: white!important;
+}
+
+.login-dialog .facebook-login {
+ background-color: rgb(73, 108, 181);
+}
+
+.login-dialog .facebook-login:hover{
+ background-color: rgb(59, 89, 152);
+}

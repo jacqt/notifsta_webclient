@@ -14,6 +14,7 @@
                     scrollTop: el.offset().top - 53
                 }, 1000);
             });
+
             //Make the feature tabs work
             for (var i = 1; i != 6; i++) {
                 (function () {
