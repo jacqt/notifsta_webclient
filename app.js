@@ -329,6 +329,7 @@ angular.module('notifsta.controllers').controller('MainController',
         $scope.showLoginDialog = function (ev) {
             console.log('????????');
             $scope.logging_in = true;
+            $scope.autofocused = true;
             $mdDialog.show({
                 templateUrl: 'app/login_signup/main.html',
                 parent: angular.element(document.body),
@@ -336,7 +337,6 @@ angular.module('notifsta.controllers').controller('MainController',
                 controller: 'LoginSignupCtrl',
                 scope: $scope,
                 preserveScope: true,
-                focusOnOpen: true,
                 clickOutsideToClose: true,
             })
             .then(function (answer) {
@@ -347,6 +347,7 @@ angular.module('notifsta.controllers').controller('MainController',
         // Get the signup and login dialogs working
         $scope.showSignupDialog = function (ev) {
             $scope.logging_in = false;
+            $scope.autofocused = true;
             $mdDialog.show({
                 templateUrl: 'app/login_signup/main.html',
                 parent: angular.element(document.body),
@@ -354,7 +355,6 @@ angular.module('notifsta.controllers').controller('MainController',
                 controller: 'LoginSignupCtrl',
                 scope: $scope,
                 preserveScope: true,
-                focusOnOpen: true,
                 clickOutsideToClose: true,
             })
             .then(function (answer) {

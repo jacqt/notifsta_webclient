@@ -134,6 +134,7 @@ app.directive('htmlEllipsis', ['$timeout', function ($timeout) {
         }
     };
 }]);
+
 //For autofocus TODO: move outside of app.js file
 app.directive('focusMe', ['$timeout', function ($timeout) {
     return {
