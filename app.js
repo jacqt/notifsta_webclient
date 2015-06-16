@@ -10,7 +10,6 @@ var app = angular.module('notifsta', [
   'xeditable',
   'uiGmapgoogle-maps',
   'ngFileUpload',
-  'toaster',
   'ngMaterial',
   'ui.calendar',
   'ui.bootstrap.datepicker',
