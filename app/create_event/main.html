@@ -30,7 +30,8 @@
                     <div class="col-md-12">
                         <label class="timepicker-label"> Start </label>
                         <div class="input-group">
-                            <div class="input-group" combinedtpicker min-date="today" ng-model="partial_event.start_time"></div>
+                            <div class="input-group" combinedtpicker min-date="today" placeholder="'Start time'" 
+                                 ng-model="partial_event.start_time"></div>
                         </div>
                     </div>
                 </div>
@@ -38,7 +39,9 @@
                     <div class="col-md-12">
                         <label class="timepicker-label"> End </label>
                         <div class="input-group">
-                            <div class="input-group" combinedtpicker min-date="partial_event.start_time" ng-model="partial_event.end_time"></div>
+                            <div class="input-group" combinedtpicker min-date="partial_event.start_time" 
+                                 placeholder="'End time'"
+                                 ng-model="partial_event.end_time"></div>
                         </div>
                     </div>
                 </div>
