@@ -6,13 +6,14 @@
 <span id="adminpage">
     <div class="container-fluid non-homepage">
         <div class="row header event-header"
+             style="background-size: cover"
+             layout="row" layout-align="center start"
              ng-if="data.Event.cover_photo_url != null && data.Event.cover_photo_url.length >= 4"
              ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
-            <h1 class="event-title">{{ event.name }}</h1>
-        </div>
-        <div class="row header event-header"
-             ng-if="data.Event.cover_photo_url == null || data.Event.cover_photo_url.length < 4" style="background-color: black">
-            <h1 class="event-title">{{ event.name }}</h1>
+            <div layout="column" style="">
+                <h1 class="event-title">{{ event.name }}</h1>
+            </div>
+            <div style="width: 300px"> </div>
         </div>
         <div class="row content" style="margin-left: 15px; margin-right: 15px">
             <!-- Creating new notifications -->
@@ -312,31 +313,39 @@
 
 
                                     <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
-                                    <!--<a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
+                                    /s
+                                    <!--<
+                                    a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
 
                                 </div>
-                                <div class="feed-item-text">{{ notif.notification_guts }}</div>
-                                <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
-                                    <center>
-                                        <p ng-if="notif.number_responses == 0"> No responses yet! </p>
-                                        <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
-                                    </center>
-                                    <canvas class="chart chart-pie"
-                                            height="75%"
-                                            data="notif.responses_pie_chart.data"
-                                            labels="notif.responses_pie_chart.labels"
-                                            legend="true"
-                                            options="options"
-                                            click="onClick"></canvas>
-                                </div>
+
+                                
+
                             </div>
-                            <div class="feed-item" ng-show="channel.notifications.length == 0">
-                                <div class="feed-item-text"> It's lonely in here - send a message now! </div>
+                            
+
+                            <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                            <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
+                                <center>
+                                    <p ng-if="notif.number_responses == 0"> No responses yet! </p>
+                                    <p ng-if="notif.number_responses > 0"> {{ notif.number_responses }} responses </p>
+                                </center>
+                                <canvas class="chart chart-pie"
+                                        height="75%"
+                                        data="notif.responses_pie_chart.data"
+                                        labels="notif.responses_pie_chart.labels"
+                                        legend="true"
+                                        options="options"
+                                        click="onClick"></canvas>
                             </div>
+                        </div>
+                        <div class="feed-item" ng-show="channel.notifications.length == 0">
+                            <div class="feed-item-text"> It's lonely in here - send a message now! </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </span>

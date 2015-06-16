@@ -211,7 +211,7 @@ h1 {
 .event-title {
     margin-top: 80px !important;
     text-align: left;
-    margin-left: 18%;
+    width: 100%;
     color: white !important;
 }
 
