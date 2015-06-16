@@ -14,3 +14,17 @@
   background-color: rgb(218, 80, 85);
   border-color: rgb(190, 101, 104);
 }
+
+.big-icon {
+    font-size: 50px;
+    color: rgb(24, 140, 189);
+}
+
+.feature-list {
+    margin-top: 80px;
+}
+.feature-list b {
+    text-align: center;
+    margin-top:20px;
+    margin-bottom: 10px;
+}
