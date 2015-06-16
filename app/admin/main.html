@@ -100,7 +100,7 @@
                                         </button>
                                     </div>
                                     <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
-                                        <div ngf-drop ng-model="cover_photo_files" class="drop-box"
+                                        <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
                                              ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                              ngf-accept="'.jpg,.png,'">
                                             Drop Image files (.jpg .png) here
@@ -110,7 +110,7 @@
                                                 ngf-select
                                                 ng-disabled="loading"
                                                 ng-click="cover_photo_editor.$show()"
-                                                ng-model="cover_photo_files">
+                                                ng-model="$parent.cover_photo_files">
                                             Choose file
                                         </button>
                                     </div>
@@ -137,17 +137,18 @@
                                     </div>
 
                                     <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
-                                        <div ngf-drop ng-model="event_map_files" class="drop-box"
+                                        <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
                                              ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
                                              ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
                                         <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                                         <button class="btn btn-default"
                                                 ngf-select
                                                 ng-disabled="loading"
-                                                ng-model="event_map_files">
+                                                ng-model="$parent.event_map_files">
                                             Choose file
                                         </button>
                                     </div>
+                                    {{ event_map_files }}
 
                                 </div>
                                 <div class="col-md-12">

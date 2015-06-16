@@ -213,6 +213,7 @@
         });
 
         $scope.$watch('event_map_files', function () {
+            console.log("OKK");
             $scope.upload($scope.event_map_files, function (data) {
                 if (data) {
                     $scope.temp.event_map_url = $scope.data.Event.event_map_url;
