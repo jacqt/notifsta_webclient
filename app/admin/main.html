@@ -313,18 +313,13 @@
 
 
                                     <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
-                                    /s
                                     <!--<
                                     a ng-href="#event_admin/{{event.name}}/{{notif.id}}?event_id={{event.id}}"> More info </a>-->
-
                                 </div>
-
-                                
-
+                                <div class="feed-item-text">{{ notif.notification_guts }}</div>
                             </div>
-                            
 
-                            <div class="feed-item-text">{{ notif.notification_guts }}</div>
+
                             <div style="margin-top: 5px; border-top: 1px solid lightgrey" ng-if="channel.selected && notif.responses_pie_chart !== undefined && notif.responses_pie_chart.labels.length > 0">
                                 <center>
                                     <p ng-if="notif.number_responses == 0"> No responses yet! </p>
