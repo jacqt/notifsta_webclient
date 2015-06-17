@@ -1,0 +1,39 @@
+﻿.fullscreen-projector h1 {
+    font-size: 80px;
+}
+
+.fullscreen-projector h2 {
+    font-size: 40px;
+}
+.fullscreen-projector h3 {
+    font-size: 30px;
+}
+
+.fullscreen-projector .subheader h2 {
+    margin-top: 20px!important;
+}
+.fullscreen-projector .subheader h3 {
+    margin-top: 20px!important;
+}
+.fullscreen-projector .timeline-footer  {
+    display:none;
+}
+
+.fullscreen-projector {
+    color: white;
+}
+.fullscreen-projector td {
+    color: white;
+}
+.fullscreen-projector label {
+    font-size: 18px!important;
+    color: white;
+}
+.fullscreen-projector .info-column {
+    padding-right: 30px;
+    width: 400px;
+}
+.fullscreen-projector .lighter-color {
+    color: #a7a7a7;
+
+}

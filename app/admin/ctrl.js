@@ -6,10 +6,46 @@
 
 (function () {
     angular.module('notifsta.controllers').controller('AdminCtrl',
-        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout', '$routeParams', 'toaster', 'ImcService', '$compile', 'uiCalendarConfig', 'AddressService',
-    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService) {
+        ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout',
+            '$routeParams', 'toaster', 'ImcService', '$compile',
+            'uiCalendarConfig', 'AddressService', 'Fullscreen',
+    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService, Fullscreen) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
+
+        $scope.ToggleFullScreen = function () {
+            console.log('Going into full screen mode')
+            Fullscreen.enable(document.getElementById('projector'));
+            setTimeout(function () {
+                $scope.$apply();
+                CreateTwitterTimeline();
+            }, 1);
+        }
+        var loaded_timeline = false;
+        function CreateTwitterTimeline() {
+            if (!$scope.data.Event.twitter_widget_id || loaded_timeline) {
+                return;
+            }
+            console.log('WATSUP CATSUP');
+            twttr.widgets.createTimeline(
+              $scope.data.Event.twitter_widget_id,
+              document.getElementById('twitter_timeline'),
+              {
+                  width: '1000',
+                  height: '300',
+                  related: 'twitterdev,twitterapi'
+              }).then(function (el) {
+                  setTimeout(function () {
+                      $('#twitter-widget-0').contents().find('div.timeline-footer').css('display', 'none');
+                  }, 100);
+                  console.log("Embedded a timeline.")
+                  loaded_timeline = true;
+              });
+        }
+
+        $scope.is_full_screen = function () {
+            return Fullscreen.isEnabled();
+        }
 
         $scope.cover_photo_preview = {
             templateUrl: 'app/admin/cover_photo_preview.html'
@@ -81,7 +117,7 @@
 
         $scope.timeoption = {
             editing: false,
-            edit: function(){
+            edit: function () {
                 $scope.timeoption.start_time = $scope.data.Event.start_time;
                 $scope.timeoption.end_time = $scope.data.Event.end_time;
                 $scope.timeoption.editing = true;
@@ -97,7 +133,7 @@
             },
             start_time: null,
             end_time: null
-        
+
         };
         $scope.$watch('timeoption.start_time', function (newVal) {
             if (!$scope.timeoption.start_time) {
@@ -107,9 +143,10 @@
             var sv = moment(newVal);
             var ev = moment($scope.timeoption.end_time);
             if (sv > ev) {
-                $scope.timeoption.end_time = sv.add(2,'hours');
-            } 
+                $scope.timeoption.end_time = sv.add(2, 'hours');
+            }
         });
+
 
         $scope.$watch('timeoption.end_time', function (newVal) {
             if (!$scope.timeoption.end_time) {
@@ -120,7 +157,7 @@
             var sv = moment($scope.timeoption.start_time);
             if (sv > ev) {
                 $scope.timeoption.start_time = newVal;
-            } 
+            }
         });
         var TIMEOUT = 1 * 1000;
 
@@ -179,7 +216,7 @@
             });
         }
 
-        $scope.format_date = function(time_string){
+        $scope.format_date = function (time_string) {
             return moment(time_string).format('LLL');
         }
 
@@ -307,7 +344,7 @@
             })
         }
 
-        $scope.schedule_notification = function(){
+        $scope.schedule_notification = function () {
             $scope.config.scheduled_notif.start_time = moment();
             $scope.config.scheduled_notif.show = true;
             setTimeout(function () {
@@ -494,7 +531,7 @@
         var first_time = true;
         $scope.show_calendar = function () {
             setTimeout(function () {
-                if (!$scope.data.Event.uiConfig){
+                if (!$scope.data.Event.uiConfig) {
                     $scope.data.Event.uiConfig = {
                         calendar: {
                             height: 650,
@@ -540,14 +577,14 @@
             console.log(ev.pageX);
             console.log(x_rel);
             if (x_rel - 350 > 0) {
-                $scope.event_editor_popup.posX = x_rel - 400 + 20  + CALENDAR_LEFT_LABEL_WIDTH;
+                $scope.event_editor_popup.posX = x_rel - 400 + 20 + CALENDAR_LEFT_LABEL_WIDTH;
             } else {
                 $scope.event_editor_popup.posX = x_rel + w + 40 + CALENDAR_LEFT_LABEL_WIDTH;
             }
             $scope.event_editor_popup.posX = x_rel + CALENDAR_LEFT_LABEL_WIDTH;
             console.log(ev.pageY);
             console.log($('.fc-center').offset().top);
-            $scope.event_editor_popup.posY =  Math.min(ev.pageY - $('.fc-center').offset().top - 800, -400);
+            $scope.event_editor_popup.posY = Math.min(ev.pageY - $('.fc-center').offset().top - 800, -400);
         }
 
 
@@ -575,9 +612,10 @@
 
         var show_subevent = function () {
             setTimeout(function () {
-                $scope.editing_subevent = true;
+                $scope.subevent_editor.$activate('name');
                 //disable_all_events();
             }, 100);
+            $scope.editing_subevent = true;
             $scope.subevent_editor.$show();
         }
         var on_event_click = function (calEvent, jsEvent, view) {
@@ -589,7 +627,7 @@
             calEvent.start_time = moment(calEvent.start.format('LLL')).format('LLL');
             calEvent.end_time = moment(calEvent.end.format('LLL')).format('LLL');
             for (var key in calEvent) {
-                $scope.partial_subevent[key ] = calEvent[key]
+                $scope.partial_subevent[key] = calEvent[key]
             }
             show_subevent();
         }
@@ -617,7 +655,7 @@
             }
         };
 
-        function on_view_change(view, element){
+        function on_view_change(view, element) {
             event_monitor.ConfigureTimetable();
             refresh_calendar();
         }
@@ -631,6 +669,7 @@
             $scope.partial_subevent.description = null;
             $scope.partial_subevent.location = null;
             $scope.data.Event.event_sources_arr[1].events.splice(0, 1);
+            refresh_calendar();
         }
 
         $scope.save_subevent = function () {
@@ -703,14 +742,15 @@
         if ($scope.data.Event.start_time) {
             setTimeout(function () {
                 //$scope.timetable_c.fullCalendar('gotoDate', new Date($scope.data.Event.start_time));
-                    //$('timetable_c').fullCalendar({
-                    //    defaultView: 'agendaWeek',
-                    //    scrollTime: '00:00:00'
-                    //});
+                //$('timetable_c').fullCalendar({
+                //    defaultView: 'agendaWeek',
+                //    scrollTime: '00:00:00'
+                //});
             }, 100);
         }
 
         $scope.editing_subevent = false;
+        $scope.event_monitor = event_monitor;
 
     }]);
 })();

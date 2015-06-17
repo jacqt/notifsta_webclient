@@ -17,6 +17,7 @@ var app = angular.module('notifsta', [
   'ui.bootstrap.datetimepicker',
   'ui.bootstrap.popover',
   'akoenig.deckgrid',
+  'FBAngular'
 ]);
 app.run(['editableOptions', 'editableThemes', function(editableOptions, editableThemes) {
   editableThemes['angular-material'] = {

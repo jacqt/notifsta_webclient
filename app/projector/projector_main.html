@@ -1,0 +1,140 @@
+﻿<div class="container-fluid non-homepage fullscreen-projector">
+    <div layout="column">
+        <div class="row header event-header"
+             style="background-size: cover"
+             layout="column" layout-align="center start"
+             ng-if="data.Event.cover_photo_url != null && data.Event.cover_photo_url.length >= 4"
+             ng-style="{'background-image':'url('+data.Event.cover_photo_url+')',
+                 'width': '100%',
+                 'height': '100%',
+                 'background-position' : 'left center'}">
+            <div layout="column" style="width: 100%; margin-left: 200px;" layout-align="center">
+                <div layout="row" layout-align="center">
+                    <h1 class="event-title">{{ event.name }}</h1>
+                </div>
+                <div layout="row" layout-align="start" class="subheader">
+                    <h2 class="event-title">{{ proj.current_time.format('dddd, MMMM Do YYYY, h:mm:ss a') }}</h2>
+                </div>
+                <div layout="row" layout-align="start" class="subheader">
+                    <h3 class="event-title">{{ data.Event.address }}, </h3>
+                </div>
+            </div>
+            <div layout="row" layout-align="center" style="margin-left: 200px; margin-top: 40px">
+                <div layout="column" class="info-column">
+                    <h3> Coming up: </h3>
+                    <div ng-repeat="sub_event in proj.next_few_events" layout="column">
+                        <label> {{ sub_event.start_time }}  -  {{ shorten(sub_event.end_time) }} </label>
+                        <div style="margin-left: 15px;">
+                            <p> {{ sub_event.name }} </p>
+                            <p>
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                {{ sub_event.location }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div layout="column" class="info-column">
+                    <h3> Notifications </h3>
+                    <div class="slide"
+                         ng-repeat="channel in data.Event.channels">
+                        <div ng-repeat="notif in channel.notifications">
+                            <div class="feed-item-text">
+                                <label>{{ notif.type }}</label> - <span class="lighter-color"> {{ notif.time }} </span>
+                            </div>
+                            <p>{{ notif.notification_guts }}</p>
+                        </div>
+                        <div class="feed-item" ng-show="channel.notifications.length == 0">
+                            <div class="feed-item-text"> No notifications yet - check back later! </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="twitter_timeline"></div>
+            </div>
+
+            <div class="row content" style="display: none;">
+                <div class="col-md-4 two">
+                    <div class="slide"
+                         ng-repeat="channel in data.Event.channels">
+                        <div class="row box-title red">
+                            <div style="float:left; ">
+                                NOTIFICATIONS
+                            </div>
+                        </div>
+                        <!-- Feeds -->
+                        <div class="actual-feed shaded-border">
+                            <div class="feed-item" ng-repeat="notif in channel.notifications">
+                                <div class="feed-item-text">
+                                    <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
+                                </div>
+                                <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                                <form ng-show="notif.type == 'Survey'">
+                                    <div style="padding-left: 10px; padding-top: 3px; padding-bottom:3px; padding-right:5px;"
+                                         ng-repeat="option in notif.options"
+                                         ng-class="{selected: option.id==notif.response.option_id }">
+                                        <input type="radio"
+                                               ng-value="option.id"
+                                               ng-model="notif.response.new_option_id" />
+                                        {{ option.option_guts }}
+                                    </div>
+                                    <button class="btn btn-default"
+                                            style="margin-top: 5px"
+                                            ng-click="submit_option(notif, channel.id)">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="feed-item" ng-show="channel.notifications.length == 0">
+                                <div class="feed-item-text"> No notifications yet - check back later! </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Info panel-->
+                <div class="two col-md-4">
+                    <div class="row box-title red">
+                        <div style="float:left;">
+                            EVENT INFORMATION
+                        </div>
+                    </div>
+                    <div class="actual-feed-wrapper event-info shaded-border">
+                        <label> Welcome! </label>
+                        <div>
+                            <div style="font-family: inherit">{{ data.Event.description || 'no description' }}</div>
+                        </div>
+                        <label> Location </label>
+                        <div>
+                            {{ data.Event.address }}
+                            <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
+                            <script type="text/ng-template" id="searchbox.tpl.html">
+                                <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
+                            </script>
+                            <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
+                                <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+                                <ui-gmap-marker idkey='1'
+                                                coords='data.Event.marker.coords'>
+                                </ui-gmap-marker>
+                            </ui-gmap-google-map>
+                        </div>
+                        <label> Start time</label>
+                        <div>
+                            {{ data.Event.start_time }}
+                        </div>
+                        <label> End time</label>
+                        <div>
+                            {{ data.Event.end_time }}
+                        </div>
+                    </div>
+                </div>
+                <!--Timetable -->
+                <div class="two col-md-4">
+                    <div class="row box-title red">
+                        <div style="float:left; ">
+                            TIMETABLE
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

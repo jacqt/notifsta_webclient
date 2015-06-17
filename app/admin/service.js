@@ -112,6 +112,24 @@
             ImcService.FireEvent('event_loaded ' + self._data.Event.id);
         }
 
+        EventMonitor.prototype.GetNextEvents = function (num_events) {
+            var self = this;
+            var sub_events = this._data.Event.subevents;
+            var events = []
+            for (var start_time in sub_events) {
+                if (moment(start_time) < moment()) {
+                    continue;
+                }
+                if (events.length > num_events) {
+                    break;
+                }
+                for (var i = 0; i != sub_events[start_time].length && events.length < num_events; ++i) {
+                    events.push(sub_events[start_time][i]);
+                }
+            }
+            return events;
+        }
+
         EventMonitor.prototype.GetAllNotifications = function () {
             var self = this;
             var event = self._data.Event;
@@ -192,7 +210,7 @@
             var event = self._data.Event;
             var sub_events = self._data.Event.subevents;
             for (var start_time in sub_events) {
-                for (var i = 0; i != sub_events[start_time]; ++i) {
+                for (var i = 0; i != sub_events[start_time].length; ++i) {
                     if (sub_events[start_time][i].id == removed_event_id) {
                         sub_events[start_time].splice(i, 1);
                         return;
@@ -214,7 +232,7 @@
                     events: sub_events[start_time]
                 });
                 sub_events[start_time].map(function (sub_event) {
-                    sub_event.title = sub_event.name + ' - ' + sub_event.description;
+                    sub_event.title = sub_event.name + ' - ' + sub_event.location;
                     sub_event.start = moment(sub_event.start_time).format('LLL');
                     sub_event.end = moment(sub_event.end_time).format('LLL');
                     sub_event.start_time = sub_event.start;
