@@ -31,7 +31,7 @@
 }
 .fullscreen-projector .info-column {
     padding-right: 30px;
-    width: 400px;
+    max-width: 400px;
 }
 .fullscreen-projector .lighter-color {
     color: #a7a7a7;

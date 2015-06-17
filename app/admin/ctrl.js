@@ -31,11 +31,12 @@
               $scope.data.Event.twitter_widget_id,
               document.getElementById('twitter_timeline'),
               {
+                  'padding-bottom': '200px',
                   width: '1000',
                   related: 'twitterdev,twitterapi'
               }).then(function (el) {
                   setTimeout(function () {
-                      $('#twitter-widget-0').contents().find('div.timeline-footer').css('display', 'none');
+                      $('#twitter_timeline').find('iframe').contents().find('div.timeline-footer').css('display', 'none');
                   }, 100);
                   console.log("Embedded a timeline.")
                   loaded_timeline = true;
