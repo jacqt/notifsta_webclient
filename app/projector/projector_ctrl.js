@@ -10,6 +10,13 @@
             next_few_events: []
         }
 
+        $scope.first_three = function (list) {
+            var t = [];
+            for (var i = 0 ; i < list.length && i < 3; ++i) {
+                t.push(list[i]);
+            }
+            return t;
+        }
 
         function UpdateTime() {
             $scope.proj.current_time = moment();
@@ -27,9 +34,8 @@
 
         $scope.shorten = function (time) {
             var m = moment(time);
-            return m.format('hh:mm');
+            return m.format('hh:mm A');
         }
-
 
         function Update() {
             UpdateTime();

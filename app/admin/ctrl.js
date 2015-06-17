@@ -32,7 +32,6 @@
               document.getElementById('twitter_timeline'),
               {
                   width: '1000',
-                  height: '300',
                   related: 'twitterdev,twitterapi'
               }).then(function (el) {
                   setTimeout(function () {
