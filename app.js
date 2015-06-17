@@ -164,11 +164,13 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
                 $(".navbar").addClass("fus-navbar-solid");
             }
         } else {
-            var h = splitted[1].split('/');
-            if (h.length > 1 && h[1] == 'create_event') {
-                $(".navbar").addClass("fus-navbar-solid");
-            } else {
-                $(".navbar").removeClass("fus-navbar-solid");
+            if (splitted[1]) {
+                var h = splitted[1].split('/');
+                if (h.length > 1 && h[1] == 'create_event') {
+                    $(".navbar").addClass("fus-navbar-solid");
+                } else {
+                    $(".navbar").removeClass("fus-navbar-solid");
+                }
             }
             //if (h.length > 1 && h[1] == 'event_admin' || h[1] == 'event' || h[1] == 'dashboard') {
             //    $(".navbar").removeClass("fus-navbar-solid");
@@ -177,7 +179,6 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
             //}
             if (splitted.length > 1) {
                 url_hash = splitted[1];
-                console.log(url_hash);
                 if (url_hash == '/login' || url_hash == '/sign_up' || url_hash == '/') {
                     $location.path('/dashboard');
                 }

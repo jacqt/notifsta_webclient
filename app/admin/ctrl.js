@@ -20,17 +20,15 @@
         $scope.partial_subevent = {};
 
         $scope.$watch('partial_subevent.start_time', function (newVal) {
-            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources[1].events.length == 0) {
+            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources_arr[1].events.length == 0) {
                 return;
             }
-            if (newVal == $scope.data.Event.event_sources[1].events[0].start) {
+            if (newVal == $scope.data.Event.event_sources_arr[1].events[0].start) {
                 return;
             }
-            console.log($scope.data.Event.event_sources[1].events[0]);
             var evs = uiCalendarConfig.calendars.timetable_c.fullCalendar('clientEvents', function (ev) {
                 return ev.partial;
             });
-            console.log(evs);
             if (evs.length == 0) {
                 return;
             }
@@ -39,7 +37,7 @@
             uiCalendarConfig.calendars.timetable_c.fullCalendar('updateEvent', evs[0]);
         });
         $scope.$watch('partial_subevent.end_time', function (newVal) {
-            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources[1].events.length == 0) {
+            if ($scope.partial_subevent.id || !newVal || $scope.data.Event.event_sources_arr[1].events.length == 0) {
                 return;
             }
             var evs = uiCalendarConfig.calendars.timetable_c.fullCalendar('clientEvents', function (ev) {
@@ -213,7 +211,6 @@
         });
 
         $scope.$watch('event_map_files', function () {
-            console.log("OKK");
             $scope.upload($scope.event_map_files, function (data) {
                 if (data) {
                     $scope.temp.event_map_url = $scope.data.Event.event_map_url;
@@ -300,6 +297,7 @@
                             $scope.input.options = [];
                             $scope.input.next_option.text = '';
                             $scope.input.focus_notice = false;
+                            //event_monitor.GetAllNotifications();
                         }
                     }
                 });
@@ -438,16 +436,16 @@
         function disable_all_events() {
             console.log('disabling events...');
             $scope.calendar_editable = false;
-            $scope.data.Event.event_sources.map(function (event_source) {
+            $scope.data.Event.event_sources_arr.map(function (event_source) {
                 event_source.events.map(function (event) {
                     event.editable = false;
                 })
             })
-            console.log($scope.data.Event.event_sources);
+            console.log($scope.data.Event.event_sources_arr);
         }
         function enable_all_events() {
             $scope.calendar_editable = true;
-            $scope.data.Event.event_sources.map(function (event_source) {
+            $scope.data.Event.event_sources_arr.map(function (event_source) {
                 event_source.events.map(function (event) {
                     event.editable = true;
                 })
@@ -455,16 +453,13 @@
             uiCalendarConfig.calendars.timetable_c.fullCalendar({ 'editable': false });
         }
 
-        if ($scope.data.Event.event_sources.length < 2) {
-            $scope.data.Event.event_sources = [{
+        if ($scope.data.Event.event_sources_arr.length < 2) {
+            $scope.data.Event.event_sources_arr = [{
                 events: [],
                 color: '#da4e4e',   // an option!
                 textColor: 'white' // an option!
             }, {
                 events: [],
-                color: 'white',
-                textColor: 'black',
-                borderColor: 'red'
             }]
         }
 
@@ -473,18 +468,15 @@
             promise.success(function (e) {
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly updated timetable');
-                    var evs = $scope.data.Event.event_sources[0].events;
-                    for (var i = 0 ; i != evs.length; ++i) {
-                        if (evs[i].id == changed_event.id) {
-                            uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
-                            $scope.partial_subevent.start_time = null;
-                            $scope.partial_subevent.end_time = null;
-                            $scope.partial_subevent.name = null;
-                            $scope.partial_subevent.description = null;
-                            $scope.partial_subevent.location = null;
-                            $scope.editing_subevent = false;
-                        }
-                    }
+                    event_monitor.UpdateSubEvent(e.data);
+                    refresh_calendar();
+
+                    $scope.partial_subevent.start_time = null;
+                    $scope.partial_subevent.end_time = null;
+                    $scope.partial_subevent.name = null;
+                    $scope.partial_subevent.description = null;
+                    $scope.partial_subevent.location = null;
+                    $scope.editing_subevent = false;
                 } else {
                     console.log(e);
                     toaster.pop('error', e.error);
@@ -522,12 +514,13 @@
                             dayClick: on_day_click,
                             eventClick: on_event_click,
                             eventDrop: alertOnDrop,
-                            eventResize: on_event_resize
+                            eventResize: on_event_resize,
+                            viewRender: on_view_change
                         }
                     }
 
                     setTimeout(function () {
-                        uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
+                        refresh_calendar();
                     }, 1000);
                     first_time = false;
                 } else {
@@ -569,14 +562,14 @@
                 end_time: moment(date.format('LLL')).add(1, 'hour').format('LLL'),
                 location: null
             }
-            $scope.data.Event.event_sources[1].events.push({
+            $scope.data.Event.event_sources_arr[1].events.push({
                 title: '',
                 start: moment($scope.partial_subevent.start_time),
                 end: moment($scope.partial_subevent.end_time),
                 allDay: false,
                 partial: true
             });
-
+            refresh_calendar();
             show_subevent();
         };
 
@@ -624,6 +617,11 @@
             }
         };
 
+        function on_view_change(view, element){
+            event_monitor.ConfigureTimetable();
+            refresh_calendar();
+        }
+
         $scope.cancel_subevent_editing = function () {
             //enable_all_events();
             $scope.editing_subevent = false;
@@ -632,7 +630,7 @@
             $scope.partial_subevent.name = null;
             $scope.partial_subevent.description = null;
             $scope.partial_subevent.location = null;
-            $scope.data.Event.event_sources[1].events.splice(0, 1);
+            $scope.data.Event.event_sources_arr[1].events.splice(0, 1);
         }
 
         $scope.save_subevent = function () {
@@ -666,17 +664,9 @@
                 var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
                 promise.success(function (ev) {
                     if (ev.status == 'success') {
-                        console.log(ev.data);
-                        var new_event = ev.data;
-                          new_event.title = new_event.name + ' - ' + new_event.description;
-                          new_event.start = moment(new_event.start_time).format('LLL');
-                          new_event.end = moment(new_event.end_time).format('LLL');
-                          new_event.start_time = new_event.start;
-                          new_event.end_time = new_event.end;
-                          new_event.start_day_time = moment(new_event.start).format('hh:mm');
-                          new_event.end_day_time = moment(new_event.end).format('hh:mm');
-                          new_event.allDay = false;
-                        $scope.data.Event.event_sources[0].events.push(new_event);
+                        $scope.data.Event.event_sources_arr[1].events.splice(0, 1);
+                        event_monitor.AddSubEvent(ev.data);
+                        refresh_calendar();
                         toaster.pop('success', 'Successfuly added new event');
                         $scope.partial_subevent.start_time = null;
                         $scope.partial_subevent.end_time = null;
@@ -684,7 +674,6 @@
                         $scope.partial_subevent.description = null;
                         $scope.partial_subevent.location = null;
                         $scope.editing_subevent = false;
-                        $scope.data.Event.event_sources[1].events.splice(0, 1);
                     } else {
                         console.log(ev);
                         toaster.pop('error', ev.error);
@@ -693,6 +682,10 @@
                     }
                 });
             }
+        }
+
+        function refresh_calendar() {
+            uiCalendarConfig.calendars.timetable_c.fullCalendar('refetchEvents');
         }
 
         ImcService.AddHandler('event_loaded ' + $scope.event.id, function (data) {
