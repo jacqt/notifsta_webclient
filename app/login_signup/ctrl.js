@@ -7,6 +7,8 @@
           console.log($mdDialog);
           console.log(logging_in);
 
+          $scope.loading = false;
+
           $scope.credentials = {
               email: '',
               password: ''
@@ -14,6 +16,7 @@
           $scope.submitted = false;
 
           $scope.facebook_login = function (event) {
+              $scope.loading = true;
               if (event.$material) {
                   return; //Don't handle angular material bullshit
               }
@@ -36,6 +39,7 @@
           $scope.info = "";
 
           $scope.AttemptLogin = function () {
+              $scope.loading = true;
               console.log(' attempting 2 login')
               $scope.info = "Logging in...";
               $scope.submitted = true;
@@ -45,6 +49,7 @@
 
           $scope.AttemptSignup = function () {
               $scope.info = "Logging in...";
+              $scope.loading = true;
               if ($scope.credentials.password != $scope.credentials.confirm_password) {
                   toaster.pop('error', 'passwords do not match!');
               } else {
@@ -58,13 +63,17 @@
                   console.log(data);
                   if (data.status === "failure") {
                       toaster.pop('error', data.error);
+                      $scope.loading = false;
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Signup up successful!');
-                      window.location = ''; //Tempory fix
+                      setTimeout(function () {
+                          window.location = ''; //Tempory fix
+                      }, 1000);
                   }
                   else {
                       $scope.info = "Unspecified error - contact us for more information!"
+                      $scope.loading = false;
                   }
               })
           }
@@ -72,12 +81,13 @@
               promise.success(function (data) {
                   if (data.status == "failure") {
                       toaster.pop('error', 'Incorrect username and password combination');
+                      $scope.loading = false;
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Successfully logged in!');
                       setTimeout(function () {
                           window.location = ''; //Tempory fix
-                      }, 50);
+                      }, 1000);
                   }
                   else {
                   }
@@ -88,6 +98,7 @@
                   $scope.submitted = false;
                   toaster.pop('error', 'Incorrect username and password combination');
                   $scope.info = "";
+                  $scope.loading = false;
               })
           }
 

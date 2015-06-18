@@ -1,5 +1,5 @@
 ﻿<md-dialog id="contactpages" class="login-box pad-top non-homepage">
-    <div class="login-dialog">
+    <div class="login-dialog" ng-show="!loading">
         <a style="cursor: pointer" ng-click="facebook_login($event)" class="wide-button facebook-login">
             <span class="label-icon">
                 <i class="glyphicon mdi mdi-facebook"></i>
@@ -65,5 +65,8 @@
                 Already have an account? <a ng-click="logging_in = true" style="cursor: pointer">Login</a><br>
             </div>
         </div>
+    </div>
+    <div ng-show ="loading" layout="row" layout-align="center center" style="height: 300px">
+        <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
     </div>
 </md-dialog>

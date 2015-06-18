@@ -49,7 +49,7 @@
                       toaster.pop('success', 'Successfully logged in!');
                       setTimeout(function () {
                           window.location = ''; //Tempory fix
-                      }, 50);
+                      }, 1000);
                   }
                   else {
                   }

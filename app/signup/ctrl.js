@@ -47,7 +47,9 @@
           } 
           else if (data.status === "success"){
             toaster.pop('success', 'Signup up successful!');
-            window.location = '#dashboard'
+              setTimeout(function () {
+                  window.location = ''; //Tempory fix
+              }, 1000);
           } 
           else {
             $scope.info = "Unspecified error - contact us for more information!"
