@@ -207,7 +207,7 @@
                     data.Event.scheduled_notifications.push(s_notif);
                 })
                 data.Event.scheduled_notifications.sort(function (a, b) {
-                    return a.start_time > b.start_time;
+                    return moment(a.start_time).utc() - moment(b.start_time).utc();
                 })
             });
 
