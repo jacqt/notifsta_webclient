@@ -23,7 +23,7 @@
                 <div layout="column" class="info-column" flex="33">
                     <h3> Events Coming Up </h3>
                     <div ng-repeat="sub_event in proj.next_few_events" layout="column">
-                        <label> {{ sub_event.start_time }}  -  {{ shorten(sub_event.end_time) }} </label>
+                        <label> {{ format_date(sub_event.start_time) }}  -  {{ shorten(sub_event.end_time) }} </label>
                         <div style="margin-left: 15px;">
                             <p> {{ sub_event.name }} </p>
                             <p>

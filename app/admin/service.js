@@ -33,7 +33,7 @@
             //Otherwise, we will be assigning by value and things get messy quite quickly
             self._data = {
                 Event: {
-                    timezone_offset: "Europe/London",
+                    timezone: "Europe/London",
                     channels: [],
                     event_sources: [
                         function (start, end, timezone, callback) {

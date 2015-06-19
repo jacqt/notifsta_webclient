@@ -17,6 +17,13 @@
             name: $routeParams.event_name,
             id: $routeParams.event_id
         }
+
+        $scope.timezone_names = moment.tz.names().map(function (name) {
+            return {
+                value: name,
+                text: name
+            }
+        });
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
         $scope.ToggleFullScreen = function () {
             console.log('Going into full screen mode')
@@ -458,6 +465,17 @@
                     $scope.data.Event.map.zoom = 15;
                     $scope.data.Event.marker.coords.latitude = lat;
                     $scope.data.Event.marker.coords.longitude = lng;
+                    var lat = place.geometry.location.lat();
+                    var lng = place.geometry.location.lng();
+                    $.ajax({
+                        url: "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng + " + &timestamp=" + (Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false",
+                    }).done(function (response) {
+                        if (response.timeZoneId != null) {
+                            console.log(response.timeZoneId);
+                            $scope.data.Event.timezone = response.timeZoneId;
+                            $scope.publish_updates();
+                        }
+                    });
 
                     $scope.$apply();
                     $scope.publish_updates();

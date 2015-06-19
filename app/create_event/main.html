@@ -26,6 +26,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input class="form-control" type="text" ng-model="partial_event.timezone" 
+                                   disabled="true"
+                                   placeholder="Timezone"
+                                   class="input-block-level" ng-required="true" />
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="timepicker-label"> Start </label>
@@ -50,7 +60,6 @@
                         <input type="submit" name="commit" value="Create Event" class="btn btn-primary" ng-disabled="submitting">
                     </div>
                 </div>
-                {{ partial_event.start_time.format()}}
             </form>
         </div>
 

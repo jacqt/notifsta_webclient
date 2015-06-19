@@ -12,6 +12,7 @@
             end_hh_mm: moment('2015-01-01 00:00'),
             start_time: null,
             end_time: null,
+            timezone: null
         }
         $scope.today = moment();
         //TODO Move this into somewhere central. Duplicated at admin/ctrl.js
@@ -19,16 +20,22 @@
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
             console.log($('#google_places_ac').val());
             $scope.partial_event.address = $('#google_places_ac').val();
-            //var place = autocomplete.getPlace();
-            //console.log(place);
-            //var partial_address = AddressService.ShortenAddress(place);
-            //console.log(partial_address);
-            //$scope.partial_event.address = place.name + partial_address;
-            //$scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-            //setTimeout(function () {
-            //    console.log('hii');
-            //    $('#google_places_ac').val($scope.partial_event.address);
-            //},0);
+
+            console.log(autocomplete);
+            var place = autocomplete.getPlace();
+            console.log(place);
+            var partial_address = AddressService.ShortenAddress(place);
+            console.log(partial_address);
+
+            var lat = place.geometry.location.lat();
+            var lng = place.geometry.location.lng();
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng + " + &timestamp=" + (Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false",
+            }).done(function (response) {
+                if (response.timeZoneId != null) {
+                    $scope.partial_event.timezone = response.timeZoneId;
+                }
+            });
         });
 
         $scope.$watch('partial_event.start_time', function (newVal) {

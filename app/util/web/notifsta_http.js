@@ -216,6 +216,7 @@
                     'event[event_map_url]': event.event_map_url,
                     'event[start_time]': moment(event.start_time).utc().toString(),
                     'event[end_time]': moment(event.end_time).utc().toString(),
+                    'event[timezone]': event.timezone ? event.timezone.toString() : null,
                     'event[address]': event.address,
                 }
             }
@@ -269,7 +270,8 @@
                     'event[start_time]': moment(event.start_time).utc().toString(),
                     'event[end_time]': moment(event.end_time).utc().toString(),
                     'event[address]': event.address,
-                    'event[twitter_widget_id]': event.twitter_widget_id ? event.twitter_widget_id.toString() : null
+                    'event[twitter_widget_id]': event.twitter_widget_id ? event.twitter_widget_id.toString() : null,
+                    'event[timezone]': event.timezone ? event.timezone.toString() : null
                 }
             }
             console.log(req.params);

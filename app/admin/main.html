@@ -176,8 +176,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <div style="width: 100%" class="input-group" combinedtpicker 
-                                                                 tz-name="data.Event.timezone_offset"
+                                                            <div style="width: 100%" class="input-group" combinedtpicker
+                                                                 tz-name="data.Event.timezone"
                                                                  ng-model="timeoption.start_time"></div>
                                                         </div>
                                                     </div>
@@ -203,8 +203,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <div style="width: 100%" class="input-group" combinedtpicker 
-                                                                 tz-name="data.Event.timezone_offset"
+                                                            <div style="width: 100%" class="input-group" combinedtpicker
+                                                                 tz-name="data.Event.timezone"
                                                                  ng-model="timeoption.end_time"></div>
                                                             <div style="width: 95px; border-bottom: none;" class="editable-item">
                                                                 <button class="btn-default btn-primary" ng-click="timeoption.save()">
@@ -219,6 +219,17 @@
                                                 </div>
                                             </div>
                                         </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label> Event Timezone</label>
+                                    <div class="editable-item">
+                                        <span editable-select="data.Event.timezone" onaftersave="publish_updates()" e-ng-options="t.value as t.text for t in timezone_names" e-form="event_timezone_form">
+                                            {{ data.Event.timezone || 'Event timezone' }}
+                                        </span>
+                                        <button class="btn-default" ng-click="event_timezone_form.$show()" ng-hide="event_timezone_form.$visible">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -286,7 +297,7 @@
                                     <div class="input-group">
                                         <span style="width: 50px; padding-top: 5px;" class="title">Start</span>
                                         <div ng-if="editing_subevent" class="input-group" combinedtpicker
-                                             tz-name="data.Event.timezone_offset"
+                                             tz-name="data.Event.timezone"
                                              ng-model="partial_subevent.start_time"></div>
                                     </div>
                                 </div>
@@ -294,7 +305,7 @@
                                     <div class="input-group">
                                         <span style="width: 50px; padding-top: 5px;" class="title">End</span>
                                         <div ng-if="editing_subevent" class="input-group" combinedtpicker
-                                             tz-name="data.Event.timezone_offset"
+                                             tz-name="data.Event.timezone"
                                              ng-model="partial_subevent.end_time"></div>
                                     </div>
                                 </div>
