@@ -34,6 +34,9 @@
             }).done(function (response) {
                 if (response.timeZoneId != null) {
                     $scope.partial_event.timezone = response.timeZoneId;
+                    setTimeout(function () {
+                        $scope.$apply();
+                    }, 10);
                 }
             });
         });

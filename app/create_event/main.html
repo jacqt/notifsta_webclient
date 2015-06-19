@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input class="form-control" type="text" ng-model="partial_event.timezone" 
+                            <input class="form-control" type="text" ng-model="partial_event.timezone"
                                    disabled="true"
                                    placeholder="Timezone"
                                    class="input-block-level" ng-required="true" />
@@ -41,6 +41,7 @@
                         <label class="timepicker-label"> Start </label>
                         <div class="input-group">
                             <div class="input-group" combinedtpicker min-date="today" placeholder="'Start time'"
+                                 tz-name="partial_event.timezone"
                                  ng-model="partial_event.start_time"></div>
                         </div>
                     </div>
@@ -51,6 +52,7 @@
                         <div class="input-group">
                             <div class="input-group" combinedtpicker min-date="partial_event.start_time"
                                  placeholder="'End time'"
+                                 tz-name="partial_event.timezone"
                                  ng-model="partial_event.end_time"></div>
                         </div>
                     </div>

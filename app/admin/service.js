@@ -12,7 +12,7 @@
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
 
-        var TIMESTRING_FORMAT = 'MMMM Do YYYY, h:mm A z';
+        var TIMESTRING_FORMAT = 'MMMM Do YYYY, hh:mm A z';
 
         var event_monitors = {};
 
@@ -33,7 +33,6 @@
             //Otherwise, we will be assigning by value and things get messy quite quickly
             self._data = {
                 Event: {
-                    timezone: "Europe/London",
                     channels: [],
                     event_sources: [
                         function (start, end, timezone, callback) {
@@ -85,8 +84,8 @@
         }
 
         EventMonitor.prototype.moment = function (arg1, arg2, arg3) {
-            if (this._data.Event.timezone_offset) {
-                return moment(arg1, arg2, arg3).tz(this._data.Event.timezone_offset);
+            if (this._data.Event.timezone) {
+                return moment(arg1, arg2, arg3).tz(this._data.Event.timezone);
             } else {
                 return moment(arg1, arg2, arg3);
             }
@@ -137,7 +136,9 @@
         EventMonitor.prototype.GetInitialEventData = function () {
             var self = this;
             var event = self._data.Event;
+            console.log(event.timezone);
             event.start_time = self.moment(event.start_time);
+            console.log(event.start_time.format());
             event.end_time = self.moment(event.end_time);
             self.UpdateData();
             ImcService.FireEvent('event_loaded ' + self._data.Event.id);

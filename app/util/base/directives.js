@@ -129,6 +129,7 @@ app.directive('combinedtpicker', [function () {
                 scope.timezone_name = tzName;
                 scope.timezone_offset = moment().tz(tzName).format('Z');
                 scope.tz_abbrv        = moment().tz(tzName).format('z');
+                update();
             });
             scope.$watch(attrs.placeholder, function (v) {
                 if (!v) {
