@@ -26,71 +26,74 @@ app.directive('combinedtpicker', [function () {
         link: function(scope, element, attrs){
             scope.datepicker = {
                 opened: false,
-                old_value: moment()
             };
             scope.date = null;
             scope.hh_mm = moment('2015-01-01 00:00');
-            function convert_to_date() {
-                if (!scope.date) {
-                    return null;
-                }
-                var day = moment(scope.date);
-                var hh_mm = moment(scope.hh_mm);
-                var dur = moment.duration({ hour: hh_mm.get('hour'), minute: hh_mm.get('minute') });
-                var real_time = day.add(dur);
-                return real_time.clone().toDate();
+
+            var _temp = moment().format();
+            var local_timezone = _temp.substring(_temp.length - 6, _temp.length);
+
+            function ConvertToLocal(moment_obj){
+                var stripped_time_string = StripTimezone(moment_obj);
+                local_time_string = stripped_time_string + local_timezone;
+                var m = moment(local_time_string);
+                m.set({ 'second': 0 });
+                return m;
             }
 
-            function convert_from_moment(real_time) {
-                if (!real_time) {
-                    return;
+            function ConvertToOrigTz(moment_obj) {
+                if (scope.timezone_offset) {
+                    var stripped_time_string = StripTimezone(moment_obj);
+                    orig_time_string = stripped_time_string + scope.timezone_offset;
+                    console.log(orig_time_string);
+                    var m = moment(orig_time_string, moment.ISO8061).tz(scope.timezone_name);
+                    m.set({ 'second': 0 });
+                    return m
+                } else {
+                    return moment_obj;
                 }
-                real_time = moment(real_time);
-                var day = real_time.clone();
-                day.set({
+
+            }
+
+            function StripTimezone(moment_obj) {
+                if (moment_obj) {
+                    return moment_obj.format().substring(0, moment_obj.format().length-6);
+                }
+                return null;
+            }
+
+            function MomentsDifferent(moment1, moment2) {
+                console.log(moment1, moment2);
+                if (moment1 == moment2) {
+                    return false;
+                } else {
+                    if (moment1 == null || moment2 == null) {
+                        return true;
+                    }
+                    console.log(moment1.format());
+                    console.log(moment2.format());
+                    return moment1.format() !== moment2.format();
+                }
+            }
+
+            function SetDate(moment_obj) {
+                scope.moment_obj = moment_obj;
+                scope.date = scope.moment_obj.format();
+                scope.hh_mm = scope.moment_obj.format();
+            }
+
+            function MergeDateHHMM(date, hh_mm) {
+                var m1 = moment(date);
+                var m2 = moment(hh_mm);
+                m1.set({
                     hour: 0,
                     minute: 0,
                     second: 0
                 });
-
-                var hh_mm = real_time.clone();
-                hh_mm.set({
-                    year: 1,
-                    month: 1,
-                    date: 1,
-                });
-                scope.date = day.clone().toDate();
-                scope.hh_mm = hh_mm.clone().toDate();
-                scope.datepicker.old_value = moment(convert_to_date());
+                var dur = moment.duration({ hour: m2.get('hour'), minute: m2.get('minute') });
+                return m1.add(dur);
             }
-            scope.$watch(attrs.ngModel, function (v) {
-                if (!v) {
-                    return;
-                }
-                if (!v.utc) {
-                    v = moment(v);
-                }
-                if (!scope.datepicker.old_value || v.valueOf() != scope.datepicker.old_value.valueOf()) {
-                    convert_from_moment(v);
-                }
-            });
-            scope.$watch(attrs.minDate, function (v) {
-                if (!v) {
-                    return;
-                }
-                scope.minDate = v;
-            });
-            scope.$watch(attrs.placeholder, function (v) {
-                if (!v) {
-                    return;
-                }
-                console.log(v);
-                scope.datepicker.placeholder = v;
-            });
 
-            scope.$watch('date', function (v) {
-                update();
-            });
 
             function update() {
                 var refs = attrs.ngModel.split('.');
@@ -98,18 +101,62 @@ app.directive('combinedtpicker', [function () {
                 for (var i = 0; i != refs.length-1; ++i) {
                     obj = obj[refs[i]]
                 }
-                var new_val = moment(convert_to_date());
                 var last_ref = refs[refs.length - 1];
+
+                scope.moment_obj = MergeDateHHMM(scope.date, scope.hh_mm);
+                var new_val = ConvertToOrigTz(scope.moment_obj);
                 if (new_val && new_val.isValid()) {
-                    if(obj[last_ref]){
-                        if (new_val.utc() != moment(obj[last_ref]).utc()) {
-                            obj[last_ref] = new_val.clone().toDate();
-                            scope.datepicker.old_value = new_val.clone();
-                        }
-                    } else {
-                        obj[last_ref] = new_val.clone().toDate();
-                        scope.datepicker.old_value = new_val.clone();
-                    }
+                    obj[last_ref] = new_val;
+                }
+            }
+
+            scope.$watch(attrs.ngModel, function (v) {
+                if (!v || ! v.utc) {
+                    return;
+                }
+                var new_date = ConvertToLocal(v);
+                if (MomentsDifferent(scope.moment_obj, new_date)){
+                    SetDate(new_date);
+                }
+            });
+
+            scope.$watch(attrs.minDate, function (v) {
+                if (!v) {
+                    return;
+                }
+                scope.minDate = v;
+            });
+            scope.$watch(attrs.tzName, function (tzName) {
+                if (!tzName) {
+                    return;
+                }
+                scope.timezone_name = tzName;
+                scope.timezone_offset = moment().tz(tzName).format('Z');
+                scope.tz_abbrv        = moment().tz(tzName).format('z');
+            });
+            scope.$watch(attrs.placeholder, function (v) {
+                if (!v) {
+                    return;
+                }
+                scope.datepicker.placeholder = v;
+            });
+
+            scope.$watch('date', function (v) {
+                update();
+            });
+            scope.$watch('hh_mm', function (v) {
+                update();
+            });
+
+
+
+
+
+            function getClone( moment_obj) {
+                if (scope.timezone_offset) {
+                    return moment_obj.clone().tz(scope.timezone_offset);
+                } else {
+                    return moment_obj.clone()
                 }
             }
 
@@ -117,12 +164,6 @@ app.directive('combinedtpicker', [function () {
                 scope.datepicker.opened = !scope.datepicker.opened;
                 ev.stopPropagation();
             }
-
-
-            scope.$watch('hh_mm', function (v) {
-                update();
-            });
-
         },
         template: '<input ng-focus="datepicker.opened = true" ' +
                          'placeholder="{{datepicker.placeholder}}" type="text" min-date="minDate" ' +
@@ -130,8 +171,13 @@ app.directive('combinedtpicker', [function () {
                          'datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" ' +
                          'is-open="datepicker.opened" class="form-control datepicker" ng-model="date"/>' +
                   '<span class="input-group-btn">' +
-                        '<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>'+
-                  '</span><timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" show-meridian="false"></timepicker>',
+                        '<button type="button" class="btn btn-default" ng-click="open($event)">' +
+                        '<i class="glyphicon glyphicon-calendar"></i></button>' +
+                  '</span>' +
+                      '<timepicker class="mytime" ng-model="hh_mm" ng-change="changed()" arrowkeys="false" ' +
+                                   'show-meridian="false">' +
+                  '</timepicker>'+
+                  '<span style="margin-left: 5px" layout="column" layout-align="center center"> {{ tz_abbrv }} <span> ',
     }
 }])
 app.directive('htmlEllipsis', ['$timeout', function ($timeout) {
