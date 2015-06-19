@@ -10,6 +10,9 @@
 
 
 
+        $scope.format_date = function (time_string) {
+            return event_monitor.moment(time_string).format(EventMonitor.T_FORMAT);
+        }
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
         $scope.event_name = $routeParams.event_name;

@@ -83,11 +83,11 @@
                     </div>
                     <label> Start time</label>
                     <div>
-                        {{ data.Event.start_time }}
+                        {{ format_date(data.Event.start_time) }}
                     </div>
                     <label> End time</label>
                     <div>
-                        {{ data.Event.end_time }}
+                        {{ format_date(data.Event.end_time) }}
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="actual-feed event-info shaded-border">
                     <div class="timetable-sub-event-group"
                          ng-repeat="subevents in data.Event.subevent_grouped_array">
-                        <label> {{ subevents.start_time }} </label>
+                        <label> {{ format_date(subevents.start_time) }} </label>
                         <table ng-repeat="subevent in subevents.events">
                             <tr class="heading">
                                 <td><b> {{ subevent.start_day_time }}</b> </td>
@@ -149,11 +149,11 @@
                             </div>
                             <label> Start time</label>
                             <div>
-                                {{ data.Event.start_time }}
+                                {{ format_date(data.Event.start_time) }}
                             </div>
                             <label> End time</label>
                             <div>
-                                {{ data.Event.end_time }}
+                                {{ format_date(data.Event.end_time) }}
                             </div>
                         </div>
 
@@ -208,7 +208,7 @@
                             </div>
                             <div class="timetable-sub-event-group"
                                  ng-repeat="subevents in data.Event.subevent_grouped_array">
-                                <label> {{ subevents.start_time }} </label>
+                                <label> {{ format_date(subevents.start_time) }} </label>
                                 <table ng-repeat="subevent in subevents.events">
                                     <tr class="heading">
                                         <td><b> {{ subevent.start_day_time }}</b> </td>
