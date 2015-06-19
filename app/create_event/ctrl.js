@@ -14,9 +14,11 @@
             end_time: null,
             timezone: null
         }
+        $scope.focusthis = true;
         $scope.today = moment();
         //TODO Move this into somewhere central. Duplicated at admin/ctrl.js
         var autocomplete = new google.maps.places.Autocomplete($("#google_places_ac")[0], {});
+        $('#google_places_ac').attr('placeholder', '');
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
             console.log($('#google_places_ac').val());
             $scope.partial_event.address = $('#google_places_ac').val();

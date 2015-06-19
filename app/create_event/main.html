@@ -1,32 +1,41 @@
 <span id="createeventpage">
     <div class="col-md-12  non-homepage" style="padding-top: 50px;">
-        <div class="signup-box">
+        <div class="signup-box" style=" background-color: white!important; border: 1px solid grey">
             <h1>Create an Event</h1>
             <form class="new_user"
                   ng-submit="AttemptEventCreation()"
                   accept-charset="UTF-8">
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:0">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.name" id="user_email" placeholder="Event Name" ng-required="true">
+                            <md-input-container flex style="padding-bottom: 5px">
+                                <label style="margin-bottom: 0px"> Event Name </label>
+                                <input focus-me="focusthis" ng-model="partial_event.name" ng-required="true">
+                            </md-input-container>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:0">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input autofocus="autofocus" class="form-control" type="text" ng-model="partial_event.description" id="user_email" placeholder="Description" ng-required="true">
+                            <md-input-container flex style="padding-bottom: 5px">
+                                <label style="margin-bottom: 0px"> Event Description </label>
+                                <input ng-model="partial_event.description" ng-required="true">
+                            </md-input-container>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:0">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input class="form-control" id="google_places_ac" name="google_places_ac" type="text" ng-model="partial_event.address" class="input-block-level" ng-required="true" />
+                            <md-input-container flex style="padding-bottom: 5px">
+                                <label style="margin-bottom: 0px"> Event Location </label>
+                                <input id="google_places_ac" name="google_places_ac" type="text" ng-model="partial_event.address" ng-required="true" />
+                            </md-input-container>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top: 10px">
                     <div class="col-md-12">
                         <label class="timepicker-label"> Start </label>
                         <div class="input-group">
@@ -48,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" layout="row" layout-align="center" style="margin-top: 20px">
+                    <div class="col-md-12" layout="row"  style="margin-top: 20px">
                         <input type="submit" name="commit" value="Create Event" class="btn btn-primary" ng-disabled="submitting">
                     </div>
                 </div>

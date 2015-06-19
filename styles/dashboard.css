@@ -34,21 +34,21 @@
 }
 
 .zoom.ng-hide-add, .zoom.ng-hide-remove {
-    -webkit-animation: zoomIn .5s;
-    -moz-animation: zoomIn .5s;
-    -ms-animation: zoomIn .5s;
-    animation: zoomIn .5s;
+    /*-webkit-animation: fadeIn .5s;
+    -moz-animation: fadeIn .5s;
+    -ms-animation: fadeIn .5s;
+    animation: fadeIn .5s;*/
     height: 130px!important;
 }
 
 .zoom.ng-hide {
-    -webkit-animation: zoomOut .5s;
-    -moz-animation: zoomOut .5s;
-    -ms-animation: zoomOut .5s;
-    animation: zoomOut .5s;
+    -webkit-animation: fadeOut .5s;
+    -moz-animation: fadeOut .5s;
+    -ms-animation: fadeOut .5s;
+    animation: fadeOut .5s;
     height:0!important;
-    width:0!important;
-    overflow:hidden!important;
+    /*width:0!important;*/
+    /*overflow:hidden!important;*/
 }
 
 .event-group-container {
