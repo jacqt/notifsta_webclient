@@ -61,7 +61,9 @@
         <div ng-if="config.scheduled_notif.showme()" class="slide">
             <div class="schedulenotif">
                 <b> Send at </b>
-                <div class="input-group" combinedtpicker ng-model="config.scheduled_notif.start_time"></div>
+                <div class="input-group" combinedtpicker
+                     tz-name="data.Event.timezone_offset"
+                     ng-model="config.scheduled_notif.start_time"></div>
             </div>
             <button type="button" class="btn btn-default"
                     ng-click="create_scheduled_notification()">

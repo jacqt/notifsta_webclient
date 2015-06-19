@@ -12,6 +12,8 @@
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
 
+        var TIMESTRING_FORMAT = 'MMMM Do YYYY, h:mm A z';
+
         var event_monitors = {};
 
         function GetMonitor(event, monitor_type) {
@@ -31,12 +33,10 @@
             //Otherwise, we will be assigning by value and things get messy quite quickly
             self._data = {
                 Event: {
+                    timezone_offset: "Europe/London",
                     channels: [],
                     event_sources: [
                         function (start, end, timezone, callback) {
-                            console.log(start, end, timezone, callback);
-                            console.log('RETURNING SOME EVENTS');
-                            console.log(self._data.Event.event_sources_arr[0].events);
                             callback(self._data.Event.event_sources_arr[0].events.map(function(ev){
                                 var t = {};
                                 for (key in ev){
@@ -48,7 +48,6 @@
                             }));
                         },
                         function (start, end, timezone, callback) {
-                            console.log('RETURNING SOME EVENTS 2');
                             callback(self._data.Event.event_sources_arr[1].events.map(function(ev){
                                 var t = {};
                                 for (key in ev){
@@ -85,6 +84,38 @@
             setTimeout(function () { self.UpdateTimestamps() }, 1000);
         }
 
+        EventMonitor.prototype.moment = function (arg1, arg2, arg3) {
+            if (this._data.Event.timezone_offset) {
+                return moment(arg1, arg2, arg3).tz(this._data.Event.timezone_offset);
+            } else {
+                return moment(arg1, arg2, arg3);
+            }
+        }
+
+
+        function StripTimezone(moment_obj) {
+            if (moment_obj) {
+                var s = moment_obj.format();
+                if (s.indexOf('+') > 0){
+                    return s.substring(0, s.indexOf('+'));
+                }
+                if (s.lastIndexOf('-') > s.length - 8){
+                    return s.substring(0, s.lastIndexOf('-'));
+                } 
+                return s;
+            } else {
+                return null;
+            }
+        }
+
+        EventMonitor.prototype.moment_no_convert = function (moment_obj) {
+            console.log(moment_obj.format());
+            var stripped = StripTimezone(moment_obj);
+            console.log(stripped);
+            console.log(moment_obj);
+            return this.moment(stripped + this.moment().format('Z'));
+        }
+
         EventMonitor.prototype.ManagedByMe = function () {
             var self = this;
             var events = $rootScope.data.user.events;
@@ -106,8 +137,8 @@
         EventMonitor.prototype.GetInitialEventData = function () {
             var self = this;
             var event = self._data.Event;
-            event.start_time = moment(event.start_time).format('LLL');
-            event.end_time = moment(event.end_time).format('LLL');
+            event.start_time = self.moment(event.start_time);
+            event.end_time = self.moment(event.end_time);
             self.UpdateData();
             ImcService.FireEvent('event_loaded ' + self._data.Event.id);
         }
@@ -117,7 +148,7 @@
             var sub_events = this._data.Event.subevents;
             var events = []
             for (var start_time in sub_events) {
-                if (moment(start_time) < moment()) {
+                if (self.moment(start_time) < self.moment()) {
                     continue;
                 }
                 if (events.length > num_events) {
@@ -166,12 +197,13 @@
 
 
         EventMonitor.prototype.UpdateScheduledNotifications = function () {
+            var self = this;
             var data = this._data;
             var promise = NotifstaHttp.GetScheduledNotification(data.Event.channels[0].id);
             promise.success(function (resp) {
                 data.Event.scheduled_notifications.length = 0;
                 resp.data.map(function (s_notif) {
-                    s_notif.start_time = moment(s_notif.start_time, moment.ISO8061)
+                    s_notif.start_time = self.moment(s_notif.start_time, moment.ISO8061)
                     data.Event.scheduled_notifications.push(s_notif);
                 })
                 data.Event.scheduled_notifications.sort(function (a, b) {
@@ -228,17 +260,17 @@
 
             for (var start_time in sub_events) {
                 self._data.Event.subevent_grouped_array.push({
-                    start_time: moment(start_time).format('LLL'),
+                    start_time: self.moment(start_time),
                     events: sub_events[start_time]
                 });
                 sub_events[start_time].map(function (sub_event) {
                     sub_event.title = sub_event.name + ' - ' + sub_event.location;
-                    sub_event.start = moment(sub_event.start_time).format('LLL');
-                    sub_event.end = moment(sub_event.end_time).format('LLL');
+                    sub_event.start = self.moment(sub_event.start_time);
+                    sub_event.end = self.moment(sub_event.end_time);
                     sub_event.start_time = sub_event.start;
                     sub_event.end_time = sub_event.end;
-                    sub_event.start_day_time = moment(sub_event.start).format('hh:mm');
-                    sub_event.end_day_time = moment(sub_event.end).format('hh:mm');
+                    sub_event.start_day_time = self.moment(sub_event.start).format('hh:mm');
+                    sub_event.end_day_time = self.moment(sub_event.end).format('hh:mm');
                     sub_event.allDay = false;
                     sub_event.stick = true;
                     if (self._data.Event.event_sources_arr[0]) {
@@ -292,7 +324,7 @@
             var promise = NotifstaHttp.GetNotification(notif_id);
             promise.success(function (resp) {
                 notif = resp.data;
-                notif.time = moment(notif.created_at).fromNow();
+                notif.time = self.moment(notif.created_at).fromNow();
                 if (!notif.response) {
                     notif.response = {};
                 } else {
@@ -372,7 +404,8 @@
         }
 
         EventMonitor.prototype.PushNewNotif = function (channel, notif) {
-            notif.time = moment(notif.created_at).fromNow();
+            var self = this;
+            notif.time = self.moment(notif.created_at).fromNow();
             if (!notif.response) {
                 notif.response = {};
             } else {
@@ -415,7 +448,7 @@
             try {
                 event.channels = event.channels.map(function (channel) {
                     channel.notifications = channel.notifications.map(function (notif) {
-                        notif.time = moment(notif.created_at).fromNow();
+                        notif.time = self.moment(notif.created_at).fromNow();
                         return notif;
                     })
                     return channel;
@@ -470,7 +503,8 @@
             GetMonitor: GetMonitor,
 
             ADMIN_MONITOR: ADMIN_MONITOR,
-            NON_ADMIN_MONITOR: NON_ADMIN_MONITOR
+            NON_ADMIN_MONITOR: NON_ADMIN_MONITOR,
+            T_FORMAT : TIMESTRING_FORMAT
         }
     }
 })();

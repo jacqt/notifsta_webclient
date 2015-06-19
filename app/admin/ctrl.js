@@ -8,11 +8,16 @@
     angular.module('notifsta.controllers').controller('AdminCtrl',
         ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout',
             '$routeParams', 'toaster', 'ImcService', '$compile',
-            'uiCalendarConfig', 'AddressService', 'Fullscreen',
-    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService, Fullscreen) {
+            'uiCalendarConfig', 'AddressService', 'Fullscreen', '$q',
+    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService, Fullscreen, $q) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
 
+        $scope.event = {
+            name: $routeParams.event_name,
+            id: $routeParams.event_id
+        }
+        var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
         $scope.ToggleFullScreen = function () {
             console.log('Going into full screen mode')
             Fullscreen.enable(document.getElementById('projector'));
@@ -68,8 +73,8 @@
             if (evs.length == 0) {
                 return;
             }
-            evs[0].start = moment($scope.partial_subevent.start_time);
-            evs[0].end = moment($scope.partial_subevent.end_time);
+            evs[0].start = event_monitor.moment($scope.partial_subevent.start_time);
+            evs[0].end = event_monitor.moment($scope.partial_subevent.end_time);
             uiCalendarConfig.calendars.timetable_c.fullCalendar('updateEvent', evs[0]);
         });
         $scope.$watch('partial_subevent.end_time', function (newVal) {
@@ -79,12 +84,11 @@
             var evs = uiCalendarConfig.calendars.timetable_c.fullCalendar('clientEvents', function (ev) {
                 return ev.partial;
             });
-            console.log(evs);
             if (evs.length == 0) {
                 return;
             }
-            evs[0].start = moment($scope.partial_subevent.start_time);
-            evs[0].end = moment($scope.partial_subevent.end_time);
+            evs[0].start = event_monitor.moment($scope.partial_subevent.start_time);
+            evs[0].end = event_monitor.moment($scope.partial_subevent.end_time);
             uiCalendarConfig.calendars.timetable_c.fullCalendar('updateEvent', evs[0]);
         });
 
@@ -95,9 +99,9 @@
             sending_survey: false,
             scheduled_notif: {
                 show: false,
-                start_time: moment(),
+                start_time: event_monitor.moment(),
                 showme: function () {
-                    return $scope.config.scheduled_notif.show
+                    return $scope.config.scheduled_notif.show;
                 }
             },
         };
@@ -109,10 +113,6 @@
                 $scope.data.Event.cover_photo_url = $scope.temp.cover_photo_url;
             }
             $scope.temp = {};
-        }
-        $scope.event = {
-            name: $routeParams.event_name,
-            id: $routeParams.event_id
         }
 
         $scope.timeoption = {
@@ -140,8 +140,8 @@
                 return;
             }
             console.log(newVal);
-            var sv = moment(newVal);
-            var ev = moment($scope.timeoption.end_time);
+            var sv = event_monitor.moment(newVal);
+            var ev = event_monitor.moment($scope.timeoption.end_time);
             if (sv > ev) {
                 $scope.timeoption.end_time = sv.add(2, 'hours');
             }
@@ -153,15 +153,14 @@
                 return;
             }
             console.log(newVal);
-            var ev = moment(newVal);
-            var sv = moment($scope.timeoption.start_time);
+            var ev = event_monitor.moment(newVal);
+            var sv = event_monitor.moment($scope.timeoption.start_time);
             if (sv > ev) {
                 $scope.timeoption.start_time = newVal;
             }
         });
         var TIMEOUT = 1 * 1000;
 
-        var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
 
         //Data binding for new notifications
         $scope.input = {
@@ -191,15 +190,15 @@
         }
 
         $scope.on_time_set = function (newDate, oldDate) {
-            var n = moment(newDate).unix();
-            var o = moment(oldDate).unix();
+            var n = event_monitor.moment(newDate).unix();
+            var o = event_monitor.moment(oldDate).unix();
             if (n != o) {
                 $scope.publish_updates();
             }
             $scope.data.Event.start_time =
-              moment($scope.data.Event.start_time).format('LLL');
+              event_monitor.moment($scope.data.Event.start_time).format('LLL');
             $scope.data.Event.end_time =
-              moment($scope.data.Event.end_time).format('LLL');
+              event_monitor.moment($scope.data.Event.end_time).format('LLL');
         }
 
         $scope.publish_updates = function () {
@@ -217,7 +216,7 @@
         }
 
         $scope.format_date = function (time_string) {
-            return moment(time_string).format('LLL');
+            return event_monitor.moment(time_string).format(EventMonitor.T_FORMAT);
         }
 
         $scope.create_option = function () {
@@ -345,7 +344,7 @@
         }
 
         $scope.schedule_notification = function () {
-            $scope.config.scheduled_notif.start_time = moment();
+            $scope.config.scheduled_notif.start_time = event_monitor.moment();
             $scope.config.scheduled_notif.show = true;
             setTimeout(function () {
                 $scope.$apply();
@@ -411,7 +410,7 @@
             promise.success(function (resp) {
                 console.log(resp);
                 if (resp.status === "success") {
-                    notif.start_time = moment(resp.data.start_time, moment.ISO8061);
+                    notif.start_time = event_monitor.moment(resp.data.start_time, moment.ISO8061);
                     notif.message = resp.data.message;
                     toaster.pop('success', 'Successfuly updated notification');
                 }
@@ -501,24 +500,35 @@
         }
 
         function UpdateSubEvent(changed_event) {
-            var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
-            promise.success(function (e) {
-                if (e.status == 'success') {
-                    toaster.pop('success', 'Successfuly updated timetable');
-                    event_monitor.UpdateSubEvent(e.data);
-                    refresh_calendar();
+            return $q(function (resolve, reject) {
+                var promise = NotifstaHttp.PublishSubEventUpdate($scope.data.Event, changed_event);
+                promise.success(function (e) {
+                    if (e.status == 'success') {
+                        toaster.pop('success', 'Successfuly updated timetable');
+                        event_monitor.UpdateSubEvent(e.data);
+                        refresh_calendar();
 
-                    $scope.partial_subevent.start_time = null;
-                    $scope.partial_subevent.end_time = null;
-                    $scope.partial_subevent.name = null;
-                    $scope.partial_subevent.description = null;
-                    $scope.partial_subevent.location = null;
-                    $scope.editing_subevent = false;
-                } else {
-                    console.log(e);
-                    toaster.pop('error', e.error);
-                }
-            });
+                        $scope.partial_subevent.start_time = null;
+                        $scope.partial_subevent.end_time = null;
+                        $scope.partial_subevent.name = null;
+                        $scope.partial_subevent.description = null;
+                        $scope.partial_subevent.location = null;
+                        $scope.editing_subevent = false;
+                        resolve();
+                    } else {
+                        console.log(e);
+                        if (e.data) {
+                            toaster.pop('error', e.data);
+                        } else if (e.error) {
+                            toaster.pop('error', e.error);
+                        } else {
+                            toaster.pop('error', 'Encountered an error');
+                        }
+                        reject();
+                    }
+                });
+
+            })
         }
 
         $scope.event_editor_popup = {
@@ -542,16 +552,16 @@
                                 center: 'title',
                                 right: 'prev,next'
                             },
-                            firstDay: moment($scope.data.Event.start_time).format('d'),
+                            firstDay: event_monitor.moment($scope.data.Event.start_time).format('d'),
                             defaultDate: new Date($scope.data.Event.start_time),
-                            scrollTime: moment($scope.data.Event.start_time).format('HH:mm:ss'),
+                            scrollTime: event_monitor.moment($scope.data.Event.start_time).format('HH:mm:ss'),
                             snapDuration: { minutes: 5 },
                             allDaySlot: false,
                             slotDuration: { minutes: 15 },
                             dayClick: on_day_click,
                             eventClick: on_event_click,
-                            eventDrop: alertOnDrop,
-                            eventResize: on_event_resize,
+                            eventDrop: on_event_change,
+                            eventResize: on_event_change,
                             viewRender: on_view_change
                         }
                     }
@@ -567,23 +577,17 @@
             }, 400);
         }
         $scope.timetable_clicked = function (ev) {
-            if (!$scope.calendar_editable) return;
-            console.log(ev);
             var CALENDAR_LEFT_LABEL_WIDTH = 93;
             var w = $('.fc-day').width();
             var x_offset = 117;//$('.fc-widget-content').offset().left;
             var x_rel = ev.pageX - x_offset;
             var x_rel = Math.floor(x_rel / w) * w;
-            console.log(ev.pageX);
-            console.log(x_rel);
             if (x_rel - 350 > 0) {
                 $scope.event_editor_popup.posX = x_rel - 400 + 20 + CALENDAR_LEFT_LABEL_WIDTH;
             } else {
                 $scope.event_editor_popup.posX = x_rel + w + 40 + CALENDAR_LEFT_LABEL_WIDTH;
             }
             $scope.event_editor_popup.posX = x_rel + CALENDAR_LEFT_LABEL_WIDTH;
-            console.log(ev.pageY);
-            console.log($('.fc-center').offset().top);
             $scope.event_editor_popup.posY = Math.min(ev.pageY - $('.fc-center').offset().top - 800, -400);
         }
 
@@ -591,18 +595,17 @@
         var on_day_click = function (date, jsEvent, view) {
             if (!$scope.calendar_editable) return;
             //disable_all_events();
-            console.log(date);
             $scope.partial_subevent = {
                 name: null,
                 description: null,
-                start_time: moment(date.format('LLL')).format('LLL'),
-                end_time: moment(date.format('LLL')).add(1, 'hour').format('LLL'),
+                start_time: event_monitor.moment_no_convert(date),
+                end_time: event_monitor.moment_no_convert(date).add(1, 'hour'),
                 location: null
             }
             $scope.data.Event.event_sources_arr[1].events.push({
                 title: '',
-                start: moment($scope.partial_subevent.start_time),
-                end: moment($scope.partial_subevent.end_time),
+                start: event_monitor.moment($scope.partial_subevent.start_time),
+                end: event_monitor.moment($scope.partial_subevent.end_time),
                 allDay: false,
                 partial: true
             });
@@ -616,6 +619,7 @@
                 //disable_all_events();
             }, 100);
             $scope.editing_subevent = true;
+            $scope.subevent_editor.$hide();
             $scope.subevent_editor.$show();
         }
         var on_event_click = function (calEvent, jsEvent, view) {
@@ -623,37 +627,36 @@
                 jsEvent.stopPropagation()
                 return;
             }
-            console.log(calEvent);
-            calEvent.start_time = moment(calEvent.start.format('LLL')).format('LLL');
-            calEvent.end_time = moment(calEvent.end.format('LLL')).format('LLL');
+            calEvent.start_time = event_monitor.moment(calEvent.start);
+            calEvent.end_time = event_monitor.moment(calEvent.end);
             for (var key in calEvent) {
                 $scope.partial_subevent[key] = calEvent[key]
             }
             show_subevent();
         }
 
-        var alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
-            console.log(event.partial);
+        var on_event_change = function (event, delta, revertFunc, jsEvent, ui, view) {
             if (event.partial) { //update the partial event 
-                $scope.partial_subevent.start_time = moment(event.start.format('LLL')).format('LLL');
-                $scope.partial_subevent.end_time = moment(event.end.format('LLL')).format('LLL');
+                $scope.partial_subevent.start_time = event_monitor.moment_no_convert(event.start);
+                $scope.partial_subevent.end_time = event_monitor.moment_no_convert(event.end);
             } else {
-                event.start_time = moment(event.start.format('LLL')).format('LLL');
-                event.end_time = moment(event.end.format('LLL')).format('LLL');
+                console.log(event.start.format());
+                event.start_time = event_monitor.moment_no_convert(event.start);
+                event.end_time = event_monitor.moment_no_convert(event.end);
                 UpdateSubEvent(event);
             }
         };
 
-        var on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
-            if (event.partial) { //update the partial event 
-                $scope.partial_subevent.start_time = moment(event.start.format('LLL')).format('LLL');
-                $scope.partial_subevent.end_time = moment(event.end.format('LLL')).format('LLL');
-            } else {
-                event.start_time = moment(event.start.format('LLL')).format('LLL');
-                event.end_time = moment(event.end.format('LLL')).format('LLL');
-                UpdateSubEvent(event);
-            }
-        };
+        //var on_event_resize = function (event, delta, revertFunc, jsEvent, ui, view) {
+        //    if (event.partial) { //update the partial event 
+        //        $scope.partial_subevent.start_time = event_monitor.moment(event.start.format('LLL'));
+        //        $scope.partial_subevent.end_time = event_monitor.moment(event.end.format('LLL'));
+        //    } else {
+        //        event.start_time = event_monitor.moment(event.start.format('LLL'));
+        //        event.end_time = event_monitor.moment(event.end.format('LLL'));
+        //        UpdateSubEvent(event);
+        //    }
+        //};
 
         function on_view_change(view, element) {
             event_monitor.ConfigureTimetable();
@@ -680,7 +683,7 @@
 
                 //We need to use the setters here because we are directly manipulating the FullCalendar FCMoment object
                 //which is an augmented version of moment, and is something we do not have access to!
-                var s = moment($scope.partial_subevent.start_time).zone(moment().zone());
+                var s = event_monitor.moment($scope.partial_subevent.start_time); //.zone(moment().zone());
                 $scope.partial_subevent.start.set({
                     year: s.get('year'),
                     month: s.get('month'),
@@ -688,7 +691,7 @@
                     hour: s.get('hour'),
                     minute: s.get('minute')
                 });
-                var e = moment($scope.partial_subevent.end_time).zone(moment().zone());
+                var e = event_monitor.moment($scope.partial_subevent.end_time); //.zone(moment().zone());
                 $scope.partial_subevent.end.set({
                     year: e.get('year'),
                     month: e.get('month'),
@@ -696,30 +699,32 @@
                     hour: e.get('hour'),
                     minute: e.get('minute')
                 });
-                console.log(s);
-                console.log(e);
-                UpdateSubEvent($scope.partial_subevent);
+                return UpdateSubEvent($scope.partial_subevent);
             } else {
-                var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
-                promise.success(function (ev) {
-                    if (ev.status == 'success') {
-                        $scope.data.Event.event_sources_arr[1].events.splice(0, 1);
-                        event_monitor.AddSubEvent(ev.data);
-                        refresh_calendar();
-                        toaster.pop('success', 'Successfuly added new event');
-                        $scope.partial_subevent.start_time = null;
-                        $scope.partial_subevent.end_time = null;
-                        $scope.partial_subevent.name = null;
-                        $scope.partial_subevent.description = null;
-                        $scope.partial_subevent.location = null;
-                        $scope.editing_subevent = false;
-                    } else {
-                        console.log(ev);
-                        toaster.pop('error', ev.error);
-                        console.log($scope.partial_subevent);
-                        show_subevent();
-                    }
-                });
+                return $q(function (resolve, reject) {
+                    var promise = NotifstaHttp.CreateSubEvent($scope.data.Event, $scope.partial_subevent);
+                    promise.success(function (ev) {
+                        if (ev.status == 'success') {
+                            $scope.data.Event.event_sources_arr[1].events.splice(0, 1);
+                            event_monitor.AddSubEvent(ev.data);
+                            refresh_calendar();
+                            toaster.pop('success', 'Successfuly added new event');
+                            $scope.partial_subevent.start_time = null;
+                            $scope.partial_subevent.end_time = null;
+                            $scope.partial_subevent.name = null;
+                            $scope.partial_subevent.description = null;
+                            $scope.partial_subevent.location = null;
+                            $scope.editing_subevent = false;
+                            resolve();
+                        } else {
+                            console.log(ev);
+                            toaster.pop('error', ev.error);
+                            console.log($scope.partial_subevent);
+                            reject();
+                        }
+                    });
+
+                })
             }
         }
 

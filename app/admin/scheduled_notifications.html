@@ -1,7 +1,7 @@
 ﻿<div ng-repeat="notif in data.Event.scheduled_notifications">
     <div ng-show="!notif.editing">
         <div class="notif-item-text" style="padding-top: 10px; padding-bottom:10px">
-            <b> Message</b> <span class="lighter-color" style="margin-left: 5px"> {{ notif.start_time.format('LLL') }} </span>
+            <b> Message</b> <span class="lighter-color" style="margin-left: 5px"> {{ format_date(notif.start_time) }} </span>
         </div>
         <div class="editable-item">
             <div style="width:100%">
@@ -17,7 +17,9 @@
     <div ng-show="notif.editing">
         <div class="notif-item-text" style="padding-top: 10px; padding-bottom:10px">
             <div style="display:flex">
-                <b> Message</b>  <span style="margin-left: 5px"> <div class="input-group" combinedtpicker ng-model="notif.temp.start_time"></div> </span>
+                <b> Message</b>  <span style="margin-left: 5px"> <div class="input-group" combinedtpicker
+                                                                      tz-name="data.Event.timezone_offset"
+                                                                      ng-model="notif.temp.start_time"></div> </span>
             </div>
         </div>
         <div class="editable-item">

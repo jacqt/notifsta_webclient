@@ -45,7 +45,6 @@ app.directive('combinedtpicker', [function () {
                 if (scope.timezone_offset) {
                     var stripped_time_string = StripTimezone(moment_obj);
                     orig_time_string = stripped_time_string + scope.timezone_offset;
-                    console.log(orig_time_string);
                     var m = moment(orig_time_string, moment.ISO8061).tz(scope.timezone_name);
                     m.set({ 'second': 0 });
                     return m
@@ -63,15 +62,12 @@ app.directive('combinedtpicker', [function () {
             }
 
             function MomentsDifferent(moment1, moment2) {
-                console.log(moment1, moment2);
                 if (moment1 == moment2) {
                     return false;
                 } else {
                     if (moment1 == null || moment2 == null) {
                         return true;
                     }
-                    console.log(moment1.format());
-                    console.log(moment2.format());
                     return moment1.format() !== moment2.format();
                 }
             }

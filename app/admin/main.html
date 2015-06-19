@@ -176,7 +176,9 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <div style="width: 100%" class="input-group" combinedtpicker ng-model="timeoption.start_time"></div>
+                                                            <div style="width: 100%" class="input-group" combinedtpicker 
+                                                                 tz-name="data.Event.timezone_offset"
+                                                                 ng-model="timeoption.start_time"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,7 +203,9 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group-date">
-                                                            <div style="width: 100%" class="input-group" combinedtpicker ng-model="timeoption.end_time"></div>
+                                                            <div style="width: 100%" class="input-group" combinedtpicker 
+                                                                 tz-name="data.Event.timezone_offset"
+                                                                 ng-model="timeoption.end_time"></div>
                                                             <div style="width: 95px; border-bottom: none;" class="editable-item">
                                                                 <button class="btn-default btn-primary" ng-click="timeoption.save()">
                                                                     <i class="glyphicon glyphicon-ok"></i>
@@ -253,7 +257,7 @@
                     <div class="subeventeditor">
                         <div ng-show="editing_subevent"
                              ng-style="{'margin-left': event_editor_popup.posX +  'px', 'margin-top': event_editor_popup.posY + 'px'}"
-                             class="slide subevent-editor-side">
+                             class="subevent-editor-side">
                             <form class="subevent-editor-form"
                                   style="margin-bottom: 0"
                                   editable-form name="subevent_editor"
@@ -281,13 +285,17 @@
                                 <div>
                                     <div class="input-group">
                                         <span style="width: 50px; padding-top: 5px;" class="title">Start</span>
-                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.start_time"></div>
+                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker
+                                             tz-name="data.Event.timezone_offset"
+                                             ng-model="partial_subevent.start_time"></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-group">
                                         <span style="width: 50px; padding-top: 5px;" class="title">End</span>
-                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker ng-model="partial_subevent.end_time"></div>
+                                        <div ng-if="editing_subevent" class="input-group" combinedtpicker
+                                             tz-name="data.Event.timezone_offset"
+                                             ng-model="partial_subevent.end_time"></div>
                                     </div>
                                 </div>
                                 <div>
