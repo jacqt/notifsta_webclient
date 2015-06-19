@@ -73,7 +73,7 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 report: 'min',
-                mangle: false,
+                mangle: true,
 //                mangle: {
 //                    except: ['Angular', 'jQuery']
 //                },
