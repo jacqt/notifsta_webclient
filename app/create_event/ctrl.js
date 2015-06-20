@@ -7,9 +7,8 @@
         ['$scope', 'NotifstaHttp', '$cookies', 'ImcService', 'toaster', 'AddressService', ctrl]);
     function ctrl($scope, NotifstaHttp, $cookies, ImcService, toaster, AddressService) {
         $scope.submitting = false;
+
         $scope.partial_event = {
-            start_hh_mm: moment('2015-01-01 00:00'),
-            end_hh_mm: moment('2015-01-01 00:00'),
             start_time: null,
             end_time: null,
             timezone: null
@@ -43,8 +42,12 @@
             });
         });
 
+        var selected_time = false;
+
         $scope.$watch('partial_event.start_time', function (newVal) {
-            console.log(newVal);
+            if (newVal) {
+                console.log(newVal.format());
+            }
             if (!$scope.partial_event.end_time) {
                 $scope.partial_event.end_time = newVal;
                 return;

@@ -107,10 +107,11 @@ app.directive('combinedtpicker', [function () {
             }
 
             scope.$watch(attrs.ngModel, function (v) {
-                if (!v || ! v.utc) {
+                if (!v) {
                     return;
                 }
                 var new_date = ConvertToLocal(v);
+                console.log(new_date.format());
                 if (MomentsDifferent(scope.moment_obj, new_date)){
                     SetDate(new_date);
                 }
