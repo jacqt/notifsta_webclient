@@ -66,7 +66,7 @@
                       $scope.loading = false;
                   }
                   else if (data.status === "success") {
-                      toaster.pop('success', 'Signup up successful!');
+                      toaster.pop('success', 'Signup successful!');
                       setTimeout(function () {
                           window.location = ''; //Tempory fix
                       }, 1000);
