@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('notifsta.controllers').controller('AddAdminsCtrl', ['$scope', 'toaster', '$mdDialog', controller]);
-    function controller($scope, toaster, $mdDialog) {
+    angular.module('notifsta.controllers').controller('AddAdminsCtrl', ['$scope', 'toaster', '$mdDialog', 'AuthService', controller]);
+    function controller($scope, toaster, $mdDialog, AuthService) {
         var self = this;
 
         $scope.searchText = null;
@@ -31,6 +31,9 @@
         }
 
         $scope.ConfirmRemoveUserAdminPriviledge = function (admin_user) {
+            if (admin_user.email == AuthService.GetCredentials().user_email) {
+                return toaster.pop('error', 'You don\'t want to revoke your own priviledges!')
+            }
             var confirm = $mdDialog.confirm()
                             .title('Confirm')
                             .content('Are you sure you want to disable this user\'s admin priviledges?')
