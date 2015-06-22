@@ -32,7 +32,7 @@
 
         $scope.ConfirmRemoveUserAdminPrivilege = function (admin_user) {
             if (admin_user.email == AuthService.GetCredentials().user_email) {
-                return toaster.pop('error', 'I\'m sorry Dave. I\'m afraid I can\'t do that.');
+                return toaster.pop('error', 'I\'m sorry, Dave. I\'m afraid I can\'t do that.');
             }
             var confirm = $mdDialog.confirm()
                             .title('Confirm')

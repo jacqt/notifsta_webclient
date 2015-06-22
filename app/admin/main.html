@@ -34,7 +34,7 @@
                 <div class="stat actual-stat" style="padding-bottom: 15px">
                     <div class="col-xs-4 stat">
                         <div class="stat-text">
-                            <span class="stat-number"> 187 </span>
+                            <span class="stat-number"> {{ data.Event.subscribed_users.length }} </span>
                             <div>
                                 <span class="stat-unit">Total Subscribers</span>
                             </div>
@@ -267,7 +267,7 @@
                         <md-tab label="Add Admins" md-on-select="">
                             <md-content class="md-padding" style="padding-bottom: 20px">
                                 <div ng-controller="AddAdminsCtrl"
-                                     ng-include src="'app/admin/add_admins/add_admins_main.html'"> </div>
+                                     ng-include src="'app/admin/add_admins/add_admins_main.html'"></div>
                             </md-content>
                         </md-tab>
                     </md-tabs>
