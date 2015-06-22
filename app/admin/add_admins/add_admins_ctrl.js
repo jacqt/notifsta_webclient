@@ -30,13 +30,13 @@
                 });
         }
 
-        $scope.ConfirmRemoveUserAdminPriviledge = function (admin_user) {
+        $scope.ConfirmRemoveUserAdminPrivilege = function (admin_user) {
             if (admin_user.email == AuthService.GetCredentials().user_email) {
-                return toaster.pop('error', 'You don\'t want to revoke your own priviledges!')
+                return toaster.pop('error', 'I\'m sorry Dave. I\'m afraid I can\'t do that.');
             }
             var confirm = $mdDialog.confirm()
                             .title('Confirm')
-                            .content('Are you sure you want to disable this user\'s admin priviledges?')
+                            .content('Are you sure you want to disable this user\'s admin privileges?')
                             .ariaLabel('Confirm')
                             .ok('Yes')
                             .cancel('No')
@@ -58,10 +58,6 @@
                 });
 
         }
-        $scope.RemoveUserAdminPriviledge = function (admin_user) {
-
-        }
-
         function UpdateUsers() {
             if (!$scope.data.Event.subscribed_users) return;
 
@@ -74,6 +70,10 @@
             $scope.admin_users = $scope.users.filter(function (user) {
                 return user.admin;
             });
+            var options = {
+                keys: ['email'],
+            };
+            $scope.fuse = new Fuse($scope.users, options);
         }
 
         $scope.$watch('data.Event.subscribed_users', function (newVal) {
@@ -82,8 +82,7 @@
 
 
         $scope.querySearch = function (query) {
-            var results = query ? $scope.users.filter(createFilterFor(query)).slice(0, 5) : [];
-            return results;
+            return $scope.fuse.search(query).slice(0, 4);
         }
 
         /**
