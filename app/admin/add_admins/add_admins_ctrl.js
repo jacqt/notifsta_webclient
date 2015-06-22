@@ -17,6 +17,9 @@
             if (matching_items.length == 0) { // not a valid item
                 return toaster.pop('error', 'Suggested email not subscribed to your event')
             }
+            if (matching_items[0].admin) { // He's already an admin
+                return toaster.pop('error', 'Suggested email is already an admin')
+            }
             var promise = $scope.event_monitor.FlipUserAdminFlag(matching_items[0]);
             promise.then(
                 function success() {
