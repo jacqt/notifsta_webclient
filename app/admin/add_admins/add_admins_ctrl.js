@@ -93,7 +93,7 @@
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(user) {
-                return (user.value.indexOf(lowercaseQuery) === 0) && (!user.admin);
+                return (user.value.indexOf(lowercaseQuery) != -1) && (!user.admin);
             };
         }
     }
