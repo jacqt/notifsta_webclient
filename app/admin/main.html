@@ -264,6 +264,12 @@
                                 <div ng-include src="'app/admin/scheduled_notifications.html'"> </div>
                             </md-content>
                         </md-tab>
+                        <md-tab label="Add Admins" md-on-select="">
+                            <md-content class="md-padding" style="padding-bottom: 20px">
+                                <div ng-controller="AddAdminsCtrl"
+                                     ng-include src="'app/admin/add_admins/add_admins_main.html'"> </div>
+                            </md-content>
+                        </md-tab>
                     </md-tabs>
                     <div class="subeventeditor">
                         <div ng-show="editing_subevent"

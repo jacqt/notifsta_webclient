@@ -140,6 +140,17 @@
             return $http(req);
         }
 
+        function GetSubscribedUsers(event_id) {
+            var req = {
+                url: BASE_URL + '/v1/events/' + event_id + '/subscriptions',
+                method: 'GET',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token
+                }
+            }
+            return $http(req);
+        }
 
         // ------------------------------------------------------------ //
         // API Calls to create objects in the database
@@ -311,6 +322,19 @@
             return $http(req);
         }
 
+        function FlipUserAdminFlag(sub_id) {
+            var req = {
+                url: BASE_URL + '/v1/subscriptions/' + sub_id + '/flip_admin',
+                method: 'POST',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
+                }
+            }
+            return $http(req);
+        }
+
+
         function UnsubscribeToEvent(event_id) {
             var req = {
                 url: BASE_URL + '/v1/events/' + event_id + '/subscriptions',
@@ -324,7 +348,6 @@
             console.log(req);
             return $http(req);
         }
-
         // ------------------------------------------------------------ //
         // API Calls to interact with the Node JS scheduler backend
 
@@ -434,6 +457,10 @@
             // Given an notif_id, gets the notification
             GetNotification: GetNotification,
 
+            //GetSubscribedUsers:
+            // Given an event_id, gets the list of subscribed users
+            GetSubscribedUsers: GetSubscribedUsers,
+
             //GetResponse:
             // Given an notif_id, gets the notification
             GetResponses: GetResponses,
@@ -459,8 +486,12 @@
             //PublishEventUpdate: updates an event in a timetable
             PublishSubEventUpdate: PublishSubEventUpdate,
 
+            //FlipUserAdminFlag: flips the admin flag of a given subscription
+            FlipUserAdminFlag: FlipUserAdminFlag,
+
             //Subscribes to an event
             SubscribeToEvent: SubscribeToEvent,
+
             //Subscribes to an event
             UnsubscribeToEvent: UnsubscribeToEvent,
 

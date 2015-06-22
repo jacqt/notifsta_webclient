@@ -6,8 +6,8 @@
 
 (function () {
     angular.module('notifsta.services').service('EventMonitor',
-        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs', 'uiCalendarConfig', service]);
-    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs, uiCalendarConfig) {
+        ['$cookies', 'NotifstaHttp', 'ParseHttp', '$rootScope', 'ImcService', 'NotifstaAdapter', 'DesktopNotifs', 'uiCalendarConfig', '$q', service]);
+    function service($cookies, NotifstaHttp, ParseHttp, $rootScope, ImcService, NotifstaAdapter, DesktopNotifs, uiCalendarConfig, $q) {
         var self = this;
         var ADMIN_MONITOR = 1;
         var NON_ADMIN_MONITOR = 2;
@@ -131,6 +131,22 @@
             self.ConfigureWebsocket();
             self.UpdateScheduledNotifications();
             self.GetAllNotifications();
+
+            if (self.monitor_type == ADMIN_MONITOR) {
+                self.GetSubscribedUsers();
+            }
+        }
+
+        EventMonitor.prototype.GetSubscribedUsers = function () {
+            var self = this;
+            var promise = NotifstaHttp.GetSubscribedUsers(self._data.Event.id);
+            promise.success(function (resp) {
+                if (resp.status == 'success') {
+                    self._data.Event.subscribed_users = resp.data;
+                } else {
+                    // todo
+                }
+            });
         }
 
         EventMonitor.prototype.GetInitialEventData = function () {
@@ -494,6 +510,31 @@
                 }
                 SetAddress();
             }
+        }
+
+        EventMonitor.prototype.FlipUserAdminFlag = function (user_item) {
+            var self = this;
+            var promise = NotifstaHttp.FlipUserAdminFlag(user_item.id);
+            return $q(function (resolve, reject) {
+                promise.success(function (resp) {
+                    if (resp.status == 'success') {
+                        for (var i = 0; i != self._data.Event.subscribed_users.length; ++i) {
+                            if (self._data.Event.subscribed_users[i].id == user_item.id) {
+                                self._data.Event.subscribed_users[i].admin = !user_item.admin;
+                                resolve();
+                                break;
+                            }
+                        }
+                    } else {
+                        error(resp);
+                    }
+                });
+                promise.error(error);
+                function error(resp) {
+                    console.log(resp);
+                    reject();
+                }
+            })
         }
 
         return {
