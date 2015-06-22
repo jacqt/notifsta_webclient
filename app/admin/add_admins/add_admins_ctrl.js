@@ -82,7 +82,7 @@
 
 
         $scope.querySearch = function (query) {
-            return $scope.fuse.search(query).slice(0, 4);
+            return $scope.fuse.search(query).filter(function(user){ return !user.admin }).slice(0, 4);
         }
 
         /**
