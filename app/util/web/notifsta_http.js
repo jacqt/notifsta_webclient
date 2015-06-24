@@ -350,7 +350,7 @@
 
         function UnsubscribeToEvent(event_id) {
             var req = {
-                url: BASE_URL + '/v1/events/' + event_id + '/subscriptions',
+                url: BASE_URL + '/v1/events/' + event_id + '/subscription',
                 method: 'DELETE',
                 params: {
                     'user_email': AuthService.GetCredentials().user_email,

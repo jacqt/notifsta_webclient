@@ -47,6 +47,13 @@
             return $scope.data.Event.channels.filter(function (e) { return e.selected }).length == 0;
         }
 
+        $scope.unsubscribe = function () {
+            var promise = NotifstaHttp.UnsubscribeToEvent($scope.data.Event.id);
+            promise.success(function (resp) {
+                window.location = '';
+            });
+        }
+
         $scope.data = event_monitor._data;
 
         ImcService.AddHandler('event_loaded ' + $scope.event.id, function (data) {
