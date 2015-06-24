@@ -324,6 +324,9 @@
                                         <button type="button" class="btn btn-default" ng-disabled="subevent_editor.$waiting" ng-click="subevent_editor.$cancel()">
                                             Cancel
                                         </button>
+                                        <button type="button" class="btn btn-default" ng-show="partial_subevent.id" ng-disabled="subevent_editor.$waiting" ng-click="delete_subevent()">
+                                            Delete
+                                        </button>
                                     </span>
                                 </div>
                             </form>

@@ -628,7 +628,9 @@
                 partial: true
             });
             refresh_calendar();
-            show_subevent();
+            setTimeout(function () {
+                show_subevent();
+            }, 5);
         };
 
         var show_subevent = function () {
@@ -744,6 +746,31 @@
 
                 })
             }
+        }
+
+        $scope.delete_subevent = function () {
+            return $q(function (resolve, reject) {
+                var promise = NotifstaHttp.DeleteSubEvent($scope.data.Event, $scope.partial_subevent);
+                promise.success(function (ev) {
+                    if (ev.status == 'success') {
+                        event_monitor.RemoveSubEvent($scope.partial_subevent.id);
+                        refresh_calendar();
+                        toaster.pop('success', 'Successfuly deleted event');
+                        $scope.partial_subevent.start_time = null;
+                        $scope.partial_subevent.end_time = null;
+                        $scope.partial_subevent.name = null;
+                        $scope.partial_subevent.description = null;
+                        $scope.partial_subevent.location = null;
+                        $scope.editing_subevent = false;
+                        resolve();
+                    } else {
+                        console.log(ev);
+                        toaster.pop('error', ev.error);
+                        console.log($scope.partial_subevent);
+                        reject();
+                    }
+                });
+            })
         }
 
         function refresh_calendar() {

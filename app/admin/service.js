@@ -259,11 +259,16 @@
             var event = self._data.Event;
             var sub_events = self._data.Event.subevents;
             for (var start_time in sub_events) {
+                var deleted_event = false;
                 for (var i = 0; i != sub_events[start_time].length; ++i) {
                     if (sub_events[start_time][i].id == removed_event_id) {
                         sub_events[start_time].splice(i, 1);
-                        return;
+                        deleted_event = true;
+                        break;
                     }
+                }
+                if (deleted_event) {
+                    break;
                 }
             }
             self.ConfigureTimetable();

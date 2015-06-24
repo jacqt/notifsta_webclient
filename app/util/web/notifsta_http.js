@@ -308,6 +308,19 @@
             return $http(req);
         }
 
+        function DeleteSubEvent(event, subevent) {
+            var req = {
+                url: BASE_URL + '/v1/subevents/' + subevent.id,
+                method: 'DELETE',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
+                }
+            }
+            return $http(req);
+        }
+
+
         function SubscribeToEvent(event_id) {
             var req = {
                 url: BASE_URL + '/v1/subscriptions/',
@@ -472,6 +485,10 @@
             //CreateSubEvent:
             // Given an event object, and the new subevent create the subevent
             CreateSubEvent: CreateSubEvent,
+
+            //DeleteSubEvent:
+            // Given an event object, and the new subevent create the subevent
+            DeleteSubEvent: DeleteSubEvent,
 
             //CreateUser:
             // Given a user object with email and password fields, create a user 
