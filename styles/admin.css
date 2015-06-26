@@ -22,7 +22,12 @@ md-dialog {
     border-bottom:none;
     border-radius:0px;
     margin:0px;
+    color: black;
 
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    opacity: .4;
 }
 
 .dropdown-menu th .btn-default {
