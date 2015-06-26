@@ -346,9 +346,10 @@ angular.module('notifsta.controllers').controller('MainController',
         };
 
         // Get the signup and login dialogs working
-        $scope.showSignupDialog = function (ev) {
+        $scope.showSignupDialog = function (ev, redirect_url) {
             $scope.logging_in = false;
             $scope.autofocused = true;
+            $scope.redirect_url = redirect_url;
             $mdDialog.show({
                 templateUrl: 'app/login_signup/main.html',
                 parent: angular.element(document.body),

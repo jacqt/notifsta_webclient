@@ -14,7 +14,7 @@
 
                     <div class="fus-btns">
                         <a href="" class="scrollto btn fus-btn-white" scroll-to="#feature">Learn More</a>
-                        <a ng-click="showSignupDialog($event)" style="cursor: pointer" class="btn fus-btn-white btn-primary">Start now</a>
+                        <a ng-click="showSignupDialog($event, '#/create_event')" style="cursor: pointer" class="btn fus-btn-white btn-primary">Start now</a>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,9 @@
                                     Send notifications in a snap as well. Just type in what you want to say, click send, and your attendees will receive a buzz in their pockets. It's magic.
                                 </p>
                                 <center>
-                                    <a href="#signup" class="btn btn-lg">Try Now</a>
+                                    <a ng-click="showSignupDialog($event, '#/create_event')" style="cursor: pointer" class="btn fus-btn-white btn-primary">
+                                        Try Now
+                                    </a>
                                 </center>
                             </div>
                         </div>

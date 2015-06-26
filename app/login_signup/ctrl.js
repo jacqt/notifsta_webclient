@@ -67,9 +67,7 @@
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Signup successful!');
-                      setTimeout(function () {
-                          window.location = ''; //Tempory fix
-                      }, 1000);
+                      RedirectTo($scope.redirect_url || '#/dashboard');
                   }
                   else {
                       $scope.info = "Unspecified error - contact us for more information!"
@@ -85,9 +83,7 @@
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Successfully logged in!');
-                      setTimeout(function () {
-                          window.location = ''; //Tempory fix
-                      }, 1000);
+                      RedirectTo($scope.redirect_url || '#/dashboard');
                   }
                   else {
                   }
@@ -100,6 +96,15 @@
                   $scope.info = "";
                   $scope.loading = false;
               })
+          }
+
+          function RedirectTo(url) {
+              console.log(url);
+              debugger;
+              setTimeout(function () {
+                  window.location = url; //Tempory fix
+                  window.location.reload()
+              }, 250);
           }
 
 
