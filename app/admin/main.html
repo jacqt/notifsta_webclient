@@ -69,8 +69,10 @@
                                     <a ng-click="ToggleFullScreen()" class="btn btn-primary">
                                         Go Fullscreen <i class="glyphicon mdi mdi-fullscreen"></i>
                                     </a>
+                                    <a ng-click="PublishEvent()" class="btn btn-primary" ng-show="!event.published">
+                                        Publish Event <i class="glyphicon mdi mdi-upload"></i>
+                                    </a>
                                 </div>
-
 
                                 <div class="col-md-12">
                                     <label> Event Description </label>
@@ -386,3 +388,4 @@
     </div>
     </div>
 </span>
+

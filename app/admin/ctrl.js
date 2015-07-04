@@ -48,7 +48,7 @@
             $mdDialog.show({
                 templateUrl: 'app/admin/stripe_payment/payment_modal.html',
                 parent: angular.element(document.body),
-                //controller: '',
+                controller: 'PaymentCtrl',
                 scope: $scope,
                 preserveScope: true,
                 clickOutsideToClose: true,
