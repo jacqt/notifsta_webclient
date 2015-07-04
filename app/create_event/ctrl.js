@@ -78,14 +78,13 @@
             if (!ok) {
                 return;
             }
-            
+
             var promise = NotifstaHttp.CreateEvent($scope.partial_event);
             $scope.submitting = true;
             promise.success(function (e) {
                 $scope.submitting = false;
                 if (e.status == 'success') {
-                    console.log(e);
-                    window.location = '#/';
+                    window.location = '#/event_admin/' + window.encodeURIComponent(e.data.name)+'?event_id=' + e.data.id + '&first_time=true';
                     ImcService.FireEvent('user state changed');
                 } else {
                     toaster.pop('error', e.error);
