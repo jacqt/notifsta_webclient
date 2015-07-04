@@ -163,7 +163,7 @@ app.directive('combinedtpicker', [function () {
                 ev.stopPropagation();
             }
         },
-        template: '<input ng-focus="datepicker.opened = true" ' +
+        template: '<input ng-click="datepicker.opened = true" ' +
                          'placeholder="{{datepicker.placeholder}}" type="text" min-date="minDate" ' +
                          'show-weeks="false" is-open="datepicker.opened" show-button-bar="false" ' +
                          'datepicker-popup="MMMM dd, yyyy" clear-text="Clear" ng-required="true" ' +
