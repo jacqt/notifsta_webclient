@@ -1,7 +1,7 @@
-﻿
-<div class="event-outer"
+﻿<div class="event-outer"
      ng-touch-start="mother.showcard(card)"
      ng-touch-end="mother.hidecard(card)"
+     ng-show="card.published || card.admin"
      ng-mouseenter="card.showme=true"
      ng-mouseleave="card.showme=false">
     <a ng-if="card.admin" ng-href="#/event_admin/{{card.name}}?event_id={{card.id}}">
