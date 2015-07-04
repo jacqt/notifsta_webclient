@@ -8,14 +8,33 @@
     angular.module('notifsta.controllers').controller('AdminCtrl',
         ['$scope', 'NotifstaHttp', 'EventMonitor', '$cookies', '$timeout',
             '$routeParams', 'toaster', 'ImcService', '$compile',
-            'uiCalendarConfig', 'AddressService', 'Fullscreen', '$q',
-    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService, Fullscreen, $q) {
+            'uiCalendarConfig', 'AddressService', 'Fullscreen', '$q', '$mdDialog',
+    function ctrl($scope, NotifstaHttp, EventMonitor, $cookies, $timeout, $routeParams, toaster, ImcService, $compile, uiCalendarConfig, AddressService, Fullscreen, $q, $mdDialog) {
         //TESTING PURPOSES ONLY
         //var p = NotifstaHttp.LoginEvent('event1', 'asdfasdf');
 
         $scope.event = {
             name: $routeParams.event_name,
-            id: $routeParams.event_id
+            id: $routeParams.event_id,
+        }
+
+        if ($routeParams.first_time) {
+            setTimeout(function () {
+                $mdDialog.show({
+                    templateUrl: 'app/admin/welcome_event/welcome_message.html',
+                    parent: angular.element(document.body),
+                    scope: $scope,
+                    preserveScope: true,
+                    clickOutsideToClose: true,
+                })
+                .then(function (answer) {
+                }, function () {
+                });
+            }, 4000);
+        }
+
+        $scope.hideDialog = function () {
+            $mdDialog.hide();
         }
 
         $scope.timezone_names = moment.tz.names().map(function (name) {
@@ -25,6 +44,20 @@
             }
         });
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
+        $scope.PublishEvent = function () {
+            $mdDialog.show({
+                templateUrl: 'app/admin/stripe_payment/payment_modal.html',
+                parent: angular.element(document.body),
+                //controller: '',
+                scope: $scope,
+                preserveScope: true,
+                clickOutsideToClose: true,
+            })
+            .then(function (answer) {
+            }, function () {
+            });
+        };
+
         $scope.ToggleFullScreen = function () {
             console.log('Going into full screen mode')
             Fullscreen.enable(document.getElementById('projector'));
