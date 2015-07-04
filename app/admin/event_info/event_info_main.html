@@ -1,0 +1,186 @@
+﻿<!--Buttons to go full screen and publish event--> 
+<div class="col-md-12">
+    <a ng-click="ToggleFullScreen()" class="btn btn-primary">
+        Go Fullscreen <i class="glyphicon mdi mdi-fullscreen"></i>
+    </a>
+    <a ng-click="PublishEvent()" class="btn btn-primary" ng-show="!event.published">
+        Publish Event <i class="glyphicon mdi mdi-upload"></i>
+    </a>
+</div>
+
+<div class="col-md-12">
+    <label> Event Description </label>
+    <div class="editable-item">
+        <span editable-textarea="data.Event.description" onaftersave="publish_updates()" e-form="event_description_form">
+            {{ data.Event.description || 'Describe this event here!' }}
+        </span>
+        <button class="btn-default" ng-click="event_description_form.$show()" ng-hide="event_description_form.$visible">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </div>
+</div>
+<!--<div class="col-md-12">
+    <label> Twitter Widget Id </label>
+    <div class="editable-item">
+        <span editable-text="data.Event.twitter_widget_id" onaftersave="publish_updates()" e-form="twitter_hashtag_form">
+            {{ data.Event.twitter_widget_id || 'Your twitter widget id' }}
+        </span>
+        <button class="btn-default" ng-click="twitter_hashtag_form.$show()" ng-hide="twitter_hashtag_form.$visible">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </div>
+</div>-->
+<div class="col-md-12">
+    <label> Cover Photo </label>
+    <div class="editable-item">
+        <a editable-text="data.Event.cover_photo_url"
+           ng-href="{{data.Event.cover_photo_url}}"
+           blur="ignore"
+           e-form="cover_photo_editor"
+           e-ng-model="data.Event.cover_photo_url"
+           onhide="cover_photo_toggle();"
+           onshow="cover_photo_toggle()"
+           oncancel="revert_changes()"
+           onaftersave="publish_updates()"
+           popover-placement="bottom">
+            <!--popover-trigger="mouseenter">-->
+            {{ data.Event.cover_photo_url || "Upload a cover photo now!" }}
+        </a>
+        <button class="btn-default" ng-click="cover_photo_editor.$show()" ng-hide="cover_photo_editor.$visible">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </div>
+    <div ng-show="editing_cover_photo" class="slide" ng-class="{'load-block' : loading  }">
+        <div ngf-drop ng-model="$parent.cover_photo_files" class="drop-box"
+             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+             ngf-accept="'.jpg,.png,'">
+            Drop Image files (.jpg .png) here
+        </div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <button class="btn btn-default"
+                ngf-select
+                ng-disabled="loading"
+                ng-click="cover_photo_editor.$show()"
+                ng-model="$parent.cover_photo_files">
+            Choose file
+        </button>
+    </div>
+</div>
+<div class="col-md-12">
+    <label> Event Map  </label>
+    <div class="editable-item">
+        <a editable-text="data.Event.event_map_url"
+           ng-href="{{data.Event.event_map_url}}"
+           blur="ignore"
+           e-form="event_map_editor"
+           e-ng-model="data.Event.event_map_url"
+           onhide="map_url_toggle()"
+           onshow="map_url_toggle()"
+           oncancel="revert_changes()"
+           onaftersave="    publish_updates()"
+           popover-placement="bottom">
+            <!--popover-trigger="mouseenter">-->
+            {{ data.Event.event_map_url  || "Upload an event map now!" }}
+        </a>
+        <button class="btn-default" ng-click="event_map_editor.$show()" ng-hide="event_map_editor.$visible">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </div>
+
+    <div ng-show="editing_map_url" class="slide" ng-class="{'load-block' : loading  }">
+        <div ngf-drop ng-model="$parent.event_map_files" class="drop-box"
+             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+             ngf-accept="'.jpg,.png,'">Drop Image files (.jpg .png) here</div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <button class="btn btn-default"
+                ngf-select
+                ng-disabled="loading"
+                ng-model="$parent.event_map_files">
+            Choose file
+        </button>
+    </div>
+
+</div>
+<div class="col-md-12">
+    <label> Start time</label>
+    <div ng-hide="timeoption.editing">
+        {{ format_date(data.Event.start_time) }}
+    </div>
+    <div class="dropdown">
+        <a class="dropdown-toggle" ng-show="timeoption.editing">
+            <div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group-date">
+                            <div style="width: 100%" class="input-group" combinedtpicker
+                                 tz-name="data.Event.timezone"
+                                 ng-model="timeoption.start_time"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>
+<div class="col-md-12">
+    <label> End time</label>
+    <div ng-hide="timeoption.editing">
+        <div class="editable-item">
+            <div style="width:100%">{{ format_date(data.Event.end_time) }}</div>
+            <button class="btn-default" ng-click="timeoption.edit()" ng-hide="timeoption.editing">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+        </div>
+    </div>
+    <div class="dropdown">
+        <a class="dropdown-toggle" ng-show="timeoption.editing">
+            <div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group-date">
+                            <div style="width: 100%" class="input-group" combinedtpicker
+                                 tz-name="data.Event.timezone"
+                                 ng-model="timeoption.end_time"></div>
+                            <div style="width: 95px; border-bottom: none;" class="editable-item">
+                                <button class="btn-default btn-primary" ng-click="timeoption.save()">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </button>
+                                <button style="margin-left: 5px" class="btn-default btn-default" ng-click="timeoption.cancel()">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!--<div class="col-md-12">
+    <label> Event Timezone</label>
+    <div class="editable-item">
+        <span editable-select="data.Event.timezone" onaftersave="publish_updates()" e-ng-options="t.value as t.text for t in timezone_names" e-form="event_timezone_form">
+            {{ data.Event.timezone || 'Event timezone' }}
+        </span>
+        <button class="btn-default" ng-click="event_timezone_form.$show()" ng-hide="event_timezone_form.$visible">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </div>
+</div>-->
+<div class="col-md-12">
+    <label> Location Address </label>
+    <div>
+        <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
+        <script type="text/ng-template" id="searchbox.tpl.html">
+            <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
+        </script>
+        <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
+            <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+            <ui-gmap-marker idkey='1'
+                            coords='data.Event.marker.coords'>
+            </ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
+</div>
+
