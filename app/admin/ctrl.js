@@ -276,6 +276,8 @@
         }
 
         $scope.$watch('cover_photo_files', function () {
+            console.log('umnmm');
+            console.log($scope.cover_photo_files);
             $scope.upload($scope.cover_photo_files, function (data) {
                 console.log(data);
                 if (data) {
@@ -287,8 +289,10 @@
         });
 
         $scope.$watch('event_map_files', function () {
+            console.log($scope.event_map_files);
             $scope.upload($scope.event_map_files, function (data) {
                 if (data) {
+                    console.log(data);
                     $scope.temp.event_map_url = $scope.data.Event.event_map_url;
                     $scope.data.Event.event_map_url = data.Location;
                     $scope.loading = false;
@@ -506,12 +510,12 @@
                         if (response.timeZoneId != null) {
                             console.log(response.timeZoneId);
                             $scope.data.Event.timezone = response.timeZoneId;
-                            $scope.publish_updates();
+                            //$scope.publish_updates();
                         }
                     });
 
                     $scope.$apply();
-                    $scope.publish_updates();
+                    //$scope.publish_updates();
                 }
             }
         }
