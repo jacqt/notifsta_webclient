@@ -15,7 +15,7 @@
         function FireNotification(notification){
             if ("Notification" in window) {
                 var opts = {
-                    icon: 'assets/icons/icon.png'
+                    icon: 'assets/home_images/square_logo.png'
                 }
                 var notification = new Notification(notification.notification_guts, opts);
                 setTimeout(function(){

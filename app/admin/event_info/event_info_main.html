@@ -6,8 +6,8 @@
     <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
         <label> Event Description </label>
         <div class="col-md-12" style="padding-left: 0px">
-            <textarea focus-me="focusthis" ng-model="data.Event.description" ng-required="true"
-                      style="width: 100%; height: 46px"></textarea>
+            <input focus-me="focusthis" ng-model="data.Event.description" ng-required="true"
+                   style="width: 100%; padding: 5px"></input>
         </div>
     </div>
     <md-divider></md-divider>
@@ -47,12 +47,19 @@
     <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
         <label> Cover Photo </label>
         <div class="">
-            <div style="background-size: cover; height: 300px; margin-bottom: 10px"
-                 ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
-            </div>
+            <a ng-href="{{data.Event.cover_photo_url}}">
+                <div style="background-size: cover; height: 300px; margin-bottom: 10px"
+                     ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
+                </div>
+            </a>
+            <center>
+                <div ng-show="cover_photo_uploading">
+                    <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </center>
             <button class="btn btn-default"
                     ngf-select
-                    ng-disabled="loading"
+                    ng-disabled="cover_photo_uploading"
                     ng-model="$parent.$parent.cover_photo_files">
                 Upload New File
             </button>
@@ -70,9 +77,14 @@
             <div ng-show="!data.Event.event_map_url" style="margin-bottom: 10px; margin-left: 3px">
                 <i>No event map uploaded yet!</i>
             </div>
+            <center>
+                <div ng-show="event_map_uploading">
+                    <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </center>
             <button class="btn btn-default"
                     ngf-select
-                    ng-disabled="loading"
+                    ng-disabled="event_map_uploading"
                     ng-model="$parent.$parent.event_map_files">
                 Upload New File
             </button>
