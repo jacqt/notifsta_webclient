@@ -486,6 +486,7 @@
             var self = this;
             var geocoder = new google.maps.Geocoder();
             var address = self._data.Event.address;
+            console.log('Address', address);
             geocoder.geocode({ 'address': self._data.Event.address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var lat = results[0].geometry.location.lat();
@@ -500,7 +501,17 @@
                     }
                 }
                 else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    var lat = 100;
+                    var lng = 100;
+                    self._data.Event.map = { center: { latitude: lat, longitude: lng }, zoom: 15 };
+                    self._data.Event.marker = {
+                        id: 0,
+                        coords: {
+                            latitude: lat,
+                            longitude: lng
+                        },
+                    }
+                    // alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
             if (self.monitor_type == ADMIN_MONITOR) {

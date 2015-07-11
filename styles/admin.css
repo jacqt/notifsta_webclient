@@ -1,3 +1,11 @@
+.airbnb-red {
+     background-color:rgb(254,92,63) !important;
+}
+
+/*md-pagination-wrapper {
+     background-color:rgb(254,92,63) !important;
+}*/
+
 md-dialog {
     color: black
 }
@@ -379,7 +387,7 @@ b {
 }
 
 * {
-    /*font-family:'Avenir-Medium', sans-serif !important;*/
+    font-family:'Avenir-Medium', sans-serif;
 }
 
 .container-fluid {

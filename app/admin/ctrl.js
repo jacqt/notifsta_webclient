@@ -386,7 +386,6 @@
                             $scope.input.options = [];
                             $scope.input.next_option.text = '';
                             $scope.input.focus_notice = false;
-                            event_monitor.GetAllNotifications();
                         }
                     }
                 });

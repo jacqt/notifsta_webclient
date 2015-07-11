@@ -1,7 +1,6 @@
 ﻿<!--Buttons to go full screen and publish event-->
 
-<form class="new_user"
-      ng-submit="publish_updates()"
+<div class="new_user"
       accept-charset="UTF-8">
     <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
         <label> Event Description </label>
@@ -69,11 +68,13 @@
     <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
         <label> Event Map </label>
         <div class="">
-            <div style="background-size: cover; height: 300px; margin-bottom: 10px"
-                 ng-style="{'background-image':'url('+data.Event.event_map_url+')', 'width': '100%', 'background-position' : 'left center'}"
-                 ng-show="data.Event.event_map_url">
+            <a ng-href="{{data.Event.event_map_url}}">
+                <div style="background-size: cover; height: 300px; margin-bottom: 10px"
+                     ng-style="{'background-image':'url('+data.Event.event_map_url+')', 'width': '100%', 'background-position' : 'left center'}"
+                     ng-show="data.Event.event_map_url">
 
-            </div>
+                </div>
+            </a>
             <div ng-show="!data.Event.event_map_url" style="margin-bottom: 10px; margin-left: 3px">
                 <i>No event map uploaded yet!</i>
             </div>
@@ -107,15 +108,15 @@
         </div>
     </div>
 
-    <div class="row" style="margin-left: 0px">
+    <div class="row" style="margin-left: 0px; margin-bottom: 5px">
         <div class="col-md-12" layout="row" style="margin-top: 20px" layout-align="start">
             <input type="submit" name="commit" value="Save Changes"
-                   style="border-radius: 1px!important; font-weight: bold;
-                                     background-color:rgb(254,92,63)"
-                   class="btn btn-primary" ng-disabled="submitting">
+                   style="border-radius: 1px!important; font-weight: bold;"
+                   ng-click="publish_updates()"
+                   class="btn btn-primary airbnb-red" ng-disabled="submitting">
         </div>
     </div>
-</form>
+</div>
 
 <!--<div class="col-md-12">
     <label> Event Timezone</label>
@@ -130,10 +131,10 @@
 </div>-->
 <md-divider></md-divider>
 <div class="col-md-12" style="margin-top: 10px" layout="row" layout-align="center">
-    <a ng-click="ToggleFullScreen()" class="btn btn-primary" style="margin: 5px">
+    <a ng-click="ToggleFullScreen()" class="btn btn-primary airbnb-red" style="margin: 5px">
         Go Fullscreen <i class="glyphicon mdi mdi-fullscreen"></i>
     </a>
-    <a ng-click="PublishEvent()" class="btn btn-primary" ng-show="!event.published" style="margin: 5px">
+    <a ng-click="PublishEvent()" class="btn btn-primary airbnb-red" ng-show="!event.published" style="margin: 5px">
         Publish Event <i class="glyphicon mdi mdi-upload"></i>
     </a>
 </div>
