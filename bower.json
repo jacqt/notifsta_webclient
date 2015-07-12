@@ -31,6 +31,7 @@
     "aws-sdk-js": "~2.1.26",
     "angular-material": "0.9.8",
     "angular-calendar": "latest",
+    "angular-ui-calendar": "latest",
     "bootstrap": "~3.3.4",
     "angular-ui-bootstrap": "~0.13.0",
     "angular-deckgrid": "~0.5.0",
@@ -39,13 +40,14 @@
     "mdi": "~1.0.62-beta",
     "jquery.smartbanner": "jasny/jquery.smartbanner#~1.0.0",
     "angular-fullscreen": "fabiobiondi/angular-fullscreen#~1.0.1",
-    "moment-timezone": "~0.4.0"
+    "moment-timezone": "~0.4.0",
+    "fullcalendar": "~2.3.2"
   },
   "resolutions": {
     "angular": "~1.4",
     "jquery": ">= 1.9.1",
     "angular-animate": "latest",
-    "fullcalendar": "2.1.1",
+    "fullcalendar": "~2.3.2",
     "angular-material": "0.9"
   }
 }
