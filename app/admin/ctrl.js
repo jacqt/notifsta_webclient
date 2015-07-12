@@ -286,6 +286,7 @@
                     if (data) {
                         $scope.temp.cover_photo_url = $scope.data.Event.cover_photo_url;
                         $scope.data.Event.cover_photo_url = data.Location;
+                        $scope.publish_updates();
                     }
                     $scope.cover_photo_uploading = false;
                 });
@@ -298,11 +299,11 @@
                 $scope.event_map_uploading = true;
                 $scope.upload($scope.event_map_files, function (data) {
                     if (data) {
-                        console.log(data);
                         $scope.temp.event_map_url = $scope.data.Event.event_map_url;
                         $scope.data.Event.event_map_url = data.Location;
-                        $scope.event_map_uploading = false;
+                        $scope.publish_updates();
                     }
+                    $scope.event_map_uploading = false;
                 });
 
             }
@@ -495,7 +496,13 @@
         $scope.GetNotifResponses = event_monitor.GetNotifResponses;
 
         /* GOOGLE MAPS */
-        $scope.options = { scrollwheel: false, draggable: false };
+        $scope.options = {
+            scrollwheel: false,
+            draggable: false,
+            mapTypeControlOptions: {
+                mapTypeIds: [ google.maps.TERRAIN ]
+            }
+        };
         var events = {
             places_changed: function (searchBox) {
                 console.log(searchBox);
