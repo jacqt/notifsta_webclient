@@ -128,7 +128,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 
 //Make sure that we're logged in when making route change
-app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+app.run(['$rootScope', '$location', 'AuthService', '$mdDialog', function ($rootScope, $location, AuthService, $mdDialog) {
     OKAY_URLS = ['contact', '/', 'login', '', 'signup', 'privacy']
     function IsRestricted(url) {
         var splitted = url.split('#');
@@ -149,6 +149,7 @@ app.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $locati
     // register listener to watch route changes
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
         var splitted = next.split('#');
+        $mdDialog.hide();
         if (!AuthService.GetCredentials().logged_in) {
             // no logged user, we should be going to #login if we're going to a
             // restricted url
@@ -287,7 +288,7 @@ angular.module('notifsta.controllers').controller('MainController',
         }
         $scope.data = {};
         $scope.selected_event = null;
-        $scope.LoggedIn = function () {
+        $scope.LoggedIn = function() {
             return AuthService.GetCredentials().logged_in;
         }
 
@@ -325,6 +326,9 @@ angular.module('notifsta.controllers').controller('MainController',
             }
         }
 
+        $scope.hideDialog = function () {
+            $mdDialog.hide();
+        }
 
         // Get the signup and login dialogs working
         $scope.showLoginDialog = function (ev) {

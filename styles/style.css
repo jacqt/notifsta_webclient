@@ -8,8 +8,7 @@ md-input-container.editable-controls {
   padding: 0;
 }
 md-tabs.md-default-theme.md-accent .md-header {
-    /*background: #da4e4e;*/
-    background: #ff5252;
+    background: #da4e4e;
 }
 .row.content {
     margin-left: 15px;

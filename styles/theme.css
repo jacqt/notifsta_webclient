@@ -19,10 +19,10 @@ body .navbar.navbar-fixed-top {
 
 body .navbar {
   background: transparent;
-  -webkit-transition: background .4s ease;
-  -moz-transition: background .4s ease;
-  -o-transition: background .4s ease;
-  transition: background .4s ease; }
+  -webkit-transition: background .2s ease;
+  -moz-transition: background .2s ease;
+  -o-transition: background .2s ease;
+  transition: background .2s ease; }
 
 body .navbar.fus-navbar-solid {
   background: rgba(58, 146, 215, 0.87); }

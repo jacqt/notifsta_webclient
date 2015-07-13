@@ -11,7 +11,7 @@
 
 .btn-info.active, .open .dropdown-toggle.btn-info {
   color: white;
-  background-color: rgb(218, 80, 85);
+  background-color: rgb(254,92,63) !important;
   border-color: rgb(190, 101, 104);
 }
 
