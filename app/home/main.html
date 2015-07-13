@@ -147,53 +147,63 @@
             <div class="fus-section-header">
                 <h1>Testimonials</h1>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><a href="#" target="_blank">Balliol Ball, Oxford</a></h3>
-                            <p>
-                                "Notifsta was invaluable for our ball."
-                            </p>
-                            <p>
-                                "Instead of printing programmes, we just used Notifsta. We saved trees, had happier attendees (who knew where everything was), and were much less stressed ourselves."
-                            </p>
+            
+                <div class="slick-carousel" style="height: 200px">
+                    <div>
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3><a href="#" target="_blank">Balliol Ball, Oxford</a></h3>
+                                <div class="row">
+                                    <div class="col-md-3 testimonials_numbers" style="display: inline-block;vertical-align: middle;float: none;">
+                                        1500 attendees <br>
+                                        1000 downloads
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p>
+                                            "Notifsta was invaluable for our ball."
+                                        </p>
+                                        <p>
+                                            "Instead of printing programmes, we just used Notifsta. We saved trees, had happier attendees (who knew where everything was), and were much less stressed ourselves."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><a href="#" target="_blank">Keble Ball, Oxford</a></h3>
-                            <p>
-                                "We were initially hesitant to use Notifsta, since they approached us 2 days before the ball. Since all the other balls were using them, though, we decided to see what they could set us up with in the hour."
-                            </p>
-                            <p>
-                                "Wow, were we impressed! They had our app up and running in 15 minutes. It looked beautiful, and worked wonderfully."
-                            </p>
+                    <div>
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3><a href="#" target="_blank">Keble Ball, Oxford</a></h3>
+                                <p>
+                                    "We were initially hesitant to use Notifsta, since they approached us 2 days before the ball. Since all the other balls were using them, though, we decided to see what they could set us up with in the hour."
+                                </p>
+                                <p>
+                                    "Wow, were we impressed! They had our app up and running in 15 minutes. It looked beautiful, and worked wonderfully."
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><a href="#" target="_blank">St. Hugh's Ball, Oxford</a></h3>
-                            <p>"Notifsta? Just use them. They're incredibly great people, with an incredibly great product."</p>
-                            <p>
-                                "Attendees loved having programmes on their phone, and being notified when fireworks were about to start. We loved not having to remind everyone where everything was."
-                            </p>
+                    <div>
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3><a href="#" target="_blank">St. Hugh's Ball, Oxford</a></h3>
+                                <p>"Notifsta? Just use them. They're incredibly great people, with an incredibly great product."</p>
+                                <p>
+                                    "Attendees loved having programmes on their phone, and being notified when fireworks were about to start. We loved not having to remind everyone where everything was."
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>
 
     <div id="seen-on" class="fus-section fus-seen-on fus-white-bg">
         <div class="container">
             <div class="fus-section-header">
-                <h3>Contact us at <a href="mailto:hi@notifsta.com">hi@notifsta.com</a></h3>
+                <h1>Contact us at <a href="mailto:hi@notifsta.com">hi@notifsta.com</a></h1>
             </div>
         </div>
     </div>
@@ -235,6 +245,16 @@
 
         ga('create', 'UA-11278966-2', 'iamnotchinese.co');
         ga('send', 'pageview');
+
+        $(document).ready(function(){
+          $('.slick-carousel').slick({
+            infinite: true,
+            dots: true,
+            arrows: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          });
+        });
 
     </script>
 </span>
