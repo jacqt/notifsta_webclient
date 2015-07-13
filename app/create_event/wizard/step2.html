@@ -1,0 +1,108 @@
+﻿<span id="createeventpage">
+    <div class="col-md-12  non-homepage" style="padding-top: 50px;">
+        <div class="signup-box" style=" background-color: white!important; border: 1px solid grey">
+            <h1>Upload a Cover Photo and Event Map</h1>
+            <form class="new_user"
+                  ng-submit="publish_updates()"
+                  accept-charset="UTF-8">
+                <div class="new_user"
+                     accept-charset="UTF-8">
+                    <!--<div class="form-group" style="margin-bottom:0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <md-input-container flex style="padding-bottom: 5px">
+                            <label style="margin-bottom: 0px"> Facebook Page</label>
+                            <input ng-model="data.Event.facebook_url" ng-required="true">
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>-->
+                    <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
+                        <label> Cover Photo </label>
+                        <div class="">
+                            <a ng-href="{{data.Event.cover_photo_url}}">
+                                <div style="background-size: cover; height: 300px; margin-bottom: 10px"
+                                     ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
+                                </div>
+                            </a>
+                            <center>
+                                <div ng-show="cover_photo_uploading">
+                                    <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
+                                </div>
+                            </center>
+                            <button class="btn btn-default"
+                                    ngf-select
+                                    ng-disabled="cover_photo_uploading"
+                                    ng-model="cover_photo_files">
+                                Upload New File
+                            </button>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                    <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
+                        <label> Event Map </label>
+                        <div class="">
+                            <a ng-href="{{data.Event.event_map_url}}">
+                                <div style="background-size: cover; height: 300px; margin-bottom: 10px"
+                                     ng-style="{'background-image':'url('+data.Event.event_map_url+')', 'width': '100%', 'background-position' : 'left center'}"
+                                     ng-show="data.Event.event_map_url">
+
+                                </div>
+                            </a>
+                            <div ng-show="!data.Event.event_map_url" style="margin-bottom: 10px; margin-left: 3px">
+                                <i>No event map uploaded yet!</i>
+                            </div>
+                            <center>
+                                <div ng-show="event_map_uploading">
+                                    <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
+                                </div>
+                            </center>
+                            <button class="btn btn-default"
+                                    ngf-select
+                                    ng-disabled="event_map_uploading"
+                                    ng-model="event_map_files">
+                                Upload New File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" layout="row" style="margin-top: 20px" layout-align="start">
+                        <a ng-click="publish_updates()" class="btn btn-primary airbnb-red" style="margin: 5px">
+                            Save and Continue
+                        </a>
+                        <a ng-click="skip()" class="btn btn-primary airbnb-red" style="margin: 5px">
+                            Skip
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div layout="row" layout-align="center start" class="feature-list col-md-8 col-md-offset-2">
+            <div class="col-md-4" layout="column" layout-align="center center">
+                <i class="glyphicon mdi mdi-lock-open-outline big-icon"></i>
+                <b> Secure and Reliable</b>
+                <div style="text-align:center">
+                    We've been used by balls in Oxford and Cambridge, with thousands of event attendees.
+                    Use Notifsta with the confidence that it'll just work.
+                </div>
+            </div>
+            <div class="col-md-4" layout="column" layout-align="center center">
+                <i class="glyphicon mdi mdi-bell-ring-outline big-icon"></i>
+                <b> Send or Schedule Push Notifications</b>
+                <div style="text-align:center">
+                    As an organizer, you can either send out notifications live, or schedule them ahead of time.
+                    When acts are delayed, or venues change, your attendees will know, all without you running around.
+                </div>
+            </div>
+            <div class="col-md-4" layout="column" layout-align="center center">
+                <i class="glyphicon mdi-email-outline mdi big-icon"></i>
+                <b> Support </b>
+                <div style="text-align:center">
+                    We made Notifsta, so we know it in and out. If you've got problems, we know the reason. We'll fix it immediately.
+                </div>
+            </div>
+        </div>
+    </div>
+</span>

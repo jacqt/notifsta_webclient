@@ -1,0 +1,19 @@
+﻿<md-dialog id="contactpages" class="login-box pad-top non-homepage">
+    <div class="login-dialog" ng-show="!loading" style="width: 600px" layout="column" layout-align="center">
+        <h1> Welcome to Notifsta! </h1>
+        <p>
+            On the home screen is a list of the events that you manage, events you've subscribed to, or events that you might be interested in!
+        </p>
+        <p>
+            If you're an event organizer, click <a href="/#/create_event"> here </a>  to get started!
+        </p>
+        <p>
+            Thanks for using Notifsta, and if you ever have any questions, feel free to contact us at <a href="mailto:hi@notifsta.com">hi@notifsta.com</a>
+        </p>
+        <div layout-align="center">
+            <md-button ng-click="hideDialog($event)"
+                       class="md-raised md-warn"
+                       style="margin-left: 10px; font-weight: bold; background-color:rgb(254,92,63)">OK!</md-button>
+        </div>
+    </div>
+</md-dialog>

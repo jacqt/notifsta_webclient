@@ -3,8 +3,25 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('DashboardCtrl',
-        ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService', 'DesktopNotifs',
-        function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService, DesktopNotifs) {
+        ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService', 'DesktopNotifs', '$routeParams', '$mdDialog',
+        function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService, DesktopNotifs, $routeParams, $mdDialog) {
+            var from_signup = $routeParams.signup;
+            console.log($routeParams.signup);
+            if (from_signup) {
+                setTimeout(function () {
+                    $mdDialog.show({
+                        templateUrl: 'app/dashboard/welcome/welcome_message.html',
+                        parent: angular.element(document.body),
+                        scope: $scope,
+                        preserveScope: true,
+                        clickOutsideToClose: true,
+                    })
+                    .then(function (answer) {
+                    }, function () {
+                    });
+                }, 4000);
+            }
+
             $scope.window_size = WindowSizeService.window_size;
             $scope.events = {};
             DesktopNotifs.RequestNotification();

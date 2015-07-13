@@ -2,37 +2,6 @@
 
 <div class="new_user"
      accept-charset="UTF-8">
-    <div class="row" style="margin-top: 10px; margin-left: 0px; margin-right: 10px; margin-bottom: 10px">
-        <label> Event Description </label>
-        <div class="col-md-12" style="padding-left: 0px">
-            <input focus-me="focusthis" ng-model="data.Event.description" ng-required="true"
-                   style="width: 100%; padding: 5px"></input>
-        </div>
-    </div>
-    <md-divider></md-divider>
-    <div class="row" style="margin-top: 5px; margin-left: 0px;">
-        <label> Start Time</label>
-        <div class="">
-            <div class="input-group">
-                <div class="input-group" combinedtpicker min-date="today" placeholder="'Start time'"
-                     tz-name="data.Event.timezone"
-                     ng-model="data.Event.start_time"></div>
-            </div>
-        </div>
-    </div>
-    <md-divider></md-divider>
-    <div class="row" style="margin-left: 0px">
-        <label> End Time</label>
-        <div class="col-md-12">
-            <div class="input-group">
-                <div class="input-group" combinedtpicker min-date="data.Event.start_time"
-                     placeholder="'End time'"
-                     tz-name="data.Event.timezone"
-                     ng-model="data.Event.end_time"></div>
-            </div>
-        </div>
-    </div>
-    <md-divider></md-divider>
     <!--<div class="form-group" style="margin-bottom:0">
         <div class="row">
             <div class="col-sm-12">
@@ -89,31 +58,6 @@
                     ng-model="$parent.$parent.event_map_files">
                 Upload New File
             </button>
-        </div>
-    </div>
-    <md-divider></md-divider>
-    <div class="col-md-12">
-        <label> Location Address </label>
-        <div>
-            <!--<input class="form-control ng-valid ng-dirty" id="google_places_ac" name="google_places_ac" type="text" ng-model="data.Event.address" placeholder="Enter a location" autocomplete="off" style="">-->
-            <script type="text/ng-template" id="searchbox.tpl.html">
-                <input class="form-control ng-valid ng-dirty" type="text" id="searchbox" ng-model="data.Event.address" placeholder="Enter an address" autocomplete="off" style="width: 40%; margin-top: 15px;">
-            </script>
-            <ui-gmap-google-map center="data.Event.map.center" zoom="data.Event.map.zoom" draggable="true" options="options">
-                <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
-                <ui-gmap-marker idkey='1'
-                                coords='data.Event.marker.coords'>
-                </ui-gmap-marker>
-            </ui-gmap-google-map>
-        </div>
-    </div>
-
-    <div class="row" style="margin-left: 0px; margin-bottom: 5px">
-        <div class="col-md-12" layout="row" style="margin-top: 20px" layout-align="start">
-            <input type="submit" name="commit" value="Save Changes"
-                   style="border-radius: 1px!important; font-weight: bold;"
-                   ng-click="publish_updates()"
-                   class="btn btn-primary airbnb-red" ng-disabled="submitting">
         </div>
     </div>
 </div>

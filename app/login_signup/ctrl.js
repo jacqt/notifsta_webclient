@@ -34,13 +34,11 @@
 
                   });
               }, { scope: 'email' });
-
           }
           $scope.info = "";
 
           $scope.AttemptLogin = function () {
               $scope.loading = true;
-              console.log(' attempting 2 login')
               $scope.info = "Logging in...";
               $scope.submitted = true;
               var promise = NotifstaHttp.Login($scope.credentials.email, $scope.credentials.password);
@@ -67,7 +65,7 @@
                   }
                   else if (data.status === "success") {
                       toaster.pop('success', 'Signup successful!');
-                      RedirectTo($scope.redirect_url || '#/dashboard');
+                      RedirectTo($scope.redirect_url || '#/dashboard?signup=true');
                   }
                   else {
                       $scope.info = "Unspecified error - contact us for more information!"
