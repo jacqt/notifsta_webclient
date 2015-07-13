@@ -12,3 +12,19 @@
 #about {
     /*display: none;*/
 }
+
+.fus-section {
+  padding: 0px !important;
+}
+
+.fus-tab-content {
+  margin: 0px !important;
+}
+
+h2, h3, p {
+  font-family: Avenir-Medium !important;
+}
+
+h1 {
+  font-size: 45px;
+}
