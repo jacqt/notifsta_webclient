@@ -1,5 +1,4 @@
 /** Anthony Guo (anthony.guo@some.ox.ac.uk)
- * THIS IS JUST COPYPASTED DO NOT USE
  *
  */
 (function () {
@@ -84,7 +83,7 @@
             promise.success(function (e) {
                 $scope.submitting = false;
                 if (e.status == 'success') {
-                    window.location = '#/event_admin/' + window.encodeURIComponent(e.data.name)+'?event_id=' + e.data.id + '&first_time=true';
+                    window.location = '#/create_event_step_photos?event_id=' + e.data.id + '&event_name=' + $scope.partial_event.name;
                     ImcService.FireEvent('user state changed');
                 } else {
                     toaster.pop('error', e.error);

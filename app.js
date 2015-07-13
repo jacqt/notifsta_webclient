@@ -94,6 +94,12 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'CreateEventCtrl'
     })
 
+    // route for creating events
+    .when('/create_event_step_photos', {
+        templateUrl: 'app/create_event/wizard/step2.html',
+        controller: 'CreateEventStep2Ctrl'
+    })
+
     // -----------------------------------------------//
     // Everybody
 
@@ -168,7 +174,7 @@ app.run(['$rootScope', '$location', 'AuthService', '$mdDialog', function ($rootS
         } else {
             if (splitted[1]) {
                 var h = splitted[1].split('/');
-                if (h.length > 1 && h[1] == 'create_event') {
+                if (h.length > 1 && h[1].indexOf('create_event') == 0) {
                     $(".navbar").addClass("fus-navbar-solid");
                 } else {
                     $(".navbar").removeClass("fus-navbar-solid");
