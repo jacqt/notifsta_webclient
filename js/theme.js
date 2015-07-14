@@ -54,6 +54,7 @@ $(document).ready(function () {
                 }
             }
         } else if (['event', 'event_admin', 'dashboard'].indexOf(h) > -1) {
+            return;
             if ($(window).width() <= 750) {
                 if ($(this).scrollTop() > 40) {
                     $(".navbar").addClass("fus-navbar-solid");

@@ -35,7 +35,7 @@
                     $scope.toaster_style['background-color'] = 'rgb(218, 78, 78)';
                     break;
                 case 'success':
-                    $scope.toaster_style['background-color'] = 'rgb(57, 142, 179)';
+                    $scope.toaster_style['background-color'] = 'rgb(97, 142, 179)';
                     break;
                 default:
                     break;

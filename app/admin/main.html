@@ -177,7 +177,7 @@
                          ng-show="channel.selected">
                         <div class="actual-feed-wrapper">
                             <div class="actual-feed">
-                                <md-tabs md-dynamic-height md-border-bottom>
+                                <md-tabs md-dynamic-height md-border-bottom class="admin-notification-tabs">
                                     <md-tab label="Notifications">
                                         <md-content class="md-padding" style="max-height: 200px; overflow-y: scroll">
                                             <div class="feed-item" ng-repeat="notif in channel.notifications">
@@ -187,6 +187,9 @@
                                                     <b>{{ notif.type }}</b> - <span class="lighter-color"> {{ notif.time }} </span>
                                                 </div>
                                                 <div class="feed-item-text">{{ notif.notification_guts }}</div>
+                                            </div>
+                                            <div class="feed-item" ng-show="channel.notifications.length == 0">
+                                                <div class="feed-item-text"> No notifications sent yet </div>
                                             </div>
                                         </md-content>
                                     </md-tab>
@@ -211,9 +214,6 @@
                                     options="options"
                                     click="onClick"></canvas>
                         </div>
-                    </div>
-                    <div class="feed-item" ng-show="channel.notifications.length == 0">
-                        <div class="feed-item-text"> It's lonely in here - send a message now! </div>
                     </div>
 
                     <div class="actual-feed-wrapper event-info" style="padding: 0">

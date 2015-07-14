@@ -251,15 +251,21 @@ h1 {
     margin-left: 0px;
 }
 
+md-tabs.admin-notification-tabs .md-tab.md-active {
+    color: red;
+}
+
 md-ink-bar {
     height: 3px;
-    background: rgb(187, 230, 255) !important;
+    background: rgb(252, 150, 132) !important;
 }
 md-tabs.md-default-theme.md-accent md-tabs-wrapper {
-    background-color: #da4e4e !important;
+    /*background-color: #da4e4e !important;*/
+    background-color:rgb(254,92,63) !important;
 }
 .red {
-    background: #da4e4e !important;
+    background-color:rgb(254,92,63) !important;
+    /*background: #da4e4e !important;*/
 }
 
 .md-header-items {
