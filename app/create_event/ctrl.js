@@ -41,13 +41,17 @@
 
         $scope.$watch('partial_event.start_time', function (newVal) {
             if (!$scope.partial_event.end_time) {
-                $scope.partial_event.end_time = newVal;
+                if (newVal) {
+                    var sv = moment(newVal);
+                    sv.add(2, 'hours');
+                    $scope.partial_event.end_time = sv;
+                }
                 return;
             }
             var sv = moment(newVal);
             var ev = moment($scope.partial_event.end_time);
             if (sv > ev) {
-                $scope.partial_event.end_time = newVal;
+                $scope.partial_event.end_time = sv;
             }
         });
 

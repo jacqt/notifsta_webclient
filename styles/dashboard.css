@@ -53,6 +53,7 @@
 
 .event-group-container {
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .dashboard-title {

@@ -22,7 +22,9 @@
                         <div class="">
                             <a ng-href="{{data.Event.cover_photo_url}}">
                                 <div style="background-size: cover; height: 300px; margin-bottom: 10px"
-                                     ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
+                                     class="event-image-editor"
+                                     ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}"
+                                     ng-show="data.Event.cover_photo_url">
                                 </div>
                             </a>
                             <div ng-show="!data.Event.cover_photo_url" style="margin-bottom: 10px; margin-left: 3px">
@@ -47,6 +49,7 @@
                         <div class="">
                             <a ng-href="{{data.Event.event_map_url}}">
                                 <div style="background-size: cover; height: 300px; margin-bottom: 10px"
+                                     class="event-image-editor"
                                      ng-style="{'background-image':'url('+data.Event.event_map_url+')', 'width': '100%', 'background-position' : 'left center'}"
                                      ng-show="data.Event.event_map_url">
 
@@ -71,10 +74,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12" layout="row" style="margin-top: 20px" layout-align="start">
-                        <a ng-click="publish_updates()" class="btn btn-primary" style="margin: 5px">
+                        <a ng-click="publish_updates()" class="btn btn-primary airbnb-red" style="margin: 5px">
                             Save and Continue
                         </a>
-                        <a ng-click="skip()" class="btn btn-primary" style="margin: 5px">
+                        <a ng-click="skip()" class="btn btn-primary airbnb-red" style="margin: 5px">
                             Skip
                         </a>
                     </div>

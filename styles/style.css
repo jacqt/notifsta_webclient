@@ -15,6 +15,13 @@ md-tabs.md-default-theme.md-accent .md-header {
     margin-right: 15px;
 }
 
+.event-image-editor {
+    /*height: 150;
+    margin-left: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-right: 25px;*/
+}
 .btn-primary {
     border-radius: 0px;
 }
