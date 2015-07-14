@@ -90,11 +90,17 @@
                                    ng-show="admin_users.length > 1"></i>
                             </div>
                         </div>
+                        <div layout="row" layout-align="start start" class="admin-todo">
+                            <div style="width: 80%; text-align: left">
+                                Published event
+                            </div>
+                            <div>
+                                <i class="glyphicon mdi mdi-check" style="color: green"
+                                   ng-show="data.Event.published"></i>
+                            </div>
+                        </div>
                         <a ng-click="PublishEvent()" class="btn btn-primary airbnb-red" ng-show="!data.Event.published" style="margin: 5px">
                             Publish Event <i class="glyphicon mdi mdi-upload"></i>
-                        </a>
-                        <a class="btn btn-primary airbnb-red" ng-show="data.Event.published" style="margin: 5px">
-                            Published! <i class="glyphicon mdi mdi-check"></i>
                         </a>
                     </div>
 

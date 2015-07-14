@@ -15,6 +15,14 @@ md-tabs.md-default-theme.md-accent .md-header {
     margin-right: 15px;
 }
 
+.btn-primary {
+    border-radius: 0px;
+}
+
+.btn-default {
+    border-radius: 0px;
+}
+
 /**/
 @media screen and (min-width: 281px) and (max-width: 750px) {
     .event-group-container center.bottom {
