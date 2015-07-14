@@ -84,8 +84,17 @@
         }
 
         $scope.skip = function() {
-            window.location = '#/event_admin/' + window.encodeURIComponent($scope.event.name)+'?event_id=' + $scope.event.id + '&first_time=true';
-            ImcService.FireEvent('user state changed');
+            $scope.data.Event.cover_photo_url = 'http://cdn.notifsta.com/images/walking.jpg';
+            var promise = NotifstaHttp.PublishEventUpdate($scope.data.Event);
+            promise.success(function (e) {
+                if (e.status == 'success') {
+                    toaster.pop('success', 'Successfuly created event!');
+                    window.location = '#/event_admin/' + window.encodeURIComponent($scope.event.name)+'?event_id=' + $scope.event.id + '&first_time=true';
+                    console.log($scope.data.Event.address);
+                } else {
+                    toaster.pop('error', e.error);
+                }
+            });
         }
     };
 })();

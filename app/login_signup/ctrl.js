@@ -97,8 +97,6 @@
           }
 
           function RedirectTo(url) {
-              console.log(url);
-              debugger;
               setTimeout(function () {
                   window.location = url; //Tempory fix
                   window.location.reload()

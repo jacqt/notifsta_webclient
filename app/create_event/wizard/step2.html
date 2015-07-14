@@ -25,6 +25,9 @@
                                      ng-style="{'background-image':'url('+data.Event.cover_photo_url+')', 'width': '100%', 'background-position' : 'left center'}">
                                 </div>
                             </a>
+                            <div ng-show="!data.Event.cover_photo_url" style="margin-bottom: 10px; margin-left: 3px">
+                                <i>No cover photo uploaded yet!</i>
+                            </div>
                             <center>
                                 <div ng-show="cover_photo_uploading">
                                     <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>

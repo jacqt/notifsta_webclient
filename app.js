@@ -320,8 +320,7 @@ angular.module('notifsta.controllers').controller('MainController',
                         }
                     } else {
                         //User auth information out of date
-                        window.location = '#logout';
-
+                        window.location.reload()
                     }
                     console.log(result.data);
                     ImcService.FireEvent('user updated')
