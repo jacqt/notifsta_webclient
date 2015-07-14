@@ -52,6 +52,7 @@
                                 </div>
                             </div>
                         </div>
+                        <md-divider style="margin-top:10px;margin-bottom:10px"></md-divider>
                         <div layout="row" layout-align="start start" class="admin-todo">
                             <div style="width: 80%; text-align: left">
                                 Filled in basic event information
@@ -99,7 +100,10 @@
                                    ng-show="data.Event.published"></i>
                             </div>
                         </div>
-                        <a ng-click="PublishEvent()" class="btn btn-primary airbnb-red" ng-show="!data.Event.published" style="margin: 5px">
+                        <md-divider style="margin-top:10px;margin-bottom:17px"></md-divider>
+                        <a ng-click="PublishEvent()" class="btn btn-primary
+                          airbnb-red" ng-show="!data.Event.published"
+                          style="width: 160px">
                             Publish Event <i class="glyphicon mdi mdi-upload"></i>
                         </a>
                     </div>
