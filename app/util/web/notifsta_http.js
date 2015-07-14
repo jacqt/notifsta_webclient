@@ -282,10 +282,10 @@
                     'event[end_time]': moment(event.end_time).utc().toString(),
                     'event[address]': event.address,
                     'event[twitter_widget_id]': event.twitter_widget_id ? event.twitter_widget_id.toString() : null,
-                    'event[timezone]': event.timezone ? event.timezone.toString() : null
+                    'event[timezone]': event.timezone ? event.timezone.toString() : null,
+                    'event[published]': event.published ? event.published : false 
                 }
             }
-            console.log(req.params);
             return $http(req);
         }
 

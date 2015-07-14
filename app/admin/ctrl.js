@@ -45,6 +45,7 @@
         });
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
         $scope.PublishEvent = function () {
+
             $mdDialog.show({
                 templateUrl: 'app/admin/stripe_payment/payment_modal.html',
                 parent: angular.element(document.body),
