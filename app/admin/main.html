@@ -39,7 +39,7 @@
                                 <div class="stat-text">
                                     <span class="stat-number"> {{ data.Event.subscribed_users.length }} </span>
                                     <div>
-                                        <span class="stat-unit">Subscribers</span>
+                                        <span class="stat-unit">Subscriber<span ng-show="data.Event.subscribed_users.length > 1">s</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                         <a ng-click="PublishEvent()" class="btn btn-primary airbnb-red" ng-show="!data.Event.published" style="margin: 5px">
                             Publish Event <i class="glyphicon mdi mdi-upload"></i>
                         </a>
-                        <a class="btn btn-primary" ng-show="data.Event.published" style="margin: 5px">
+                        <a class="btn btn-primary airbnb-red" ng-show="data.Event.published" style="margin: 5px">
                             Published! <i class="glyphicon mdi mdi-check"></i>
                         </a>
                     </div>
