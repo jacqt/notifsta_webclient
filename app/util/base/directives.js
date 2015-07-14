@@ -111,7 +111,6 @@ app.directive('combinedtpicker', [function () {
                     return;
                 }
                 var new_date = ConvertToLocal(v);
-                console.log(new_date.format());
                 if (MomentsDifferent(scope.moment_obj, new_date)){
                     SetDate(new_date);
                 }

@@ -3,10 +3,6 @@
     angular.module('notifsta.controllers').controller('LoginSignupCtrl',
       ['$scope', 'NotifstaHttp', '$cookies', 'Facebook', 'toaster', '$mdDialog',
       function ($scope, NotifstaHttp, $cookies, Facebook, toaster, $mdDialog, logging_in) {
-          console.log('Login sign up controller made');
-          console.log($mdDialog);
-          console.log(logging_in);
-
           $scope.loading = false;
 
           $scope.credentials = {
@@ -23,11 +19,9 @@
               $scope.info = "Logging in...";
               Facebook.login(function (response) {
                   var facebook_token = response.authResponse.accessToken;
-                  console.log(response)
                   Facebook.api('/me', function (response) {
                       var user = response;
                       var id = user.id;
-                      console.log(user);
                       var email = user.email;
                       var promise = NotifstaHttp.FacebookLogin(email, id, facebook_token);
                       HandleLoginPromise(promise);
@@ -58,7 +52,6 @@
 
           function HandleSignupPromise(promise) {
               promise.success(function (data) {
-                  console.log(data);
                   if (data.status === "failure") {
                       toaster.pop('error', data.error);
                       $scope.loading = false;

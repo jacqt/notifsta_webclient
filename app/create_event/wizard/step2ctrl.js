@@ -22,13 +22,10 @@
         $scope.cover_map_uploading = false;
 
         $scope.$watch('cover_photo_files', function () {
-            console.log('umnmm');
-            console.log($scope.cover_photo_files);
 
             if ($scope.cover_photo_files && $scope.cover_photo_files.length > 0) {
                 $scope.cover_photo_uploading = true;
                 $scope.upload($scope.cover_photo_files, function (data) {
-                    console.log(data);
                     if (data) {
                         $scope.temp.cover_photo_url = $scope.data.Event.cover_photo_url;
                         $scope.data.Event.cover_photo_url = data.Location;
@@ -39,7 +36,6 @@
         });
 
         $scope.$watch('event_map_files', function () {
-            console.log($scope.event_map_files);
             if ($scope.event_map_files && $scope.event_map_files.length > 0) {
                 $scope.event_map_uploading = true;
                 $scope.upload($scope.event_map_files, function (data) {
@@ -60,7 +56,6 @@
                     var file = files[i];
                     var params = { Key: file.name, ContentType: file.type, Body: file };
                     bucket.upload(params, function (err, data) {
-                        console.log(data);
                         cb(data);
                     });
                 }
@@ -76,7 +71,6 @@
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly created event!');
                     window.location = '#/event_admin/' + window.encodeURIComponent($scope.event.name)+'?event_id=' + $scope.event.id + '&first_time=true';
-                    console.log($scope.data.Event.address);
                 } else {
                     toaster.pop('error', e.error);
                 }
@@ -90,7 +84,6 @@
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly created event!');
                     window.location = '#/event_admin/' + window.encodeURIComponent($scope.event.name)+'?event_id=' + $scope.event.id + '&first_time=true';
-                    console.log($scope.data.Event.address);
                 } else {
                     toaster.pop('error', e.error);
                 }

@@ -108,10 +108,7 @@
         }
 
         EventMonitor.prototype.moment_no_convert = function (moment_obj) {
-            console.log(moment_obj.format());
             var stripped = StripTimezone(moment_obj);
-            console.log(stripped);
-            console.log(moment_obj);
             return this.moment(stripped + this.moment().format('Z'));
         }
 
@@ -152,9 +149,7 @@
         EventMonitor.prototype.GetInitialEventData = function () {
             var self = this;
             var event = self._data.Event;
-            console.log(event.timezone);
             event.start_time = self.moment(event.start_time);
-            console.log(event.start_time.format());
             event.end_time = self.moment(event.end_time);
             self.UpdateData();
             ImcService.FireEvent('event_loaded ' + self._data.Event.id);
@@ -304,7 +299,6 @@
 
         EventMonitor.prototype.ConvertTimetableBack = function () {
             var self = this;
-            console.log(self._data.Event);
             var sub_events = self._data.Event.subevents;
             self._data.Event.event_sources_arr[0].events.length = 0; // Clear the event source array
             for (var start_time in sub_events) {
@@ -324,11 +318,8 @@
         EventMonitor.prototype.GetNotification = function (notif_id) {
             var self = this;
             var event = self._data.Event;
-            console.log("this is the notif id man");
-            console.log(notif_id);
             var promise = NotifstaHttp.GetNotification(notif_id);
             promise.success(function (resp) {
-                console.log(resp);
                 notif = resp.data;
 
                 event.channels.map(function (channel) {
@@ -438,18 +429,14 @@
         }
 
         EventMonitor.prototype.OnNewNotif = function (data) {
-            console.log('New notification');
             var self = this;
-            console.log(data);
             var notif = data.notification;
             //Desktop notifications
             DesktopNotifs.FireNotification(notif);
 
             if (self.monitor_type == ADMIN_MONITOR) {
-                console.log('Getting more detailed information about the notification');
                 self.GetNotification(notif.id);
             } else if (self.monitor_type == NON_ADMIN_MONITOR) {
-                console.log('adding notification to UI')
                 var event = self._data.Event;
                 event.channels.map(function (channel) {
                     if (channel.id == notif.channel_id) {
@@ -486,7 +473,6 @@
             var self = this;
             var geocoder = new google.maps.Geocoder();
             var address = self._data.Event.address;
-            console.log('Address', address);
             geocoder.geocode({ 'address': self._data.Event.address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var lat = results[0].geometry.location.lat();
@@ -547,7 +533,6 @@
                 });
                 promise.error(error);
                 function error(resp) {
-                    console.log(resp);
                     reject();
                 }
             })

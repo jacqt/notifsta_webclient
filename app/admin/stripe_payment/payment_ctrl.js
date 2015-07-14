@@ -8,7 +8,6 @@
               key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
               image: 'assets/home_images/square_logo.png',
               token: function(token) {
-                  console.log(token);
                   $scope.paid = true;
               }
           });

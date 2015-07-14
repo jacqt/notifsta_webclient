@@ -8,8 +8,6 @@
                 e.preventDefault();
                 var el = $($(this).attr("scroll-to"));
 
-                console.log('clicking a scroll to button');
-                console.log(el.offset().top);
                 $('html, body').animate({
                     scrollTop: el.offset().top - 53
                 }, 1000);
@@ -23,7 +21,6 @@
                         for (var j = 1; j != 6; j++) {
                             $('#feature' + j).removeClass('active');
                         }
-                        console.log(c);
                         $('#feature' + c).addClass('active');
                         e.preventDefault();
                     });

@@ -18,14 +18,10 @@
         var autocomplete = new google.maps.places.Autocomplete($("#google_places_ac")[0], {});
         $('#google_places_ac').attr('placeholder', '');
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            console.log($('#google_places_ac').val());
             $scope.partial_event.address = $('#google_places_ac').val();
 
-            console.log(autocomplete);
             var place = autocomplete.getPlace();
-            console.log(place);
             var partial_address = AddressService.ShortenAddress(place);
-            console.log(partial_address);
 
             var lat = place.geometry.location.lat();
             var lng = place.geometry.location.lng();
@@ -44,9 +40,6 @@
         var selected_time = false;
 
         $scope.$watch('partial_event.start_time', function (newVal) {
-            if (newVal) {
-                console.log(newVal.format());
-            }
             if (!$scope.partial_event.end_time) {
                 $scope.partial_event.end_time = newVal;
                 return;

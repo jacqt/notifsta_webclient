@@ -29,7 +29,6 @@
             }
 
             notif_socket.bind('new', function(notif){
-                console.log(notif);
                 ImcService.FireEvent('event_' + guid + ' notif', notif);
             });
         }

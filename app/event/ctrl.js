@@ -38,7 +38,6 @@
         $scope.submit_option = function (notif, channel_id) {
             var promise = NotifstaHttp.SubmitResponse(notif.id, notif.response.new_option_id);
             promise.success(function (resp) {
-                console.log(resp);
                 event_monitor.UpdateNotification(notif.id, channel_id)
             });
         }
@@ -76,7 +75,6 @@
                   height: '300',
                   related: 'twitterdev,twitterapi'
               }).then(function (el) {
-                  console.log("Embedded a timeline.")
               });
         }
 

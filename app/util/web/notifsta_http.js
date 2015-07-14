@@ -23,7 +23,6 @@
         //
         function HandleLoginPromise(promise) {
             promise.success(function (e) {
-                console.log(e.data);
                 if (e.data) {
                     AuthService.SetUserEmail(e.data.email);
                     AuthService.SetUserToken(e.data.authentication_token);
@@ -99,7 +98,6 @@
                     'user_token': AuthService.GetCredentials().user_token,
                 }
             };
-            console.log(req);
             var promise = $http(req)
             return promise;
         }
@@ -238,7 +236,6 @@
             if (!subevent.end_time) {
                 subevent.end_time = moment(subevent.start_time).add(2, 'hours').format();
             }
-            console.log(subevent.start_time);
             var req = {
                 url: BASE_URL + '/v1/events/' + event.id + '/subevents',
                 method: 'POST',
@@ -252,7 +249,6 @@
                     'end_time': moment(subevent.end_time).utc().toString(),
                 }
             }
-            console.log(req);
             return $http(req);
         }
 
@@ -267,7 +263,6 @@
         // ------------------------------------------------------------ //
         // API Calls to edit objects in the database
         function PublishEventUpdate(event) {
-            console.log(event.id);
             var req = {
                 url: BASE_URL + '/v1/events/' + event.id,
                 method: 'POST',
@@ -304,7 +299,6 @@
                     'location': subevent.location,
                 }
             }
-            console.log(req.params);
             return $http(req);
         }
 
@@ -331,7 +325,6 @@
                     'event_id' : event_id
                 }
             }
-            console.log(req.params);
             return $http(req);
         }
 
@@ -358,7 +351,6 @@
                     'event_id' : event_id
                 }
             }
-            console.log(req);
             return $http(req);
         }
         // ------------------------------------------------------------ //

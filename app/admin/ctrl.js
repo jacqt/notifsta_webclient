@@ -60,7 +60,6 @@
         };
 
         $scope.ToggleFullScreen = function () {
-            console.log('Going into full screen mode')
             Fullscreen.enable(document.getElementById('projector'));
             setTimeout(function () {
                 $scope.$apply();
@@ -72,7 +71,6 @@
             if (!$scope.data.Event.twitter_widget_id || loaded_timeline) {
                 return;
             }
-            console.log('WATSUP CATSUP');
             twttr.widgets.createTimeline(
               $scope.data.Event.twitter_widget_id,
               document.getElementById('twitter_timeline'),
@@ -84,7 +82,6 @@
                   setTimeout(function () {
                       $('#twitter_timeline').find('iframe').contents().find('div.timeline-footer').css('display', 'none');
                   }, 100);
-                  console.log("Embedded a timeline.")
                   loaded_timeline = true;
               });
         }
@@ -180,7 +177,6 @@
             if (!$scope.timeoption.start_time) {
                 return;
             }
-            console.log(newVal);
             var sv = event_monitor.moment(newVal);
             var ev = event_monitor.moment($scope.timeoption.end_time);
             if (sv > ev) {
@@ -193,7 +189,6 @@
             if (!$scope.timeoption.end_time) {
                 return;
             }
-            console.log(newVal);
             var ev = event_monitor.moment(newVal);
             var sv = event_monitor.moment($scope.timeoption.start_time);
             if (sv > ev) {
@@ -248,7 +243,6 @@
             promise.success(function (e) {
                 if (e.status == 'success') {
                     toaster.pop('success', 'Successfuly updated event');
-                    console.log($scope.data.Event.address);
                 } else {
                     toaster.pop('error', e.error);
                 }
@@ -277,13 +271,9 @@
         }
 
         $scope.$watch('cover_photo_files', function () {
-            console.log('umnmm');
-            console.log($scope.cover_photo_files);
-
             if ($scope.cover_photo_files && $scope.cover_photo_files.length > 0) {
                 $scope.cover_photo_uploading = true;
                 $scope.upload($scope.cover_photo_files, function (data) {
-                    console.log(data);
                     if (data) {
                         $scope.temp.cover_photo_url = $scope.data.Event.cover_photo_url;
                         $scope.data.Event.cover_photo_url = data.Location;
@@ -295,7 +285,6 @@
         });
 
         $scope.$watch('event_map_files', function () {
-            console.log($scope.event_map_files);
             if ($scope.event_map_files && $scope.event_map_files.length > 0) {
                 $scope.event_map_uploading = true;
                 $scope.upload($scope.event_map_files, function (data) {
@@ -317,7 +306,6 @@
                     var file = files[i];
                     var params = { Key: file.name, ContentType: file.type, Body: file };
                     bucket.upload(params, function (err, data) {
-                        console.log(data);
                         cb(data);
                     });
                 }
@@ -327,7 +315,6 @@
         };
 
         $scope.toggle_survey = function ($event) {
-            console.log($event);
             if (!$event.$material) {
                 $scope.config.sending_survey = !$scope.config.sending_survey;
                 $scope.config.sending_survey_sep = $scope.config.sending_survey;
@@ -441,7 +428,6 @@
         }
 
         $scope.edit_scheduled_notification = function (notif) {
-            console.log(notif);
             notif.editing = true;
             notif.temp = {
                 start_time: notif.start_time.clone(),
@@ -462,7 +448,6 @@
                 notif.id
             );
             promise.success(function (resp) {
-                console.log(resp);
                 if (resp.status === "success") {
                     notif.start_time = event_monitor.moment(resp.data.start_time, moment.ISO8061);
                     notif.message = resp.data.message;
@@ -478,7 +463,6 @@
                 notif.id
             );
             promise.success(function (resp) {
-                console.log(resp);
                 if (resp.status === "success") {
                     event_monitor.UpdateScheduledNotifications();
                     toaster.pop('success', 'Successfuly deleted notification');
@@ -506,7 +490,6 @@
         };
         var events = {
             places_changed: function (searchBox) {
-                console.log(searchBox);
                 var places = searchBox.getPlaces();
                 if (places.length > 0) {
                     $scope.data.Event.address = $('#searchbox').val();
@@ -524,7 +507,6 @@
                         url: "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng + " + &timestamp=" + (Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false",
                     }).done(function (response) {
                         if (response.timeZoneId != null) {
-                            console.log(response.timeZoneId);
                             $scope.data.Event.timezone = response.timeZoneId;
                             //$scope.publish_updates();
                         }
@@ -541,14 +523,12 @@
         //CALENDAR
         $scope.calendar_editable = true;
         function disable_all_events() {
-            console.log('disabling events...');
             $scope.calendar_editable = false;
             $scope.data.Event.event_sources_arr.map(function (event_source) {
                 event_source.events.map(function (event) {
                     event.editable = false;
                 })
             })
-            console.log($scope.data.Event.event_sources_arr);
         }
         function enable_all_events() {
             $scope.calendar_editable = true;
@@ -587,7 +567,6 @@
                         $scope.editing_subevent = false;
                         resolve();
                     } else {
-                        console.log(e);
                         if (e.data) {
                             toaster.pop('error', e.data);
                         } else if (e.error) {
@@ -713,7 +692,6 @@
                 $scope.partial_subevent.start_time = event_monitor.moment_no_convert(event.start);
                 $scope.partial_subevent.end_time = event_monitor.moment_no_convert(event.end);
             } else {
-                console.log(event.start.format());
                 event.start_time = event_monitor.moment_no_convert(event.start);
                 event.end_time = event_monitor.moment_no_convert(event.end);
                 UpdateSubEvent(event);
@@ -790,9 +768,7 @@
                             $scope.editing_subevent = false;
                             resolve();
                         } else {
-                            console.log(ev);
                             toaster.pop('error', ev.error);
-                            console.log($scope.partial_subevent);
                             reject();
                         }
                     });
@@ -817,9 +793,7 @@
                         $scope.editing_subevent = false;
                         resolve();
                     } else {
-                        console.log(ev);
                         toaster.pop('error', ev.error);
-                        console.log($scope.partial_subevent);
                         reject();
                     }
                 });

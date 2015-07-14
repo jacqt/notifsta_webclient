@@ -8,7 +8,6 @@
         ['$mdToast', '$animate', service]);
     function service($mdToast, $animate) {
         function pop(type, message) {
-            console.log('Popping the toaster!');
             $mdToast.show({
                 controller: 'ToastCtrl',
                 templateUrl: 'app/util/base/toaster/toaster.html',

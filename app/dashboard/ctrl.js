@@ -6,7 +6,6 @@
         ['$scope', 'NotifstaHttp', 'toaster', 'ImcService', 'WindowSizeService', 'DesktopNotifs', '$routeParams', '$mdDialog',
         function ($scope, NotifstaHttp, toaster, ImcService, WindowSizeService, DesktopNotifs, $routeParams, $mdDialog) {
             var from_signup = $routeParams.signup;
-            console.log($routeParams.signup);
             if (from_signup) {
                 setTimeout(function () {
                     $mdDialog.show({
@@ -47,7 +46,6 @@
                                 } else {
                                     $scope.events.subscribed.push(event);
                                 }
-                                console.log(sub);
                             }
                         });
                         event.subscribed = true;
@@ -61,29 +59,24 @@
                     })
                 })
                 promise.error(function (ev) {
-                    console.log(ev);
                 });
             }
             $scope.subscribe_to_event = function (event) {
                 var promise = NotifstaHttp.SubscribeToEvent(event.id);
                 promise.success(function (ev) {
                     ImcService.FireEvent('user state changed');
-                    console.log(ev);
                 })
                 promise.error(function(ev){
-                    console.log(ev)
                 })
             }
 
             $scope.unsubscribe_to_event = function (event) {
                 var promise = NotifstaHttp.UnsubscribeToEvent(event.id);
                 promise.success(function (ev) {
-                    console.log(ev);
                     ImcService.FireEvent('user state changed');
                     update_events();
                 })
                 promise.error(function(ev){
-                    console.log(ev)
                 })
             }
 
