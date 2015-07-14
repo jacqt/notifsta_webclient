@@ -24,6 +24,7 @@ md-tabs.md-default-theme.md-accent .md-header {
 }
 .btn-primary {
     border-radius: 0px;
+    font-weight: bold;
 }
 
 .btn-default {

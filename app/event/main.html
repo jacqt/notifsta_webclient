@@ -86,12 +86,13 @@
                         {{ format_date(data.Event.start_time) }}
                     </div>
                     <label> End time</label>
-                    <div>
+                    <div style="margin-bottom: 10px">
                         {{ format_date(data.Event.end_time) }}
                     </div>
-                    <md-button class="md-raised md-warn" 
-                               style="margin-left: 10px; font-weight: bold; background-color:rgb(254,92,63)"
-                               ng-click="unsubscribe()"> Unsubscribe </md-button>
+                    <md-divider></md-divider>
+                    <a class="btn btn-primary airbnb-red"
+                               style="font-weight: bold; margin-top: 10px;"
+                               ng-click="unsubscribe()">Unsubscribe</a>
                 </div>
             </div>
             <!--Timetable -->
