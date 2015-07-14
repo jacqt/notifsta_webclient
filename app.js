@@ -140,7 +140,6 @@ app.run(['$rootScope', '$location', 'AuthService', '$mdDialog', function ($rootS
         var splitted = url.split('#');
         if (splitted.length > 1) {
             url_hash = splitted[1].split('/')[1];
-            console.log(url_hash);
             for (var i = 0; i != OKAY_URLS.length; ++i) {
                 if (url_hash == OKAY_URLS[i]) {
                     return false;
@@ -259,7 +258,6 @@ app.animation('.fade-view', function () {
                 done();
                 return;
             }
-            console.log(element);
             jQuery(element).css({
                 position: 'absolute',
                 width: '100%',
@@ -322,7 +320,6 @@ angular.module('notifsta.controllers').controller('MainController',
                         //User auth information out of date
                         window.location.reload()
                     }
-                    console.log(result.data);
                     ImcService.FireEvent('user updated')
                 });
                 promise.error(function () {
@@ -337,7 +334,6 @@ angular.module('notifsta.controllers').controller('MainController',
 
         // Get the signup and login dialogs working
         $scope.showLoginDialog = function (ev) {
-            console.log('????????');
             $scope.logging_in = true;
             $scope.autofocused = true;
             $mdDialog.show({
