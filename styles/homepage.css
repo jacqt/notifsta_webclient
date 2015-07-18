@@ -54,3 +54,7 @@ h1 {
 .fus-tab-content > .tab-pane > .row > [class*="col-"].fus-photo img {
   max-width: 600px;
 }
+
+body .fus-tab-content img, body .fus-tab-content>.tab-pane>.row>[class*=col-].fus-photo img {
+  width: initial !important;
+}
