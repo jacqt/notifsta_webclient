@@ -1,3 +1,15 @@
+@media (max-width: 768px) {
+
+    body.fus-red .navbar-collapse {
+        background: rgba(0,0,0, 0);
+    }
+
+    ::-webkit-scrollbar { 
+        display: none; 
+    }
+}
+
+
 #blog {
     /*display: none;*/
 }

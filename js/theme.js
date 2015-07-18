@@ -19,6 +19,8 @@ $(document).ready(function () {
     });
 
     $('.navbar-nav a').click(function (ev) {
+        a = $('.navbar-collapse').collapse('hide');
+        $(".navbar").removeClass("fus-navbar-solid");
         console.log(ev.target);
         if (ev.target.id == 'event-menu') {
             console.log(ev);
@@ -39,7 +41,7 @@ $(document).ready(function () {
 
     function check_navbar() {
         var h = get_hash_url();
-        if (h == '') {
+        if (h == '' || h == 'dashboard') {
             if ($(this).scrollTop() > 695) {
                 $(".navbar").addClass("fus-navbar-solid");
             } else {
