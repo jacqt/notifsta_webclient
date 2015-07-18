@@ -154,7 +154,7 @@
     <toaster-container style="margin-top:90px"></toaster-container>
     <!-- HEADER AND NAVBAR -->
     <span class="theme-css">
-        <div class="navbar navbar-fixed-top" role="navigation" ng-style="{'position': on_homepage() ? 'absolute' : 'absolute'}">
+        <div class="navbar navbar-fixed-top" role="navigation" ng-style="{'position': on_homepage() ? 'absolut' : 'absolute'}">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="nav-menu-button">
@@ -241,6 +241,13 @@
             .android.shown a span {
                 height: 20px;
             }
+
+
+        @media (max-width: 768px) {
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        }
     </style>
     <script type="text/javascript">
         var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
