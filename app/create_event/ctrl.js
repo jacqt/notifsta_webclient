@@ -47,7 +47,7 @@
             var sv = moment(newVal);
             var ev = moment($scope.partial_event.end_time);
             if (sv > ev) {
-                $scope.partial_event.end_time = sv;
+                $scope.partial_event.end_time = newVal;
             }
         });
 

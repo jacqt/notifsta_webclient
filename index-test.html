@@ -1,0 +1,155 @@
+﻿<html ng-app="notifsta" ng-strict-di>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Facebook share image -->
+    <meta property="og:image" content="assets/home_images/square_logo.png" />
+    <meta property="og:image:secure_url" content="https://notifsta.s3.amazonaws.com/square_logo.png" />
+
+    <!-- Smart App Banner for iOS Devices-->
+    <meta name="apple-itunes-app" content="app-id=985058307">
+
+    <!-- Smart App Banner for Android-->
+    <meta name="author" content="Notifsta, Inc.">
+    <meta name="google-play-app" content="app-id=com.hacklondon.notify">
+    <link rel="apple-touch-icon" href="assets/icons/favicon.png">
+
+    <title> Notifsta </title>
+    <!--Page loading indicator-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+    <!-- Fuzzy autocomplete -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/1.2.2/fuse.min.js"></script>
+    <!--Google apis for location-->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=en-US"></script>
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+    <!-- build:css angular_chart_bootstrap.css -->
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endbuild -->
+    <!-- build:css app.css -->
+    <!-- animations.css goes first or else they break in minification process -->
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/event.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" />
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <!-- endbuild -->
+    <!-- build:css app2.css -->
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css">
+    <link rel="stylesheet" href="bower_components/mdi/css/materialdesignicons.min.css" media="all" type="text/css" />
+    <link rel="stylesheet" href="bower_components/jquery.smartbanner/jquery.smartbanner.css">
+
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/homepage.css">
+    <link rel="stylesheet" href="styles/create_event.css">
+    <link rel="stylesheet" href="styles/login_signup_dialog.css">
+    <link rel="stylesheet" href="styles/directives.css">
+    <link rel="stylesheet" href="styles/projector.css">
+    <!-- endbuild -->
+
+
+
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- build:js generaldependencies.js -->
+    <!-- JQUERY + MOMENT + BOOTSTRAP + JQUERY.SMARTBANNER-->
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js"></script>
+    <script src="bower_components/jquery.smartbanner/jquery.smartbanner.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/jquery.zoom-scroller.js"></script>
+    <!-- WEBSOCKET RAILS -->
+    <script src="bower_components/websocket-rails/websocket-rails.min.js"></script>
+
+    <!-- endbuild -->
+    <!-- AMAZON AWS SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1.26/aws-sdk.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.0/angular-material.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.0.19/angular-google-maps.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.2/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
+    <!-- ANGULAR -->
+    <!-- build:js angulardependencies.js -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-deckgrid/angular-deckgrid.js"></script>
+    <script src="bower_components/ngAnimate-animate.css/animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
+
+    <!-- ANGULAR UI CALENDAR -->
+    <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+
+    <!--FACEBOOK ANGULAR SDK-->
+    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+
+    <!-- ANGULAR BOOTSTRAP UI-->
+    <!--<script src="bower_components/angular-bootstrap/dist/ui-bootstrap-tpls-0.13.0.min.js"></script>-->
+    <!-- ANGULAR CHART.JS + CHART.JS -->
+    <script src="bower_components/Chart.js/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+    <!-- endbuild -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+    <!-- build:js app.js -->
+    <!-- MAIN APP -->
+    <script src="app.js"></script>
+    <script src="app.js"></script>
+    <script src="app/admin/ctrl.js"></script>
+    <script src="app/admin/service.js"></script>
+    <script src="app/admin/stripe_payment/payment_ctrl.js"></script>
+    <script src="app/login/ctrl.js"></script>
+    <script src="app/signup/ctrl.js"></script>
+    <script src="app/logout/ctrl.js"></script>
+    <script src="app/create_channel/ctrl.js"></script>
+    <script src="app/home/ctrl.js"></script>
+    <script src="app/dashboard/ctrl.js"></script>
+    <script src="app/notif_stats/ctrl.js"></script>
+    <script src="app/notif_stats/service.js"></script>
+    <script src="app/event/ctrl.js"></script>
+    <script src="app/create_event/ctrl.js"></script>
+    <script src="app/create_event/wizard/step2ctrl.js"></script>
+    <script src="app/login_signup/ctrl.js"></script>
+    <script src="app/projector/projector_ctrl.js"></script>
+    <script src="app/admin/add_admins/add_admins_ctrl.js"></script>
+    <!-- endbuild -->
+    <!-- build:js app-utils.js -->
+    <!-- UTILIY SCRIPTS -->
+    <script src="/app/util/web/parse_http.js"></script>
+    <script src="/app/util/web/notifsta_http.js"></script>
+    <script src="/app/util/web/notifsta_adapter.js"></script>
+    <script src="/app/util/web/notifsta_websocket.js"></script>
+    <script src="/app/util/base/auth.js"></script>
+    <script src="/app/util/base/imc_service.js"></script>
+    <script src="/app/util/base/desktop_notifs.js"></script>
+    <script src="/app/util/base/directives.js"></script>
+    <script src="/app/util/base/address.js"></script>
+    <script src="/app/util/base/window_size.js"></script>
+    <script src="/app/util/base/toaster/toaster.js"></script>
+    <!-- endbuild -->
+
+</head>
+<body ng-controller="MainController" class="fus-red" style="height: auto; overflow-y:scroll">
+    <div class="input-group" combinedtpicker min-date="partial_event.start_time"
+         placeholder="'End time'"
+         tz-name="partial_event.timezone"
+         ng-model="partial_event.end_time"></div>
+</body>
+</html>

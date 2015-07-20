@@ -27,32 +27,111 @@ app.directive('combinedtpicker', [function () {
             scope.datepicker = {
                 opened: false,
             };
+
+            MY_TZ_FORM = 'YYYY-MM-DD HH:mm:ss Z';
+
+
+            // time string must be informat yyyy-mm-dd hh:mm 
+            function DateTimeModel(timeString) {
+                // TODO add a regexp to validate the timeString input
+                if (!timeString) {
+                    this.model = {};
+                } else {
+                    this.model = {
+                        valid: true,
+                        second: 0,
+                        minute: timeString.substring(14,16),
+                        hour: timeString.substring(11,13),
+                        day: timeString.substring(8,10),
+                        month: timeString.substring(5,7),
+                        year: timeString.substring(0,4)
+                    }
+                }
+                this.onChangeCallback = function () { };
+            }
+
+            DateTimeModel.prototype.getDate = function() {
+                if (!this.model.valid) {
+                    return null;
+                }
+                var tstring = [
+                    this.model.year,
+                    this.model.month,
+                    this.model.day
+                ].join('-') + 'T00:00:00';
+                var t = moment(tstring);
+                tstring += t.format('Z');
+                console.log(tstring);
+                return moment(tstring, moment.ISO_8601).format();
+            }
+
+            DateTimeModel.prototype.getHHMM = function() {
+                if (!this.model.valid) {
+                    return null;
+                }
+                var tstring = [
+                    this.model.year,
+                    this.model.month,
+                    this.model.day
+                ].join('-') + 'T' + this.model.hour + ':' + this.model.minute + ':00';
+                var t = moment(tstring);
+                tstring += t.format('Z');
+                console.log(this.model, moment(tstring, moment.ISO_8601));
+                return moment(tstring, moment.ISO_8601)
+            }
+
+            // other must be an instance of DateTimeModel
+            DateTimeModel.prototype.equals = function (other) {
+                if (!this.model.valid) {
+                    return false;
+                }
+                for (var key in this.model) {
+                    if (this.model.hasOwnProperty(key)) {
+                        if (this.model[key] != other.model[key]) {
+                            console.log(this.model[key, other.model[key]]);
+                            return false
+                        }
+                    }
+                }
+                return true;
+            }
+
+            // other must be an instance of DateTimeModel
+            DateTimeModel.prototype.updateWith = function (other) {
+                for (var key in other.model) {
+                    if (other.model.hasOwnProperty(key)) {
+                        this.model[key] = other.model[key];
+                    }
+                }
+                this.model.valid = true;
+                this.onChangeCallback();
+            }
+
+            // tz must be in the format '+hh:mm'
+            DateTimeModel.prototype.getMomentObjTz = function (tzName) {
+                // TODO add a regexp to validate the tz input
+                var tz = moment
+                var tstring = [
+                    this.model.year,
+                    this.model.month,
+                    this.model.day
+                ].join('-') + ' ' + this.model.hour + ':' + this.model.minute + ':00';
+                console.log(tstring, moment.tz(tstring, moment.ISO_8601, tzName).format(), tzName);
+                return moment.tz(tstring, moment.ISO_8601, tzName);
+            }
+
+
+            scope.current_model = new DateTimeModel(null);
+            scope.current_model.onChangeCallback = function () {
+                scope.date = scope.current_model.getDate();
+                scope.hh_mm = scope.current_model.getHHMM();
+            }
             scope.date = null;
+            scope.current_model.onChangeCallback();
             scope.hh_mm = moment('2015-01-01 00:00');
 
             var _temp = moment().format();
             var local_timezone = _temp.substring(_temp.length - 6, _temp.length);
-
-            function ConvertToLocal(moment_obj){
-                var stripped_time_string = StripTimezone(moment_obj);
-                local_time_string = stripped_time_string + local_timezone;
-                var m = moment(local_time_string);
-                m.set({ 'second': 0 });
-                return m;
-            }
-
-            function ConvertToOrigTz(moment_obj) {
-                if (scope.timezone_offset) {
-                    var stripped_time_string = StripTimezone(moment_obj);
-                    orig_time_string = stripped_time_string + scope.timezone_offset;
-                    var m = moment(orig_time_string, moment.ISO8061).tz(scope.timezone_name);
-                    m.set({ 'second': 0 });
-                    return m
-                } else {
-                    return moment_obj;
-                }
-
-            }
 
             function StripTimezone(moment_obj) {
                 if (moment_obj) {
@@ -61,47 +140,27 @@ app.directive('combinedtpicker', [function () {
                 return null;
             }
 
-            function MomentsDifferent(moment1, moment2) {
-                if (moment1 == moment2) {
-                    return false;
-                } else {
-                    if (moment1 == null || moment2 == null) {
-                        return true;
-                    }
-                    return moment1.format() !== moment2.format();
-                }
-            }
-
-            function SetDate(moment_obj) {
-                scope.moment_obj = moment_obj;
-                scope.date = scope.moment_obj.format();
-                scope.hh_mm = scope.moment_obj.format();
-            }
-
-            function MergeDateHHMM(date, hh_mm) {
-                var m1 = moment(date);
-                var m2 = moment(hh_mm);
-                m1.set({
-                    hour: 0,
-                    minute: 0,
-                    second: 0
-                });
-                var dur = moment.duration({ hour: m2.get('hour'), minute: m2.get('minute') });
-                return m1.add(dur);
-            }
-
-
             function update() {
-                var refs = attrs.ngModel.split('.');
-                var obj = scope;
-                for (var i = 0; i != refs.length-1; ++i) {
-                    obj = obj[refs[i]]
-                }
-                var last_ref = refs[refs.length - 1];
+                if (!scope.date || !scope.hh_mm) {
+                    var new_val = null;
+                } else {
+                    var date = moment(scope.date);
+                    var hh_mm = moment(scope.hh_mm);
+                    scope.current_model.model.year = date.format('YYYY');
+                    scope.current_model.model.month = date.format('MM');
+                    scope.current_model.model.day = date.format('DD');
+                    scope.current_model.model.hour = hh_mm.format('HH');
+                    scope.current_model.model.minute = hh_mm.format('mm');
 
-                scope.moment_obj = MergeDateHHMM(scope.date, scope.hh_mm);
-                var new_val = ConvertToOrigTz(scope.moment_obj);
+                    var new_val = scope.current_model.getMomentObjTz(scope.tzName);
+                }
                 if (new_val && new_val.isValid()) {
+                    var refs = attrs.ngModel.split('.');
+                    var obj = scope;
+                    for (var i = 0; i != refs.length-1; ++i) {
+                        obj = obj[refs[i]]
+                    }
+                    var last_ref = refs[refs.length - 1];
                     obj[last_ref] = new_val;
                 }
             }
@@ -110,9 +169,12 @@ app.directive('combinedtpicker', [function () {
                 if (!v) {
                     return;
                 }
-                var new_date = ConvertToLocal(v);
-                if (MomentsDifferent(scope.moment_obj, new_date)){
-                    SetDate(new_date);
+
+                var newDTModel = new DateTimeModel(StripTimezone(moment(v)));
+
+                if (!scope.current_model.equals(newDTModel)) {
+                    console.log(scope.current_model.model, newDTModel.model);
+                    scope.current_model.updateWith(newDTModel);
                 }
             });
 
@@ -122,13 +184,24 @@ app.directive('combinedtpicker', [function () {
                 }
                 scope.minDate = v;
             });
+
+            scope.timezone_offset = function (m) {
+                var tzName;
+                if (scope.tzName) {
+                    tzName = scope.tzName
+                    return m.tz(tzName).format('Z')
+                } else {
+                    return m.format('Z')
+                }
+            };
+
             scope.$watch(attrs.tzName, function (tzName) {
                 if (!tzName) {
                     return;
                 }
+                scope.tzName = tzName;
                 scope.timezone_name = tzName;
-                scope.timezone_offset = moment().tz(tzName).format('Z');
-                scope.tz_abbrv        = moment().tz(tzName).format('z');
+                scope.tz_abbrv = moment().tz(tzName).format('z');
                 update();
             });
             scope.$watch(attrs.placeholder, function (v) {
@@ -145,17 +218,6 @@ app.directive('combinedtpicker', [function () {
                 update();
             });
 
-
-
-
-
-            function getClone( moment_obj) {
-                if (scope.timezone_offset) {
-                    return moment_obj.clone().tz(scope.timezone_offset);
-                } else {
-                    return moment_obj.clone()
-                }
-            }
 
             scope.open = function (ev) {
                 scope.datepicker.opened = !scope.datepicker.opened;

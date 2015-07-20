@@ -1,7 +1,5 @@
-<html ng-app="notifsta" ng-strict-di>
+﻿<html ng-app="notifsta" ng-strict-di>
 <head>
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Facebook share image -->
@@ -60,7 +58,7 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!--Stripe integration-->
     <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -68,6 +66,7 @@
 
     <!-- build:js generaldependencies.js -->
     <!-- JQUERY + MOMENT + BOOTSTRAP + JQUERY.SMARTBANNER-->
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js"></script>
     <script src="bower_components/jquery.smartbanner/jquery.smartbanner.js"></script>
     <script src="js/theme.js"></script>
@@ -154,7 +153,7 @@
     <toaster-container style="margin-top:90px"></toaster-container>
     <!-- HEADER AND NAVBAR -->
     <span class="theme-css">
-        <div class="navbar navbar-fixed-top" role="navigation" ng-style="{'position': on_homepage() ? 'absolut' : 'absolute'}">
+        <div class="navbar navbar-fixed-top" role="navigation" ng-style="{'position': on_homepage() ? 'absolute' : 'absolute'}">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="nav-menu-button">
