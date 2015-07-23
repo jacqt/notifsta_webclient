@@ -6,4 +6,6 @@ cp index.html dist/index.html
 cp -R assets dist/assets
 cp -R fonts dist/fonts
 cp -R template dist/template
+cp -R ios dist/ios
+cp -R android dist/android
 grunt --force
