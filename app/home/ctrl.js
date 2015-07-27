@@ -3,7 +3,26 @@
  */
 (function () {
     angular.module('notifsta.controllers').controller('HomeCtrl',
-        ['$scope', 'NotifstaHttp', '$cookies', function ($scope, NotifstaHttp, $cookies) {
+        ['$scope', 'NotifstaHttp', '$cookies', '$routeParams', function ($scope, NotifstaHttp, $cookies, $routeParams) {
+
+            $scope.TITLE_NAME = '';
+            switch ($routeParams.r) {
+                case 'h':
+                    $scope.TITLE_NAME = 'hackathon';
+                    break;
+                case 'f':
+                    $scope.TITLE_NAME = 'festival';
+                    break;
+                default:
+                    $scope.TITLE_NAME = 'event'
+                    break;
+            }
+
+            $scope.TITLE_NAME 
+        $scope.event = {
+            name: $routeParams.event_name,
+            id: $routeParams.event_id,
+            }
             $("a.scrollto").click(function (e) {
                 e.preventDefault();
                 var el = $($(this).attr("scroll-to"));
