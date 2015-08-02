@@ -14,7 +14,7 @@
                     $scope.TITLE_NAME = 'festival';
                     break;
                 default:
-                    $scope.TITLE_NAME = 'event'
+                    $scope.TITLE_NAME = 'hackathon'
                     break;
             }
 
