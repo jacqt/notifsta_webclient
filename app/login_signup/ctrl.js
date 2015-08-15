@@ -21,6 +21,10 @@
                   var facebook_token = response.authResponse.accessToken;
                   Facebook.api('/me', function (response) {
                       var user = response;
+                      if (!user.email) {
+                          $scope.facebook_login({});
+                          return;
+                      }
                       var id = user.id;
                       var email = user.email;
                       var promise = NotifstaHttp.FacebookLogin(email, id, facebook_token);
