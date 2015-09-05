@@ -353,6 +353,20 @@
             }
             return $http(req);
         }
+
+        function SendPaymentToken(token) {
+            var req = {
+                url: BASE_URL + '/v1/payments',
+                method: 'POST',
+                params: {
+                    'user_email': AuthService.GetCredentials().user_email,
+                    'user_token': AuthService.GetCredentials().user_token,
+                    'stripe_token': token
+                }
+            }
+            return $http(req);
+        }
+
         // ------------------------------------------------------------ //
         // API Calls to interact with the Node JS scheduler backend
 
@@ -512,6 +526,8 @@
 
             UpdateScheduledNotification: UpdateScheduledNotification,
             DeleteScheduledNotification: DeleteScheduledNotification,
+
+            SendPaymentToken: SendPaymentToken
 
         }
     }

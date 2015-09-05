@@ -44,6 +44,12 @@
             }
         });
         var event_monitor = EventMonitor.GetMonitor($scope.event, EventMonitor.ADMIN_MONITOR);
+
+        $scope.UnpublishEvent = function() {
+            $scope.data.Event.published = false;
+            $scope.publish_updates();
+        }
+
         $scope.PublishEvent = function () {
 
             $mdDialog.show({
@@ -246,8 +252,8 @@
                 } else {
                     toaster.pop('error', e.error);
                 }
-
             });
+            return promise;
         }
 
         $scope.format_date = function (time_string) {
@@ -266,6 +272,7 @@
         $scope.cover_photo_toggle = function () {
             $scope.editing_cover_photo = !$scope.editing_cover_photo;
         }
+
         $scope.map_url_toggle = function () {
             $scope.editing_map_url = !$scope.editing_map_url;
         }

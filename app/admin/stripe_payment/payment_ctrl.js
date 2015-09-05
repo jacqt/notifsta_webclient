@@ -1,30 +1,46 @@
 ﻿(function () {
-    angular.module('notifsta.controllers').controller('PaymentCtrl', ['$scope',  controller]);
+    angular.module('notifsta.controllers').controller('PaymentCtrl', ['$scope',  'NotifstaHttp', 'AuthService', controller]);
 
-    function controller($scope){
+    function controller($scope, NotifstaHttp, AuthService){
 
         $scope.paid = false;
         var handler = StripeCheckout.configure({
-              key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
-              image: 'assets/home_images/square_logo.png',
-              token: function(token) {
-                  $scope.paid = true;
-              }
-          });
-        
+            key: 'pk_live_miNtXLcbswFUTsqjpYtTWv4x',
+            image: 'assets/home_images/square_logo.png',
+            token: function(token) {
+                $scope.loading = true;
+                console.log(token);
+                var p = NotifstaHttp.SendPaymentToken(token.id);
+                p.success(publish_event);
+                p.error(function(err) {
+                    console.log("ERROR: ", err);
+                    $scope.loading = false;
+                });
+            }
+        });
+
         $scope.payNow = function (e) {
             // Open Checkout with further options
-            $scope.data.Event.published = true;
-            $scope.publish_updates()
-
-            //handler.open({
-            //    name: 'Notifsta',
-            //    description: 'Publish your event!',
-            //    amount: 5000
-            //});
-            //e.preventDefault();
+            handler.open({
+                name: 'Notifsta',
+                email: AuthService.GetCredentials().user_email,
+                description: 'Publish your event!',
+                amount: 1
+            });
+            e.preventDefault();
         }
+
+        function publish_event() {
+            $scope.data.Event.published = true;
+            $scope.publish_updates().success(function() {
+                $scope.paid = true
+                $scope.loading = false;
+            });
+        }
+
+
         $(window).on('popstate', function() {
+            console.log('wth');
             handler.close();
         });
     }
