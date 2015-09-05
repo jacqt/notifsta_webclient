@@ -4,8 +4,8 @@
 
 (function () {
     angular.module('notifsta.services').service('NotifstaHttp', ['$http', 'AuthService', 'ImcService', service]);
-    var BASE_URL = 'http://api.notifsta.com';
-    var SCHEDULE_BASE_URL = 'http://cron.notifsta.com';
+    var BASE_URL = 'https://api.notifsta.com';
+    var SCHEDULE_BASE_URL = 'https://cron.notifsta.com';
 
     //List of callbacks that required authentication, but
     //the authentication details were not available at call time

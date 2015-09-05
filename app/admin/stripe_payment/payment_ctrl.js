@@ -25,7 +25,7 @@
                 name: 'Notifsta',
                 email: AuthService.GetCredentials().user_email,
                 description: 'Publish your event!',
-                amount: 1
+                amount: 10000
             });
             e.preventDefault();
         }
