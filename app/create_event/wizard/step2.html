@@ -74,7 +74,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12" layout="row" style="margin-top: 20px" layout-align="start">
-                        <a ng-click="publish_updates()" class="btn btn-primary airbnb-red" style="margin: 5px">
+                      <a ng-disabled="cover_photo_files.length < 1" ng-click="publish_updates()" class="btn btn-primary airbnb-red" style="margin: 5px">
                             Save and Continue
                         </a>
                         <a ng-click="skip()" class="btn btn-primary airbnb-red" style="margin: 5px">

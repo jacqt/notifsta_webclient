@@ -2,6 +2,15 @@
      background-color:rgb(254,92,63) !important;
 }
 
+.airbnb-blue {
+     background-color: #00B0B9 !important;
+     border-color: #00BBFC !important;
+}
+
+.box-title {
+    background-color: rgba(86, 133, 148, 0.9) !important;
+}
+
 /*md-pagination-wrapper {
      background-color:rgb(254,92,63) !important;
 }*/
@@ -257,12 +266,18 @@ md-tabs.admin-notification-tabs .md-tab.md-active {
 
 md-ink-bar {
     height: 3px;
-    background: rgb(252, 150, 132) !important;
+    background: white !important;
 }
 md-tabs.md-default-theme.md-accent md-tabs-wrapper {
     /*background-color: #da4e4e !important;*/
-    background-color:rgb(254,92,63) !important;
+    // background-color:rgb(254,92,63) !important;
+    background-color: rgba(86, 133, 148, 0.9) !important;
 }
+
+md-tabs.md-accent md-tab-item:not([disabled]) {
+  color: #D8D8D8;
+}
+
 .red {
     background-color:rgb(254,92,63) !important;
     /*background: #da4e4e !important;*/
