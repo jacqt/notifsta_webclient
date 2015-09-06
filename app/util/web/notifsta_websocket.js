@@ -6,7 +6,7 @@
     angular.module('notifsta.services').service('NotifstaWebsocket', 
         ['$http', 'AuthService', 'ImcService', service]);
     var WEBSOCKET_URL = 'api.notifsta.com:3001';
-    var WEBSOCKET_URL = 'websocket.notifsta.com/websocket';
+    var WEBSOCKET_URL = 'ws://websocket.notifsta.com/websocket';
 
     function service($http, AuthService, ImcService){
         function WebsocketEnabled(){
