@@ -2,8 +2,7 @@
 
 case ${PWD##*/} in
 "dist")
-  scp -r ./ deployer@129.67.36.198:/srv/notifsta_client
-  ssh deployer@129.67.36.198 "touch /srv/notifsta_api/current/tmp/restart.txt"
+  scp -r ./ deployer@api.getcashew.com:/srv/notifsta_client
   curl https://www.cloudflare.com/api_json.html \
 	 -d 'a=fpurge_ts' \
 	 -d 'tkn=d553c120d690b4aee78124b0ab4584f48f69a' \

@@ -9,6 +9,185 @@
     }
 }
 
+.notifsta-download {
+    position: absolute;
+    top: 650px;
+    right: 0px;
+    z-index: 99;
+    -webkit-font-smoothing: antialiased;
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 16px;
+    height: 76px;
+    list-style-type: disc;
+    margin-bottom: 30px;
+    margin-left: 0px;
+    margin-right: 12px;
+    margin-top: 12px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+}
+.apple {
+    -webkit-font-smoothing: antialiased;
+    color: rgb(255, 255, 255);
+    display: block;
+    float: left;
+    font-size: 16px;
+    height: 56px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    margin-right: 10px;
+    margin-top: 10px;
+    opacity: 1;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    text-align: center;
+    width: 168px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.widget-app-store {
+    -webkit-font-smoothing: antialiased;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: inline-block;
+    font-size: 16px;
+    height: 52px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    transition-property: background-color;
+    width: 168px;
+}
+.apple p {
+    -webkit-font-smoothing: antialiased;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: block;
+    font-size: 22px;
+    height: 37px;
+    left: 49px;
+    line-height: 16px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    position: absolute;
+    text-align: left;
+    width: 100px;
+}
+
+.apple p span {
+    -webkit-font-smoothing: antialiased;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: block;
+    font-size: 12.54px;
+    height: 15px;
+    line-height: 15px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-top: 6px;
+    text-align: left;
+}
+
+.apple-icon {
+    -webkit-font-smoothing: antialiased;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(http://www.momentsapp.com/assets/apple_logo_white.svg);
+    background-origin: padding-box;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: block;
+    font-family: freightsans_prolight, 'Lucida Grande', Tahoma, Geneva, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    height: 48px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    position: absolute;
+    text-align: left;
+    width: 50px;
+}
+
+#play-store-download-btn {
+
+    -webkit-font-smoothing: antialiased;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-image: url(http://www.momentsapp.com/assets/google_play_text.png);
+    background-origin: padding-box;
+    background-position: 46px 19px;
+    background-repeat: no-repeat;
+    background-size: 63%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: inline-block;
+    font-family: freightsans_prolight, 'Lucida Grande', Tahoma, Geneva, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    height: 52px;
+    list-style-image: none;
+    list-style-position: outside;
+}
+
+.google-play-icon {
+    -webkit-font-smoothing: antialiased;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(http://www.momentsapp.com/assets/google_play_icon.svg);
+    background-origin: padding-box;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    display: block;
+    font-family: freightsans_prolight, 'Lucida Grande', Tahoma, Geneva, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    height: 48px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    position: absolute;
+    text-align: left;
+    width: 50px;
+}
+
 
 #blog {
     /*display: none;*/
